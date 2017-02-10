@@ -98,7 +98,7 @@
             {% else %}
             <li>
               <!--<a href="#" data-toggle="modal" data-target="#SigninModal" role="button" >-->
-              <a href="{%url"cas_ng_login"%}" role="button" >
+              <a href="{% url"cas_ng_login" %}" role="button" >
                 {% trans "Sign in" %} 
               </a>
             </li>
@@ -237,7 +237,7 @@
               {% csrf_token %}
               <a class="btn btn-warning btn-block" href="javascript:{}" onclick="document.getElementById('logout_form').submit();">{% trans "Log out" %}</a>
             </form>-->
-            <a class="btn btn-warning btn-block" href="{% url 'cas_ng_logout'%}" role="button">
+            <a class="btn btn-warning btn-block" href="{% url "cas_ng_logout" %}" role="button">
             </a>
           </div>
         </div>
