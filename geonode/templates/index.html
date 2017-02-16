@@ -10,7 +10,7 @@
 {% block middle %}
    {{ block.super }}
   {% block hero %}
-  <div class="jumbotron">
+  <div class="jumbotron" onclick="alert({{ STATIC_URL }})">
     <div class="container">
       <h1>{% trans "Welcome" %}</h1>
       <p>{% blocktrans %}GeoNode is an open source platform for sharing geospatial data and maps.{% endblocktrans %}</p>
