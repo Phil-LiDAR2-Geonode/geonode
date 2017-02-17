@@ -10,6 +10,9 @@
 {% block middle %}
    {{ block.super }}
   {% block hero %}
+  <head>
+     <link href="{{ STATIC_URL }}geonode/css/base2.css" rel="stylesheet" />
+  </head>
   <div class="jumbotron" onclick="alert({{ STATIC_URL }})">
     <div class="container">
       <h1>{% trans "Welcome" %}</h1>
