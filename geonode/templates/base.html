@@ -13,12 +13,15 @@
       <link href="{{ STATIC_URL }}lib/css/bootstrap.min.css?v={{ VERSION }}" rel="stylesheet"/>
       <link href="{{ STATIC_URL }}lib/css/jquery-ui.css?v={{ VERSION }}" rel="stylesheet"/>
       <link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css?v={{ VERSION }}" rel="stylesheet"/>
+      <link href="{{ STATIC_URL }}lib/css2/style.css" rel="stylesheet"/>
       {% else %}
       <link href="{{ STATIC_URL }}lib/css/assets.min.css?v={{ VERSION }}" rel="stylesheet"/>
+      <link href="{{ STATIC_URL }}lib/css2/style.css" rel="stylesheet"/>
       {% endif %}
       <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css?v={{ VERSION }}" rel="stylesheet" />
       <link href="{{ STATIC_URL }}geonode/css/base.css?v={{ VERSION }}" rel="stylesheet" />
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
+      <link href="{{ STATIC_URL }}lib/css2/style.css" rel="stylesheet"/>
       {% block extra_head %}
       {% endblock %}
     {% endblock %}
