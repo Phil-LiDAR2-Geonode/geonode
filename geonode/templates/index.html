@@ -303,7 +303,7 @@ http://www.tooplate.com/view/2080-minimax
 					</div>
 					<ul>
 					</ul>
-					{% if user.is_authenticated %}
+					{% if not user.is_authenticated %}
 					<a class="btn btn-warning" href="https://lipad.dream.upd.edu.ph/datarequests/register">Register</a>
 					{% endif %}
 				</div>
@@ -316,9 +316,6 @@ http://www.tooplate.com/view/2080-minimax
 					</div>
 					<ul>						
 					</ul>
-					{% if not user.is_authenticated and REGISTRATION_OPEN %}
-					<a class="btn btn-warning" href="{% url "account_signup" %}">Sign In</a>
-					{% endif %}
 					{% if not user.is_authenticated %}
 					<a class="btn btn-warning" href="{% url "cas_ng_login" %}">Sign in</a>
 					{% endif %}
@@ -332,12 +329,10 @@ http://www.tooplate.com/view/2080-minimax
 					</div>
 					<ul>						
 					</ul>
-					{% if not user.is_authenticated and REGISTRATION_OPEN %}
-					<a class="btn btn-warning" href="{% url "account_signup" %}">Download</a>
-					{% endif %}
 					{% if not user.is_authenticated %}
 					<a class="btn btn-warning" href="{% url "cas_ng_login" %}">Download</a>
-					{% else %}
+					{% endif %}
+					{% if user.is_authenticated %}
 					<a class="btn btn-warning" href="https://coastmap.dream.upd.edu.ph/layers" role="button">Download</a>
 					{% endif %}
 				</div>
