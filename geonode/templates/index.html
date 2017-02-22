@@ -8,14 +8,7 @@
 	<meta name="keywords" content="">
 	<meta name="description" content="">
     	<title>CoastMap</title>
-	<link rel="shortcut icon" href="{{ STATIC_URL }}favicon.png" type="image/png">
-	{% if user.is_authenticated %}	
-	<!-- <meta http-equiv="refresh" content="1; url=https://coastmap.dream.upd.edu.ph/indexhome"> -->
-        <script type="text/javascript">
-            window.location.href = "https://coastmap.dream.upd.edu.ph/indexhome";
-	    alert('');
-        </script>
-	{% endif %}
+	<link rel="shortcut icon" href="{{ STATIC_URL }}favicon.png" type="image/png">	
 <!--
 
 Template 2080 Minimax
@@ -33,7 +26,7 @@ http://www.tooplate.com/view/2080-minimax
 	<link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600,700' rel='stylesheet' type='text/css'>
 
 </head>
-<body onload="x()" data-spy="scroll" data-target=".navbar-collapse">
+<body data-spy="scroll" data-target=".navbar-collapse">
 	
 <!-- navigation -->
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -468,14 +461,6 @@ http://www.tooplate.com/view/2080-minimax
 <script src="{{ STATIC_URL }}geonode/js/new/isotope.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/new/imagesloaded.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/new/custom.js"></script>
-{% if user.is_authenticated %}
-<script type="text/javascript">
-	function x()
-	{
-            window.location.href = "https://coastmap.dream.upd.edu.ph/indexhome";
-	    alert('');
-	}
-</script>
-{% endif %}
+
 </body>
 </html>
