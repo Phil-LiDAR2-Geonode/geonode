@@ -7,28 +7,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"> 
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
     {% block head %}
-      <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/bootstrap2.min.css">
-	    <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/font-awesome2.min.css">
-	    <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/nivo-lightbox.css">
-	    <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/nivo_themes/default/default.css">
-	    <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/style.css">
-	    <!-- google web font css -->
-	    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600,700' rel='stylesheet' type='text/css'>
-      {% if DEBUG_STATIC %}
-      <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css?v={{ VERSION }}" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}lib/css/select2.css?v={{ VERSION }}" rel="stylesheet"/>
-      <link href="{{ STATIC_URL }}lib/css/bootstrap.min.css?v={{ VERSION }}" rel="stylesheet"/>
-      <link href="{{ STATIC_URL }}lib/css/jquery-ui.css?v={{ VERSION }}" rel="stylesheet"/>
-      <link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css?v={{ VERSION }}" rel="stylesheet"/>
-      {% else %}
-      <link href="{{ STATIC_URL }}lib/css/assets.min.css?v={{ VERSION }}" rel="stylesheet"/>
-      {% endif %}
-      <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css?v={{ VERSION }}" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/base.css?v={{ VERSION }}" rel="stylesheet" />
-      <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
-      <!-- stylesheet css -->
-      {% block extra_head %}
-      {% endblock %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/bootstrap2.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/font-awesome2.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/nivo-lightbox.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/nivo_themes/default/default.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/style.css">
+    <!-- google web font css -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600,700' rel='stylesheet' type='text/css'>
+    {% if DEBUG_STATIC %}
+    <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css?v={{ VERSION }}" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}lib/css/select2.css?v={{ VERSION }}" rel="stylesheet"/>
+    <link href="{{ STATIC_URL }}lib/css/bootstrap.min.css?v={{ VERSION }}" rel="stylesheet"/>
+    <link href="{{ STATIC_URL }}lib/css/jquery-ui.css?v={{ VERSION }}" rel="stylesheet"/>
+    <link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css?v={{ VERSION }}" rel="stylesheet"/>
+    {% else %}
+    <link href="{{ STATIC_URL }}lib/css/assets.min.css?v={{ VERSION }}" rel="stylesheet"/>
+    {% endif %}
+    <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css?v={{ VERSION }}" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}geonode/css/base.css?v={{ VERSION }}" rel="stylesheet" />
+    <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
+    <!-- stylesheet css -->
+    {% block extra_head %}
+    {% endblock %}
     {% endblock %}
     <!--[if IE]>
       <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -40,7 +40,7 @@
         }
       </style>
     <![endif]-->
-    <link rel="search" type="application/opensearchdescription+xml" href="/catalogue/opensearch" title="GeoNode Search"/>
+  <link rel="search" type="application/opensearchdescription+xml" href="/catalogue/opensearch" title="GeoNode Search"/>
   </head>
   
   <body class="{% block body_class %}{% endblock %}">
@@ -54,7 +54,7 @@
 				<span class="icon icon-bar"></span>
 				<span class="icon icon-bar"></span>
 			</button>
-			<a href="#home" class="navbar-brand smoothScroll">CoastMap</a>
+			<a style="color: #ffffff" href="#home" class="navbar-brand smoothScroll">CoastMap</a>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="nav navbar-nav navbar-right">
