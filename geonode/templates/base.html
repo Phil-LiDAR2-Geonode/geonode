@@ -76,26 +76,26 @@
             			</li>
             			{% endif %}
           		</ul>
+			<form class="navbar-form" id="search" action="{% url "search" %}" >
+				<div class="col-md-3">
+              				<div class="input-group">
+                				{% if HAYSTACK_SEARCH %}
+                				<input style="width:200px" id="search_input" type="text" placeholder="Search" class="form-control" name="q">
+                				{% else %}
+                				<input style="width:200px" id="search_input" type="text" placeholder="Search" class="form-control" name="title__icontains">
+                				{% endif %}
+                				<span class="input-group-btn">
+                  					<button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                				</span>
+              				</div>
+            			</div>
+         		</form>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="{% url "layer_browse" %}">{% trans "LAYERS" %}</a></li>
 				<li><a href="{% url "maps_browse" %}">{% trans "MAPS" %}</a></li>
 				<li><a href="{% url "document_browse" %}">{% trans "DOCUMENTS" %}</a></li>
 				<li><a href="{% url "profile_browse" %}">{% trans "PEOPLE" %}</a></li>
 				<!--<li><a href="{% url "group_list" %}">{% trans "GROUPS" %}</a></li>-->
-				<form class="navbar-form" id="search" action="{% url "search" %}" >
-            				<div class="col-md-3">
-              					<div class="input-group">
-                					{% if HAYSTACK_SEARCH %}
-                					<input style="width:200px" id="search_input" type="text" placeholder="Search" class="form-control" name="q">
-                					{% else %}
-                					<input style="width:200px" id="search_input" type="text" placeholder="Search" class="form-control" name="title__icontains">
-                					{% endif %}
-                					<span class="input-group-btn">
-                  						<button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
-                					</span>
-              					</div>
-            				</div>
-         		 	</form>
 			</ul>
 		</div>
   	</div>
