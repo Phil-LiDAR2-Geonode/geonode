@@ -24,7 +24,7 @@
     <link href="{{ STATIC_URL }}lib/css/assets.min.css?v={{ VERSION }}" rel="stylesheet"/>
     {% endif %}
     <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css?v={{ VERSION }}" rel="stylesheet" />
-    <!--<link href="{{ STATIC_URL }}geonode/css/base.css?v={{ VERSION }}" rel="stylesheet" />-->
+    <link href="{{ STATIC_URL }}geonode/css/base.css?v={{ VERSION }}" rel="stylesheet" />
     <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
     <!-- stylesheet css -->
     {% block extra_head %}
@@ -86,9 +86,9 @@
             				<div class="col-md-3">
               					<div class="input-group">
                 					{% if HAYSTACK_SEARCH %}
-                					<input id="search_input" type="text" placeholder="Search" class="form-control" name="q">
+                					<input style="width:200px" id="search_input" type="text" placeholder="Search" class="form-control" name="q">
                 					{% else %}
-                					<input id="search_input" type="text" placeholder="Search" class="form-control" name="title__icontains">
+                					<input style="width:200px" id="search_input" type="text" placeholder="Search" class="form-control" name="title__icontains">
                 					{% endif %}
                 					<span class="input-group-btn">
                   						<button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
