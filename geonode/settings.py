@@ -304,6 +304,8 @@ INSTALLED_APPS = (
     'polymorphic',
     'guardian',
 
+    #CAS client
+    'django_cas_ng',
 ) + GEONODE_APPS
 
 LOGGING = {
@@ -866,6 +868,7 @@ CELERY_IMPORTS = (
     'geonode.tasks.deletion',
     'geonode.tasks.update',
     'geonode.tasks.email'
+    'geonode.tasks.users',
 )
 
 
@@ -874,10 +877,13 @@ CELERY_QUEUES = [
     Queue('cleanup', routing_key='cleanup'),
     Queue('update', routing_key='update'),
     Queue('email', routing_key='email'),
+    Queue('users',routing_key='users'),
 ]
 
 import djcelery
 djcelery.setup_loader()
+
+CAS_VERSION = 3
 
 # Load more settings from a file called local_settings.py if it exists
 try:
