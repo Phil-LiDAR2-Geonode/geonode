@@ -114,25 +114,25 @@ EXTRA_LANG_INFO = {
         'code': 'am',
         'name': 'Amharic',
         'name_local': 'Amharic',
-        },
+    },
     'tl': {
         'bidi': False,
         'code': 'tl',
         'name': 'Tagalog',
         'name_local': 'tagalog',
-        },
+    },
     'ta': {
         'bidi': False,
         'code': 'ta',
         'name': 'Tamil',
         'name_local': u'tamil',
-        },
+    },
     'si': {
         'bidi': False,
         'code': 'si',
         'name': 'Sinhala',
         'name_local': 'sinhala',
-        },
+    },
 }
 
 AUTH_USER_MODEL = 'people.Profile'
@@ -296,7 +296,7 @@ INSTALLED_APPS = (
     'avatar',
     'dialogos',
     'agon_ratings',
-    #'notification',
+    'notification',
     'announcements',
     'actstream',
     'user_messages',
@@ -348,8 +348,8 @@ LOGGING = {
             "handlers": ["console"], "level": "ERROR", },
         "pycsw": {
             "handlers": ["console"], "level": "ERROR", },
-        },
-    }
+    },
+}
 
 #
 # Customizations to built in Django settings required by GeoNode
@@ -401,9 +401,10 @@ AUTHENTICATION_BACKENDS = (
 ANONYMOUS_USER_ID = -1
 GUARDIAN_GET_INIT_ANONYMOUS_USER = 'geonode.people.models.get_anonymous_user_instance'
 
-# Whether the uplaoded resources should be public and downloadable by default or not
-DEFAULT_ANONYMOUS_VIEW_PERMISSION = True
-DEFAULT_ANONYMOUS_DOWNLOAD_PERMISSION = True
+# Whether the uplaoded resources should be public and downloadable by
+# default or not
+DEFAULT_ANONYMOUS_VIEW_PERMISSION = False
+DEFAULT_ANONYMOUS_DOWNLOAD_PERMISSION = False
 
 #
 # Settings for default search size
@@ -621,52 +622,52 @@ MAP_BASELAYERS = [{
     "source": {"ptype": "gxp_osmsource"},
     "type": "OpenLayers.Layer.OSM",
     "name": "mapnik",
-    "visibility": False,
+    "visibility": True,
     "fixed": True,
     "group": "background"
 }, {
     "source": {"ptype": "gxp_mapquestsource"},
     "name": "osm",
     "group": "background",
-    "visibility": True
+    "visibility": False
 }, {
     "source": {"ptype": "gxp_mapquestsource"},
     "name": "naip",
     "group": "background",
     "visibility": False
-}, 
-{
+},
+    {
     "source": {"ptype": "gxp_mapboxsource"},
 }]
 
 SOCIAL_BUTTONS = True
 
 SOCIAL_ORIGINS = [{
-    "label":"Email",
-    "url":"mailto:?subject={name}&body={url}",
-    "css_class":"email"
+    "label": "Email",
+    "url": "mailto:?subject={name}&body={url}",
+    "css_class": "email"
 }, {
-    "label":"Facebook",
-    "url":"http://www.facebook.com/sharer.php?u={url}",
-    "css_class":"fb"
+    "label": "Facebook",
+    "url": "http://www.facebook.com/sharer.php?u={url}",
+    "css_class": "fb"
 }, {
-    "label":"Twitter",
-    "url":"https://twitter.com/share?url={url}&hashtags={hashtags}",
-    "css_class":"tw"
+    "label": "Twitter",
+    "url": "https://twitter.com/share?url={url}&hashtags={hashtags}",
+    "css_class": "tw"
 }, {
-    "label":"Google +",
-    "url":"https://plus.google.com/share?url={url}",
-    "css_class":"gp"
+    "label": "Google +",
+    "url": "https://plus.google.com/share?url={url}",
+    "css_class": "gp"
 }]
 
-#CKAN Query String Parameters names pulled from
-#https://github.com/ckan/ckan/blob/2052628c4a450078d58fb26bd6dc239f3cc68c3e/ckan/logic/action/create.py#L43
+# CKAN Query String Parameters names pulled from
+# https://github.com/ckan/ckan/blob/2052628c4a450078d58fb26bd6dc239f3cc68c3e/ckan/logic/action/create.py#L43
 CKAN_ORIGINS = [{
-    "label":"Humanitarian Data Exchange (HDX)",
-    "url":"https://data.hdx.rwlabs.org/dataset/new?title={name}&dataset_date={date}&notes={abstract}&caveats={caveats}",
-    "css_class":"hdx"
+    "label": "Humanitarian Data Exchange (HDX)",
+    "url": "https://data.hdx.rwlabs.org/dataset/new?title={name}&dataset_date={date}&notes={abstract}&caveats={caveats}",
+    "css_class": "hdx"
 }]
-#SOCIAL_ORIGINS.extend(CKAN_ORIGINS)
+# SOCIAL_ORIGINS.extend(CKAN_ORIGINS)
 
 # Setting TWITTER_CARD to True will enable Twitter Cards
 # https://dev.twitter.com/cards/getting-started
@@ -886,7 +887,7 @@ except ImportError:
     pass
 
 try:
-    BING_LAYER = {    
+    BING_LAYER = {
         "source": {
             "ptype": "gxp_bingsource",
             "apiKey": BING_API_KEY
@@ -905,16 +906,16 @@ if LOCKDOWN_GEONODE:
     MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + \
         ('geonode.security.middleware.LoginRequiredMiddleware',)
 
-#for windows users check if they didn't set GEOS and GDAL in local_settings.py
-#maybe they set it as a windows environment
+# for windows users check if they didn't set GEOS and GDAL in local_settings.py
+# maybe they set it as a windows environment
 if os.name == 'nt':
     if not "GEOS_LIBRARY_PATH" in locals() or not "GDAL_LIBRARY_PATH" in locals():
         if os.environ.get("GEOS_LIBRARY_PATH", None) \
-            and os.environ.get("GDAL_LIBRARY_PATH", None):
+                and os.environ.get("GDAL_LIBRARY_PATH", None):
             GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')
             GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
         else:
-            #maybe it will be found regardless if not it will throw 500 error
+            # maybe it will be found regardless if not it will throw 500 error
             from django.contrib.gis.geos import GEOSGeometry
 
 
