@@ -115,6 +115,7 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="{% url "home" %}">GeoNode</a>
+          <!-- <img src="{{ STATIC_URL }}geonode/img/logo_pl2.jpg" class="logo" /> -->
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -125,11 +126,11 @@
             <li id="nav_layers">
               <a href="{% url "layer_browse" %}">{% trans "Layers" %}</a>
             </li>
-            <li id="nav_maps">
+<!--             <li id="nav_maps">
               <a href="{% url "maps_browse" %}">{% trans "Maps" %}</a>
-            </li>
+            </li> -->
             <li id="nav_documents">
-              <a href="{% url "document_browse" %}">{% trans "Documents" %}</a>
+              <a href="{% url "document_browse" %}">{% trans "Maps" %}</a>
             </li>
            {% block extra_tab %}
            {% endblock %}
@@ -148,6 +149,7 @@
                 <input id="search_input" type="text" placeholder="Search" class="form-control" name="q">
                 {% else %}
                 <input id="search_input" type="text" placeholder="Search" class="form-control" name="title__icontains">
+                <!-- <input id="search_input" type="text" placeholder="Search" class="form-control" name="keywords__slug__in"> -->
                 {% endif %}
                 <span class="input-group-btn">
                   <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
@@ -216,9 +218,9 @@
             <!-- {% trans "Built for" %} <a href=#>{% trans "PARMap" %}</a> <em>{% trans "version 1" %} </em> |
             <a href="{% url "developer" %}">{% trans "Developers" %}</a> |
             <a href="{% url "about" %}">{% trans "About" %}</a> -->
-            <img src="{{ STATIC_URL }}geonode/img/logo_dost.jpg" class="logo" />
-            <img src="{{ STATIC_URL }}geonode/img/logo_pcieerd.png" class="logo" />
-            <img src="{{ STATIC_URL }}geonode/img/logo_dge.jpg" class="logo" />
+            <img src="{{ STATIC_URL }}geonode/img/logo_dost.jpg" class="logo-footer" />
+            <img src="{{ STATIC_URL }}geonode/img/logo_pcieerd.png" class="logo-footer" />
+            <img src="{{ STATIC_URL }}geonode/img/logo_dge.jpg" class="logo-footer" />
             © 2017 Phil-LiDAR 2 Program. All Rights Reserved
           </div>
 <!--           <div class="col-md-4">
