@@ -57,7 +57,7 @@
 			</button>
 			<a href="https://coastmap.dream.upd.edu.ph/indexhome" class="navbar-brand smoothScroll" style="background-image: none; height: 70px">CoastMap</a>
 		</div>
-		<div class="collapse navbar-collapse">
+		<div class="collapse navbar-collapse" style="background-color:#ffffff">
 			<ul class="nav navbar-nav navbar-right">
             			{% if not user.is_authenticated and REGISTRATION_OPEN %}
             			<li><a href="{% url "account_signup" %}">{% trans "Register" %}</a></li>
