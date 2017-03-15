@@ -22,10 +22,6 @@ from django import db
 from django.contrib.gis.gdal import DataSource, SpatialReference, OGRGeometry
 from django.utils.text import slugify
 
-from geonode.geoserver.helpers import ogc_server_settings
-
-has_datastore = True if len(ogc_server_settings.datastore_db.keys()) > 0 else False
-
 
 def get_model_field_name(field):
     """Get the field name usable without quotes.
@@ -140,18 +136,12 @@ def file2pgtable(infile, table_name, srid=4326):
 
     # création de la requête de création de table
     geo_type = str(layer.geom_type).upper()
-
     coord_dim = 0
     # bizarre, mais les couches de polygones MapInfo ne sont pas détectées
     if geo_type == 'UNKNOWN' and (
             infile.endswith('.TAB') or infile.endswith('.tab') or
             infile.endswith('.MIF') or infile.endswith('.mif')):
         geo_type = 'POLYGON'
-
-    if has_datastore and not geo_type.startswith('MULTI'):
-        geo_type = 'MULTI' + geo_type
-    pk_name = 'fid' if has_datastore else 'id'
-    geo_column_name = 'the_geom' if has_datastore else 'geom'
 
     sql = 'BEGIN;'
 
@@ -176,11 +166,7 @@ def file2pgtable(infile, table_name, srid=4326):
         if first_feature:
             first_feature = False
             fields = []
-            fields.append(pk_name + " serial NOT NULL PRIMARY KEY")
-
-            if has_datastore:
-                mapping[pk_name] = pk_name
-
+            fields.append('id' + " serial NOT NULL PRIMARY KEY")
             fieldnames = []
             for field in feature:
                 field_name = get_model_field_name(field.name)
@@ -209,13 +195,11 @@ def file2pgtable(infile, table_name, srid=4326):
     sql += 'END;'
 
     # la table est créée il faut maintenant injecter les données
-    fieldnames.append(geo_column_name)
-    mapping[geo_column_name] = geo_type
+    fieldnames.append('geom')
+    mapping['geom'] = geo_type
 
     # Running the sql
-
-    if not has_datastore:
-        execute(sql)
+    execute(sql)
 
     return mapping
 
