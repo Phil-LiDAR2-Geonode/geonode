@@ -92,3 +92,6 @@ geonode/*/migrations
 
 #CSV files
 *.csv
+
+#HTML files
+*.html
