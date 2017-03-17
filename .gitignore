@@ -93,5 +93,5 @@ geonode/*/migrations
 #CSV files
 *.csv
 
-#HTML files
-*.html
+#HTMLs
+geonode/layers/templates/layers/layer_detail.html
