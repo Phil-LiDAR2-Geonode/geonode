@@ -26,6 +26,8 @@ from geonode.utils import build_social_links
 
 from geonode.reports.models import DownloadTracker
 from geonode.base.models import ResourceBase
+from pprint import pprint
+from geonode.people.models import Profile
 
 ALLOWED_DOC_TYPES = settings.ALLOWED_DOCUMENT_TYPES
 
