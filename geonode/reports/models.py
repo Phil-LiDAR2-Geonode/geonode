@@ -24,5 +24,5 @@ class DownloadTracker(models.Model):
     )
     title = models.CharField(_('Title'), max_length=100)
     resource_type = models.CharField(_('Resource Type'), max_length=100)
-    keywords = models.CharField(_('Keywords'), max_length=100)
+    keywords = models.TextField('Keywords',null=True,blank=True)
     dl_type = models.CharField(_('Download Type'), max_length=100)
