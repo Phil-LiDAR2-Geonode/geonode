@@ -61,6 +61,7 @@ from geonode.geoserver.helpers import cascading_delete, gs_catalog
 
 from geonode.reports.models import DownloadTracker
 from geonode.base.models import ResourceBase
+from pprint import pprint
 
 CONTEXT_LOG_FILE = None
 
