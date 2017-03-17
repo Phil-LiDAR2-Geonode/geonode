@@ -580,7 +580,7 @@ def layer_tracker(request, layername, dl_type):
         _PERMISSION_MSG_VIEW)
     pprint(request.user.is_authenticated)
     if request.user.is_authenticated():
-        action.send(request.user, verb='downloaded', action_object=layer)
+        #action.send(request.user, verb='downloaded', action_object=layer)
         DownloadTracker(actor=Profile.objects.get(username=request.user),
                         title=str(layername),
                         resource_type=str(ResourceBase.objects.get(layer__typename=layername).csw_type),
