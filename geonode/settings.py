@@ -306,6 +306,7 @@ INSTALLED_APPS = (
 
     #CAS client
     'django_cas_ng',
+    'south',
 ) + GEONODE_APPS
 
 LOGGING = {
