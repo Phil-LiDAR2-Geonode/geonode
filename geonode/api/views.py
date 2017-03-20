@@ -9,7 +9,7 @@ from urlparse import urljoin
 from urllib2 import HTTPError
 from geonode.layers.models import Layer
 
-def total_count(request, apiname):
+def total_count(request):
     output = {}
     output['total_count'] = Layer.objects.all().count()
     return HttpResponse(json.dumps(output),mimetype='application/json',status=200)

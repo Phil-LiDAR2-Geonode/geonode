@@ -10,7 +10,7 @@ api = Api(api_name='api')
 
 urlpatterns = patterns(
     'geonode.api.views',
-    url(r'^totalcount', 'total_count', name="total_count"),
+    url(r'^total_count', 'total_count', name="total_count"),
 )
 
 api.register(LayerResource())
