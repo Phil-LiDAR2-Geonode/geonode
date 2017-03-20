@@ -7,6 +7,11 @@ from .resourcebase_api import LayerResource, MapResource, DocumentResource, \
 
 api = Api(api_name='api')
 
+urlpatterns = patterns(
+    'geonode.api.views',
+    url(r'^totalcount', 'total_count', name="total_count"),
+)
+
 api.register(LayerResource())
 api.register(MapResource())
 api.register(DocumentResource())
