@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # Geonode
 
-__version__ = "0.2"
+__version__ = "0.2.1"
 
 from geonode.settings import GEONODE_APPS
 import geonode.settings as settings
@@ -104,11 +104,8 @@ def update_thumb_perms(layer):
 
 
 def update_layer_perms(layer):
-
 	try:
-
 		print layer.name, ': Updating layer permissions...'
-		# layer.remove_all_permissions()
 		anon_group = Group.objects.get(name='anonymous')
 		assign_perm('view_resourcebase', anon_group, layer.get_self_resource())
 		assign_perm('view_resourcebase', get_anonymous_user(),
@@ -118,8 +115,6 @@ def update_layer_perms(layer):
 		print layer.name, ': Error updating layer permissions!'
 		traceback.print_exc()
 		# raise
-
-
 def update_lulc(layer):
 
 	# Get quad name
@@ -157,7 +152,7 @@ def update_lulc(layer):
 	# Check landcover type
 	landcover = "AGRILANDCOVER"
 	landcover_title = "Agricultural Land Cover Map"
-	if "Agricultural and Coastal" in resourcema_list:
+	if "Agricultural And Coastal" in resourcema_list:
 		landcover = "AGRICOASTLANDCOVER"
 		landcover_title = "Agricultural And Coastal Land Cover Map"
 
@@ -218,12 +213,12 @@ Accuracy and Limitations: The accuracy of the delivered Products/ouputs are depe
 		has_layer_changes = True
 		layer.purpose = layer_purpose
 
-	if len(layer.keywords.values_list()) == 0:
-		print layer.name, ': Adding keyword...'
-		has_layer_changes = True
-		for keyword in keywords_list:
-			print keyword
+	for keyword in keywords_list:
+		if keyword not in layer.keyword_list():
+			print layer.name, ': layer_keyword:', keyword
+			print layer.name, ': Adding keyword...'
 			layer.keywords.add(keyword)
+			has_layer_changes = True
 
 	if layer.category != TopicCategory.objects.get(identifier="imageryBaseMapsEarthCover"):
 		print layer.name, ': Setting layer.category...'
@@ -241,14 +236,8 @@ Accuracy and Limitations: The accuracy of the delivered Products/ouputs are depe
 	update_layer_perms(layer)
 
 	# Close db
-	# close_db(conn, cur)
-	has_layer_changes = True
+	close_db(conn, cur)
 	return has_layer_changes
-
-def save_layer(layer):
-	print layer.name, ': Saving layer...'
-	layer.save()
-
 
 def update_metadata(layer):
 
@@ -256,14 +245,12 @@ def update_metadata(layer):
 
 	try:
 		has_layer_changes = False
-		if 'Parmap' in layer.title:
-			has_layer_changes = update_lulc(layer)
+		has_layer_changes = update_lulc(layer)
 
 		# Save layer if there are changes
 		if has_layer_changes:
 			print layer.name, ': Saving layer...'
 			layer.save()
-
 		else:
 			print layer.name, ': No changes to layer. Skipping...'
 
@@ -273,12 +260,9 @@ def update_metadata(layer):
 
 	return has_layer_changes
 
-
 if __name__ == "__main__":
 
-	# Get layers with "_parmap" keyword
-
-	layers = Layer.objects.filter(name__icontains='_parmap')
+	layers = Layer.objects.filter(title__icontains='Parmap')
 
 	total = len(layers)
 	print 'Updating', total, 'layers!'
