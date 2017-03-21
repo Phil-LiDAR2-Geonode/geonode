@@ -63,6 +63,9 @@ from geonode.reports.models import DownloadTracker
 from geonode.base.models import ResourceBase
 from pprint import pprint
 from geonode.people.models import Profile
+from django.utils import timezone
+import csv
+from unidecode import unidecode
 
 CONTEXT_LOG_FILE = None
 
@@ -590,3 +593,39 @@ def layer_tracker(request, layername, dl_type):
                         ).save()
         pprint('Download Tracked')
     return HttpResponse(status=200)
+
+@login_required
+def layer_download_csv(request):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect("/forbidden/")
+    response = HttpResponse(content_type='text/csv')
+    datetoday = timezone.now()
+    response['Content-Disposition'] = 'attachment; filename="layerdownloads-"' + \
+        str(datetoday.month) + str(datetoday.day) + \
+        str(datetoday.year) + '.csv"'
+    listtowrite = []
+    writer = csv.writer(response)
+
+    auth_list = DownloadTracker.objects.order_by('timestamp')
+    writer.writerow(['username', 'lastname', 'firstname', 'email', 'organization',
+                     'organization type', 'purpose', 'layer name', 'date downloaded','area','size_in_bytes'])
+
+    pprint("writing authenticated downloads list")
+
+    for auth in auth_list:
+        username = auth.actor
+        getprofile = Profile.objects.get(username=username)
+        firstname = unidecode(getprofile.first_name)
+        lastname = unidecode(getprofile.last_name)
+        email = getprofile.email
+        organization = unidecode(getprofile.organization) if getprofile.organization is not None else getprofile.organization
+        orgtype = getprofile.org_type
+        area = 0
+        if auth.resource_type != 'document':
+            listtowrite.append([username, lastname, firstname, email, organization, orgtype,
+                                "", auth.title, auth.timestamp.strftime('%Y/%m/%d'),area,''])
+
+    for eachtowrite in listtowrite:
+        writer.writerow(eachtowrite)
+
+    return response
