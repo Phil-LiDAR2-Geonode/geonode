@@ -608,7 +608,8 @@ def layer_download_csv(request):
 
     auth_list = DownloadTracker.objects.order_by('timestamp')
     writer.writerow(['username', 'lastname', 'firstname', 'email', 'organization',
-                     'organization type', 'purpose', 'layer name', 'date downloaded','area','size_in_bytes'])
+                    #'organization type', 'purpose', 'layer name', 'date downloaded','area','size_in_bytes'])
+                     'layer name', 'date downloaded','area','size_in_bytes'])
 
     pprint("writing authenticated downloads list")
 
@@ -619,11 +620,12 @@ def layer_download_csv(request):
         lastname = unidecode(getprofile.last_name)
         email = getprofile.email
         organization = unidecode(getprofile.organization) if getprofile.organization is not None else getprofile.organization
-        orgtype = getprofile.org_type
+        #orgtype = getprofile.org_type
         area = 0
         if auth.resource_type != 'document':
-            listtowrite.append([username, lastname, firstname, email, organization, orgtype,
-                                "", auth.title, auth.timestamp.strftime('%Y/%m/%d'),area,''])
+            #listtowrite.append([username, lastname, firstname, email, organization, orgtype,"",
+            listtowrite.append([username, lastname, firstname, email, organization,
+                                auth.title, auth.timestamp.strftime('%Y/%m/%d'),area,''])
 
     for eachtowrite in listtowrite:
         writer.writerow(eachtowrite)
