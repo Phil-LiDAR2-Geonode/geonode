@@ -70,7 +70,7 @@ DATABASES = {
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Asia/Manila'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -303,6 +303,11 @@ INSTALLED_APPS = (
     'tastypie',
     'polymorphic',
     'guardian',
+
+    #CAS client
+    'django_cas_ng',
+    'south',
+
 
 ) + GEONODE_APPS
 
@@ -865,7 +870,8 @@ CELERY_CREATE_MISSING_QUEUES = True
 CELERY_IMPORTS = (
     'geonode.tasks.deletion',
     'geonode.tasks.update',
-    'geonode.tasks.email'
+    'geonode.tasks.email',
+    'geonode.tasks.users',
 )
 
 
@@ -874,10 +880,13 @@ CELERY_QUEUES = [
     Queue('cleanup', routing_key='cleanup'),
     Queue('update', routing_key='update'),
     Queue('email', routing_key='email'),
+    Queue('users',routing_key='users'),
 ]
 
 import djcelery
 djcelery.setup_loader()
+
+CAS_VERSION = 3
 
 # Load more settings from a file called local_settings.py if it exists
 try:
