@@ -59,6 +59,14 @@ from geonode.documents.models import get_related_documents
 from geonode.utils import build_social_links
 from geonode.geoserver.helpers import cascading_delete, gs_catalog
 
+from geonode.reports.models import DownloadTracker
+from geonode.base.models import ResourceBase
+from pprint import pprint
+from geonode.people.models import Profile
+from django.utils import timezone
+import csv
+from unidecode import unidecode
+
 CONTEXT_LOG_FILE = None
 
 if 'geonode.geoserver' in settings.INSTALLED_APPS:
@@ -72,9 +80,6 @@ DEFAULT_SEARCH_BATCH_SIZE = 10
 MAX_SEARCH_BATCH_SIZE = 25
 GENERIC_UPLOAD_ERROR = _("There was an error while attempting to upload your data. \
 Please try again, or contact and administrator if the problem continues.")
-
-METADATA_UPLOADED_PRESERVE_ERROR = _("Note: this layer's orginal metadata was \
-populated and preserved by importing a metadata XML file. This metadata cannot be edited.")
 
 _PERMISSION_MSG_DELETE = _("You are not permitted to delete this layer")
 _PERMISSION_MSG_GENERIC = _('You do not have permissions for this layer.')
@@ -161,7 +166,6 @@ def layer_upload(request, template='upload/layer_upload.html'):
                     charset=form.cleaned_data["charset"],
                     abstract=form.cleaned_data["abstract"],
                     title=form.cleaned_data["layer_title"],
-                    metadata_uploaded_preserve=form.cleaned_data["metadata_uploaded_preserve"]
                 )
             except Exception as e:
                 exception_type, error, tb = sys.exc_info()
@@ -313,16 +317,6 @@ def layer_metadata(request, layername, template='layers/layer_metadata.html'):
     metadata_author = layer.metadata_author
 
     if request.method == "POST":
-        if layer.metadata_uploaded_preserve:  # layer metadata cannot be edited
-            out = {
-                'success': False,
-                'errors': METADATA_UPLOADED_PRESERVE_ERROR
-            }
-            return HttpResponse(
-                json.dumps(out),
-                mimetype='application/json',
-                status=400)
-
         layer_form = LayerForm(request.POST, instance=layer, prefix="resource")
         attribute_form = layer_attribute_set(
             request.POST,
@@ -581,3 +575,59 @@ def layer_thumbnail(request, layername):
                 status=500,
                 mimetype='text/plain'
             )
+
+def layer_tracker(request, layername, dl_type):
+    layer = _resolve_layer(
+        request,
+        layername,
+        'base.view_resourcebase',
+        _PERMISSION_MSG_VIEW)
+    pprint(request.user.is_authenticated)
+    if request.user.is_authenticated():
+        #action.send(request.user, verb='downloaded', action_object=layer)
+        DownloadTracker(actor=Profile.objects.get(username=request.user),
+                        title=str(layername),
+                        resource_type=str(ResourceBase.objects.get(layer__typename=layername).csw_type),
+                        keywords=Layer.objects.get(typename=layername).keywords.slugs(),
+                        dl_type=dl_type
+                        ).save()
+        pprint('Download Tracked')
+    return HttpResponse(status=200)
+
+@login_required
+def layer_download_csv(request):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect("/forbidden/")
+    response = HttpResponse(content_type='text/csv')
+    datetoday = timezone.now()
+    response['Content-Disposition'] = 'attachment; filename="layerdownloads-"' + \
+        str(datetoday.month) + str(datetoday.day) + \
+        str(datetoday.year) + '.csv"'
+    listtowrite = []
+    writer = csv.writer(response)
+
+    auth_list = DownloadTracker.objects.order_by('timestamp')
+    writer.writerow(['username', 'lastname', 'firstname', 'email', 'organization',
+                    #'organization type', 'purpose', 'layer name', 'date downloaded','area','size_in_bytes'])
+                     'layer name', 'date downloaded','area','size_in_bytes'])
+
+    pprint("writing authenticated downloads list")
+
+    for auth in auth_list:
+        username = auth.actor
+        getprofile = Profile.objects.get(username=username)
+        firstname = unidecode(getprofile.first_name)
+        lastname = unidecode(getprofile.last_name)
+        email = getprofile.email
+        organization = unidecode(getprofile.organization) if getprofile.organization is not None else getprofile.organization
+        #orgtype = getprofile.org_type
+        area = 0
+        if auth.resource_type != 'document':
+            #listtowrite.append([username, lastname, firstname, email, organization, orgtype,"",
+            listtowrite.append([username, lastname, firstname, email, organization,
+                                auth.title, auth.timestamp.strftime('%Y/%m/%d'),area,''])
+
+    for eachtowrite in listtowrite:
+        writer.writerow(eachtowrite)
+
+    return response
