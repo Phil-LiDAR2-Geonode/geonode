@@ -18,7 +18,11 @@ docs/i18n/pot/
 *.jshintrc
 geonode/static/.components/
 geonode/static/geoexplorer/
-geonode/static_root/
+
+# Uncommenting static_root for now, should probably follow GeoNode's static
+# dev guidelines
+#geonode/static_root/
+
 geonode/static/node_modules/
 node_modules/
 # Listing all of them instead of putting geonode/static/lib out of version control.
