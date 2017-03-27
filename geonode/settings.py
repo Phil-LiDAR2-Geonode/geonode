@@ -299,7 +299,7 @@ INSTALLED_APPS = (
     'avatar',
     'dialogos',
     'agon_ratings',
-    #'notification',
+    'notification',
     'announcements',
     'actstream',
     'user_messages',
@@ -889,6 +889,7 @@ import djcelery
 djcelery.setup_loader()
 
 CAS_VERSION = 3
+PASSWORD_RESET_LINK = "https://ssp.dream.upd.edu.ph/?action=sendtoken"
 
 # Load more settings from a file called local_settings.py if it exists
 try:
