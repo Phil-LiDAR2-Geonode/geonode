@@ -84,11 +84,8 @@ urlpatterns = patterns('',
                        (r'^security/', include('geonode.security.urls')),
 
                        # Accounts
-<<<<<<< HEAD
                        url(r'^account/login$', 'django_cas_ng.views.login', name='account_ajax_login'),
-=======
                        url(r'^account/ajax_login$', 'django_cas_ng.views.login', name='account_ajax_login'),
->>>>>>> 2e3cd68f9f00f051f5057a93d3aa167893fea0d9
                        url(r'^account/ajax_lookup$', 'geonode.views.ajax_lookup', name='account_ajax_lookup'),
                        url(r'^account/login/$', 'django_cas_ng.views.login', name='account_login'),
                        url(r'^account/login/$', 'django_cas_ng.views.login', name='cas_ng_login'),
