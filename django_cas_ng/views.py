@@ -91,6 +91,7 @@ def login(request, next_page=None, required=False):
                     pgt.save()
                 except ProxyGrantingTicket.DoesNotExist:
                     pass
+
             #attributes = request.session['attributes']
             #user.email = attributes["email"]
             #user.first_name = attributes["first_name"]
@@ -103,6 +104,7 @@ def login(request, next_page=None, required=False):
             #    pprint("user.is_superuser:"+str(attributes["is_superuser"]))
             #    user.is_superuser = attributes["is_superuser"]
             #user.save()
+
                     
             #pprint('Superuser? '+str(user.is_superuser))
 

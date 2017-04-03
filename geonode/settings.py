@@ -70,7 +70,8 @@ DATABASES = {
 # although not all choices may be available on all operating systems.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+#TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Asia/Manila'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -237,7 +238,7 @@ GEONODE_APPS = (
     'geonode.geoserver',
     'geonode.upload',
     'geonode.tasks',
-    #'geonode.reports',
+    'geonode.reports',
 )
 
 GEONODE_CONTRIB_APPS = (
@@ -887,6 +888,8 @@ CELERY_QUEUES = [
 import djcelery
 djcelery.setup_loader()
 
+CAS_VERSION = 3
+
 # Load more settings from a file called local_settings.py if it exists
 try:
     from local_settings import *  # noqa
@@ -938,5 +941,8 @@ if 'geonode.geoserver' in INSTALLED_APPS:
     baselayers = MAP_BASELAYERS
     MAP_BASELAYERS = [LOCAL_GEOSERVER]
     MAP_BASELAYERS.extend(baselayers)
+<<<<<<< HEAD
 
 CAS_VERSION = 3
+=======
+>>>>>>> 5a1ff33b6b3f33bf3b2c8b7fc9a3a580e59893f7

@@ -78,6 +78,7 @@ class CASBackend(ModelBackend):
 def handle_user_authenticated(sender, **kwargs):
     user = kwargs.get("user")
     attributes = kwargs.get("attributes")
+
     user.email = attributes["email"]
     user.first_name = attributes["first_name"]
     user.last_name = attributes["last_name"]

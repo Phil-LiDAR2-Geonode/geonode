@@ -86,3 +86,10 @@ uploaded
 development.db
 master
 slave
+
+#migrations
+geonode/*/migrations
+
+#CSV files
+*.csv
+
