@@ -237,7 +237,7 @@ GEONODE_APPS = (
     'geonode.geoserver',
     'geonode.upload',
     'geonode.tasks',
-    #'geonode.reports',
+    'geonode.reports',
 )
 
 GEONODE_CONTRIB_APPS = (
