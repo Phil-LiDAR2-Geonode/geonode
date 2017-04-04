@@ -30,11 +30,13 @@ urlpatterns = patterns(
     'geonode.layers.views',
     url(r'^$', TemplateView.as_view(template_name='layers/layer_list.html'), name='layer_browse'),
     url(r'^upload$', 'layer_upload', name='layer_upload'),
+    url(r'^layer_download_csv$', 'layer_download_csv', name='layer_download_csv'),
     url(r'^(?P<layername>[^/]*)$', 'layer_detail', name="layer_detail"),
     url(r'^(?P<layername>[^/]*)/metadata$', 'layer_metadata', name="layer_metadata"),
     url(r'^(?P<layername>[^/]*)/remove$', 'layer_remove', name="layer_remove"),
     url(r'^(?P<layername>[^/]*)/replace$', 'layer_replace', name="layer_replace"),
     url(r'^(?P<layername>[^/]*)/thumbnail$', 'layer_thumbnail', name='layer_thumbnail'),
+    url(r'^(?P<layername>[^/]*)/layer_tracker/(?P<dl_type>[^/]*)/', 'layer_tracker', name='layer_tracker'),
 
     # url(r'^api/batch_permissions/?$', 'batch_permissions',
     #    name='batch_permssions'),

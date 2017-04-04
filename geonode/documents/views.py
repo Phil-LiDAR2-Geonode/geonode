@@ -24,6 +24,11 @@ from geonode.documents.forms import DocumentForm, DocumentCreateForm, DocumentRe
 from geonode.documents.models import IMGTYPES
 from geonode.utils import build_social_links
 
+from geonode.reports.models import DownloadTracker
+from geonode.base.models import ResourceBase
+from pprint import pprint
+from geonode.people.models import Profile
+
 ALLOWED_DOC_TYPES = settings.ALLOWED_DOCUMENT_TYPES
 
 _PERMISSION_MSG_DELETE = _("You are not permitted to delete this document")
@@ -126,6 +131,14 @@ def document_download(request, docid):
                 '401.html', RequestContext(
                     request, {
                         'error_message': _("You are not allowed to view this document.")})), status=401)
+    else:
+        if request.user.is_authenticated():
+            DownloadTracker(actor=Profile.objects.get(username=request.user),
+                            title=str(document.title),
+                            resource_type=str(ResourceBase.objects.get(document__id=docid).csw_type),
+                            keywords=Document.objects.get(id=docid).keywords.slugs(),
+                            dl_type="document"
+                            ).save()
     return DownloadResponse(document.doc_file)
 
 
