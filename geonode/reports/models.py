@@ -1,6 +1,7 @@
 from django.db import models
 
 # Create your models here.
+
 from django.utils.translation import ugettext_lazy as _
 from geonode.people.models import Profile
 from datetime import datetime
