@@ -941,8 +941,5 @@ if 'geonode.geoserver' in INSTALLED_APPS:
     baselayers = MAP_BASELAYERS
     MAP_BASELAYERS = [LOCAL_GEOSERVER]
     MAP_BASELAYERS.extend(baselayers)
-<<<<<<< HEAD
 
 CAS_VERSION = 3
-=======
->>>>>>> 5a1ff33b6b3f33bf3b2c8b7fc9a3a580e59893f7
