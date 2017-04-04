@@ -50,6 +50,8 @@ urlpatterns = patterns('',
 
                        # Static pages
                        url(r'^/?$', TemplateView.as_view(template_name='index.html'), name='home'),
+                       url(r'^indexhome/$', TemplateView.as_view(template_name='indexhome.html'), name='indexhome'),
+                       url(r'^processing/$', TemplateView.as_view(template_name='processing.html'), name='processing'),
                        url(r'^help/$', TemplateView.as_view(template_name='help.html'), name='help'),
                        url(r'^developer/$', TemplateView.as_view(template_name='developer.html'), name='developer'),
                        url(r'^about/$', TemplateView.as_view(template_name='about.html'), name='about'),
@@ -82,9 +84,10 @@ urlpatterns = patterns('',
                        (r'^security/', include('geonode.security.urls')),
 
                        # Accounts
-                       #url(r'^account/ajax_login$', 'geonode.views.ajax_login', name='account_ajax_login'),
+                       url(r'^account/login$', 'django_cas_ng.views.login', name='account_ajax_login'),
+                       url(r'^account/ajax_login$', 'django_cas_ng.views.login', name='account_ajax_login'),
                        url(r'^account/ajax_lookup$', 'geonode.views.ajax_lookup', name='account_ajax_lookup'),
-                       url(r'^account/login/$','django_cas_ng.views.login', name='account_login'),
+                       url(r'^account/login/$', 'django_cas_ng.views.login', name='account_login'),
                        url(r'^account/login/$', 'django_cas_ng.views.login', name='cas_ng_login'),
                        url(r'^account/logout/$', 'django_cas_ng.views.logout', name='cas_ng_logout'),
                        url(r'^account/logout/$', 'django_cas_ng.views.logout', name='account_logout'),

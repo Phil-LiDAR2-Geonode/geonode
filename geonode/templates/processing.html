@@ -1,0 +1,467 @@
+﻿{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	
+    	<title>LiDAR Processing</title>
+	<link rel="shortcut icon" href="{{ STATIC_URL }}favicon.png" type="image/png">
+<!--
+
+Template 2080 Minimax
+
+http://www.tooplate.com/view/2080-minimax
+
+-->
+	<!-- stylesheet css -->
+	<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/bootstrap2.min.css">
+	<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/font-awesome2.min.css">
+	<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/nivo-lightbox.css">
+	<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/nivo_themes/default/default.css">
+	<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/style.css">
+	<!-- google web font css -->
+	<link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600,700' rel='stylesheet' type='text/css'>
+
+</head>
+<body data-spy="scroll" data-target=".navbar-collapse">
+	
+<!-- navigation -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon icon-bar"></span>
+				<span class="icon icon-bar"></span>
+				<span class="icon icon-bar"></span>
+			</button>
+			<a href="/" class="navbar-brand smoothScroll" style="font-size:25px;font-weight:normal;font-family:Lato">CoastMap</a>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<!--<li><a href="#home" class="smoothScroll">HOME</a></li>
+				<li><a href="#service" class="smoothScroll">PROCESSING</a></li>
+				<li><a href="#about" class="smoothScroll">ABOUT</a></li>
+				<li><a href="#portfolio" class="smoothScroll">PRODUCTS</a></li>
+				<li><a href="#pricing" class="smoothScroll">DOWNLOAD</a></li>-->
+			</ul>
+		</div>
+	</div>
+</div>		
+
+<!-- home section -->
+<!--<div id="home">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-offset-6 col-md-6 col-sm-offset-6 col-sm-6">
+				<h2>Welcome to</h2>
+				<h1>Phil-LiDAR 2 <strong>CoastMap</strong></h1>
+				<p>AQUATIC RESOURCES EXTRACTION FROM LIDAR SURVEYS</p>
+				<a href="#service" class="btn btn-default smoothScroll">GET STARTED</a>
+			</div>
+		</div>
+	</div>
+</div>-->
+
+<!-- service section -->
+<div id="service">
+	<div class="container">
+		<div class="row">
+			<!--<div class="col-md-12 col-sm-12">
+				<h2>Our Workflow</h2>
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<i class="fa fa-cubes"></i>
+				<h3>Derive</h3>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. Dolore magna aliquam erat volutpat.</p>
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<i class="fa fa-cogs"></i>
+				<h3>Develop</h3>
+				<p>This website template is brought to you by Tooplate. You can modify and use it for any website. You can change icons by looking at <a rel="nofollow" href="http://fortawesome.github.io/Font-Awesome/examples/" target="_parent">examples</a>.</p>
+			</div>
+			<div class="col-md-4 col-sm-4">
+				<i class="fa fa-group"></i>
+				<h3>Validate</h3>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. Dolore magna aliquam erat volutpat.</p>
+			</div>-->
+		</div>
+	</div>
+</div>
+
+<!-- divider section -->
+<!--<div class="container">
+	<div class="row">
+		<div class="col-md-1 col-sm-1"></div>
+		<div class="col-md-10 col-sm-10">
+			<hr>
+		</div>
+		<div class="col-md-1 col-sm-1"></div>
+	</div>
+</div>-->
+
+<!-- about section -->
+<!--<div id="about">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<h2>CoastMap Story</h2>
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<img src="{{ STATIC_URL }}geonode/images/about-img.jpg" class="img-responsive" alt="about img">
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<h3>ABOUT US</h3>
+				<h4>A Diversed Group of Researchers</h4>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. Dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.</p>
+				<p>Dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet. Dolore magna aliquam erat volutpat.</p>
+			</div>
+		</div>
+	</div>
+</div>-->
+
+<!-- divider section -->
+<!--<div class="container">
+	<div class="row">
+		<div class="col-md-1 col-sm-1"></div>
+		<div class="col-md-10 col-sm-10">
+			<hr>
+		</div>
+		<div class="col-md-1 col-sm-1"></div>
+	</div>
+</div>-->
+
+<!-- team section -->
+<!--<div id="team">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<h2>Meet the Team</h2>
+			</div>
+            <div class="col-md-2 col-md-offset-1 col-sm-6">
+            </div>	
+            <div class="col-md-2 col-sm-6">
+				<img src="{{ STATIC_URL }}geonode/images/pl.jpg" class="img-responsive" alt="team img">
+				<h3 style="font-size: 20px">Ayin Tamondong</h3>
+				<h4>Project Leader</h4>
+			</div>	
+            <div class="col-md-2 col-sm-6">
+                <img src="{{ STATIC_URL }}geonode/images/csrs.jpg" class="img-responsive" alt="team img">
+                <h3 style="font-size: 20px">Charm Cruz</h3>
+                <h4>Chief Science Research Specialist</h4>
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <img src="{{ STATIC_URL }}geonode/images/susrs.jpg" class="img-responsive" alt="team img">
+                <h3 style="font-size: 20px">Kristina Ticman</h3>
+                <h4>Supervising Science Research Specialist</h4>
+            </div>		
+		</div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1 col-sm-6">
+            </div>	
+            <div class="col-md-2 col-sm-6">
+                <img src="{{ STATIC_URL }}geonode/images/srs1.jpg" class="img-responsive" alt="team img">
+                <h3 style="font-size: 20px">Mark Vergara</h3>
+                <h4>Senior Science Research Specialist</h4>
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <img src="{{ STATIC_URL }}geonode/images/srs2.jpg" class="img-responsive" alt="team img">
+                <h3 style="font-size: 20px">Gay Amabelle Go</h3>
+                <h4>Senior Science Research Specialist</h4>
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <img src="{{ STATIC_URL }}geonode/images/srs3.jpg" class="img-responsive" alt="team img">
+                <h3 style="font-size: 20px">Rudolph Peralta</h3>
+                <h4>Senior Science Research Specialist</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1 col-sm-6">
+                <img src="{{ STATIC_URL }}geonode/images/ra1.jpg" class="img-responsive" alt="team img">
+                <h3 style="font-size: 20px">Rey Jalbuena</h3>
+                <h4>Research Associate</h4>
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <img src="{{ STATIC_URL }}geonode/images/ra2.jpg" class="img-responsive" alt="team img">
+                <h3 style="font-size: 20px">Ivy Cadalzo</h3>
+                <h4>Research Associate</h4>
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <img src="{{ STATIC_URL }}geonode/images/ra3.jpg" class="img-responsive" alt="team img">
+                <h3 style="font-size: 20px">Mia Estabillo</h3>
+                <h4>Research Associate</h4>
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <img src="{{ STATIC_URL }}geonode/images/ra4.jpg" class="img-responsive" alt="team img">
+                <h3 style="font-size: 20px">Rusty Quides</h3>
+                <h4>Research Associate</h4>
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <img src="{{ STATIC_URL }}geonode/images/ra5.jpg" class="img-responsive" alt="team img">
+                <h3 style="font-size: 20px">Al Songcuan</h3>
+                <h4>Research Associate</h4>
+            </div>
+        </div>
+	</div>
+</div>-->
+
+<!-- divider section -->
+<!--<div class="container">
+	<div class="row">
+		<div class="col-md-1 col-sm-1"></div>
+		<div class="col-md-10 col-sm-10">
+			<hr>
+		</div>
+		<div class="col-md-1 col-sm-1"></div>
+	</div>
+</div>-->
+
+<!-- portfolio section -->
+<!--<div id="portfolio">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<div class="title">
+					<h2>Sample Products</h2>
+				</div>
+				
+				<div class="iso-section">
+					<ul class="filter-wrapper clearfix">
+                   		 <li><a href="#" data-filter="*" class="selected opc-main-bg">All</a></li>
+                   		 <li><a href="#" class="opc-main-bg" data-filter=".aquaculture">Aquaculture</a></li>
+                   		 <li><a href="#" class="opc-main-bg" data-filter=".mangroves">Mangroves</a></li>
+                    	 <li><a href="#" class="opc-main-bg" data-filter=".benthic">Benthic Habitat</a></li>
+               		</ul>
+               		<div class="iso-box-section">
+               			<div class="iso-box-wrapper col4-iso-box">
+
+               				<div class="iso-box aquaculture col-md-4 col-sm-6 col-xs-12">
+               				 	<a href="{{ STATIC_URL }}geonode/images/portfolio-img1.jpg" data-lightbox-gallery="portfolio-gallery"><img src="{{ STATIC_URL }}geonode/images/portfolio-img1.jpg" alt="portfolio img"></a>
+               				 </div>
+
+               				 <div class="iso-box aquaculture col-md-4 col-sm-6 col-xs-12">
+               				 	<a href="{{ STATIC_URL }}geonode/images/portfolio-img2.jpg" data-lightbox-gallery="portfolio-gallery"><img src="{{ STATIC_URL }}geonode/images/portfolio-img2.jpg" alt="portfolio img"></a>
+               				 </div>
+
+               				 <div class="iso-box aquaculture col-md-4 col-sm-6 col-xs-12">
+               				 	<a href="{{ STATIC_URL }}geonode/images/portfolio-img3.jpg" data-lightbox-gallery="portfolio-gallery"><img src="{{ STATIC_URL }}geonode/images/portfolio-img3.jpg" alt="portfolio img"></a>
+               				 </div>
+
+               				 <div class="iso-box mangroves col-md-6 col-sm-6 col-xs-12">
+               				 	<a href="{{ STATIC_URL }}geonode/images/portfolio-img4.jpg" data-lightbox-gallery="portfolio-gallery"><img src="{{ STATIC_URL }}geonode/images/portfolio-img4.jpg" alt="portfolio img"></a>
+               				 </div>
+
+               				 <div class="iso-box mangroves col-md-6 col-sm-6 col-xs-12">
+               				 	<a href="{{ STATIC_URL }}geonode/images/portfolio-img5.jpg" data-lightbox-gallery="portfolio-gallery"><img src="{{ STATIC_URL }}geonode/images/portfolio-img5.jpg" alt="portfolio img"></a>
+               				 </div>
+
+               				 <div class="iso-box benthic col-md-4 col-sm-6 col-xs-12">
+               				 	<a href="{{ STATIC_URL }}geonode/images/portfolio-img7.jpg" data-lightbox-gallery="portfolio-gallery"><img src="{{ STATIC_URL }}geonode/images/portfolio-img7.jpg" alt="portfolio img"></a>
+               				 </div>
+
+               				 <div class="iso-box benthic col-md-4 col-sm-6 col-xs-12">
+               				 	<a href="{{ STATIC_URL }}geonode/images/portfolio-img8.jpg" data-lightbox-gallery="portfolio-gallery"><img src="{{ STATIC_URL }}geonode/images/portfolio-img8.jpg" alt="portfolio img"></a>
+               				 </div>
+                             <div class="iso-box benthic col-md-4 col-sm-6 col-xs-12">
+                                <a href="{{ STATIC_URL }}geonode/images/portfolio-img8.jpg" data-lightbox-gallery="portfolio-gallery"><img src="{{ STATIC_URL }}geonode/images/portfolio-img8.jpg" alt="portfolio img"></a>
+                             </div>
+
+               			</div>
+               		</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>-->		
+
+<!-- divider section -->
+<!--<div class="container">
+	<div class="row">
+		<div class="col-md-1 col-sm-1"></div>
+		<div class="col-md-10 col-sm-10">
+			<hr>
+		</div>
+		<div class="col-md-1 col-sm-1"></div>
+	</div>
+</div>-->
+
+<!-- pricing section -->
+<!--<div id="pricing">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<h2>How to Download</h2>
+			</div>
+			<div class="col-md-4 col-sm-6 col-xs-10">
+				<div class="plan">
+					<div class="plan-title">
+						<h3>Register</h3>
+						<small>FOR FREE</small>
+					</div>
+					<ul>
+					</ul>
+					<a class="btn btn-warning" href="https://lipad.dream.upd.edu.ph/datarequests/register">Register</a>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6 col-xs-10">
+				<div class="plan">
+					<div class="plan-title">
+						<h3>Sign in</h3>
+						<small>TO ACCESS REPOSITORY</small>
+					</div>
+					<ul>						
+					</ul>
+					{% if not user.is_authenticated and REGISTRATION_OPEN %}
+					<a class="btn btn-warning" href="{% url "account_signup" %}">Sign In</a>
+					{% endif %}
+					{% if user.is_authenticated %}
+					<a class="btn btn-warning" href="https://coastmap.dream.upd.edu.ph/layers">Sign in</a>
+					{% else %}
+					<a class="btn btn-warning" href="{% url "cas_ng_login" %}" role="button">Sign in</a>
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6 col-xs-10">
+				<div class="plan">
+					<div class="plan-title">
+						<h3>Download</h3>
+						<small>DATA FROM AVAILABLE LAYERS</small>
+					</div>
+					<ul>						
+					</ul>
+					{% if not user.is_authenticated and REGISTRATION_OPEN %}
+					<a class="btn btn-warning" href="{% url "account_signup" %}">Download</a>
+					{% endif %}
+					{% if user.is_authenticated %}
+					<a class="btn btn-warning" href="https://coastmap.dream.upd.edu.ph/layers">Download</a>
+					{% else %}
+					<a class="btn btn-warning" href="{% url "cas_ng_login" %}" role="button">Download</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>-->
+
+<!-- divider section -->
+<!--<div class="container">
+	<div class="row">
+		<div class="col-md-1 col-sm-1"></div>
+		<div class="col-md-10 col-sm-10">
+			<hr>
+		</div>
+		<div class="col-md-1 col-sm-1"></div>
+	</div>
+</div>-->
+
+<!-- contact section -->
+<!--<div id="contact">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<h2>Keep in touch</h2>
+			</div>
+			<form action="#" method="post" role="form">
+				<div class="col-md-1 col-sm-1"></div>
+				<div class="col-md-10 col-sm-10">
+					<div class="col-md-6 col-sm-6">
+						<input name="name" type="text" class="form-control" id="name" placeholder="Name">
+				  	</div>
+					<div class="col-md-6 col-sm-6">
+						<input name="email" type="email" class="form-control" id="email" placeholder="Email">
+				  	</div>
+                    <div class="col-md-12 col-sm-12">
+						<input name="subject" type="text" class="form-control" id="subject" placeholder="Subject">
+	    	  	  	</div>
+					<div class="col-md-12 col-sm-12">
+						<textarea name="message" rows="5" class="form-control" id="message" placeholder="Message"></textarea>
+					</div>
+					<div class="col-md-8 col-sm-8">
+						<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy</p>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<input name="submit" type="submit" class="form-control" id="submit" value="SEND MESSAGE">
+					</div>
+				</div>
+				<div class="col-md-1 col-sm-1"></div>
+			</form>
+		</div>
+	</div>
+</div>-->
+
+<!-- divider section -->
+<!--<div class="container">
+	<div class="row">
+		<div class="col-md-1 col-sm-1"></div>
+		<div class="col-md-10 col-sm-10">
+			<hr>
+		</div>
+		<div class="col-md-1 col-sm-1"></div>
+	</div>
+</div>-->
+
+<!-- footer section -->
+<!--<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-sm-6">
+				<h2>Our Office</h2>
+				<p>110 MELCHOR HALL, UNIVERSITY OF THE PHILIPPINES DILIMAN</p>
+				<p>Email: <span>coastmap@gmail.com</span></p>
+				<p>Phone: <span>981 8500 local 3123</span></p>
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<h2>Social Us</h2>
+				<ul class="social-icons">
+					<li><a href="#" class="fa fa-facebook"></a></li>
+                    <li><a href="#" class="fa fa-google-plus"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>-->
+
+<!-- divider section -->
+<!--<div class="container">
+	<div class="row">
+		<div class="col-md-1 col-sm-1"></div>
+		<div class="col-md-10 col-sm-10">
+			<hr>
+		</div>
+		<div class="col-md-1 col-sm-1"></div>
+	</div>
+</div>-->
+
+<!-- copyright section -->
+<!--<div class="copyright">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<p>Copyright &copy; 2017 Phil-LiDAR 2 CoastMap 
+                
+                - Design: <a rel="nofollow" href="http://www.tooplate.com" target="_parent">Tooplate</a></p>
+			</div>
+		</div>
+	</div>
+</div>-->
+
+<!-- scrolltop section -->
+<a href="#top" class="go-top"><i class="fa fa-angle-up"></i></a>
+
+
+<!-- javascript js -->	
+<script src="{{ STATIC_URL }}geonode/js/new/jquery.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/new/bootstrap.min.js"></script>	
+<script src="{{ STATIC_URL }}geonode/js/new/nivo-lightbox.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/new/smoothscroll.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/new/jquery.nav.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/new/isotope.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/new/imagesloaded.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/new/custom.js"></script>
+
+</body>
+</html>

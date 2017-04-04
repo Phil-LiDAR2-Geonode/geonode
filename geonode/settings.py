@@ -37,7 +37,7 @@ PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 # Setting debug to true makes Django serve static media and
 # present pretty error pages.
-DEBUG = TEMPLATE_DEBUG = True
+DEBUG = TEMPLATE_DEBUG = False
 
 # Set to True to load non-minified versions of (static) client dependencies
 # Requires to set-up Node and tools that are required for static development
@@ -238,7 +238,6 @@ GEONODE_APPS = (
     'geonode.geoserver',
     'geonode.upload',
     'geonode.tasks',
-
     'geonode.reports',
 )
 
@@ -403,6 +402,7 @@ MIDDLEWARE_CLASSES = (
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'guardian.backends.ObjectPermissionBackend',
+    'django_cas_ng.backends.CASBackend',
 )
 
 ANONYMOUS_USER_ID = -1
@@ -628,14 +628,14 @@ MAP_BASELAYERS = [{
     "source": {"ptype": "gxp_osmsource"},
     "type": "OpenLayers.Layer.OSM",
     "name": "mapnik",
-    "visibility": False,
+    "visibility": True,
     "fixed": True,
     "group": "background"
 }, {
     "source": {"ptype": "gxp_mapquestsource"},
     "name": "osm",
     "group": "background",
-    "visibility": True
+    "visibility": False
 }, {
     "source": {"ptype": "gxp_mapquestsource"},
     "name": "naip",
@@ -941,3 +941,8 @@ if 'geonode.geoserver' in INSTALLED_APPS:
     baselayers = MAP_BASELAYERS
     MAP_BASELAYERS = [LOCAL_GEOSERVER]
     MAP_BASELAYERS.extend(baselayers)
+<<<<<<< HEAD
+
+CAS_VERSION = 3
+=======
+>>>>>>> 5a1ff33b6b3f33bf3b2c8b7fc9a3a580e59893f7

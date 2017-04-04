@@ -160,7 +160,12 @@
             {% if links %}
             <ul>
               {% for link in links %}
+<<<<<<< HEAD
+              <!---<li><a href="{{ link.url }}">{% trans link.name %}</a></li>-->
+	      <li><a class='Downloadlink' href="{{ link.url }}" data-type="{% trans link.name %}">{% trans link.name %}</a></li>
+=======
               <li><a class='Downloadlink' href="{{ link.url }}" data-type="{% trans link.name %}">{% trans link.name %}</a></li>
+>>>>>>> 5a1ff33b6b3f33bf3b2c8b7fc9a3a580e59893f7
               {% endfor %}
             </ul>
             {% endif %}
@@ -412,15 +417,15 @@
       });
     </script>
     <script type="text/javascript">
-    $('.Downloadlink').click(function(){
-      dl_type=$(this).data("type");
-      $.ajax({
-        url: window.location.pathname + "/layer_tracker/" + dl_type + "/",
-        type:"POST",
-        success: function(){
-        }
+      $('.Downloadlink').click(function(){
+        dl_type=$(this).data("type");
+        $.ajax({
+          url: window.location.pathname + "/layer_tracker/" + dl_type + "/",
+          type:"POST",
+          success: function(){
+          }
+        });
       });
-    });
     </script>
     {% if GEONODE_SECURITY_ENABLED %}
     {% include "_permissions_form_js.html" %}
