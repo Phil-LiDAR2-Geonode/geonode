@@ -1,11 +1,13 @@
+import sys
+sys.path.insert(0,'/home/geonode/geonode')
 from geonode.settings import GEONODE_APPS
 import geonode.settings as settings
 from actstream.models import Action
-from geonode.eula.models import AnonDownloader
+#from geonode.eula.models import AnonDownloader
 from geonode.reports.models import DownloadCount, SUCLuzViMin, DownloadTracker
 from datetime import datetime, timedelta
 from geonode.layers.models import Layer
-from geonode.cephgeo.models import FTPRequest, FTPRequestToObjectIndex, DataClassification
+#from geonode.cephgeo.models import FTPRequest, FTPRequestToObjectIndex, DataClassification
 from geonode.people.models import Profile
 
 from osgeo import ogr
@@ -15,7 +17,7 @@ from shapely.ops import cascaded_union
 
 global layer_count, source
 layer_count = {}
-source = ogr.Open(("PG:host={0} dbname={1} user={2} password={3}".format(settings.DATABASE_HOST,settings.DATASTORE_DB,settings.DATABASE_USER,settings.DATABASE_PASSWORD)))
+#source = ogr.Open(("PG:host={0} dbname={1} user={2} password={3}".format(settings.DATABASE_HOST,settings.DATASTORE_DB,settings.DATABASE_USER,settings.DATABASE_PASSWORD)))
 
 def get_SUC_using_gridref(abscissa, ordinate, _TILE_SIZE = 1000):
     data = source.ExecuteSQL("select * from "+settings.PL1_SUC_MUNIS)
@@ -153,8 +155,8 @@ if __name__ == "__main__":
     minusdays = 1
     layer_count = {}
     main(minusdays,DownloadTracker.objects, 'timestamp', 'actor','resource_type','title', False)
-    main(minusdays,AnonDownloader.objects, 'date', False,'anon_document','anon_layer', False)
-    main(minusdays,FTPRequest.objects,'date_time','user','','',True)
+#    main(minusdays,AnonDownloader.objects, 'date', False,'anon_document','anon_layer', False)
+#    main(minusdays,FTPRequest.objects,'date_time','user','','',True)
     print(layer_count)
 
     save_to_dc(minusdays,layer_count)
