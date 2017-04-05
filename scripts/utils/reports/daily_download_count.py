@@ -1,5 +1,4 @@
 import sys
-for path in sys.path: print path
 sys.path.insert(0,'/home/geonode/geonode')
 from geonode.settings import GEONODE_APPS
 import geonode.settings as settings
@@ -18,7 +17,7 @@ from shapely.ops import cascaded_union
 
 global layer_count, source
 layer_count = {}
-source = ogr.Open(("PG:host={0} dbname={1} user={2} password={3}".format(settings.DATABASE_HOST,settings.DATASTORE_DB,settings.DATABASE_USER,settings.DATABASE_PASSWORD)))
+#source = ogr.Open(("PG:host={0} dbname={1} user={2} password={3}".format(settings.DATABASE_HOST,settings.DATASTORE_DB,settings.DATABASE_USER,settings.DATABASE_PASSWORD)))
 
 def get_SUC_using_gridref(abscissa, ordinate, _TILE_SIZE = 1000):
     data = source.ExecuteSQL("select * from "+settings.PL1_SUC_MUNIS)
