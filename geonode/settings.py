@@ -303,6 +303,8 @@ INSTALLED_APPS = (
     'tastypie',
     'polymorphic',
     'guardian',
+    
+    'south',
 
 ) + GEONODE_APPS
 
