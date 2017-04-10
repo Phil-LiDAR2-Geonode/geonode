@@ -55,25 +55,19 @@
             <li id="nav_layers">
               <a href="{% url "layer_browse" %}">{% trans "Layers" %}</a>
             </li>
-            <!--<li id="nav_maps">
+            <li id="nav_maps">
               <a href="{% url "maps_browse" %}">{% trans "Maps" %}</a>
-            </li>-->
+            </li>
             <li id="nav_documents">
               <a href="{% url "document_browse" %}">{% trans "Documents" %}</a>
             </li>
            {% block extra_tab %}
            {% endblock %}
-            <!--<li id="nav_people">
+            <li id="nav_people">
               <a href="{% url "profile_browse" %}">{% trans "People" %}</a>
             </li>
             <li id="nav_groups">
               <a href="{% url "group_list" %}">{% trans "Groups" %}</a>
-            </li> -->
-            <li id="nav_aboutphd">
-              <a href="{% url "about_phd" %}">{% trans "About" %}</a>
-            </li>
-            <li id="nav_contact">
-              <a href="{% url "contact" %}">{% trans "Contact" %}</a>
             </li>
             {% endblock %}
           </ul>
@@ -140,7 +134,7 @@
     {% endblock middle %}
   </div>
     
-    <!--{% block footer %}
+    {% block footer %}
     <footer class="footer">
       <div class="container">
         <div class="row">
@@ -168,7 +162,7 @@
         </div>
       </div>
     </footer>
-    {% endblock footer %} -->
+    {% endblock footer %}
 
 
     <!-- Modal must stay outside the navbar -->

@@ -403,6 +403,13 @@ def new_map_json(request):
         else:
             return HttpResponse(config)
 
+    elif settings.RESOURCE_PUBLISHING:
+        return HttpResponse(
+            _PERMISSION_MSG_SAVE,
+            status=401,
+            mimetype="text/plain"
+        )
+
     elif request.method == 'POST':
         if not request.user.is_authenticated():
             return HttpResponse(

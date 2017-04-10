@@ -610,7 +610,16 @@ DEFAULT_MAP_CENTER = (0, 0)
 # maximum zoom is between 12 and 15 (for Google Maps, coverage varies by area)
 DEFAULT_MAP_ZOOM = 0
 
-MAP_BASELAYERS = [{
+MAP_BASELAYERS = [
+{
+    "source": {"ptype": "gxp_osmsource"},
+    "type": "OpenLayers.Layer.OSM",
+    "name": "mapnik",
+    "visibility": True,
+    "fixed": True,
+    "group": "background"
+}, 
+{
     "source": {"ptype": "gxp_olsource"},
     "type": "OpenLayers.Layer",
     "args": ["No background"],
@@ -618,26 +627,19 @@ MAP_BASELAYERS = [{
     "fixed": True,
     "group":"background"
 }, {
-    "source": {"ptype": "gxp_osmsource"},
-    "type": "OpenLayers.Layer.OSM",
-    "name": "mapnik",
-    "visibility": False,
-    "fixed": True,
-    "group": "background"
-}, {
-    "source": {"ptype": "gxp_mapquestsource"},
-    "name": "osm",
-    "group": "background",
-    "visibility": True
-}, {
-    "source": {"ptype": "gxp_mapquestsource"},
-    "name": "naip",
-    "group": "background",
-    "visibility": False
-}, 
-{
     "source": {"ptype": "gxp_mapboxsource"},
-}]
+}#, {
+#    "source": {"ptype": "gxp_mapquestsource"},
+#    "name": "osm",
+#    "group": "background",
+#    "visibility": False
+#}, {
+#    "source": {"ptype": "gxp_mapquestsource"},
+#    "name": "naip",
+#    "group": "background",
+#    "visibility": False
+#}
+]
 
 SOCIAL_BUTTONS = True
 

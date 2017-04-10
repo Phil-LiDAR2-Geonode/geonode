@@ -1,0 +1,37 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% block title %} {% trans "Contact Us" %} — {{ block.super }} {% endblock %}
+
+{% block body_class %}contact explore{% endblock %}
+{% block body_outer %}
+<div class="container2">
+    <div class="page-header">
+      <h2 style="color:#fff">{% trans "Contact Us" %}</h2>
+    </div>
+
+    <p class="lead">{% trans "Office Address" %}</p>
+    <p>Rm 402<br>
+    National Engineering Center<br>
+    University of the Philippines<br>
+    Diliman, Quezon City<br></p>
+
+    <p class="lead">{% trans "Staff" %}</p>
+    <p>Engr. Anjillyn Mae C. Perez<br>
+    Project Leader<br>
+    Email: anjillynmae@yahoo.com<br></p>
+    <p>Engr. Roel M. de la Cruz<br>
+    Chief Science Research Specialist<br>
+    Email: rmdelacruz.phillidar2.upd@gmail.com<br></p>
+    <p>Engr. Nestor T. Olfindo Jr.<br>
+    Supervising Science Research Specialist<br>
+    Email: ntolfindojr.phillidar2.upd@gmail.com<br></p>
+    <p>Engr. Noel Jerome B. Borlongan<br>
+    Senior Science Research Specialist<br>
+    Email: njbborlongan.phillidar2.upd@gmail.com<br></p>
+    <p>Engr. Machele M. Felicen<br>
+    Senior Science Research Specialist<br>
+    Email: mmfelicen.phillidar2.upd@gmail.com<br></p>
+</div>
+
+{% endblock %}
