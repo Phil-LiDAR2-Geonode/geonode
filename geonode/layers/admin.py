@@ -42,7 +42,8 @@ class LayerAdmin(MediaTranslationAdmin):
         'service_type',
         'title',
         'date',
-        'category')
+        'category',
+        'is_published')
     list_display_links = ('id',)
     list_editable = ('title', 'category')
     list_filter = ('storeType', 'owner', 'category',
