@@ -8,15 +8,27 @@
 {% block body_class %}home{% endblock %}
 
 {% block middle %}
-   {{ block.super }}
+  {{ block.super }}
   {% block hero %}
   <div class="jumbotron">
-    <div class="container">
+    <!-- <div class="container">
       <h1>{% trans "REMap" %}</h1>
       <p>{% blocktrans %}The Philippine Renewable Energy Resource Mapping from LiDAR Surveys (REMap) is tasked with assessing the Biomass, Hydro, Solar, and Wind Energy resource in the country using LiDAR and other geospatial technologies.{% endblocktrans %}</p>
       <br>
       <p>{% blocktrans %}This geoportal <em>(powered by GeoNode)<em> was made to fascilitate the archiving and distribition of REMap's outputs.{% endblocktrans %}</p>
-      <!-- <span>{% trans 'Need help?' %} <a href="http://docs.geonode.org/en/latest/tutorials/users/quickstart/index.html">{% trans 'Getting Started' %}</a></span> -->
+    </div> -->
+    <div class="container">
+      <div class="col-md-6 col-sm-12">
+        <h1 class="project-title">Phil-LiDAR 2 - <strong>REMap</strong></h1>
+        <h3>Philippine Renewable Energy Resource Mapping from LiDAR Surveys</h3>
+        <br>
+        <p>The REMap project is tasked with assessing the Biomass, Hydro, Solar, and Wind Energy resource in the country using LiDAR and other geospatial technologies.</p>
+        <p>This geoportal <em>(powered by GeoNode)</em> was made to fascilitate the archiving and distribition of REMap's outputs.{% endblocktrans %}</p>
+      </div>
+
+      <div class="col-md-6 col-sm-12">
+        
+      </div>
     </div>
   </div>
   {% endblock %}
