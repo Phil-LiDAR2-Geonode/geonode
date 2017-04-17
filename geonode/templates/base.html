@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ STATIC_URL }}geonode/image/favicon.png" type="image/png">	
+
     {% block head %}
       {% if DEBUG_STATIC %}
       <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css?v={{ VERSION }}" rel="stylesheet" />
@@ -140,9 +142,10 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8">
-            {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a> <em>{% trans "version" %} {{ VERSION }}</em> |
+            {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a>
+            <!-- {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a> <em>{% trans "version" %} {{ VERSION }}</em> |
             <a href="{% url "developer" %}">{% trans "Developers" %}</a> |
-            <a href="{% url "about" %}">{% trans "About" %}</a>
+            <a href="{% url "about" %}">{% trans "About" %}</a> -->
           </div>
           <div class="col-md-4">
             <label class="hidden">{% trans "Language" %}</label>
