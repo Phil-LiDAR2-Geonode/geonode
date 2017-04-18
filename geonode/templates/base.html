@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
-    <link rel="shortcut icon" href="{{ STATIC_URL }}geonode/image/favicon.png">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}geonode/img/favicon.png">
 
     {% block head %}
       {% if DEBUG_STATIC %}
@@ -16,12 +16,16 @@
       <link href="{{ STATIC_URL }}lib/css/jquery-ui.css?v={{ VERSION }}" rel="stylesheet"/>
       <link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css?v={{ VERSION }}" rel="stylesheet"/>
       {% else %}
+      <!-- EDITED -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
       <link href="{{ STATIC_URL }}lib/css/assets.min.css?v={{ VERSION }}" rel="stylesheet"/>
       {% endif %}
       <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css?v={{ VERSION }}" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/base.css?v={{ VERSION }}" rel="stylesheet" />
+      <!-- <link href="{{ STATIC_URL }}geonode/css/base.css?v={{ VERSION }}" rel="stylesheet" /> -->
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
-      <link href="{{ STATIC_URL }}geonode/css/remap.css" rel="stylesheet" />
+      <!-- <link href="{{ STATIC_URL }}geonode/css/remap.css" rel="stylesheet" /> -->
+      <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" />
       {% block extra_head %}
       {% endblock %}
     {% endblock %}
@@ -55,6 +59,9 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             {% block tabs %}
+            <li>
+              <a href="{% url "home" %}#about-remap">{% trans "About" %}</a>
+            </li>
             <li id="nav_layers">
               <a href="{% url "layer_browse" %}">{% trans "Layers" %}</a>
             </li>
@@ -66,10 +73,13 @@
             </li>
            {% block extra_tab %}
            {% endblock %}
-            <li id="nav_people">
+           <li id="nav_team">
+             <a href="{% url "about" %}">{% trans "The Team" %}</a>
+           </li>
+            <!-- <li id="nav_people">
               <a href="{% url "profile_browse" %}">{% trans "People" %}</a>
             </li>
-            <!-- <li id="nav_groups">
+            <li id="nav_groups">
               <a href="{% url "group_list" %}">{% trans "Groups" %}</a>
             </li> -->
             {% endblock %}
@@ -141,29 +151,39 @@
     {% block footer %}
     <footer class="footer">
       <div class="container">
-        <div class="row">
-          <div class="col-md-8">
-            {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a>
-            <!-- {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a> <em>{% trans "version" %} {{ VERSION }}</em> |
-            <a href="{% url "developer" %}">{% trans "Developers" %}</a> |
-            <a href="{% url "about" %}">{% trans "About" %}</a> -->
-          </div>
-          <div class="col-md-4">
-            <label class="hidden">{% trans "Language" %}</label>
-            {% if csrf_token != "NOTPROVIDED" %}
-            {% get_current_language as LANGUAGE %}
-            <form class="form-inline" action="/i18n/setlang/" method="post">
-            {% csrf_token %}
-              <select class="col-md-6 pull-right" name="language" onchange="javascript:form.submit()">
-                {% for lang in LANGUAGES %}
-                <option value="{{ lang.0 }}" {% ifequal LANGUAGE_CODE lang.0 %} selected="selected"{% endifequal %}>
-                  {{ lang.1 }}
-                </option>
-                {% endfor %}
-              </select>
-            </form>
-            {% endif %}
-          </div>
+        <div class="col-md-6 col-sm-12">
+          <p class="footer-text">
+          Philippine Renewable Energy Resource Mapping from LiDAR Surveys<br>
+          MH 406, Applied Geodesy and Space Technology (AGST) Laboratory<br>
+          Melchor Hall, College of Engineering<br>
+          University of the Philippines Diliman<br>
+          Quezon City, 1101 PHL<br>
+          (+63)-2-981-8500 loc. 3147<br>
+          </p>
+        </div>
+
+        <div class="col-md-6 col-sm-12">
+          <label>{% trans "Language" %}</label>
+          {% if csrf_token != "NOTPROVIDED" %}
+          {% get_current_language as LANGUAGE %}
+          <form class="form-inline" action="/i18n/setlang/" method="post">
+          {% csrf_token %}
+            <select class="col-md-6 pull-left" name="language" onchange="javascript:form.submit()">
+              {% for lang in LANGUAGES %}
+              <option value="{{ lang.0 }}" {% ifequal LANGUAGE_CODE lang.0 %} selected="selected"{% endifequal %}>
+                {{ lang.1 }}
+              </option>
+              {% endfor %}
+            </select>
+          </form>
+          {% endif %}
+
+          <br><br>
+          {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a>
+          <!-- {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a> <em>{% trans "version" %} {{ VERSION }}</em> |
+          <a href="{% url "developer" %}">{% trans "Developers" %}</a> |
+          <a href="{% url "about" %}">{% trans "About" %}</a> -->
+
         </div>
       </div>
     </footer>
@@ -271,6 +291,13 @@
     <script src="{{ STATIC_URL }}lib/js/waypoints.js?v={{ VERSION }}"></script>
     {% else %}
     <script src="{{ STATIC_URL }}lib/js/assets.min.js?v={{ VERSION }}"></script>
+    <!-- EDITED -->
+    <script
+			  src="https://code.jquery.com/jquery-3.2.1.js"
+			  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+			  crossorigin="anonymous">
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     {% endif %}
     <script src="{{ STATIC_URL }}geonode/js/utils/utils.js?v={{ VERSION }}"></script>
     <script src="{{ STATIC_URL }}geonode/js/base/base.js?v={{ VERSION }}"></script>

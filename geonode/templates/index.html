@@ -11,29 +11,102 @@
   {{ block.super }}
   {% block hero %}
   <div class="jumbotron">
-    <!-- <div class="container">
-      <h1>{% trans "REMap" %}</h1>
-      <p>{% blocktrans %}The Philippine Renewable Energy Resource Mapping from LiDAR Surveys (REMap) is tasked with assessing the Biomass, Hydro, Solar, and Wind Energy resource in the country using LiDAR and other geospatial technologies.{% endblocktrans %}</p>
-      <br>
-      <p>{% blocktrans %}This geoportal <em>(powered by GeoNode)<em> was made to fascilitate the archiving and distribition of REMap's outputs.{% endblocktrans %}</p>
-    </div> -->
     <div class="container">
-      <div class="col-md-6 col-sm-12">
-        <h1 class="project-title">Phil-LiDAR 2 - <strong>REMap</strong></h1>
-        <h3>Philippine Renewable Energy Resource Mapping from LiDAR Surveys</h3>
+      <div class="col-md-6 col-sm-12 container-padding-all-10">
+        <p class="project-title">Phil-LiDAR 2 - <strong>REMap</strong></p>
+        <p class="project-name">{% trans "Philippine Renewable Energy Resource Mapping from LiDAR Surveys" %}</p>
         <br>
-        <p>The REMap project is tasked with assessing the Biomass, Hydro, Solar, and Wind Energy resource in the country using LiDAR and other geospatial technologies.</p>
-        <p>This geoportal <em>(powered by GeoNode)</em> was made to fascilitate the archiving and distribition of REMap's outputs.</p>
+        <p style="text-align: justify;">The REMap project is tasked with assessing the <strong><span class="color-biomass">Biomass</span></strong>, <strong><span class="color-hydro">Hydro</span></strong>, <strong><span class="color-solar">Solar</span></strong>, and <strong><span class="color-wind">Wind</span></strong> Energy resource in the country using LiDAR and other geospatial technologies.</p>
+        <br>
+        <p style="text-align: justify;">This geoportal <em>(powered by GeoNode)</em> is here to fascilitate the archiving and distribition of REMap's outputs.</p>
       </div>
 
-      <div class="col-md-6 col-sm-12">
-
+      <!-- Carousel -->
+      <div class="col-md-6 col-sm-12 container-padding-all-10 container-carousel">
+        <div id="remap-carousel-1" class="carousel slide" data-ride="carousel" data-interval="3000">
+            <!-- Carousel indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#remap-carousel-1" data-slide-to="0" class="active"></li>
+                <li data-target="#remap-carousel-1" data-slide-to="1"></li>
+                <li data-target="#remap-carousel-1" data-slide-to="2"></li>
+            </ol>
+            <!-- Wrapper for carousel items -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img class="carousel-img" src="{{STATIC_URL}}geonode/img/carousel/remap-1st-gw.png" alt="REMap First General Workshop (2015)">
+                </div>
+                <div class="item">
+                    <img class="carousel-img" src="{{STATIC_URL}}geonode/img/carousel/pyra-2.png" alt="REMap Pyranometer at MSU-IIT">
+                </div>
+                <div class="item">
+                    <img class="carousel-img" src="{{STATIC_URL}}geonode/img/carousel/remap-1st-year-ender.png" alt="Phil-LiDAR2 First Year Ender (2014)">
+                </div>
+            </div>
+            <!-- Carousel controls -->
+            <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
       </div>
+
     </div>
   </div>
   {% endblock %}
 
+  <div class="container container-padding-tb-10">
+    <hr>
+  </div>
+
   {% block mainbody %}
+  <div class="container container-padding-t-50" id="about-remap">
+    <div class="col-md-6 col-sm-12 remap-framework-img-container">
+      <img class="img-responsive remap-framework-img" src="{{STATIC_URL}}geonode/img/site/remap-conceptual-framework.png">
+    </div>
+    <div class="col-md-6 col-sm-12 remap-framework-text-container">
+      <p style="text-align: justify;">
+        Launched on July 1, 2014, <strong>REMap</strong> is the 5th component of the <strong>Phil-LiDAR 2 Program</strong> and is a directed research funded by the Department of Science and Technology (<strong>DOST</strong>).<br><br>
+        It explores the utilization of <strong>LiDAR</strong> and other geospatial data for evaluating renewable energy resources, focusing on <strong><span class="color-biomass">biomass</span></strong>, <strong><span class="color-hydro">hydro</span></strong>, <strong><span class="color-solar">solar</span></strong>, and <strong><span class="color-wind">wind</span></strong>.
+      </p>
+      <br>
+
+      <p style="text-align: justify;">
+        The <strong>objectives</strong> of the Project are:<br>
+        1. Develop workflows and algorithms for RE resource assessment using LiDAR and other geospatial data and technologies;<br>
+        2. Assess the renewable energy potential of the Philippines for <strong><span class="color-biomass">biomass</span></strong>, <strong><span class="color-hydro">hydro</span></strong>, <strong><span class="color-solar">solar</span></strong>, and <strong><span class="color-wind">wind</span></strong>; and <br>
+        3. Perform site suitability assessment for the development of <strong><span class="color-biomass">biomass</span></strong>, <strong><span class="color-hydro">hydro</span></strong>, <strong><span class="color-solar">solar</span></strong>, and <strong><span class="color-wind">wind</span></strong>.
+      </p>
+    </div>
+  </div>
+
+  <div class="container container-padding-tb-10">
+    <hr>
+  </div>
+
+  <div class="container container-padding-tb-10">
+    <div class="col-md-3 col-sm-6 col-xs-12 component-container">
+      BIOMASS
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12 component-container">
+      HYDRO
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12 component-container">
+      SOLAR
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12 component-container">
+      WIND
+    </div>
+  </div>
+
+  <div class="container container-padding-tb-10">
+    <hr>
+  </div>
+
   <div class="container">
     <div class="row home-facets">
     {% with facet_type='home' %}

@@ -174,7 +174,7 @@ STATICFILES_DIRS = [
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Note that Django automatically includes the "templates" dir in all the
@@ -640,7 +640,7 @@ MAP_BASELAYERS = [{
     "name": "naip",
     "group": "background",
     "visibility": False
-}, 
+},
 {
     "source": {"ptype": "gxp_mapboxsource"},
 }]
@@ -897,7 +897,7 @@ except ImportError:
     pass
 
 try:
-    BING_LAYER = {    
+    BING_LAYER = {
         "source": {
             "ptype": "gxp_bingsource",
             "apiKey": BING_API_KEY

@@ -1,21 +1,43 @@
 {% extends "site_base.html" %}
 
 {% load i18n %}
-{% block title %} {% trans "About GeoNode" %} — {{ block.super }} {% endblock %}
+{% block title %} {% trans "About REMap" %} — {{ block.super }} {% endblock %}
 
 {% block body_outer %}
 <div class="page-header">
-  <h2>{% trans "About GeoNode" %}</h2>
+  <h2>{% trans "About REMap" %}</h2>
 </div>
-<p class="lead">{% trans "About GeoNode." %}</p>
+<p class="lead"><strong>{% trans "The Philippine Renewable Energy Resource Mapping from LiDAR Surveys (REMap) Project" %}</strong></p>
 <p>
-GeoNode is a geospatial content management system, a platform for the management and publication of geospatial data. It brings together mature and stable open-source software projects under a consistent and easy-to-use interface allowing non-specialized users to share data and create interactive maps.
+Lorem ipsum...
 </p>
+
+<div>
+<h3 class="color-biomass">Biomass</h3>
 <p>
-Data management tools built into GeoNode allow for integrated creation of data, metadata, and map visualizations. Each dataset in the system can be shared publicly or restricted to allow access to only specific users. Social features like user profiles and commenting and rating systems allow for the development of communities around each platform to facilitate the use, management, and quality control of the data the GeoNode instance contains.
+Lorem ipsum...
 </p>
+</div>
+
+<div>
+<h3 class="color-hydro">Hydro</h3>
 <p>
-It is also designed to be a flexible platform that software developers can extend, modify or integrate against to meet requirements in their own applications.
+Lorem ipsum...
 </p>
+</div>
+
+<div>
+<h3 class="color-solar">Solar</h3>
+<p>
+Lorem ipsum...
+</p>
+</div>
+
+<div>
+<h3 class="color-wind">Wind</h3>
+<p>
+Lorem ipsum...
+</p>
+</div>
 
 {% endblock %}
