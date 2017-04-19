@@ -8,6 +8,12 @@
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
     <link rel="shortcut icon" href="{{ STATIC_URL }}geonode/img/favicon.png">
 
+    <!-- OG Meta -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Phil-LiDAR 2 - REMap" />
+    <meta property="og:description" content="The REMap project is tasked with assessing the Biomass, Hydro, Solar, and Wind Energy resource in the country using LiDAR and other geospatial technologies."/>
+    <meta property="og:image" content="{{ STATIC_URL }}geonode/img/logos/logo-remap.png">
+
     {% block head %}
       {% if DEBUG_STATIC %}
       <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css?v={{ VERSION }}" rel="stylesheet" />

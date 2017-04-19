@@ -69,11 +69,20 @@
   padding: 10px;
 }
 
+.part-heading {
+  color: #000000;
+}
+
+
+.components-ul li {
+  padding: 3px 0;
+}
+
 /*Texts*/
 html, body {
   background: #ffffff;
   font-family: 'Muli-Regular', Helvetica, sans-serif;
-  padding-top: 20px;
+  padding-top: 30px;
   font-size: 16px;
 }
 
@@ -107,17 +116,21 @@ a {
   line-height: 1.2;
 }
 
-@media screen and (max-width: 767px){
-  .project-title {
-    font-size: 48px;
-  }
-}
-
 .project-name {
   color: #040c0e;
   font-family: 'Muli-Regular', Helvetica, sans-serif;
   font-size: 32px;
   line-height: 1.2;
+}
+
+@media (max-width:767px) {
+  .project-title {
+    font-size: 48px;
+  }
+
+  .project-name {
+    font-size: 24px;
+  }
 }
 
 .color-biomass {

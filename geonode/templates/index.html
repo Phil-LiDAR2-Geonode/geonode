@@ -43,10 +43,10 @@
                 </div>
             </div>
             <!-- Carousel controls -->
-            <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <a class="carousel-control left" href="#remap-carousel-1" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
-            <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <a class="carousel-control right" href="#remap-carousel-1" data-slide="next">
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
         </div>
@@ -58,6 +58,7 @@
 
   <div class="container container-padding-tb-10">
     <hr>
+    <h1 class="text-center part-heading">The Project</h1>
   </div>
 
   {% block mainbody %}
@@ -73,38 +74,135 @@
       <br>
 
       <p style="text-align: justify;">
-        The <strong>objectives</strong> of the Project are:<br>
-        1. Develop workflows and algorithms for RE resource assessment using LiDAR and other geospatial data and technologies;<br>
-        2. Assess the renewable energy potential of the Philippines for <strong><span class="color-biomass">biomass</span></strong>, <strong><span class="color-hydro">hydro</span></strong>, <strong><span class="color-solar">solar</span></strong>, and <strong><span class="color-wind">wind</span></strong>; and <br>
-        3. Perform site suitability assessment for the development of <strong><span class="color-biomass">biomass</span></strong>, <strong><span class="color-hydro">hydro</span></strong>, <strong><span class="color-solar">solar</span></strong>, and <strong><span class="color-wind">wind</span></strong>.
+        The <strong>objectives</strong> of the Project are:
+        <ol style="text-align: justify;">
+          <li>Develop workflows and algorithms for RE resource assessment using LiDAR and other geospatial data and technologies;</li>
+          <li>Assess the renewable energy potential of the Philippines for <strong><span class="color-biomass">biomass</span></strong>, <strong><span class="color-hydro">hydro</span></strong>, <strong><span class="color-solar">solar</span></strong>, and <strong><span class="color-wind">wind</span></strong>; and </li>
+          <li>Perform site suitability assessment for the development of <strong><span class="color-biomass">biomass</span></strong>, <strong><span class="color-hydro">hydro</span></strong>, <strong><span class="color-solar">solar</span></strong>, and <strong><span class="color-wind">wind</span></strong>.</li>
+        </ol>
       </p>
+
+      <div class="pull-right">
+        <a href="{{ SITEURL }}/about"><button type="button" class="btn btn-primary">Read more</button></a>
+      </div>
+
     </div>
   </div>
 
   <div class="container container-padding-tb-10">
     <hr>
+    <h1 class="text-center part-heading">REMap Components</h1>
   </div>
 
   <div class="container container-padding-tb-10">
     <div class="col-md-3 col-sm-6 col-xs-12 component-container">
-      BIOMASS
+      <div class="mask rgba-white-slight">
+        <div class="card hoverable">
+          <div class="card-image">
+            <a href="{{ SITEURL }}/about#biomass">
+              <div class="view overlay hm-white-slight">
+                <img class="img-responsive" src="{{STATIC_URL}}geonode/img/logos/logo-biomass.png" alt="">
+              <div class="mask waves-effect">
+              </div>
+              </div>
+            </a>
+          </div>
+        <div class="card-content" style="padding: 1em .5em .2em .5em;">
+          <h3 class="color-biomass text-center">BIOMASS</h3>
+          <p>
+            <ul class="components-ul">
+              <li>Considers four major crops (rice/palay, corn, sugarcane, coconut).</li>
+              <li>Computes for the theoretical biomass potential using administrative boundaries and statistical data.</li>
+              <li>Computes the energy content of biomass potential evaluated using theoretical potential, lower heating value, efficiency of collection, availability of biomass for energy production and area of region under consideration.</li>
+              <li>Produces resource maps based on agricultural maps processed and classified using LandSAT satellite images and LiDAR datasets.</li>
+            </ul>
+          </p>
+        </div>
+        </div>
+      </div>
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-12 component-container">
-      HYDRO
+      <div class="mask rgba-white-slight">
+        <div class="card hoverable">
+          <div class="card-image">
+            <a href="{{ SITEURL }}/about#hydro">
+              <div class="view overlay hm-white-slight">
+                <img class="img-responsive" src="{{STATIC_URL}}geonode/img/logos/logo-hydro.png" alt="">
+              <div class="mask waves-effect">
+              </div>
+              </div>
+            </a>
+          </div>
+        <div class="card-content" style="padding: 1em .5em .2em .5em;">
+          <h3 class="color-hydro text-center">HYDRO</h3>
+          <p>
+            <ul class="components-ul">
+              <li>Considers the head (defined by a head determination algorithm applied to digital elevation models) and discharge (determined using the Soil and Water Assessment Tool coupled to ArcGIS) in computing for the power.</li>
+              <li>Hydropower resource maps (run-of-river hydropower systems) are classified according to the horizontal distance connecting the virtual intake and virtual powerhouse determined using the head determination algorithm.</li>
+            </ul>
+          </p>
+        </div>
+        </div>
+      </div>
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-12 component-container">
-      SOLAR
+      <div class="mask rgba-white-slight">
+        <div class="card hoverable">
+          <div class="card-image">
+            <a href="{{ SITEURL }}/about#solar">
+              <div class="view overlay hm-white-slight">
+                <img class="img-responsive" src="{{STATIC_URL}}geonode/img/logos/logo-solar.png" alt="">
+              <div class="mask waves-effect">
+              </div>
+              </div>
+            </a>
+          </div>
+        <div class="card-content" style="padding: 1em .5em .2em .5em;">
+          <h3 class="color-solar text-center">SOLAR</h3>
+          <p>
+            <ul class="components-ul">
+              <li>Computes National-scale Global Horizontal Irradiance (GHI) under clear-sky (cloudless) conditions.</li>
+              <li>Computes National-scale Global Horizontal Irradiance (GHI) under real-sky (cloudy) conditions for the development of large-scale solar farms.</li>
+              <li>Computes Urban-scale Global Horizontal Irradiance (GHI) on rooftops in selected urban areas under clear-sky and real-sky conditions.</li>
+            </ul>.
+          </p>
+        </div>
+        </div>
+      </div>
     </div>
 
     <div class="col-md-3 col-sm-6 col-xs-12 component-container">
-      WIND
+      <div class="mask rgba-white-slight">
+        <div class="card hoverable">
+          <div class="card-image">
+            <a href="{{ SITEURL }}/about#wind">
+              <div class="view overlay hm-white-slight">
+                <img class="img-responsive" src="{{STATIC_URL}}geonode/img/logos/logo-wind.png" alt="">
+              <div class="mask waves-effect">
+              </div>
+              </div>
+            </a>
+          </div>
+        <div class="card-content" style="padding: 1em .5em .2em .5em;">
+          <h3 class="color-wind text-center">WIND</h3>
+          <p>
+            <ul class="components-ul">
+              <li>Calculates wind power density and wind power using mean wind speed and wind direction generated from the Weather Research and Forecasting (WRF) model.</li>
+              <li>Wind speed and wind power density maps are classified according to potential turbine heights for development (at 80 meters and 100 meters) and to the years of simulation (2008, 2010, 2014, 2015, and 2016) to take into account climatic factors.</li>
+              <li>Micro-scale wind resource assessment for urban areas determined through the application of Computational Fluid Dynamics (CFD).</li>
+            </ul>.
+          </p>
+        </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="container container-padding-tb-10">
     <hr>
+    <h1 class="text-center part-heading">Outputs and Products</h1>
   </div>
 
   <div class="container">
