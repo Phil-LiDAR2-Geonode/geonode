@@ -150,7 +150,8 @@ body.home li#nav_about a, body.layers li#nav_layers a, body.maps li#nav_maps a, 
 .home-headers {
   font-family: 'Roboto';
   color: #333333;
-  font-size: 54px; }
+  font-size: 54px;
+  padding-top: 54px; }
   @media screen and (max-width: 991px) {
     .home-headers {
       font-size: 48px; } }
@@ -160,6 +161,15 @@ body.home li#nav_about a, body.layers li#nav_layers a, body.maps li#nav_maps a, 
   @media screen and (max-width: 480px) {
     .home-headers {
       font-size: 36px; } }
+  @media screen and (max-width: 991px) {
+    .home-headers {
+      padding-top: 48px; } }
+  @media screen and (max-width: 767px) {
+    .home-headers {
+      padding-top: 36px; } }
+  @media screen and (max-width: 767px) {
+    .home-headers {
+      padding-top: 24px; } }
 
 .jumbotron-container {
   display: flex;
