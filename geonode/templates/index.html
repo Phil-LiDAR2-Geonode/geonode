@@ -10,241 +10,211 @@
 {% block middle %}
   {{ block.super }}
   {% block hero %}
+
   <div class="jumbotron">
-    <div class="container">
-      <div class="col-md-6 col-sm-12 container-padding-all-10">
-        <p class="project-title">Phil-LiDAR 2 - <strong>REMap</strong></p>
-        <p class="project-name">{% trans "Philippine Renewable Energy Resource Mapping from LiDAR Surveys" %}</p>
-        <br>
-        <p style="text-align: justify;">The REMap project is tasked with assessing the <strong><span class="color-biomass">Biomass</span></strong>, <strong><span class="color-hydro">Hydro</span></strong>, <strong><span class="color-solar">Solar</span></strong>, and <strong><span class="color-wind">Wind</span></strong> Energy resource in the country using LiDAR and other geospatial technologies.</p>
-        <br>
-        <p style="text-align: justify;">This geoportal <em>(powered by GeoNode)</em> is here to fascilitate the archiving and distribition of REMap's outputs.</p>
+    <div class="jumbotron-container">
+      <div class="jt-title text-center">
+        <span class="project-title">Phil-LiDAR 2 - <strong>REMap</strong></span>
       </div>
-
-      <!-- Carousel -->
-      <div class="col-md-6 col-sm-12 container-padding-all-10 container-carousel">
-        <div id="remap-carousel-1" class="carousel slide" data-ride="carousel" data-interval="3000">
-            <!-- Carousel indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#remap-carousel-1" data-slide-to="0" class="active"></li>
-                <li data-target="#remap-carousel-1" data-slide-to="1"></li>
-                <li data-target="#remap-carousel-1" data-slide-to="2"></li>
-            </ol>
-            <!-- Wrapper for carousel items -->
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img class="carousel-img" src="{{STATIC_URL}}geonode/img/carousel/remap-1st-gw.png" alt="REMap First General Workshop (2015)">
-                </div>
-                <div class="item">
-                    <img class="carousel-img" src="{{STATIC_URL}}geonode/img/carousel/pyra-2.png" alt="REMap Pyranometer at MSU-IIT">
-                </div>
-                <div class="item">
-                    <img class="carousel-img" src="{{STATIC_URL}}geonode/img/carousel/remap-1st-year-ender.png" alt="Phil-LiDAR2 First Year Ender (2014)">
-                </div>
-            </div>
-            <!-- Carousel controls -->
-            <a class="carousel-control left" href="#remap-carousel-1" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="carousel-control right" href="#remap-carousel-1" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
-        </div>
+      <div class="jt-title text-center">
+        <span class="project-name">Philippine Renewable Energy Resource Mapping from LiDAR Surveys</span>
       </div>
-
     </div>
   </div>
+
   {% endblock %}
 
-  <div class="container container-padding-tb-10">
-    <hr>
-    <h1 class="text-center part-heading">The Project</h1>
-  </div>
-
   {% block mainbody %}
-  <div class="container container-padding-t-50" id="about-remap">
-    <div class="col-md-6 col-sm-12 remap-framework-img-container">
-      <img class="img-responsive remap-framework-img" src="{{STATIC_URL}}geonode/img/site/remap-conceptual-framework.png">
-    </div>
-    <div class="col-md-6 col-sm-12 remap-framework-text-container">
-      <p style="text-align: justify;">
-        Launched on July 1, 2014, <strong>REMap</strong> is the 5th component of the <strong>Phil-LiDAR 2 Program</strong> and is a directed research funded by the Department of Science and Technology (<strong>DOST</strong>).<br><br>
-        It explores the utilization of <strong>LiDAR</strong> and other geospatial data for evaluating renewable energy resources, focusing on <strong><span class="color-biomass">biomass</span></strong>, <strong><span class="color-hydro">hydro</span></strong>, <strong><span class="color-solar">solar</span></strong>, and <strong><span class="color-wind">wind</span></strong>.
-      </p>
-      <br>
 
-      <p style="text-align: justify;">
-        The <strong>objectives</strong> of the Project are:
-        <ol style="text-align: justify;">
-          <li>Develop workflows and algorithms for RE resource assessment using LiDAR and other geospatial data and technologies;</li>
-          <li>Assess the renewable energy potential of the Philippines for <strong><span class="color-biomass">biomass</span></strong>, <strong><span class="color-hydro">hydro</span></strong>, <strong><span class="color-solar">solar</span></strong>, and <strong><span class="color-wind">wind</span></strong>; and </li>
-          <li>Perform site suitability assessment for the development of <strong><span class="color-biomass">biomass</span></strong>, <strong><span class="color-hydro">hydro</span></strong>, <strong><span class="color-solar">solar</span></strong>, and <strong><span class="color-wind">wind</span></strong>.</li>
+  <div class="container text-center">
+    <hr>
+    <h1 class="home-headers text-center">The Project</h1>
+  </div>
+
+  <!-- Carousel -->
+  <div class="container carousel-container">
+    <div id="remap-carousel-1" class="carousel slide" data-ride="carousel" data-interval="5000">
+        <!-- Carousel indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#remap-carousel-1" data-slide-to="0" class="active"></li>
+            <li data-target="#remap-carousel-1" data-slide-to="1"></li>
+            <li data-target="#remap-carousel-1" data-slide-to="2"></li>
+            <li data-target="#remap-carousel-1" data-slide-to="3"></li>
         </ol>
-      </p>
+        <!-- Wrapper for carousel items -->
+        <div class="carousel-inner">
+          <div class="item active">
+              <img class="img-responsive carousel-img" src="{{STATIC_URL}}geonode/img/carousel/logo-remap-carousel.png" alt="REMap logo">
+              <div class="carousel-caption">
+                <p class="img-caption">
+                  REMap uses LiDAR and other geospatial technologies to assess the Biomass, Hydro, Solar, and Wind energy resource in the country.
+                </p>
+              </div>
+            </div>
 
-      <div class="pull-right">
-        <a href="{{ SITEURL }}/about"><button type="button" class="btn btn-primary">Read more</button></a>
-      </div>
+            <div class="item">
+              <img class="img-responsive carousel-img" src="{{STATIC_URL}}geonode/img/carousel/remap-1st-gw.png" alt="REMap First General Workshop (2015)">
+              <div class="carousel-caption">
+                <p class="img-caption">
+                  It is a partnership between UP TCAGP and 14 other State Universities and Colleges (SUC) and Higher Education Institutions (HEI) across the country.
+                </p>
+              </div>
+            </div>
 
+            <div class="item">
+              <img class="img-responsive carousel-img" src="{{STATIC_URL}}geonode/img/carousel/pyra-2.png" alt="REMap Pyranometer at MSU-IIT">
+              <div class="carousel-caption">
+                <p class="img-caption">
+                  REMap Silicon pyranometer installed at MSU-IIT.
+                </p>
+              </div>
+            </div>
+
+            <div class="item">
+              <img class="img-responsive carousel-img" src="{{STATIC_URL}}geonode/img/carousel/remap-1st-year-ender.png" alt="Phil-LiDAR2 First Year Ender (2014)">
+              <div class="carousel-caption">
+                <p class="img-caption">
+                  REMap's team is composed of individuals from diverse backgrounds -- Computer Engineering, Energy Engineering, Mechanical Engineering, Geodetic Engineering, Geography, and Geology among others.
+                </p>
+              </div>
+            </div>
+        </div>
+        <!-- Carousel controls -->
+        <a class="carousel-control left" href="#remap-carousel-1" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="carousel-control right" href="#remap-carousel-1" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
     </div>
   </div>
 
-  <div class="container container-padding-tb-10">
+  <div class="container home-container">
+    <p style="text-align: justify;">
+      Launched on July 1, 2014, the <strong>Philippine Renewable Energy Resource Mapping from LiDAR Surveys (<span class="font-orbitron shadowed">REMap</span>) Project</strong> is  the 5th component of the <strong>Nationwide Detailed Resources Assessment using LiDAR (<span class="font-orbitron shadowed">Phil-LiDAR 2</span>) Program</strong> and is a directed research funded by the <strong>Department of Science and Technology (DOST)</strong>.<br>
+    </p>
+
+    <p style="text-align: justify;">
+      It is tasked with assessing the <strong><span class="font-orbitron shadowed color-biomass">Biomass</span></strong>, <strong><span class="font-orbitron shadowed color-hydro">Hydro</span></strong>, <strong><span class="font-orbitron shadowed color-solar">Solar</span></strong>, and <strong><span class="font-orbitron shadowed color-wind">Wind</span></strong> Energy resource in the country using LiDAR and other geospatial technologies.
+    </p>
+
+    <p style="text-align: justify;">
+      The <strong>objectives</strong> of the Project are:
+      <ol style="text-align: justify;">
+        <li>Develop workflows and algorithms for RE resource assessment using LiDAR and other geospatial data and technologies;</li>
+        <li>Assess the renewable energy potential of the Philippines for <strong><span class="color-biomass">biomass</span></strong>, <strong><span class="color-hydro">hydro</span></strong>, <strong><span class="color-solar">solar</span></strong>, and <strong><span class="color-wind">wind</span></strong>; and </li>
+        <li>Perform site suitability assessment for the development of <strong><span class="color-biomass">biomass</span></strong>, <strong><span class="color-hydro">hydro</span></strong>, <strong><span class="color-solar">solar</span></strong>, and <strong><span class="color-wind">wind</span></strong> power.</li>
+      </ol>
+    </p>
+
+    <div class="pull-right">
+      <a href="{{ SITEURL }}/about"><button type="button" class="btn btn-primary">Read more</button></a>
+    </div>
+
+  </div>
+
+  <div class="container text-center">
     <hr>
-    <h1 class="text-center part-heading">REMap Components</h1>
+    <h1 class="home-headers text-center">REMap Components</h1>
   </div>
 
-  <div class="container container-padding-tb-10">
-    <div class="col-md-3 col-sm-6 col-xs-12 component-container">
-      <div class="mask rgba-white-slight">
-        <div class="card hoverable">
-          <div class="card-image">
-            <a href="{{ SITEURL }}/about#biomass">
-              <div class="view overlay hm-white-slight">
-                <img class="img-responsive" src="{{STATIC_URL}}geonode/img/logos/logo-biomass.png" alt="">
-              <div class="mask waves-effect">
-              </div>
-              </div>
-            </a>
-          </div>
-        <div class="card-content" style="padding: 1em .5em .2em .5em;">
-          <h3 class="color-biomass text-center">BIOMASS</h3>
-          <p>
-            <ul class="components-ul">
-              <li>Considers four major crops (rice/palay, corn, sugarcane, coconut).</li>
-              <li>Computes for the theoretical biomass potential using administrative boundaries and statistical data.</li>
-              <li>Computes the energy content of biomass potential evaluated using theoretical potential, lower heating value, efficiency of collection, availability of biomass for energy production and area of region under consideration.</li>
-              <li>Produces resource maps based on agricultural maps processed and classified using LandSAT satellite images and LiDAR datasets.</li>
-            </ul>
-          </p>
-        </div>
-        </div>
+  <div class="components-container">
+    <div class="component-cell">
+      <div class="component-100">
+        <a href="{{ SITEURL }}/about#biomass">
+          <img class="img-responsive" src="{{ STATIC_URL }}/geonode/img/logos/logo-biomass-circ.png">
+        </a>
       </div>
+      <h3 class="text-center shadow-biomass"><strong>BIOMASS</strong></h3>
+      <ul>
+        <li>Considers four major crops (rice/palay, corn, sugarcane, coconut).</li>
+        <li>Computes for the theoretical biomass potential using administrative boundaries and statistical data.</li>
+        <li>Computes the energy content of biomass potential evaluated using theoretical potential, lower heating value, efficiency of collection, availability of biomass for energy production and area of region under consideration.</li>
+        <li>Produces resource maps based on agricultural maps processed and classified using LandSAT satellite images and LiDAR datasets.</li>
+      </ul>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12 component-container">
-      <div class="mask rgba-white-slight">
-        <div class="card hoverable">
-          <div class="card-image">
-            <a href="{{ SITEURL }}/about#hydro">
-              <div class="view overlay hm-white-slight">
-                <img class="img-responsive" src="{{STATIC_URL}}geonode/img/logos/logo-hydro.png" alt="">
-              <div class="mask waves-effect">
-              </div>
-              </div>
-            </a>
-          </div>
-        <div class="card-content" style="padding: 1em .5em .2em .5em;">
-          <h3 class="color-hydro text-center">HYDRO</h3>
-          <p>
-            <ul class="components-ul">
-              <li>Considers the head (defined by a head determination algorithm applied to digital elevation models) and discharge (determined using the Soil and Water Assessment Tool coupled to ArcGIS) in computing for the power.</li>
-              <li>Hydropower resource maps (run-of-river hydropower systems) are classified according to the horizontal distance connecting the virtual intake and virtual powerhouse determined using the head determination algorithm.</li>
-            </ul>
-          </p>
-        </div>
-        </div>
+    <div class="component-cell">
+      <div class="component-100">
+        <a href="{{ SITEURL }}/about#hydro">
+          <img class="img-responsive" src="{{ STATIC_URL }}/geonode/img/logos/logo-hydro-circ.png">
+        </a>
       </div>
+      <h3 class="text-center shadow-hydro"><strong>HYDRO</strong></h3>
+      <ul>
+        <li>Considers the head (defined by a head determination algorithm applied to digital elevation models) and discharge (determined using the Soil and Water Assessment Tool coupled to ArcGIS) in computing for the power.</li>
+        <li>Hydropower resource maps (run-of-river hydropower systems) are classified according to the horizontal distance connecting the virtual intake and virtual powerhouse determined using the head determination algorithm.</li>
+      </ul>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12 component-container">
-      <div class="mask rgba-white-slight">
-        <div class="card hoverable">
-          <div class="card-image">
-            <a href="{{ SITEURL }}/about#solar">
-              <div class="view overlay hm-white-slight">
-                <img class="img-responsive" src="{{STATIC_URL}}geonode/img/logos/logo-solar.png" alt="">
-              <div class="mask waves-effect">
-              </div>
-              </div>
-            </a>
-          </div>
-        <div class="card-content" style="padding: 1em .5em .2em .5em;">
-          <h3 class="color-solar text-center">SOLAR</h3>
-          <p>
-            <ul class="components-ul">
-              <li>Computes National-scale Global Horizontal Irradiance (GHI) under clear-sky (cloudless) conditions.</li>
-              <li>Computes National-scale Global Horizontal Irradiance (GHI) under real-sky (cloudy) conditions for the development of large-scale solar farms.</li>
-              <li>Computes Urban-scale Global Horizontal Irradiance (GHI) on rooftops in selected urban areas under clear-sky and real-sky conditions.</li>
-            </ul>.
-          </p>
-        </div>
-        </div>
+    <div class="component-cell">
+      <div class="component-100">
+        <a href="{{ SITEURL }}/about#solar">
+          <img class="img-responsive" src="{{ STATIC_URL }}/geonode/img/logos/logo-solar-circ.png">
+        </a>
       </div>
+      <h3 class="text-center shadow-solar"><strong>SOLAR</strong></h3>
+      <ul>
+        <li>Computes National-scale Global Horizontal Irradiance (GHI) under clear-sky (cloudless) conditions.</li>
+        <li>Computes National-scale Global Horizontal Irradiance (GHI) under real-sky (cloudy) conditions for the development of large-scale solar farms.</li>
+        <li>Computes Urban-scale Global Horizontal Irradiance (GHI) on rooftops in selected urban areas under clear-sky and real-sky conditions.</li>
+      </ul>
     </div>
 
-    <div class="col-md-3 col-sm-6 col-xs-12 component-container">
-      <div class="mask rgba-white-slight">
-        <div class="card hoverable">
-          <div class="card-image">
-            <a href="{{ SITEURL }}/about#wind">
-              <div class="view overlay hm-white-slight">
-                <img class="img-responsive" src="{{STATIC_URL}}geonode/img/logos/logo-wind.png" alt="">
-              <div class="mask waves-effect">
-              </div>
-              </div>
-            </a>
-          </div>
-        <div class="card-content" style="padding: 1em .5em .2em .5em;">
-          <h3 class="color-wind text-center">WIND</h3>
-          <p>
-            <ul class="components-ul">
-              <li>Calculates wind power density and wind power using mean wind speed and wind direction generated from the Weather Research and Forecasting (WRF) model.</li>
-              <li>Wind speed and wind power density maps are classified according to potential turbine heights for development (at 80 meters and 100 meters) and to the years of simulation (2008, 2010, 2014, 2015, and 2016) to take into account climatic factors.</li>
-              <li>Micro-scale wind resource assessment for urban areas determined through the application of Computational Fluid Dynamics (CFD).</li>
-            </ul>.
-          </p>
-        </div>
-        </div>
+    <div class="component-cell">
+      <div class="component-100">
+        <a href="{{ SITEURL }}/about#wind">
+          <img class="img-responsive" src="{{ STATIC_URL }}/geonode/img/logos/logo-wind-circ.png">
+        </a>
       </div>
+      <h3 class="text-center shadow-wind"><strong>WIND</strong></h3>
+      <ul>
+        <li>Calculates wind power density and wind power using mean wind speed and wind direction generated from the Weather Research and Forecasting (WRF) model.</li>
+        <li>Wind speed and wind power density maps are classified according to potential turbine heights for development (at 80 meters and 100 meters) and to the years of simulation (2008, 2010, 2014, 2015, and 2016) to take into account climatic factors.</li>
+        <li>Micro-scale wind resource assessment for urban areas determined through the application of Computational Fluid Dynamics (CFD).</li>
+      </ul>.
     </div>
+
   </div>
 
-  <div class="container container-padding-tb-10">
+  <div class="container text-center">
     <hr>
-    <h1 class="text-center part-heading">Outputs and Products</h1>
+    <h1 class="home-headers text-center">Products and Outputs</h1>
   </div>
 
-  <div class="container">
-    <div class="row home-facets">
+  <div class="products-container home-facets">
     {% with facet_type='home' %}
-     {% facets as facets %}
-      <div class="col-md-6">
+    {% facets as facets %}
+    <div class="product-cell">
+      <div class="product-100">
         <p><a href="{% url "layer_browse" %}"><i class="fa fa-square-o fa-5x rotate-45"></i></a></p>
-        <h2><a href="{% url "layer_browse" %}">{{ facets.layer|default:_("No") }} {% blocktrans count counter=facets.layer %}Layer{% plural %}Layers{% endblocktrans %}</a></h2>
-        <p>{% trans "Click to search for geospatial data published by other users, organizations and public sources. Download data in standard formats." %}</p>
+        <h2><strong><a class="prod-link" href="{% url "layer_browse" %}">{{ facets.layer|default:_("No") }} {% blocktrans count counter=facets.layer %}Layer{% plural %}Layers{% endblocktrans %}</a></strong></h2>
+        <p>{% trans "Click to view the products and outputs of REMap" %}</p>
         {% if user.is_authenticated %}
         <p class="text-center"><a class="btn btn-default" href="{% url "layer_upload" %}" role="button">{% trans "Add layers" %} &raquo;</a></p>
         {% else %}
         <p class="text-center"><a class="btn btn-default" href="{% url "layer_browse" %}" role="button">{% trans "Explore layers" %} &raquo;</a></p>
         {% endif %}
       </div>
-      <div class="col-md-6">
+    </div>
+
+    <div class="product-cell">
+      <div class="product-100">
         <p><a href="{% url "maps_browse" %}"><i class="fa fa-map-marker fa-5x"></i></a></p>
-        <h2><a href="{% url "maps_browse" %}">{{ facets.map|default:_("No") }} {% blocktrans count counter=facets.map %}Map{% plural %}Maps{% endblocktrans %}</a></h2>
-        <p>{% trans "Data is available for browsing, aggregating and styling to generate maps which can be shared publicly or restricted to specific users only." %}</p>
+        <h2><strong><a class="prod-link" href="{% url "maps_browse" %}">{{ facets.map|default:_("No") }} {% blocktrans count counter=facets.map %}Map{% plural %}Maps{% endblocktrans %}</a></strong></h2>
+        <p>{% trans "Generate and create maps using REMap's products and outputs." %}</p>
         {% if user.is_authenticated %}
         <p><a class="btn btn-default" href="{% url "new_map" %}" role="button">{% trans "Create maps" %} &raquo;</a></p>
         {% else %}
         <p><a class="btn btn-default" href="{% url "maps_browse" %}" role="button">{% trans "Explore maps" %} &raquo;</a></p>
         {% endif %}
       </div>
-      <!-- <div class="col-md-4">
-        <p><a href="{% url "profile_browse" %}"><i class="fa fa-user fa-5x"></i></a></p>
-        <h2><a href="{% url "profile_browse" %}">{{ facets.user|default:_("No") }} {% blocktrans count counter=facets.user %}User{% plural %}Users{% endblocktrans %}</a></h2>
-        <p>{% trans "GeoNode allows registered users to easily upload geospatial data in several formats including shapefile and GeoTiff." %}</p>
-        <p><a class="btn btn-default" href="{% url "profile_browse" %}" role="button">{% trans "See users" %} &raquo;</a></p>
-      </div> -->
+    </div>
+
     {% endwith %}
-    </div>
   </div>
-  {% verbatim %}
-  <div ng-app="featured">
-    <div ng-repeat="item in featured">
-      <!--{{ item.title }}-->
-    </div>
-  </div>
-  {% endverbatim %}
+
+
   {% endblock %}
 
 {% endblock %}

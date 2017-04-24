@@ -1,0 +1,70 @@
+/*FONTS*/
+@font-face {
+  font-family: 'Muli';
+  src: url('../fonts/Muli/Muli-Regular.eot?#iefix') format('embedded-opentype'),  url('../fonts/Muli/Muli-Regular.woff') format('woff'), url('../fonts/Muli/Muli-Regular.ttf')  format('truetype'), url('../fonts/Muli/Muli-Regular.svg#Muli-Regular') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/Lato/Lato-Regular.eot?#iefix') format('embedded-opentype'),  url('../fonts/Lato/Lato-Regular.woff') format('woff'), url('../fonts/Lato/Lato-Regular.ttf')  format('truetype'), url('../fonts/Lato/Lato-Regular.svg#Geo-Regular') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/Lato/Lato-Black.eot?#iefix') format('embedded-opentype'),  url('../fonts/Lato/Lato-Black.woff') format('woff'), url('../fonts/Lato/Lato-Black.ttf')  format('truetype'), url('../fonts/Lato/Lato-Black.svg#Geo-Regular') format('svg');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: url('../fonts/Lato/Lato-Bold.eot?#iefix') format('embedded-opentype'),  url('../fonts/Lato/Lato-Bold.woff') format('woff'), url('../fonts/Lato/Lato-Bold.ttf')  format('truetype'), url('../fonts/Lato/Lato-Bold.svg#Geo-Regular') format('svg');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AnticSlab';
+  src: url('../fonts/AnticSlab/AnticSlab-Regular.eot?#iefix') format('embedded-opentype'),  url('../fonts/AnticSlab/AnticSlab-Regular.woff') format('woff'), url('../fonts/AnticSlab/AnticSlab-Regular.ttf')  format('truetype'), url('../fonts/AnticSlab/AnticSlab-Regular.svg#Geo-Regular') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../fonts/Orbitron/Orbitron-Regular.eot?#iefix') format('embedded-opentype'),  url('../fonts/Orbitron/Orbitron-Regular.woff') format('woff'), url('../fonts/Orbitron/Orbitron-Regular.ttf')  format('truetype'), url('../fonts/Orbitron/Orbitron-Regular.svg#Geo-Regular') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('../fonts/Orbitron/Orbitron-Bold.eot?#iefix') format('embedded-opentype'),  url('../fonts/Orbitron/Orbitron-Bold.woff') format('woff'), url('../fonts/Orbitron/Orbitron-Bold.ttf')  format('truetype'), url('../fonts/Orbitron/Orbitron-Bold.svg#Geo-Regular') format('svg');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Average';
+  src: url('../fonts/Average/Average-Regular.eot?#iefix') format('embedded-opentype'),  url('../fonts/Average/Average-Regular.woff') format('woff'), url('../fonts/Average/Average-Regular.ttf')  format('truetype'), url('../fonts/Average/Average-Regular.svg#Geo-Regular') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SourceSerifPro';
+  src: url('../fonts/SourceSerifPro/SourceSerifPro-Regular.eot?#iefix') format('embedded-opentype'),  url('../fonts/SourceSerifPro/SourceSerifPro-Regular.woff') format('woff'), url('../fonts/SourceSerifPro/SourceSerifPro-Regular.ttf')  format('truetype'), url('../fonts/SourceSerifPro/SourceSerifPro-Regular.svg#Geo-Regular') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'LibreFranklin';
+  src: url('../fonts/LibreFranklin/LibreFranklin-Light.eot?#iefix') format('embedded-opentype'),  url('../fonts/LibreFranklin/LibreFranklin-Light.woff') format('woff'), url('../fonts/LibreFranklin/LibreFranklin-Light.ttf')  format('truetype'), url('../fonts/LibreFranklin/LibreFranklin-Light.svg#Geo-Regular') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}

@@ -86,3 +86,8 @@ uploaded
 development.db
 master
 slave
+
+
+#SASS
+geonode/static/geonode/sass/.sass_cache
+geonode/static/geonode/css/main.css.map

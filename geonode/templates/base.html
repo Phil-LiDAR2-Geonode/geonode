@@ -12,7 +12,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Phil-LiDAR 2 - REMap" />
     <meta property="og:description" content="The REMap project is tasked with assessing the Biomass, Hydro, Solar, and Wind Energy resource in the country using LiDAR and other geospatial technologies."/>
-    <meta property="og:image" content="{{ STATIC_URL }}geonode/img/logos/logo-remap.png">
+    <meta property="og:image" content="{{ SITEURL }}{{ STATIC_URL }}geonode/img/logos/logo-remap.png">
 
     {% block head %}
       {% if DEBUG_STATIC %}
@@ -22,15 +22,25 @@
       <link href="{{ STATIC_URL }}lib/css/jquery-ui.css?v={{ VERSION }}" rel="stylesheet"/>
       <link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css?v={{ VERSION }}" rel="stylesheet"/>
       {% else %}
-      <!-- EDITED -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
       <link href="{{ STATIC_URL }}lib/css/assets.min.css?v={{ VERSION }}" rel="stylesheet"/>
+
+      <!-- EDITED, CDNs -->
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+      <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylsheet" />
+      <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous">
+      </script>
+
       {% endif %}
+
       <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css?v={{ VERSION }}" rel="stylesheet" />
-      <!-- <link href="{{ STATIC_URL }}geonode/css/base.css?v={{ VERSION }}" rel="stylesheet" /> -->
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
-      <!-- <link href="{{ STATIC_URL }}geonode/css/remap.css" rel="stylesheet" /> -->
+      <link href="{{ STATIC_URL }}geonode/css/fonts.css" rel="stylesheet" />
+      <link href="{{ STATIC_URL }}geonode/css/font-awesome.css" rel="stylesheet" />
+      <link href="{{ STATIC_URL }}geonode/css/main.css" rel="stylesheet" />
       <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" />
       {% block extra_head %}
       {% endblock %}
@@ -62,11 +72,11 @@
           </button>
           <a class="navbar-brand" href="{% url "home" %}">REMap</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div id="navbar" class="navbar-collapse collapse" style="margin-top: 10px;">
           <ul class="nav navbar-nav">
             {% block tabs %}
             <li>
-              <a href="{% url "home" %}#about-remap">{% trans "About" %}</a>
+              <a href="{% url "about" %}">{% trans "About" %}</a>
             </li>
             <li id="nav_layers">
               <a href="{% url "layer_browse" %}">{% trans "Layers" %}</a>
@@ -77,18 +87,18 @@
             <li id="nav_documents">
               <a href="{% url "document_browse" %}">{% trans "Documents" %}</a>
             </li>
-           {% block extra_tab %}
+           <!-- {% block extra_tab %} -->
            {% endblock %}
-           <li id="nav_team">
+           <!-- <li id="nav_team">
              <a href="{% url "about" %}">{% trans "The Team" %}</a>
-           </li>
+           </li> -->
             <!-- <li id="nav_people">
               <a href="{% url "profile_browse" %}">{% trans "People" %}</a>
             </li>
             <li id="nav_groups">
               <a href="{% url "group_list" %}">{% trans "Groups" %}</a>
             </li> -->
-            {% endblock %}
+            <!-- {% endblock %} -->
           </ul>
           <form class="navbar-form" id="search" action="{% url "search" %}" >
             <div class="col-md-3">
@@ -120,6 +130,10 @@
               <a href="{% url "cas_ng_login" %}" role="button">
                 {% trans "Sign in" %}
               </a>
+            </li>
+
+            <li>
+              <a href="https://lipad.dream.upd.edu.ph/requests/register/profile_request/">{% trans "Register" %}</a>
             </li>
             {% endif %}
           </ul>
@@ -156,19 +170,23 @@
 
     {% block footer %}
     <footer class="footer">
-      <div class="container">
-        <div class="col-md-6 col-sm-12">
-          <p class="footer-text">
-          Philippine Renewable Energy Resource Mapping from LiDAR Surveys<br>
+      <div class="footer-container">
+        <div class="footer-logo">
+          <img class="img-responsive footer-logo-img" src="{{ STATIC_URL }}geonode/img/logos/logo-remap.png">
+        </div>
+
+        <div class="footer-remap">
+          <p>
+          <strong>Philippine Renewable Energy Resource Mapping from LiDAR Surveys</strong><br>
           MH 406, Applied Geodesy and Space Technology (AGST) Laboratory<br>
           Melchor Hall, College of Engineering<br>
-          University of the Philippines Diliman<br>
+          University of the Philippines Diliman<br><br>
           Quezon City, 1101 PHL<br>
           (+63)-2-981-8500 loc. 3147<br>
           </p>
         </div>
 
-        <div class="col-md-6 col-sm-12">
+        <div class="footer-others">
           <label>{% trans "Language" %}</label>
           {% if csrf_token != "NOTPROVIDED" %}
           {% get_current_language as LANGUAGE %}
@@ -183,13 +201,18 @@
             </select>
           </form>
           {% endif %}
-
-          <br><br>
-          {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a>
+          <br>
+          <br>
+          <br>
+          <p>
+            {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a>
+          </p>
           <!-- {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a> <em>{% trans "version" %} {{ VERSION }}</em> |
           <a href="{% url "developer" %}">{% trans "Developers" %}</a> |
           <a href="{% url "about" %}">{% trans "About" %}</a> -->
-
+          <p>
+          <i class="fa fa-copyright" aria-hidden="true"></i> 2017 Phil-LiDAR 2 - REMap. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
@@ -295,16 +318,27 @@
     <script src="{{ STATIC_URL }}lib/js/json2.js?v={{ VERSION }}"></script>
     <script src="{{ STATIC_URL }}lib/js/select2.js?v={{ VERSION }}"></script>
     <script src="{{ STATIC_URL }}lib/js/waypoints.js?v={{ VERSION }}"></script>
+
     {% else %}
     <script src="{{ STATIC_URL }}lib/js/assets.min.js?v={{ VERSION }}"></script>
-    <!-- EDITED -->
-    <script
-			  src="https://code.jquery.com/jquery-3.2.1.js"
-			  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-			  crossorigin="anonymous">
-    </script>
+
+    <!-- EDITED, CDNs -->
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script
+      src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
+      integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
+      crossorigin="anonymous">
+    </script>
+
     {% endif %}
+
+    <!-- {% if USE_LOCAL_FILES %}
+    <script src="{{ LOCAL_FILE_URL }}jquery/jquery-3.2.1.js"></script>
+    <script src="{{ LOCAL_FILE_URL }}bootstrap-3.3.7/js/bootstrap.js"></script>
+
+    {% endif %} -->
+
     <script src="{{ STATIC_URL }}geonode/js/utils/utils.js?v={{ VERSION }}"></script>
     <script src="{{ STATIC_URL }}geonode/js/base/base.js?v={{ VERSION }}"></script>
     {% include 'autocomplete_light/static.html' %}

@@ -1,0 +1,251 @@
+$font-base-size: 18px;
+
+$color-biomass: #00743f;
+$color-hydro: #1d65a6;
+$color-solar: #f2a104;
+$color-wind: #192e5b;
+
+@mixin text-size($md, $sm, $xs, $xxs) {
+  font-size: $md;
+  @media screen and (max-width: 991px) {font-size: $sm;}
+  @media screen and (max-width: 767px) {font-size: $xs;}
+  @media screen and (max-width: 480px) {font-size: $xxs;}
+}
+
+@mixin text-size-ratio($base) {
+  font-size: $base;
+  @media screen and (max-width: 991px) {font-size: floor($base * 0.95);}
+  @media screen and (max-width: 767px) {font-size: floor($base * 0.9);}
+  @media screen and (max-width: 480px) {font-size: floor($base * 0.85);}
+}
+
+@mixin img-height($md, $sm, $xs, $xxs) {
+  height: $md;
+  @media screen and (max-width: 991px) {height: $sm;}
+  @media screen and (max-width: 767px) {height: $xs;}
+  @media screen and (max-width: 480px) {height: $xxs;}
+}
+
+@mixin img-min-height($md, $sm, $xs, $xxs) {
+  min-height: $md;
+  @media screen and (max-width: 991px) {min-height: $sm;}
+  @media screen and (max-width: 767px) {min-height: $xs;}
+  @media screen and (max-width: 480px) {min-height: $xxs;}
+}
+
+.text-base {
+  // @include text-size-ratio($font-base-size)
+  @include text-size(18px, 17px, 16px, 14px);
+}
+
+.text-footer {
+  @include text-size(13px, 13px, 11px, 11px);
+}
+
+html, body {
+  background: #ffffff;
+  font-family: 'Muli', Helvetica, sans-serif;
+  padding-top: 30px;
+  @extend .text-base;
+}
+
+p, li, td {
+  font-family: 'Muli', Helvetica, sans-serif;
+  line-height: 1.5;
+  @extend .text-base;
+}
+
+p, li, td {
+  color: #040c0e;
+}
+
+footer {
+  background: #ffffff;
+  font-family: 'Muli', Helvetica, sans-serif;
+  @extend .text-footer;
+
+  p, a {
+    @extend .text-footer;
+  }
+
+  .footer-text {
+    @extend .text-footer;
+  }
+
+}
+
+/*COLORS*/
+.color-biomass {
+  color: $color-biomass;
+}
+
+.shadow-biomass {
+  text-shadow: 1px 1px 2px $color-biomass;
+}
+
+.color-hydro {
+  color: $color-hydro;
+}
+
+.shadow-hydro {
+  text-shadow: 1px 1px 2px $color-hydro;
+}
+
+.color-solar {
+  color: $color-solar;
+}
+
+.shadow-solar {
+  text-shadow: 1px 1px 2px $color-solar;
+}
+
+.color-wind {
+  color: $color-wind;
+}
+
+.shadow-wind {
+  text-shadow: 1px 1px 2px $color-wind;
+}
+
+/*NAVBAR*/
+.navbar {
+  margin-bottom: 0
+}
+
+.navbar-active {
+  color: #ffffff;
+}
+
+.navbar-inverse {
+    background-color: #040c0e;
+}
+
+.navbar-brand {
+    background: url(../img/logos/logo.png) 10px 0 no-repeat;
+    height: 72px;
+    margin-right: 10px; /*15px;*/
+    margin-top: 6px;
+    text-indent: -9999em;
+    width: 240px
+}
+
+.navbar-right>li>a {
+    padding: 8px 15px;
+}
+
+.nav-pills a {
+    cursor: pointer;
+}
+
+.navbar-collapse {
+    max-height: none;
+}
+
+/* Navbar menus */
+nav #navbar .nav li a {
+  font-family: 'Muli';
+  font-size: 15px;
+  color: #aaaaaa;
+
+  &:hover {
+    color: #ffffff;
+  }
+}
+
+body {
+
+  &.home li#nav_about a,
+  &.layers li#nav_layers a,
+  &.maps li#nav_maps a,
+  &.documents li#nav_documents a,
+  &.people li#nav_people a,
+  &.groups li#nav_groups a {
+    color: #ffffff;
+  }
+}
+
+@media screen and (max-width:991px) {
+    .navbar-header {
+        float: none
+    }
+    .navbar-toggle {
+        display: block
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1)
+    }
+    .navbar-collapse.collapse {
+        display: none !important
+    }
+    .navbar-nav {
+        float: none !important;
+        margin: 7.5px -15px
+    }
+    .navbar-nav>li {
+        float: none
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px
+    }
+    .navbar-collapse.collapse.in {
+        display: block !important
+    }
+    .collapsing {
+        overflow: hidden !important
+    }
+}
+
+/*JUMBOTRON*/
+.jumbotron {
+    background: url("../img/site/bg-2.png") no-repeat center center;
+    // background: #ffffff;
+    background-size: cover;
+    color: #040c0e;
+    padding: 48px 0 0 0;
+    margin-top: -10px;
+    @include img-min-height(660px, 510px, 320px, 240px);
+
+    a {
+      color: #9eb343;
+      @extend a;
+    }
+
+    p {
+      margin-bottom: 0;
+      @extend p;
+    }
+
+    .project-title {
+      font-family: 'Orbitron', Helvetica, sans-serif;
+      line-height: 1.2;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px #000000;
+      @include text-size(72px, 60px, 48px, 36px);
+      padding: 0 10px 0 10px;
+    }
+
+    .project-name {
+      font-family: 'AnticSlab', serif;
+      color: #000000;
+      text-shadow: 1px 1px 2px #ffffff;
+      @include text-size(36px, 30px, 24px, 18px);
+      padding: 0 10px 0 10px;
+    }
+}
+
+.font-orbitron {
+  font-family: 'Orbitron';
+}
+
+.shadowed {
+  text-shadow: 1px 1px 2px #aaaaaa;
+}
+
+.home-headers {
+  font-family: 'Orbitron';
+  color: black;
+  text-shadow: 2px 2px 4px #040c0e;
+  @include text-size(54px, 48px, 42px, 36px);
+}
