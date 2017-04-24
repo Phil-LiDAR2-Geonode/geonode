@@ -45,7 +45,7 @@ html, body {
   @extend .text-base;
 }
 
-p, li, td {
+p, a, li, td {
   font-family: 'Roboto', Helvetica, sans-serif;
   line-height: 1.5;
   @extend .text-base;
@@ -124,7 +124,8 @@ footer {
 }
 
 .navbar-inverse {
-    background-color: $navbar-background;
+    // background-color: $navbar-background;
+    background-color: rgba(244,244,244,0.9);
 }
 
 .navbar-brand {
@@ -208,43 +209,43 @@ body {
     }
 }
 
-/*JUMBOTRON*/
-.jumbotron {
-    background: url("../img/site/bg-2.png") no-repeat center center;
-    // background: #ffffff;
-    background-size: cover;
-    color: #040c0e;
-    padding: 48px 0 0 0;
-    margin-top: -10px;
-    @include img-min-height(660px, 510px, 320px, 240px);
-
-    a {
-      color: #9eb343;
-      @extend a;
-    }
-
-    p {
-      margin-bottom: 0;
-      @extend p;
-    }
-
-    .project-title {
-      font-family: 'Orbitron', Helvetica, sans-serif;
-      line-height: 1.2;
-      color: #ffffff;
-      text-shadow: 2px 2px 4px #000000;
-      @include text-size(72px, 60px, 48px, 36px);
-      padding: 0 10px 0 10px;
-    }
-
-    .project-name {
-      font-family: 'AnticSlab', serif;
-      color: #000000;
-      text-shadow: 1px 1px 2px #ffffff;
-      @include text-size(36px, 30px, 24px, 18px);
-      padding: 0 10px 0 10px;
-    }
-}
+// /*JUMBOTRON*/
+// .jumbotron {
+//     background: url("../img/site/bg-2.png") no-repeat center center;
+//     // background: #ffffff;
+//     background-size: cover;
+//     color: #040c0e;
+//     padding: 48px 0 0 0;
+//     margin-top: -72px;
+//     @include img-min-height(660px, 510px, 320px, 240px);
+//
+//     a {
+//       color: #9eb343;
+//       @extend a;
+//     }
+//
+//     p {
+//       margin-bottom: 0;
+//       @extend p;
+//     }
+//
+//     .project-title {
+//       font-family: 'Orbitron', Helvetica, sans-serif;
+//       line-height: 1.2;
+//       color: #ffffff;
+//       text-shadow: 2px 2px 4px #000000;
+//       @include text-size(72px, 60px, 48px, 36px);
+//       padding: 0 10px 0 10px;
+//     }
+//
+//     .project-name {
+//       font-family: 'AnticSlab', serif;
+//       color: #000000;
+//       text-shadow: 1px 1px 2px #ffffff;
+//       @include text-size(36px, 30px, 24px, 18px);
+//       padding: 0 10px 0 10px;
+//     }
+// }
 
 .font-orbitron {
   font-family: 'Orbitron';
