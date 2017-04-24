@@ -28,6 +28,27 @@
 }
 
 @font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto/Roboto-Regular.eot?#iefix') format('embedded-opentype'),  url('../fonts/Roboto/Roboto-Regular.woff') format('woff'), url('../fonts/Roboto/Roboto-Regular.ttf')  format('truetype'), url('../fonts/Roboto/Roboto-Regular.svg#Geo-Regular') format('svg');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto/Roboto-Bold.eot?#iefix') format('embedded-opentype'),  url('../fonts/Roboto/Roboto-Bold.woff') format('woff'), url('../fonts/Roboto/Roboto-Bold.ttf')  format('truetype'), url('../fonts/Roboto/Roboto-Bold.svg#Geo-Regular') format('svg');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../fonts/Roboto/Roboto-Light.eot?#iefix') format('embedded-opentype'),  url('../fonts/Roboto/Roboto-Light.woff') format('woff'), url('../fonts/Roboto/Roboto-Light.ttf')  format('truetype'), url('../fonts/Roboto/Roboto-Light.svg#Geo-Light') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'AnticSlab';
   src: url('../fonts/AnticSlab/AnticSlab-Regular.eot?#iefix') format('embedded-opentype'),  url('../fonts/AnticSlab/AnticSlab-Regular.woff') format('woff'), url('../fonts/AnticSlab/AnticSlab-Regular.ttf')  format('truetype'), url('../fonts/AnticSlab/AnticSlab-Regular.svg#Geo-Regular') format('svg');
   font-weight: 400;

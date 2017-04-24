@@ -187,7 +187,7 @@
         </div>
 
         <div class="footer-others">
-          <label>{% trans "Language" %}</label>
+          <label><p>{% trans "Language" %}</p></label>
           {% if csrf_token != "NOTPROVIDED" %}
           {% get_current_language as LANGUAGE %}
           <form class="form-inline" action="/i18n/setlang/" method="post">
