@@ -115,8 +115,8 @@ body.home li#nav_about a, body.layers li#nav_layers a, body.maps li#nav_maps a, 
 
   .navbar-toggle {
     display: block;
-    background-color: #7e7e7e;
-    border-color: #333333 !important; }
+    background-color: #555555;
+    border: none; }
 
   .navbar-collapse {
     border-top: 1px solid transparent;
@@ -143,7 +143,7 @@ body.home li#nav_about a, body.layers li#nav_layers a, body.maps li#nav_maps a, 
     overflow: hidden !important; } }
 /*JUMBOTRON*/
 .jumbotron {
-  background: url("../img/site/bg-2.png") no-repeat center center;
+  background: url("../img/site/bg-4.png") no-repeat center center;
   background-size: cover;
   color: #040c0e;
   padding: 48px 0 0 0;
@@ -273,7 +273,7 @@ body.home li#nav_about a, body.layers li#nav_layers a, body.maps li#nav_maps a, 
       background-color: rgba(255, 255, 255, 0.7); }
       @media screen and (max-width: 360px) {
         .carousel-container #remap-carousel-1 .img-caption {
-          font-size: 10px; } }
+          font-size: 9px; } }
 
 .about-container {
   background: linear-gradient(#f9f9f9, #f4f4f4); }

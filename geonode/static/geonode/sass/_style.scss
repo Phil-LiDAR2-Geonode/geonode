@@ -177,13 +177,14 @@ body {
     }
     .navbar-toggle {
         display: block;
-        background-color: $navbar-hover;
-        border-color: $navbar-text !important;
+        background-color: #555555;
+        border: none;
+        // border-color: $navbar-hover;
     }
     .navbar-collapse {
         border-top: 1px solid transparent;
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        // border-color: $navbar-hover !important;
+        // border-color: $navbar-hover;
     }
     .navbar-collapse.collapse {
         display: none !important
