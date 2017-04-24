@@ -38,15 +38,15 @@ $font-base-size: 18px;
 }
 
 html, body {
-  background: white;
+  background: $grad-end;
   // background: linear-gradient($grad-start, $grad-end);
-  font-family: 'Muli', Helvetica, sans-serif;
+  font-family: 'Roboto', Helvetica, sans-serif;
   padding-top: 30px;
   @extend .text-base;
 }
 
 p, li, td {
-  font-family: 'Muli', Helvetica, sans-serif;
+  font-family: 'Roboto', Helvetica, sans-serif;
   line-height: 1.5;
   @extend .text-base;
 }

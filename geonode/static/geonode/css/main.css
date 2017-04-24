@@ -23,12 +23,12 @@
       font-size: 11px; } }
 
 html, body {
-  background: white;
-  font-family: 'Muli', Helvetica, sans-serif;
+  background: #f4f4f4;
+  font-family: 'Roboto', Helvetica, sans-serif;
   padding-top: 30px; }
 
 p, .jumbotron p, li, td {
-  font-family: 'Muli', Helvetica, sans-serif;
+  font-family: 'Roboto', Helvetica, sans-serif;
   line-height: 1.5; }
 
 p, .jumbotron p, li, td {
