@@ -16,24 +16,20 @@
 
     {% block head %}
       {% if DEBUG_STATIC %}
-      <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css?v={{ VERSION }}" rel="stylesheet" />
+      <!-- <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css?v={{ VERSION }}" rel="stylesheet" /> -->
       <link href="{{ STATIC_URL }}lib/css/select2.css?v={{ VERSION }}" rel="stylesheet"/>
-      <link href="{{ STATIC_URL }}lib/css/bootstrap.min.css?v={{ VERSION }}" rel="stylesheet"/>
+      <!-- <link href="{{ STATIC_URL }}lib/css/bootstrap.min.css?v={{ VERSION }}" rel="stylesheet"/> -->
       <link href="{{ STATIC_URL }}lib/css/jquery-ui.css?v={{ VERSION }}" rel="stylesheet"/>
       <link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css?v={{ VERSION }}" rel="stylesheet"/>
+
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+      <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylsheet" />
       {% else %}
 
       <link href="{{ STATIC_URL }}lib/css/assets.min.css?v={{ VERSION }}" rel="stylesheet"/>
 
       {% endif %}
 
-      {% if USE_LOCAL %}
-
-      <!-- EDITED, CDNs -->
-      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-      <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylsheet" />
-
-      {% endif %}
 
       <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css?v={{ VERSION }}" rel="stylesheet" />
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
@@ -305,26 +301,19 @@
 
     {% if DEBUG_STATIC %}
     <script src="{{ STATIC_URL }}lib/js/jquery.min.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.dataTables.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.timeago.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.ajaxprogress.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.ajaxQueue.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery-ui.custom.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.raty.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/bootstrap.min.js?v={{ VERSION }}"></script>
+    <!-- <script src="{{ STATIC_URL }}lib/js/jquery.dataTables.js?v={{ VERSION }}"></script> -->
+    <!-- <script src="{{ STATIC_URL }}lib/js/jquery.timeago.js?v={{ VERSION }}"></script> -->
+    <!-- <script src="{{ STATIC_URL }}lib/js/jquery.ajaxprogress.js?v={{ VERSION }}"></script> -->
+    <!-- <script src="{{ STATIC_URL }}lib/js/jquery.ajaxQueue.js?v={{ VERSION }}"></script> -->
+    <!-- <script src="{{ STATIC_URL }}lib/js/jquery-ui.custom.js?v={{ VERSION }}"></script> -->
+    <!-- <script src="{{ STATIC_URL }}lib/js/jquery.raty.js?v={{ VERSION }}"></script> -->
+    <!-- <script src="{{ STATIC_URL }}lib/js/bootstrap.min.js?v={{ VERSION }}"></script> -->
     <script src="{{ STATIC_URL }}lib/js/moment-with-locales.min.js?v={{ VERSION }}"></script>
     <script src="{{ STATIC_URL }}lib/js/bootstrap-datetimepicker.min.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/json2.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/select2.js?v={{ VERSION }}"></script>
-    <script src="{{ STATIC_URL }}lib/js/waypoints.js?v={{ VERSION }}"></script>
+    <!-- <script src="{{ STATIC_URL }}lib/js/json2.js?v={{ VERSION }}"></script> -->
+    <!-- <script src="{{ STATIC_URL }}lib/js/select2.js?v={{ VERSION }}"></script> -->
+    <!-- <script src="{{ STATIC_URL }}lib/js/waypoints.js?v={{ VERSION }}"></script> -->
 
-    {% else %}
-    <script src="{{ STATIC_URL }}lib/js/assets.min.js?v={{ VERSION }}"></script>
-
-    {% endif %}
-
-    {% if USE_LOCAL %}
-    <!-- EDITED, CDNs -->
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script
@@ -337,6 +326,12 @@
       integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
       crossorigin="anonymous">
     </script>
+
+
+
+    {% else %}
+    <script src="{{ STATIC_URL }}lib/js/assets.min.js?v={{ VERSION }}"></script>
+
     {% endif %}
 
     <!-- {% if USE_LOCAL_FILES %}
