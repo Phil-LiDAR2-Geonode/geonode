@@ -25,6 +25,10 @@
 
       <link href="{{ STATIC_URL }}lib/css/assets.min.css?v={{ VERSION }}" rel="stylesheet"/>
 
+      {% endif %}
+
+      {% if USE_LOCAL %}
+
       <!-- EDITED, CDNs -->
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
       <link href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" rel="stylsheet" />
@@ -317,6 +321,9 @@
     {% else %}
     <script src="{{ STATIC_URL }}lib/js/assets.min.js?v={{ VERSION }}"></script>
 
+    {% endif %}
+
+    {% if USE_LOCAL %}
     <!-- EDITED, CDNs -->
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -330,7 +337,6 @@
       integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
       crossorigin="anonymous">
     </script>
-
     {% endif %}
 
     <!-- {% if USE_LOCAL_FILES %}

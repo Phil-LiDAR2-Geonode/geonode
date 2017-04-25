@@ -41,7 +41,8 @@ html, body {
   background: $grad-end;
   // background: linear-gradient($grad-start, $grad-end);
   font-family: 'Roboto', Helvetica, sans-serif;
-  // padding-top: 30px;
+  // margin-top: 66px;
+  padding-top: 34px;
   @extend .text-base;
 }
 

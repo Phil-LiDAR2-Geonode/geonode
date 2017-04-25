@@ -24,7 +24,8 @@
 
 html, body {
   background: #f4f4f4;
-  font-family: 'Roboto', Helvetica, sans-serif; }
+  font-family: 'Roboto', Helvetica, sans-serif;
+  padding-top: 34px; }
 
 p, a, li, td {
   font-family: 'Roboto', Helvetica, sans-serif;
@@ -181,7 +182,6 @@ body.home li#nav_about a, body.layers li#nav_layers a, body.maps li#nav_maps a, 
   background: url("../img/site/bg-2.png") no-repeat center center;
   background-size: cover;
   color: #333333;
-  margin-top: 66px;
   min-height: 660px; }
   @media screen and (max-width: 991px) {
     .jumbotron-container {
