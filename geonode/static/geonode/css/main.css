@@ -401,4 +401,8 @@ body.home li#nav_about a, body.layers li#nav_layers a, body.maps li#nav_maps a, 
       .footer-container .footer-others {
         width: 100%; } }
 
+.non-home-body {
+  background: #ffffff;
+  padding-bottom: 100px; }
+
 /*# sourceMappingURL=main.css.map */
