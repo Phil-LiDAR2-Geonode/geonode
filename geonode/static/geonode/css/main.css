@@ -23,7 +23,7 @@
       font-size: 11px; } }
 
 html, body {
-  background: #f4f4f4;
+  background: #ffffff;
   font-family: 'Roboto', Helvetica, sans-serif;
   padding-top: 34px; }
 
@@ -40,7 +40,8 @@ a {
 footer {
   background: #f4f4f4;
   font-family: 'Roboto', Helvetica, sans-serif;
-  font-weight: 300; }
+  font-weight: 300;
+  margin-top: 48px; }
   footer p {
     color: #333333; }
 

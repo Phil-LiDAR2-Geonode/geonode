@@ -38,7 +38,8 @@ $font-base-size: 18px;
 }
 
 html, body {
-  background: $grad-end;
+  background: $grad-start;
+  // background: $grad-end;
   // background: linear-gradient($grad-start, $grad-end);
   font-family: 'Roboto', Helvetica, sans-serif;
   // margin-top: 66px;
@@ -63,8 +64,10 @@ a {
 
 footer {
   background: $footer-background;
+  // background: $grad-start;
   font-family: 'Roboto', Helvetica, sans-serif;
   font-weight: 300;
+  margin-top: 48px;
   @extend .text-footer;
 
   p, a {
