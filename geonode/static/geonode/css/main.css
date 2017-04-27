@@ -109,6 +109,8 @@ nav #navbar .nav li a {
 
 body.home li#nav_about a, body.layers li#nav_layers a, body.maps li#nav_maps a, body.documents li#nav_documents a, body.people li#nav_people a, body.groups li#nav_groups a {
   color: #7e7e7e; }
+body.home {
+  background-color: #f4f4f4; }
 
 @media screen and (max-width: 991px) {
   .navbar-header {
