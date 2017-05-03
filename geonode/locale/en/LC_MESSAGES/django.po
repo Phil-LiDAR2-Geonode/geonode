@@ -941,8 +941,9 @@ msgstr "Change Document Permissions"
 #: documents/templates/documents/document_list.html:13
 #: documents/templates/documents/document_metadata.html:16
 #: documents/templates/documents/document_upload_base.html:11
+#: msgstr "Explore Documents"
 msgid "Explore Documents"
-msgstr "Explore Documents"
+msgstr "Explore Maps"
 
 #: documents/templates/documents/document_list.html:12
 #: documents/templates/documents/document_upload_base.html:12
