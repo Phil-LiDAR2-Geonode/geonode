@@ -870,7 +870,7 @@ CELERY_CREATE_MISSING_QUEUES = True
 CELERY_IMPORTS = (
     'geonode.tasks.deletion',
     'geonode.tasks.update',
-    'geonode.tasks.email'
+    'geonode.tasks.email',
     'geonode.tasks.users',
 )
 
