@@ -21,7 +21,7 @@ geonode/static/geoexplorer/
 
 # Uncommenting static_root for now, should probably follow GeoNode's static
 # dev guidelines
-#geonode/static_root/
+geonode/static_root/
 
 geonode/static/node_modules/
 node_modules/
@@ -90,3 +90,5 @@ uploaded
 development.db
 master
 slave
+
+!geonode/static_root/geoexplorer/script/
