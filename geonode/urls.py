@@ -83,9 +83,10 @@ urlpatterns = patterns('',
 
                        # Accounts
                        #url(r'^account/ajax_login$', 'geonode.views.ajax_login', name='account_ajax_login'),
-                       url(r'^account/login/$', 'django_cas_ng.views.login', name='account_ajax_login'),
+                       #url(r'^account/ajax_lookup$', 'geonode.views.ajax_lookup', name='account_ajax_lookup'),
                        url(r'^account/ajax_lookup$', 'geonode.views.ajax_lookup', name='account_ajax_lookup'),
-                       url(r'^account/login/$','django_cas_ng.views.login', name='account_login'),
+                       url(r'^account/login/$', 'django_cas_ng.views.login', name='account_ajax_login'),
+                       url(r'^account/login/$', 'django_cas_ng.views.login', name='account_login'),
                        url(r'^account/login/$', 'django_cas_ng.views.login', name='cas_ng_login'),
                        url(r'^account/logout/$', 'django_cas_ng.views.logout', name='cas_ng_logout'),
                        url(r'^account/logout/$', 'django_cas_ng.views.logout', name='account_logout'),
@@ -106,7 +107,6 @@ urlpatterns = patterns('',
                        (r'^documents/', include('geonode.documents.urls')),
                        (r'^services/', include('geonode.services.urls')),
                        url(r'', include(api.urls)),
-                       (r'^api/', include('geonode.api.urls')),
                        )
 
 if "geonode.contrib.dynamic" in settings.INSTALLED_APPS:
