@@ -888,6 +888,7 @@ djcelery.setup_loader()
 
 CAS_VERSION = 3
 PASSWORD_RESET_LINK = "https://ssp.dream.upd.edu.ph/?action=sendtoken"
+CAS_SERVER_URL = "https://lipad-sso.dream.upd.edu.ph/"
 
 # Load more settings from a file called local_settings.py if it exists
 try:
