@@ -236,8 +236,7 @@ GEONODE_APPS = (
     # it's signals may rely on other apps' signals.
     'geonode.geoserver',
     'geonode.upload',
-    'geonode.tasks',
-    'geonode.reports',
+    'geonode.tasks'
 )
 
 GEONODE_CONTRIB_APPS = (
@@ -887,11 +886,16 @@ CELERY_QUEUES = [
 import djcelery
 djcelery.setup_loader()
 
+CAS_VERSION = 3
+PASSWORD_RESET_LINK = "https://ssp.dream.upd.edu.ph/?action=sendtoken"
+CAS_SERVER_URL = "https://lipad-sso.dream.upd.edu.ph/"
+
 # Load more settings from a file called local_settings.py if it exists
 try:
     from local_settings import *  # noqa
 except ImportError:
-    pass
+    import traceback
+    traceback.print_exc()
 
 try:
     BING_LAYER = {
@@ -938,6 +942,3 @@ if 'geonode.geoserver' in INSTALLED_APPS:
     baselayers = MAP_BASELAYERS
     MAP_BASELAYERS = [LOCAL_GEOSERVER]
     MAP_BASELAYERS.extend(baselayers)
-
-CAS_VERSION = 3
-PASSWORD_RESET_LINK = "https://ssp.dream.upd.edu.ph/?action=sendtoken"
