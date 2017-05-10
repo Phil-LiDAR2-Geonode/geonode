@@ -307,6 +307,8 @@ INSTALLED_APPS = (
 
     'south',
 
+    # CAS client
+    'django_cas_ng',
 ) + GEONODE_APPS
 
 LOGGING = {
@@ -869,7 +871,8 @@ CELERY_CREATE_MISSING_QUEUES = True
 CELERY_IMPORTS = (
     'geonode.tasks.deletion',
     'geonode.tasks.update',
-    'geonode.tasks.email'
+    'geonode.tasks.email',
+    'geonode.tasks.users',
 )
 
 
@@ -878,6 +881,7 @@ CELERY_QUEUES = [
     Queue('cleanup', routing_key='cleanup'),
     Queue('update', routing_key='update'),
     Queue('email', routing_key='email'),
+    Queue('users', routing_key='users'),
 ]
 
 import djcelery
@@ -934,3 +938,6 @@ if 'geonode.geoserver' in INSTALLED_APPS:
     baselayers = MAP_BASELAYERS
     MAP_BASELAYERS = [LOCAL_GEOSERVER]
     MAP_BASELAYERS.extend(baselayers)
+
+CAS_VERSION = 3
+PASSWORD_RESET_LINK = "https://ssp.dream.upd.edu.ph/?action=sendtoken"
