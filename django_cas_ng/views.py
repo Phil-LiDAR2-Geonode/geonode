@@ -92,21 +92,21 @@ def login(request, next_page=None, required=False):
                 except ProxyGrantingTicket.DoesNotExist:
                     pass
 
-            attributes = request.session['attributes']
-            user.email = attributes["email"]
-            user.first_name = attributes["first_name"]
-            user.last_name = attributes["last_name"]
-            # Added setting of org_type and organization
-            user.org_type = attributes["organization_type"]
-            user.organization = attributes["organization"]
-            if attributes["is_active"] is True:
-                user.is_active = attributes["is_active"]
-            if attributes["is_staff"] is True:
-                user.is_staff = attributes["is_staff"]
-            if attributes["is_superuser"] is True:
-                pprint("user.is_superuser:" + str(attributes["is_superuser"]))
-                user.is_superuser = attributes["is_superuser"]
-            user.save()
+            # attributes = request.session['attributes']
+            # user.email = attributes["email"]
+            # user.first_name = attributes["first_name"]
+            # user.last_name = attributes["last_name"]
+            # # Added setting of org_type and organization
+            # user.org_type = attributes["organization_type"]
+            # user.organization = attributes["organization"]
+            # if attributes["is_active"] is True:
+            #     user.is_active = attributes["is_active"]
+            # if attributes["is_staff"] is True:
+            #     user.is_staff = attributes["is_staff"]
+            # if attributes["is_superuser"] is True:
+            #     pprint("user.is_superuser:" + str(attributes["is_superuser"]))
+            #     user.is_superuser = attributes["is_superuser"]
+            # user.save()
 
             #pprint('Superuser? '+str(user.is_superuser))
 
