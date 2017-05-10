@@ -42,7 +42,7 @@ def login(request, next_page=None, required=False):
     """Forwards to CAS login URL or verifies CAS ticket"""
     service_url = get_service_url(request, next_page)
     client = get_cas_client(service_url=service_url)
-    pprint("service url: "+service_url)
+    pprint("service url: " + service_url)
     if not next_page:
         next_page = get_redirect_url(request)
 
@@ -67,7 +67,7 @@ def login(request, next_page=None, required=False):
         if user.is_superuser:
             pprint("User is a superuser")
         pprint("user should be authenticated by now")
-        
+
         if user is not None:
             auth_login(request, user)
             if not request.session.exists(request.session.session_key):
@@ -92,19 +92,22 @@ def login(request, next_page=None, required=False):
                 except ProxyGrantingTicket.DoesNotExist:
                     pass
 
-#            attributes = request.session['attributes']
-#            user.email = attributes["email"]
-#            user.first_name = attributes["first_name"]
-#            user.last_name = attributes["last_name"]
-#            if attributes["is_active"] is True:
-#                user.is_active = attributes["is_active"]
-#            if attributes["is_staff"] is True:
-#                user.is_staff = attributes["is_staff"]
-#            if attributes["is_superuser"] is True:
-#                pprint("user.is_superuser:"+str(attributes["is_superuser"]))
-#                user.is_superuser = attributes["is_superuser"]
-#            user.save()
-                    
+            # attributes = request.session['attributes']
+            # user.email = attributes["email"]
+            # user.first_name = attributes["first_name"]
+            # user.last_name = attributes["last_name"]
+            # # Added setting of org_type and organization
+            # user.org_type = attributes["organization_type"]
+            # user.organization = attributes["organization"]
+            # if attributes["is_active"] is True:
+            #     user.is_active = attributes["is_active"]
+            # if attributes["is_staff"] is True:
+            #     user.is_staff = attributes["is_staff"]
+            # if attributes["is_superuser"] is True:
+            #     pprint("user.is_superuser:" + str(attributes["is_superuser"]))
+            #     user.is_superuser = attributes["is_superuser"]
+            # user.save()
+
             #pprint('Superuser? '+str(user.is_superuser))
 
             if settings.CAS_LOGIN_MSG is not None:
@@ -116,7 +119,10 @@ def login(request, next_page=None, required=False):
             return HttpResponseRedirect(client.get_login_url())
         else:
             pprint("user not found")
-            error = "<h1>{0}</h1><p>{1}</p>".format(_('Forbidden'), _('Login failed.'))
+
+            error = "<h1>{0}</h1><p>{1}</p>".format(
+                _('Forbidden'), _('Login failed.'))
+
             return HttpResponseForbidden(error)
     else:
         return HttpResponseRedirect(client.get_login_url())
@@ -141,8 +147,10 @@ def logout(request, next_page=None):
     )
     auth_logout(request)
     # clean current session ProxyGrantingTicket and SessionTicket
-    ProxyGrantingTicket.objects.filter(session_key=request.session.session_key).delete()
-    SessionTicket.objects.filter(session_key=request.session.session_key).delete()
+    ProxyGrantingTicket.objects.filter(
+        session_key=request.session.session_key).delete()
+    SessionTicket.objects.filter(
+        session_key=request.session.session_key).delete()
     next_page = next_page or get_redirect_url(request)
     if settings.CAS_LOGOUT_COMPLETELY:
         protocol = get_protocol(request)
@@ -191,7 +199,8 @@ def clean_sessions(client, request):
             )
             session.flush()
             # clean logout session ProxyGrantingTicket and SessionTicket
-            ProxyGrantingTicket.objects.filter(session_key=st.session_key).delete()
+            ProxyGrantingTicket.objects.filter(
+                session_key=st.session_key).delete()
             SessionTicket.objects.filter(session_key=st.session_key).delete()
         except SessionTicket.DoesNotExist:
             pass

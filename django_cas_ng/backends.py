@@ -20,6 +20,7 @@ __all__ = ['CASBackend']
 
 from pprint import pprint
 
+
 class CASBackend(ModelBackend):
     """CAS authentication backend"""
 
@@ -51,7 +52,7 @@ class CASBackend(ModelBackend):
             user = User.objects.create_user(username, '')
             user.save()
             created = True
-        
+
         if pgtiou and settings.CAS_PROXY_CALLBACK:
             request.session['pgtiou'] = pgtiou
 
@@ -74,6 +75,7 @@ class CASBackend(ModelBackend):
         except User.DoesNotExist:
             return None
 
+
 @receiver(cas_user_authenticated)
 def handle_user_authenticated(sender, **kwargs):
     user = kwargs.get("user")
@@ -82,25 +84,25 @@ def handle_user_authenticated(sender, **kwargs):
     user.email = attributes["email"]
     user.first_name = attributes["first_name"]
     user.last_name = attributes["last_name"]
+    # Added setting of org_type and organization
+    # user.org_type = attributes["organization_type"]
+    # user.organization = attributes["organization"]
     if attributes["is_active"] is True:
         user.is_active = attributes["is_active"]
     if attributes["is_staff"] is True:
         user.is_staff = attributes["is_staff"]
     if attributes["is_superuser"] is True:
-        pprint("user.is_superuser:"+str(attributes["is_superuser"]))
+        pprint("user.is_superuser:" + str(attributes["is_superuser"]))
         user.is_superuser = attributes["is_superuser"]
     user.save()
 
     if attributes["groups"]:
         groups_list = literal_eval(attributes["groups"])
-        l1 =user.groups.values_list('name', flat = True)
-        #group_diff =  list(set(l1)-set(groups_list))
-        #if len(group_diff) > 0:
+        l1 = user.groups.values_list('name', flat=True)
+        # group_diff =  list(set(l1)-set(groups_list))
+        # if len(group_diff) > 0:
         #    join_user_to_groups(user, group_diff)
-            
         group_diff = list(set(groups_list) - set(l1))
         pprint(group_diff)
         if len(group_diff) > 0:
             join_user_to_groups.delay(user, group_diff)
-            
-        

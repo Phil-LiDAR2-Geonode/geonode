@@ -51,7 +51,8 @@ urlpatterns = patterns('',
                        # Static pages
                        url(r'^/?$', TemplateView.as_view(template_name='index.html'), name='home'),
                        url(r'^help/$', TemplateView.as_view(template_name='help.html'), name='help'),
-                       url(r'^developer/$', TemplateView.as_view(template_name='developer.html'), name='developer'),
+                       url(r'^developer/$', TemplateView.as_view(
+                           template_name='developer.html'), name='developer'),
                        url(r'^about/$', TemplateView.as_view(template_name='about.html'), name='about'),
 
                        # Layer views
@@ -64,13 +65,15 @@ urlpatterns = patterns('',
                        (r'^catalogue/', include('geonode.catalogue.urls')),
 
                        # data.json
-                       url(r'^data.json$', 'geonode.catalogue.views.data_json', name='data_json'),
+                       url(r'^data.json$', 'geonode.catalogue.views.data_json',
+                           name='data_json'),
 
                        # Search views
-                       url(r'^search/$', TemplateView.as_view(template_name='search/search.html'), name='search'),
+                       url(r'^search/$', TemplateView.as_view(
+                           template_name='search/search.html'), name='search'),
 
                        # Social views
-                       #(r"^account/", include("account.urls")),
+                       # (r"^account/", include("account.urls")),
                        (r'^people/', include('geonode.people.urls')),
                        (r'^avatar/', include('avatar.urls')),
                        (r'^comments/', include('dialogos.urls')),
@@ -82,21 +85,29 @@ urlpatterns = patterns('',
                        (r'^security/', include('geonode.security.urls')),
 
                        # Accounts
-                       #url(r'^account/ajax_login$', 'geonode.views.ajax_login', name='account_ajax_login'),
-                       #url(r'^account/ajax_lookup$', 'geonode.views.ajax_lookup', name='account_ajax_lookup'),
-                       url(r'^account/ajax_lookup$', 'geonode.views.ajax_lookup', name='account_ajax_lookup'),
-                       url(r'^account/login/$', 'django_cas_ng.views.login', name='account_ajax_login'),
-                       url(r'^account/login/$', 'django_cas_ng.views.login', name='account_login'),
-                       url(r'^account/login/$', 'django_cas_ng.views.login', name='cas_ng_login'),
-                       url(r'^account/logout/$', 'django_cas_ng.views.logout', name='cas_ng_logout'),
-                       url(r'^account/logout/$', 'django_cas_ng.views.logout', name='account_logout'),
-                       url(r'^accounts/callback$', 'django_cas_ng.views.callback', name='cas_ng_proxy_callback'),
+                       # url(r'^account/ajax_login$', 'geonode.views.ajax_login',
+                       #     name='account_ajax_login'),
+                       url(r'^account/ajax_lookup$', 'geonode.views.ajax_lookup',
+                           name='account_ajax_lookup'),
+                       url(r'^account/login/$', 'django_cas_ng.views.login',
+                           name='account_ajax_login'),
+                       url(r'^account/login/$',
+                           'django_cas_ng.views.login', name='account_login'),
+                       url(r'^account/login/$',
+                           'django_cas_ng.views.login', name='cas_ng_login'),
+                       url(r'^account/logout/$',
+                           'django_cas_ng.views.logout', name='cas_ng_logout'),
+                       url(r'^account/logout/$',
+                           'django_cas_ng.views.logout', name='account_logout'),
+                       url(r'^accounts/callback$', 'django_cas_ng.views.callback',
+                           name='cas_ng_proxy_callback'),
 
                        # Meta
                        url(r'^lang\.js$', TemplateView.as_view(template_name='lang.js', content_type='text/javascript'),
                            name='lang'),
 
-                       url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict, name='jscat'),
+                       url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog',
+                           js_info_dict, name='jscat'),
                        url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps},
                            name='sitemap'),
 
@@ -137,6 +148,8 @@ handler403 = 'geonode.views.err403'
 
 # Featured Maps Pattens
 urlpatterns += patterns('',
-                        (r'^featured/(?P<site>[A-Za-z0-9_\-]+)/$', 'geonode.maps.views.featured_map'),
-                        (r'^featured/(?P<site>[A-Za-z0-9_\-]+)/info$', 'geonode.maps.views.featured_map_info'),
+                        (r'^featured/(?P<site>[A-Za-z0-9_\-]+)/$',
+                         'geonode.maps.views.featured_map'),
+                        (r'^featured/(?P<site>[A-Za-z0-9_\-]+)/info$',
+                         'geonode.maps.views.featured_map_info'),
                         )
