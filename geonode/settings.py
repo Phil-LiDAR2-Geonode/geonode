@@ -894,7 +894,8 @@ CAS_SERVER_URL = "https://lipad-sso.dream.upd.edu.ph/"
 try:
     from local_settings import *  # noqa
 except ImportError:
-    pass
+    import traceback
+    traceback.print_exc()
 
 try:
     BING_LAYER = {
@@ -941,6 +942,3 @@ if 'geonode.geoserver' in INSTALLED_APPS:
     baselayers = MAP_BASELAYERS
     MAP_BASELAYERS = [LOCAL_GEOSERVER]
     MAP_BASELAYERS.extend(baselayers)
-
-CAS_VERSION = 3
-PASSWORD_RESET_LINK = "https://ssp.dream.upd.edu.ph/?action=sendtoken"
