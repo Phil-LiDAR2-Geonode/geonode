@@ -166,7 +166,9 @@
             <li><a href="{% url "account_signup" %}">{% trans "Register" %}</a></li>
             {% endif %}
             {% endcomment %}
+            {% if not user.is_authenticated %}
             <li><a href="https://lipad.dream.upd.edu.ph/requests/register/profile_request/" role="button">{% trans "Register" %}</a></li>
+            {% endif %}
             {% if user.is_authenticated %}
             <li>
               <a href="#" data-toggle="modal" data-target="#UserModal" role="button" aria-expanded="false">
