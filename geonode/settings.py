@@ -259,6 +259,8 @@ INSTALLED_APPS = (
     # 'django_admin_bootstrapped.bootstrap3',
     # 'django_admin_bootstrapped',
 
+    'autocomplete_light',
+
     # Apps bundled with Django
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -281,7 +283,6 @@ INSTALLED_APPS = (
     'leaflet',
     'django_extensions',
     # 'haystack',
-    'autocomplete_light',
     'mptt',
     'modeltranslation',
     'djcelery',
