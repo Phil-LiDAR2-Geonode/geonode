@@ -23,17 +23,18 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from geonode.sitemap import LayerSitemap, MapSitemap
 from django.views.generic import TemplateView
-from django.contrib import admin
 
 import geonode.proxy.urls
 
 from geonode.api.urls import api
 
+# autocomplete_light should be imported before django admin or before 
+# any import of a form with autocompletes
 import autocomplete_light
-
-# Setup Django Admin
 autocomplete_light.autodiscover()
 
+# Setup Django Admin
+from django.contrib import admin
 admin.autodiscover()
 
 js_info_dict = {
