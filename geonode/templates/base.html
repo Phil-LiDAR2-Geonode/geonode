@@ -300,18 +300,18 @@
 
     {% if DEBUG_STATIC %}
     <script src="{{ STATIC_URL }}lib/js/jquery.min.js?v={{ VERSION }}"></script>
-    <!-- <script src="{{ STATIC_URL }}lib/js/jquery.dataTables.js?v={{ VERSION }}"></script> -->
-    <!-- <script src="{{ STATIC_URL }}lib/js/jquery.timeago.js?v={{ VERSION }}"></script> -->
-    <!-- <script src="{{ STATIC_URL }}lib/js/jquery.ajaxprogress.js?v={{ VERSION }}"></script> -->
-    <!-- <script src="{{ STATIC_URL }}lib/js/jquery.ajaxQueue.js?v={{ VERSION }}"></script> -->
-    <!-- <script src="{{ STATIC_URL }}lib/js/jquery-ui.custom.js?v={{ VERSION }}"></script> -->
-    <!-- <script src="{{ STATIC_URL }}lib/js/jquery.raty.js?v={{ VERSION }}"></script> -->
-    <!-- <script src="{{ STATIC_URL }}lib/js/bootstrap.min.js?v={{ VERSION }}"></script> -->
+    <script src="{{ STATIC_URL }}lib/js/jquery.dataTables.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery.timeago.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery.ajaxprogress.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery.ajaxQueue.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery-ui.custom.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery.raty.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/bootstrap.min.js?v={{ VERSION }}"></script>
     <script src="{{ STATIC_URL }}lib/js/moment-with-locales.min.js?v={{ VERSION }}"></script>
     <script src="{{ STATIC_URL }}lib/js/bootstrap-datetimepicker.min.js?v={{ VERSION }}"></script>
-    <!-- <script src="{{ STATIC_URL }}lib/js/json2.js?v={{ VERSION }}"></script> -->
-    <!-- <script src="{{ STATIC_URL }}lib/js/select2.js?v={{ VERSION }}"></script> -->
-    <!-- <script src="{{ STATIC_URL }}lib/js/waypoints.js?v={{ VERSION }}"></script> -->
+    <script src="{{ STATIC_URL }}lib/js/json2.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/select2.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/waypoints.js?v={{ VERSION }}"></script>
 
     <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -327,17 +327,10 @@
     </script>
 
 
-
     {% else %}
     <script src="{{ STATIC_URL }}lib/js/assets.min.js?v={{ VERSION }}"></script>
 
     {% endif %}
-
-    <!-- {% if USE_LOCAL_FILES %}
-    <script src="{{ LOCAL_FILE_URL }}jquery/jquery-3.2.1.js"></script>
-    <script src="{{ LOCAL_FILE_URL }}bootstrap-3.3.7/js/bootstrap.js"></script>
-
-    {% endif %} -->
 
     <script src="{{ STATIC_URL }}geonode/js/utils/utils.js?v={{ VERSION }}"></script>
     <script src="{{ STATIC_URL }}geonode/js/base/base.js?v={{ VERSION }}"></script>
