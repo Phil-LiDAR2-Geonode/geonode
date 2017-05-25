@@ -1048,6 +1048,10 @@ def geoserver_upload(
 
     # Get a short handle to the gsconfig geoserver catalog
     cat = gs_catalog
+    
+    # Replace Layer may fail when connected to PostGIS workaround
+    # https://github.com/GeoNode/geonode/issues/2462
+    cat.reload()
 
     workspace = cat.get_default_workspace()
     # Check if the store exists in geoserver
