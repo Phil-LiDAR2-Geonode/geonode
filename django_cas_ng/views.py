@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 from django.utils.six.moves import urllib_parse
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
@@ -43,6 +44,11 @@ def login(request, next_page=None, required=False):
     service_url = get_service_url(request, next_page)
     client = get_cas_client(service_url=service_url)
     pprint("service url: "+service_url)
+ 
+    if not next_page and settings.CAS_STORE_NEXT and 'CASNEXT' in request.session:
+        next_page = request.session['CASNEXT']
+        del request.session['CASNEXT']
+
     if not next_page:
         next_page = get_redirect_url(request)
 
@@ -64,14 +70,14 @@ def login(request, next_page=None, required=False):
                             service=service_url,
                             request=request)
         pgtiou = request.session.get("pgtiou")
-        if user.is_superuser:
+        if (user is not None) and (user.is_superuser):
             pprint("User is a superuser")
         pprint("user should be authenticated by now")
         
         if user is not None:
-            auth_login(request, user)
             if not request.session.exists(request.session.session_key):
                 request.session.create()
+            auth_login(request, user)
             SessionTicket.objects.create(
                 session_key=request.session.session_key,
                 ticket=ticket
@@ -91,22 +97,26 @@ def login(request, next_page=None, required=False):
                     pgt.save()
                 except ProxyGrantingTicket.DoesNotExist:
                     pass
-
-            #attributes = request.session['attributes']
-            #user.email = attributes["email"]
-            #user.first_name = attributes["first_name"]
-            #user.last_name = attributes["last_name"]
-            #if attributes["is_active"] is True:
-            #    user.is_active = attributes["is_active"]
-            #if attributes["is_staff"] is True:
-            #    user.is_staff = attributes["is_staff"]
-            #if attributes["is_superuser"] is True:
-            #    pprint("user.is_superuser:"+str(attributes["is_superuser"]))
-            #    user.is_superuser = attributes["is_superuser"]
-            #user.save()
-
+            """
+            attributes = request.session['attributes']
+            pprint(attributes)
+            user.email = attributes["email"]
+            user.first_name = attributes["first_name"]
+            user.last_name = attributes["last_name"]
+            # Added setting of org_type and organization
+            user.org_type = attributes["organization_type"]
+            user.organization = attributes["organization"]
+            if attributes["is_active"] is True:
+                user.is_active = attributes["is_active"]
+            if attributes["is_staff"] is True:
+                user.is_staff = attributes["is_staff"]
+            if attributes["is_superuser"] is True:
+                pprint("user.is_superuser:"+str(attributes["is_superuser"]))
+                user.is_superuser = attributes["is_superuser"]
+            user.save()
                     
             #pprint('Superuser? '+str(user.is_superuser))
+            """
 
             if settings.CAS_LOGIN_MSG is not None:
                 name = user.get_username()
@@ -120,6 +130,8 @@ def login(request, next_page=None, required=False):
             error = "<h1>{0}</h1><p>{1}</p>".format(_('Forbidden'), _('Login failed.'))
             return HttpResponseForbidden(error)
     else:
+        if settings.CAS_STORE_NEXT:
+            request.session['CASNEXT'] = next_page
         return HttpResponseRedirect(client.get_login_url())
 
 
