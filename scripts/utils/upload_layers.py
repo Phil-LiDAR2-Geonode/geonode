@@ -2,13 +2,14 @@
 from geonode.settings import GEONODE_APPS
 import geonode.settings as settings
 
-import os
-import time
-import subprocess
-from os.path import dirname, abspath
-import logging
 from geonode.layers.models import Style
 from geoserver.catalog import Catalog
+from os.path import dirname, abspath
+import argparse
+import logging
+import os
+import subprocess
+import time
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geonode.settings")
 
@@ -45,6 +46,7 @@ def setup_logging():
 def import_layers(path):
     # Execute importlayers
 
+    path = str(path)
     IMPORTLAYERS_LOG_FILE_NAME = 'importlayers_' + \
         time.strftime('%Y-%m-%d') + '.log'
 
@@ -104,17 +106,15 @@ def exists_in_geoserver(style_name):
     return False
 
 
-def style_exists():
+def style_exists(style_name):
 
-    if exists_in_geonode() and exists_in_geoserver():
+    if exists_in_geonode(style_name) and exists_in_geoserver(style_name):
         return True
     return False
 
 
-def create_style(style):
+def create_style(style, name):
     """Creates style in geonode and geoserver."""
-
-    name = style.split('.sld')
 
     sld_url = (settings.OGC_SERVER['default'][
                'LOCATION'] + 'rest/styles/' + style).lower()
@@ -149,10 +149,13 @@ def parse_arguments():
 
     parser.add_argument(
         '--path', help="""Complete directory path of dataset to be imported.
-            e.g. /mnt/pl2-storage_pool/CoastMap/SUC_UPLOADS/UPLB/PALAWAN/""")
+            e.g. /mnt/pl2-storage_pool/CoastMap/SUC_UPLOADS/UPLB/PALAWAN/""",
+        required=True)
     parser.add_argument(
         '--style', help="""Full name of SLD to be used. Must be in the same folder as this script.
-            e.g. coastmap.sld """)
+            e.g. coastmap.sld """, required=True)
+    args = parser.parse_args()
+    return args
 
 
 if __name__ == '__main__':
@@ -167,9 +170,10 @@ if __name__ == '__main__':
     logger.info('Finished importing layers.')
 
     style_created = True
+    name = style.split('.sld')
 
     if import_msg != '':
-        if not style_exists(style):
+        if not style_exists(name):
             style_created = create_style(style)
 
         if style_created:
