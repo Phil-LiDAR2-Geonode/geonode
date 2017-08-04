@@ -9,6 +9,9 @@
 
 {% block body %}
 <div class="page-header">
+  {% if user.is_superuser %}
+      <a href="{% url "layer_upload_csv" %}" class="btn btn-primary pull-right">{% trans "Download CSV" %}</a>
+  {% end if %}
   <a href="{% url "layer_upload" %}" class="btn btn-primary pull-right">{% trans "Upload Layers" %}</a>
   <h2 class="page-title">{% trans "Explore Layers" %}</h2>
 </div>
