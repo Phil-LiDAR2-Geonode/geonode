@@ -130,22 +130,25 @@ def update_lulc(layer):
 	province_list = []
 	resourcema_list = []
 	suc_hei_list = []
+	muncode_list = []
 	keywords_list = []
 
 	# Iterating through each result
 	for r in results:
-		# Check if munic is completed
+		# Check if muni is completed
 		if r['completed'] == "Yes":
 			mapno = r['mapno']
 			city_munic_list.append(r['city_munic'].replace("Bulacan", "Bulakan"))
 			province_list.append(r['province'])
 			resourcema_list.append(r['resourcema'])
+			muncode_list.append(r['muncode'])
 			suc_hei_list.append(r['suc_hei'])
 
 	suc_hei = u", ".join(list(set(suc_hei_list))).replace(",", " and")
 
-	# Add city/muni, province and suc to keywords
+	# Add city/muni, muncode, province and suc to keywords
 	keywords_list.extend(city_munic_list)
+	keywords_list.extend(muncode_list)
 	keywords_list.extend(list(set(province_list)))
 	keywords_list.extend(list(set(suc_hei_list)))
 
@@ -262,7 +265,7 @@ def update_metadata(layer):
 
 if __name__ == "__main__":
 
-	layers = Layer.objects.filter(title__icontains='Parmap')
+	layers = Layer.objects.filter(title__icontains='Land Cover Map')
 
 	total = len(layers)
 	print 'Updating', total, 'layers!'
