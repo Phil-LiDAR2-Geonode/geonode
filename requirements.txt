@@ -1,6 +1,5 @@
 Django==1.6.11
 GDAL==1.9.1
--e git+https://github.com/Phil-LiDAR2-Geonode/pl2-geonode@0572ddae992e658e9a7f899f9fd86eddad0334c5#egg=GeoNode-origin/parmap-prod
 MultipartPostHandler==0.1.0
 OWSLib==0.10.0
 Paver==1.2.1
