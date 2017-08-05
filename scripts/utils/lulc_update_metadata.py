@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # Geonode
 
-__version__ = "0.2.1"
+__version__ = "0.3"
 
 from geonode.settings import GEONODE_APPS
 import geonode.settings as settings
