@@ -59,7 +59,7 @@ def import_layers(path, superuser):
 
     IMPORTLAYERS_LOG_FILE = LOG_FOLDER + IMPORTLAYERS_LOG_FILE_NAME
 
-    importlayers_cmd = '/home/geonode/.venvs/geonode/bin/python -u ../../manage.py importlayers -v 3 -u ' + superuser + ' '
+    importlayers_cmd = '/usr/bin/env python2 -u ../../manage.py importlayers -v 3 -u ' + superuser + ' '
 
     command = importlayers_cmd + path  # + log_cmd
     logger.info('Command: %s', command)
