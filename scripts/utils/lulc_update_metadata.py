@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # Geonode
 
-__version__ = "0.2.1"
+__version__ = "0.3"
 
 # Setup GeoNode environment
 import os
@@ -31,14 +31,13 @@ import psycopg2
 import psycopg2.extras
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geonode.settings")
-# pprint(settings.DATABASES)
-# exit(1)
 
 
 def connect_db():
     conn = psycopg2.connect(("host={0} dbname={1} user={2} password={3}".format
                              (settings.DATABASE_HOST,
-                              settings.DATABASES['datastore']['NAME'],
+                              settings.DATABASES[
+                                  'datastore']['NAME'],
                               settings.DATABASE_USER,
                               settings.DATABASE_PASSWORD)))
 
@@ -146,22 +145,26 @@ def update_lulc(layer):
     province_list = []
     resourcema_list = []
     suc_hei_list = []
+    muncode_list = []
     keywords_list = []
 
     # Iterating through each result
     for r in results:
-        # Check if munic is completed
+        # Check if muni is completed
         if r['completed'] == "Yes":
             mapno = r['mapno']
-            city_munic_list.append(r['city_munic'].replace("Bulacan", "Bulakan"))
+            city_munic_list.append(
+                r['city_munic'].replace("Bulacan", "Bulakan"))
             province_list.append(r['province'])
             resourcema_list.append(r['resourcema'])
+            muncode_list.append(r['muncode'])
             suc_hei_list.append(r['suc_hei'])
 
     suc_hei = u", ".join(list(set(suc_hei_list))).replace(",", " and")
 
-    # Add city/muni, province and suc to keywords
+    # Add city/muni, muncode, province and suc to keywords
     keywords_list.extend(city_munic_list)
+    keywords_list.extend(muncode_list)
     keywords_list.extend(list(set(province_list)))
     keywords_list.extend(list(set(suc_hei_list)))
 
@@ -186,7 +189,8 @@ def update_lulc(layer):
         abstract_landcover = "Land Cover Map of Agricultural Resources."
         purpose_landcover = "Detailed Agricultural Land Cover Maps"
         resources_landcover = "agricultural resources"
-        keywords_list.extend(["PARMap", "Agriculture", "Landcover", "Phil-LiDAR 2"])
+        keywords_list.extend(
+            ["PARMap", "Agriculture", "Landcover", "Phil-LiDAR 2"])
 
     # check if processed by UPD
     if len(list(set(suc_hei_list))) == 1 and list(set(suc_hei_list))[0] == "University of the Philippines Diliman":
@@ -280,7 +284,7 @@ def update_metadata(layer):
 
 if __name__ == "__main__":
 
-    layers = Layer.objects.filter(title__icontains='Parmap')
+    layers = Layer.objects.filter(title__icontains='Land Cover Map')
 
     total = len(layers)
     print 'Updating', total, 'layers!'
