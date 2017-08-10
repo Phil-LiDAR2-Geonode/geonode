@@ -2,7 +2,7 @@
 from geonode.settings import GEONODE_APPS
 import geonode.settings as settings
 
-from geonode.layers.models import Style
+from geonode.layers.models import Style, Layer
 from geoserver.catalog import Catalog
 from os.path import dirname, abspath
 import argparse
@@ -10,6 +10,9 @@ import logging
 import os
 import subprocess
 import time
+from datetime import datetime, timedelta
+from geonode.base.models import TopicCategory
+
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geonode.settings")
 
@@ -17,6 +20,10 @@ logger = logging.getLogger()
 LOG_LEVEL = logging.INFO
 FILE_LOG_LEVEL = logging.INFO
 LOG_FOLDER = dirname(abspath(__file__)) + '/logs/'
+
+cat = Catalog(settings.OGC_SERVER['default']['LOCATION'] + 'rest',
+              username=settings.OGC_SERVER['default']['USER'],
+              password=settings.OGC_SERVER['default']['PASSWORD'])
 
 # STYLE = 'test_sld.sld'
 
@@ -43,7 +50,7 @@ def setup_logging():
     logger.addHandler(fh)
 
 
-def import_layers(path):
+def import_layers(path, superuser):
     # Execute importlayers
 
     path = str(path)
@@ -52,26 +59,21 @@ def import_layers(path):
 
     IMPORTLAYERS_LOG_FILE = LOG_FOLDER + IMPORTLAYERS_LOG_FILE_NAME
 
-    importlayers_cmd = 'python -u ../../manage.py importlayers -v 3 -u geoadmin' + ' '
+    importlayers_cmd = '/home/geonode/.venvs/geonode/bin/python -u ../../manage.py importlayers -v 3 -u ' + superuser + ' '
 
     command = importlayers_cmd + path  # + log_cmd
     logger.info('Command: %s', command)
 
-    command_list = command.split()
-    logger.info('Command list: %s', command_list)
-
-    text = ''
-
     try:
 
         logger.info('Execute command ...')
-
-        output = subprocess.Popen(command_list, stdout=subprocess.PIPE)
+        output = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
         output.wait()
-        text = output.communicate()[0]
+        out, err = output.communicate()
 
         logger.info('Finished. Below is output of importlayers ')
-        logger.info(text)
+        logger.info('Popen OUT %s', out)
+        logger.info('Popen ERR %s', err)
         # print 'Finished. Below is output of Popen'
         # print text
 
@@ -80,7 +82,7 @@ def import_layers(path):
         print 'Exception occurred'
         logger.exception('Exception occurred')
 
-    return text
+    return out
 
 
 def exists_in_geonode(style_name):
@@ -95,13 +97,10 @@ def exists_in_geonode(style_name):
 
 def exists_in_geoserver(style_name):
 
-    cat = Catalog(settings.OGC_SERVER['default']['LOCATION'] + 'rest',
-                  username=settings.OGC_SERVER['default']['USER'],
-                  password=settings.OGC_SERVER['default']['PASSWORD'])
     style = cat.get_style(style_name)
 
-    if s is not None:
-        logger.info('Style found in GeoNode.')
+    if style is not None:
+        logger.info('Style found in GeoServer.')
         return True
     return False
 
@@ -140,6 +139,85 @@ def create_style(style, name):
     return True
 
 
+def update_style(layer, style_template):
+    # Get equivalent geoserver layer
+    gs_layer = cat.get_layer(layer.name)
+    logger.info('%s: gs_layer: %s', layer.name, gs_layer.name)
+    # print layer.name, ': gs_layer:', gs_layer.name
+
+    # Get current style
+    # pprint(dir(gs_layer))
+    cur_def_gs_style = gs_layer._get_default_style()
+    # pprint(dir(cur_def_gs_style))
+    if cur_def_gs_style is not None:
+        logger.info('%s: cur_def_gs_style.name: %s', layer.name, cur_def_gs_style.name)
+        # print layer.name, ': cur_def_gs_style.name:', cur_def_gs_style.name
+
+    # Get proper style
+    gs_style = None
+    gs_style = cat.get_style(style_template)
+
+    # has_layer_changes = False
+    try:
+        if gs_style is not None:
+            print layer.name, ': gs_style.name:', gs_style.name
+
+            if cur_def_gs_style and cur_def_gs_style.name != gs_style.name:
+
+                logger.info('%s: Setting default, style...', layer.name)
+                # print layer.name, ': Setting default style...'
+                gs_layer._set_default_style(gs_style)
+                cat.save(gs_layer)
+
+                logger.info('%s: Deleting old default style from geoserver...', layer.name)
+                print layer.name, ': Deleting old default style from geoserver...'
+                cat.delete(cur_def_gs_style)
+
+                logger.info('%s: Deleting old default style from geonode...', layer.name)
+                # print layer.name, ': Deleting old default style from geonode...'
+                gn_style = Style.objects.get(name=layer.name)
+                gn_style.delete()
+    except Exception as e:
+        logger.exception("Error setting style")
+
+
+
+def update_text_content(layer):
+    #: Updates purpose and topic category
+
+    layer_title = layer.name.replace('_', ' ').title()
+
+    if layer.title != layer_title:
+        layer.title = layer_title
+        layer.save()
+        logger.info('Updated %s Title: %s', layer.name, layer.title)
+
+    layer_purpose = """Integrated Agricultural and Coastal Land Cover Maps are needed by Government Agencies and Local Government Units for planning and decision making. This complements on-going programs of the Department of Agriculture by utilizing LiDAR data for the mapping of resources and vulnerability assessment."""
+    if layer.purpose != layer_purpose:
+        layer.purpose = layer_purpose
+        logger.info('Updated Purpose %s', layer.name)
+
+    if layer.category != TopicCategory.objects.get(identifier="imageryBaseMapsEarthCover"):
+        layer.category = TopicCategory.objects.get(
+            identifier="imageryBaseMapsEarthCover")
+        logger.info('Updated Category %s', layer.name)
+
+    layer.save()
+
+def update_metadata(style_template, day_counter):
+
+    last_day = datetime.now() - timedelta(days=int(day_counter))
+    layers = Layer.objects.filter(upload_session__date__gte=last_day)
+
+    logger.info('%s Layers', len(layers))
+
+    for layer in layers:
+        update_style(layer, style_template)
+
+    for layer in layers:
+        update_text_content(layer)
+
+
 def parse_arguments():
 
     parser = argparse.ArgumentParser(description="""Stand alone script for migrating data. Does the following:
@@ -148,12 +226,16 @@ def parse_arguments():
         3. Updates layer styles by applying <style>.""")
 
     parser.add_argument(
+        '--superuser', help="""GeoNode superuser""", required=True)
+    parser.add_argument(
         '--path', help="""Complete directory path of dataset to be imported.
             e.g. /mnt/pl2-storage_pool/CoastMap/SUC_UPLOADS/UPLB/PALAWAN/""",
         required=True)
     parser.add_argument(
         '--style', help="""Full name of SLD to be used. Must be in the same folder as this script.
             e.g. coastmap.sld """, required=True)
+    parser.add_argument(
+        '--daycount', help="""Update style of layers uploaded within X days""", required=True)
     args = parser.parse_args()
     return args
 
@@ -161,22 +243,25 @@ def parse_arguments():
 if __name__ == '__main__':
 
     args = parse_arguments()
+    superuser = args.superuser
     path = args.path
     style = args.style
+    day_counter = args.daycount
 
     setup_logging()
     logger.info('Importing Layers ... ')
-    import_msg = import_layers(path)
+    import_msg = import_layers(path, superuser)
     logger.info('Finished importing layers.')
 
     style_created = True
-    name = style.split('.sld')
+    name = style.split('.sld')[0]
 
     if import_msg != '':
+        logger.info('SET STYLE')
         if not style_exists(name):
-            style_created = create_style(style)
+            style_created = create_style(style, name)
 
         if style_created:
-            update_layer_styles(style)
+            update_metadata(name, day_counter)
 
     logger.info('Finished script')
