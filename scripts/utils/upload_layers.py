@@ -12,6 +12,7 @@ import subprocess
 import time
 from datetime import datetime, timedelta
 from geonode.base.models import TopicCategory
+import getpass
 
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geonode.settings")
@@ -139,6 +140,15 @@ def create_style(style, name):
     return True
 
 
+def own_thumbnail(layer):
+    print 'USER', getpass.getuser()
+    print layer.name, ': Setting thumbnail permissions...'
+    thumbnail_str = 'layer-' + str(layer.uuid) + '-thumb.png'
+    thumb_url = '/var/www/geonode/uploaded/thumbs/' + thumbnail_str
+    subprocess.call(['sudo', '/bin/chown', 'www-data:www-data', thumb_url])
+    subprocess.call(['sudo', '/bin/chmod', '666', thumb_url])
+
+
 def update_style(layer, style_template):
     # Get equivalent geoserver layer
     gs_layer = cat.get_layer(layer.name)
@@ -235,7 +245,7 @@ def parse_arguments():
         '--style', help="""Full name of SLD to be used. Must be in the same folder as this script.
             e.g. coastmap.sld """, required=True)
     parser.add_argument(
-        '--daycount', help="""Update style of layers uploaded within X days""", required=True)
+        '--daycount', help="""Update layers uploaded within X days""", required=True)
     args = parser.parse_args()
     return args
 
