@@ -62,6 +62,8 @@ def own_thumbnail(layer, thumbnail_url):
     subprocess.call(['sudo', '/bin/chown', 'geonode:apache', thumb_url])
     subprocess.call(['sudo', '/bin/chmod', '666', thumb_url])
 
+    layer.save()
+
 
 def update_style(layer, style_template):
     logger.info('Updating style.')
