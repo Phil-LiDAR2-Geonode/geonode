@@ -167,6 +167,7 @@ STATIC_URL = "/static/"
 # Additional directories which hold static files
 STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, "static"),
+    os.path.join(PROJECT_ROOT, "static/geonode/bower_components"),
 ]
 
 # List of finder classes that know how to find static files in
@@ -309,6 +310,9 @@ INSTALLED_APPS = (
 
     # CAS client
     'django_cas_ng',
+
+    # data request management
+    'parmap_data_request'
 ) + GEONODE_APPS
 
 LOGGING = {

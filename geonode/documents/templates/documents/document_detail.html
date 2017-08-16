@@ -44,7 +44,7 @@
       <p><a href="{{ resource.doc_url }}" target="_blank">Download the {{ resource }} document.</a> <small>({% trans 'External Resource' %})</small></p>
       {%  endif %}
     {%  endif %}
-       
+
     <div class="documents-actions">
       {% include "_actions.html" %}
     </div>
@@ -55,11 +55,11 @@
       {% block social_links %}
         {% include "social_links.html" %}
       {% endblock %}
-        
+
       <article id="comments" class="tab-pane">
       {% include "_comments.html" %}
       </article>
-        
+
       <article id="rate" class="tab-pane">
         <!-- TODO: Move this to a reusable template snippet -->
         {% if request.user.is_authenticated %}
@@ -88,84 +88,164 @@
       <li class="list-group-item">
       {% if "download_resourcebase" in perms_list %}
         {% if resource.extension|lower in imgtypes and resource.doc_file %}
+          {% comment %}
           <a style="text-decoration:none;" target="_blank" href="{% url "document_download" resource.id %}"><button class="btn btn-primary btn-md btn-block">{% trans "Download Document" %}</button></a>
+          {% endcomment %}
+          <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Document" %}</button>
         {% elif resource.doc_file %}
+          {% comment %}
           <a style="text-decoration:none;" target="_blank" href="{% url "document_download" resource.id %}"><button class="btn btn-primary btn-md btn-block">{% trans "Download Document" %}</button></a>
+          {% endcomment %}
+          <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Document" %}</button>
         {% elif  resource.doc_url %}
+          {% comment %}
           <a style="text-decoration:none;" target="_blank" href="{{ resource.doc_url }}"><button class="btn btn-primary btn-md btn-block">{% trans "Download Document" %}</button></a>
+          {% endcomment %}
+          <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Document" %}</button>
         {%  endif %}
+        <div class="modal fade" id="resource-download" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
+          <div class="modal-dialog" style="width: 80%; height: 60%;">
+            <div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
+              <div class="modal-header">
+                {% comment %}
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                {% endcomment %}
+                <h4 class="modal-title" id="ResDownloadModalLabel">END-USER LICENSE AGREEMENT (Non-Commercial)</h4>
+              </div>
+              <div class="modal-body">
+                <div class="row edit-modal">
+                  <div class="col-sm-12 text-left">
+                    {% include "parmap_data_request/eula.html" %}
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <input type="button" class="btn btn-default" id="resource-download-accept-button" data-dismiss="modal" value="{% trans "Accept" %}"/>
+                <input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
+              </div>
+            </div>
+          </div>
+        </div>
       {% else %}
         {% if request.user.is_authenticated %}
-        <button class="btn btn-primary btn-md btn-block" id="request-download">{% trans "Request Download" %}</button>
+          {% if has_pending_request %}
+        <button class="btn btn-primary btn-md btn-block" disabled>{% trans "Awaiting Approval" %}</button>
+          {% else %}
+        <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#request-download">{% trans "Request Download" %}</button>
+          {% endif %}
+        <div class="modal fade" id="request-download" tabindex="-1" role="dialog" aria-labelledby="ReqDownloadModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ReqDownloadModalLabel">{% trans "Request Data" %}</h4>
+              </div>
+              <div class="modal-body">
+                <div class="row edit-modal">
+                  <div class="col-sm-12 text-left">
+                    <form id="data_request_form" action="{% url 'datarequest_add' %}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="uuid" value="{{ resource.uuid }}">
+                        {% csrf_token %}
+                        <p><span style="font-style: italic">Note on the formal request letter:</span></p>
+                        <p>The letter is a signed endorsement from the head of agency, department head, academic adviser, etc. Purpose of the data, types of data requested and intended use should be specified in the letter.</p>
+                        <p>Letter should be addressed to Ariel C. Blanco, Dr. Eng., Director, Training Center for Applied Geodesy and Photogrammetry (TCAGP).</p>
+                        <input id="upload-request-file" type="file" name="letter_file"/>
+                        <div id="kv-error-1" style="margin-top:10px;display:none"></div>
+                        <div id="kv-success-1" class="alert alert-success " style="margin-top:10px;display:none"><ul></ul></div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="request-letter-upload-success" tabindex="-1" role="dialog" aria-labelledby="SuccessUploadModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{% trans "Request Data" %}</h4>
+              </div>
+              <div class="modal-body">
+                <div class="row edit-modal">
+                  <div class="col-sm-12 text-left">
+                    <p>Successfully uploaded request letter</p>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+              </div>
+            </div>
+          </div>
+        </div>
         {%  endif %}
       {%  endif %}
       </li>
 
       <li class="list-group-item">
         <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#edit-document">{% trans "Edit Document" %}</button>
-      </li>
-      <div class="modal fade" id="edit-document" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">{% trans "Edit Document" %}</h4>
-            </div>
-            <div class="modal-body">
-
-              <div class="row edit-modal">
-                {% if "change_resourcebase_metadata" in perms_list %}
-                <div class="col-sm-3">
-                  <i class="fa fa-list-alt fa-3x"></i>
-                  <h4>{% trans "Metadata" %}</h4>
-                  <a class="btn btn-default btn-block btn-xs" href="{% url "document_metadata" resource.id %}">{% trans "Edit" %}</a>
-                </div>
-                {% endif %}
-                {% if "change_resourcebase" in perms_list or "delete_resourcebase" in perms_list %}
-                <div class="col-sm-3">
-                  <i class="fa fa-file-text-o fa-3x"></i>
-                  <h4>{% trans "Document" %}</h4>
-                  {% if "change_resourcebase" in perms_list %}
-                  <a class="btn btn-default btn-block btn-xs" href="{% url "document_replace" resource.id %}">{% trans "Replace" %}</a>
+        <div class="modal fade" id="edit-document" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">{% trans "Edit Document" %}</h4>
+              </div>
+              <div class="modal-body">
+                <div class="row edit-modal">
+                  {% if "change_resourcebase_metadata" in perms_list %}
+                  <div class="col-sm-3">
+                    <i class="fa fa-list-alt fa-3x"></i>
+                    <h4>{% trans "Metadata" %}</h4>
+                    <a class="btn btn-default btn-block btn-xs" href="{% url "document_metadata" resource.id %}">{% trans "Edit" %}</a>
+                  </div>
                   {% endif %}
-                  {% if "delete_resourcebase" in perms_list %}
-                  <a class="btn btn-danger btn-block btn-xs" href="{% url "document_remove" resource.id %}">{% trans "Remove" %}</a>
+                  {% if "change_resourcebase" in perms_list or "delete_resourcebase" in perms_list %}
+                  <div class="col-sm-3">
+                    <i class="fa fa-file-text-o fa-3x"></i>
+                    <h4>{% trans "Document" %}</h4>
+                    {% if "change_resourcebase" in perms_list %}
+                    <a class="btn btn-default btn-block btn-xs" href="{% url "document_replace" resource.id %}">{% trans "Replace" %}</a>
+                    {% endif %}
+                    {% if "delete_resourcebase" in perms_list %}
+                    <a class="btn btn-danger btn-block btn-xs" href="{% url "document_remove" resource.id %}">{% trans "Remove" %}</a>
+                    {% endif %}
+                  </div>
                   {% endif %}
                 </div>
-                {% endif %}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
               </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
-            </div>
           </div>
         </div>
-      </div>
-
+      </li>
       <li class="list-group-item">
         <button class="btn btn-default btn-md btn-block" data-toggle="modal" data-target="#download-metadata">{% trans "Download Metadata" %}</button>
-      </li>
-      <div class="modal fade" id="download-metadata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">{% trans "Download Metadata" %}</h4>
-            </div>
-            <div class="modal-body">
-              <ul>
-                {% for link in metadata %}
-                <li><a href="{{ link.url }}">{{ link.name }}</a></li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+        <div class="modal fade" id="download-metadata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">{% trans "Download Metadata" %}</h4>
+              </div>
+              <div class="modal-body">
+                <ul>
+                  {% for link in metadata %}
+                  <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
+      </li>
       <li class="list-group-item">
         <h4>{% trans "Resource using this document" %}</h4>
         {% if layer.maps %}
@@ -198,6 +278,38 @@
 {% endblock %}
 
 {% block extra_script %}
+<script type="text/javascript">
+$(function (){
+  $("#upload-request-file").fileinput({
+      "uploadUrl": "{% url "datarequest_add" %}",
+      "uploadAsync": false,
+      "dropZoneEnabled": false,
+      "required": true,
+      "maxFileCount": 1,
+      "showPreview": false,
+      "maxFileSize": 10240,
+      "showClose": true,
+      "allowedFileExtensions": ["pdf"],
+      "allowedPreviewMimeTypes": ["application/pdf"],
+      "browseLabel": "Select file",
+      "uploadLabel": "Upload file",
+      "uploadExtraData": {"uuid":"{{resource.uuid}}"},
+      "elErrorContainer": '#kv-error-1',
+      "msgFileRequired": "Please select a PDF file to upload.",
+      "msgSizeTooLarge": "The file your trying to upload exceeds the maximum allowed upload size.",
+      "msgInvalidFileExtension": "You selected an invalid file. Only PDF files are supported.",
+  }).on('filebatchuploadsuccess', function(event, data, id, index) {
+    $("#request-download").modal("toggle");
+    $("#request-letter-upload-success").modal("show")
+  });
+
+  $('#request-letter-upload-success').on('hidden.bs.modal', function () {
+    location.reload()
+  })
+});
+</script>
+
+
 {% if SOCIAL_BUTTONS %}
 <div id="fb-root"></div>
 <script>(function(d, s, id) {

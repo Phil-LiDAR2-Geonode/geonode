@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 
 <article itemscope itemtype="http://schema.org/Dataset" class="description tab-pane active" id="info">
   <dl class="dl-horizontal">
@@ -165,9 +166,7 @@
     <dt>{% trans "Spatial Representation Type" %}</dt>
     <dd>{{ resource.spatial_representation_type }}</dd>
     {% endif %}
-
   </div>
-
   </dl>
 
 </article>

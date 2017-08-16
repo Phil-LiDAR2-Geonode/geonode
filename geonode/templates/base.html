@@ -14,7 +14,12 @@
       <link href="{{ STATIC_URL }}lib/css/jquery-ui.css" rel="stylesheet"/>
       <link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
       {% else %}
+      <!-- edit -->
+      <link href="{{ STATIC_URL }}geonode/bower_components/bootstrap/dist/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+      <!-- end edit -->
+      <!-- overrides the bootstrap css above -->
       <link href="{{ STATIC_URL }}lib/css/assets.min.css" rel="stylesheet"/>
+      <!-- -->
       {% endif %}
       <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
       <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" />
@@ -24,8 +29,7 @@
       <link href="{{ STATIC_URL }}geonode/css/site_base.css" rel="stylesheet" />
       <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" />
       <link href="{{ STATIC_URL }}geonode/css/d.css" rel="stylesheet" />
-      <!-- end of new files-->
-      <!-- -->
+
       <link href="{{ STATIC_URL }}geonode/css/Carousel_css.css" rel="stylesheet" />
       <!-- -->
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
@@ -43,8 +47,30 @@
       </style>
     <![endif]-->
 
-    <!--carousel css start -->
     <style>
+    /* monkey patching, not available in bootstrap3 but available in bootstrap4 */
+    .font-weight-bold{
+      font-weight: bold
+    }
+
+    /* EULA info associated styles */
+    .eula-list-text{
+      margin-left: 1em;
+    }
+    .eula-level-1{
+      padding-left: 1em;
+      list-style: decimal;
+    }
+    .eula-level-2{
+      padding-left: 2em;
+      list-style: lower-alpha;
+    }
+    .eula-level-3{
+      padding-left: 2em;
+      list-style: lower-roman;
+    }
+
+    /* carousel css start */
     .carousel {
       background: #605e5e;
       margin-bottom: 0px;
@@ -151,8 +177,8 @@
                 {% if HAYSTACK_SEARCH %}
                 <input id="search_input" type="text" placeholder="Search" class="form-control" name="q">
                 {% else %}
-                <input id="search_input" type="text" placeholder="Search" class="form-control" name="title__icontains">
-                <!-- <input id="search_input" type="text" placeholder="Search" class="form-control" name="keywords__slug__in"> -->
+                <!-- input id="search_input" type="text" placeholder="Search" class="form-control" name="title__icontains" -->
+                <input id="search_input" type="text" placeholder="Search" class="form-control" name="keywords__slug__in">
                 {% endif %}
                 <span class="input-group-btn">
                   <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
@@ -343,7 +369,6 @@
     <script src="{{ STATIC_URL }}lib/js/jquery.ajaxQueue.js"></script>
     <script src="{{ STATIC_URL }}lib/js/jquery-ui.custom.js"></script>
     <script src="{{ STATIC_URL }}lib/js/jquery.raty.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}lib/js/moment-with-locales.min.js"></script>
     <script src="{{ STATIC_URL }}lib/js/bootstrap-datetimepicker.min.js"></script>
     <script src="{{ STATIC_URL }}lib/js/json2.js"></script>
@@ -355,12 +380,35 @@
     {% endif %}
     <script src="{{ STATIC_URL }}geonode/js/utils/utils.js"></script>
     <script src="{{ STATIC_URL }}geonode/js/base/base.js"></script>
+
+    <!-- static files for bootstrap-fileinput -->
+    <link href="{{ STATIC_URL }}geonode/bower_components/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script -->
+    <!-- canvas-to-blob.min.js is only needed if you wish to resize images before upload.
+         This must be loaded before fileinput.min.js -->
+    <script src="{{ STATIC_URL }}geonode/bower_components/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
+    <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
+         This must be loaded before fileinput.min.js -->
+    <script src="{{ STATIC_URL }}geonode/bower_components/bootstrap-fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
+    <!-- purify.min.js is only needed if you wish to purify HTML content in your preview for HTML files.
+         This must be loaded before fileinput.min.js -->
+    <script src="{{ STATIC_URL }}geonode/bower_components/bootstrap-fileinput/js/plugins/purify.min.js" type="text/javascript"></script>
+    <!-- the main fileinput plugin file -->
+    <script src="{{ STATIC_URL }}geonode/bower_components/bootstrap-fileinput/js/fileinput.min.js"></script>
+    <!-- bootstrap.js below is needed if you wish to zoom and view file content
+         in a larger detailed modal dialog -->
+    <!-- needed to create slug version of keyword names in the search bar -->
+    <script src="{{ STATIC_URL }}geonode/bower_components/slugify/dist/slugify.min.js"></script>
+    <!-- script src="{{ STATIC_URL }}lib/js/bootstrap.min.js"></script -->
+    <!-- script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script -->
+
+
     {% include 'autocomplete_light/static.html' %}
     <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
     {% block extra_script %}{% endblock extra_script %}
     <script type="text/javascript">
         var autocomplete = $('#search_input').yourlabsAutocomplete({
-            url: '{% url "autocomplete_light_autocomplete" "ResourceBaseAutocomplete" %}',
+            url: '{% url "autocomplete_light_autocomplete" "ParmapAutocomplete" %}',
             choiceSelector: 'span',
             hideAfter: 200,
             minimumCharacters: 1,
@@ -369,7 +417,7 @@
         });
         $('#search_input').bind('selectChoice', function(e, choice, autocomplete) {
             if(choice[0].children[0] == undefined) {
-                $('#search_input').val(choice[0].innerHTML);
+                $('#search_input').val( slugify(choice[0].innerHTML) );
                 $('#search').submit();
             }
         });

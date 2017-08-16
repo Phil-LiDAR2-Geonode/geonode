@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Notification of Approval</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <p>Greetings!</p>
+    <p>Your data request is currently being deliberated. Please confirm the following details by replying to this email:</p>
+    <ol>
+        <li>Purpose/Intended Use of Data</li>
+        {% for message in reasons %}
+        <li>{{message}}</li>
+        {% endfor %}
+    </ol>
+    <p>If you have any questions or concerns, you can contact us as at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
+    <p>Thank you.</p>
+</body>
+</html>

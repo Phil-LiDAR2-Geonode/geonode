@@ -85,6 +85,10 @@ urlpatterns = patterns('',
                        (r'^social/', include('geonode.social.urls')),
                        (r'^security/', include('geonode.security.urls')),
 
+                        # Parmap Data Request URLs
+                        # @todo follow PEP 8 style guide on this file
+                       (r'^datarequest/', include('parmap_data_request.urls')),
+
                        # Accounts
                        # url(r'^account/ajax_login$', 'geonode.views.ajax_login',
                        #     name='account_ajax_login'),
