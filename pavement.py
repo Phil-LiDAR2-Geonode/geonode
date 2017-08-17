@@ -342,6 +342,12 @@ def start_geoserver(options):
     Start GeoServer with GeoNode extensions
     """
 
+    # Add paths to local_settings.py
+    GEONODE_ROOT = os.path.abspath(os.path.dirname(__file__))
+    sys.path.append(GEONODE_ROOT)
+    PROJECT_ROOT = os.path.join(GEONODE_ROOT, 'geonode')
+    sys.path.append(PROJECT_ROOT)
+
     from geonode.settings import OGC_SERVER
     GEOSERVER_BASE_URL = OGC_SERVER['default']['LOCATION']
 

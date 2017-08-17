@@ -1,10 +1,10 @@
 import autocomplete_light
 from models import Document
+from geonode.layers.autocomplete_light_registry import ParmapAutocomplete
 
 autocomplete_light.register(
-    Document,
-    search_fields=['^title'],
+    ParmapAutocomplete,
     autocomplete_js_attributes={
-        'placeholder': 'Document name..',
+        'placeholder': 'Specify keyword here..',
     },
 )

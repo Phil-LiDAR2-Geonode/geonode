@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<!-- script type="text/javascript">
 if($("#request-download").length){
   $("#request-download").click(function () {
     $.ajax(
@@ -21,6 +21,57 @@ if($("#request-download").length){
         }
       }
     );
+  });
+}
+</script -->
+
+<script type="text/javascript">
+$(function() {
+  $('#resource-download-accept-button').click(function(evt) {
+    evt.preventDefault();  //stop the browser from following
+    window.location.href = "{{download_url}}"
+  });
+});
+
+if($("#request-download").length){
+  var files;
+  $("#upload-request-button").on('click', function(event){
+    $('#data_request_form').submit();
+    event.stopPropagation(); // stop stuff from happening
+    event.preventDefault(); // totally stop stuff from happening
+  })
+
+  $('#input-id[type=file]').on('change', function(event){ files = event.target.files; });
+  $('#data_request_form').on('submit', function(event, data){
+      // get form data
+      $form = $(event.target);
+      // Serialize the form data
+      var formData = $form.serialize();
+      // You should sterilise the file names
+
+      $.ajax({
+        url: "{% url 'datarequest_add' %}",
+        type: 'POST',
+        data: formData,
+        cache: false,
+        dataType: 'json',
+        success: function(data, textStatus, jqXHR){
+          if(typeof data.error === 'undefined'){
+            // Success so call function to process the form
+            console.log('SUCCESS: ' + data.success);
+          }else{
+            // Handle errors here
+            console.log('ERRORS: ' + data.error);
+          }
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+          // Handle errors here
+          console.log('ERRORS: ' + textStatus);
+        },
+        complete: function(){
+          // STOP LOADING SPINNER
+        }
+      });
   });
 }
 </script>

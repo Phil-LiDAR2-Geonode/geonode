@@ -167,6 +167,7 @@ STATIC_URL = "/static/"
 # Additional directories which hold static files
 STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, "static"),
+    os.path.join(PROJECT_ROOT, "static/geonode/bower_components"),
 ]
 
 # List of finder classes that know how to find static files in
@@ -259,6 +260,8 @@ INSTALLED_APPS = (
     # 'django_admin_bootstrapped.bootstrap3',
     # 'django_admin_bootstrapped',
 
+    'autocomplete_light',
+
     # Apps bundled with Django
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -281,7 +284,6 @@ INSTALLED_APPS = (
     'leaflet',
     'django_extensions',
     # 'haystack',
-    'autocomplete_light',
     'mptt',
     'modeltranslation',
     'djcelery',
@@ -308,6 +310,9 @@ INSTALLED_APPS = (
 
     # CAS client
     'django_cas_ng',
+
+    # data request management
+    'parmap_data_request'
 ) + GEONODE_APPS
 
 LOGGING = {

@@ -119,8 +119,10 @@ def login(request, next_page=None, required=False):
             return HttpResponseRedirect(client.get_login_url())
         else:
             pprint("user not found")
+
             error = "<h1>{0}</h1><p>{1}</p>".format(
                 _('Forbidden'), _('Login failed.'))
+
             return HttpResponseForbidden(error)
     else:
         return HttpResponseRedirect(client.get_login_url())

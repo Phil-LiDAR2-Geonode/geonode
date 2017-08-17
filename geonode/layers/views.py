@@ -67,6 +67,9 @@ from django.utils import timezone
 import csv
 from unidecode import unidecode
 
+# PARMAP DataRequest application
+from parmap_data_request.views import DataRequest
+
 CONTEXT_LOG_FILE = None
 
 if 'geonode.geoserver' in settings.INSTALLED_APPS:
@@ -266,6 +269,18 @@ def layer_detail(request, layername, template='layers/layer_detail.html'):
     metadata = layer.link_set.metadata().filter(
         name__in=settings.DOWNLOAD_FORMATS_METADATA)
 
+    # JC: I think PARMAP related code should be separated to geonode core code as much as possible
+    pending_status = False
+    if request.user.is_authenticated():
+        try:
+            pending_request = DataRequest.objects.filter(profile=request.user).get(resource=layer)
+            if pending_request.status != 'APPROVED':
+                pending_status = True
+        except DataRequest.DoesNotExist:
+            pending_status = False
+        except DataRequest.MultipleObjectsReturned:
+            pending_status = True
+
     context_dict = {
         "resource": layer,
         'perms_list': get_perms(request.user, layer.get_self_resource()),
@@ -274,6 +289,7 @@ def layer_detail(request, layername, template='layers/layer_detail.html'):
         "metadata": metadata,
         "is_layer": True,
         "wps_enabled": settings.OGC_SERVER['default']['WPS_ENABLED'],
+        'has_pending_request': pending_status,
     }
 
     context_dict["viewer"] = json.dumps(

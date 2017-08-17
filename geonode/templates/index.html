@@ -145,11 +145,8 @@
     }
   </style>
 </head>
-<!-- container for about text
-  <div class="jumbotron">
-    <div class="container">
-    <!-- carousel -->
-     <div id="myCarousel" class="carousel slide">
+<!-- container for about text -->
+    <div class="carousel"><!-- carousel -->
       <div class="carousel-inner">
         <div class="item active">
           <img src="/static/geonode/img/layer11.png" alt="">
@@ -158,42 +155,11 @@
               <h1>Welcome to <strong>PARMap Web Portal</strong></h1>
               <p class="lead">Phil-LiDAR 2 Project 1: Agricultural Resources Extraction <br>
               from LiDAR Surveys</p>
-              <a class="btn btn-danger" href="https://parmap.dream.upd.edu.ph/maps/">Get Started</a>
-              <p class="image-credit">Image Credit: DREAM/Phil-LiDAR1</p>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <img src="/static/geonode/img/layer2.jpg" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Welcome to PARMap - Phil-LIDAR 2</h1>
-              <p class="lead">Philippine Agricultural Resources Assessment<br>
-              You can combine already existing layers with your own data to create<br>
-              powerful interactive maps accessible from all devices.</p>
-              <a class="btn btn-danger" href="http://geonode.wfp.org/maps/">Explore Maps</a>
-            </div>
-          </div>
-        </div>`
-        <div class="item">
-          <img src="/static/geonode/img/layer3.png" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>GIS data standardization</h1>
-              <p class="lead">GeoNode facilitates data standardization within our organization by providing<br>
-              a clear process for uploading your gis data, compiling metadata and styling.</p>
-              <a class="btn btn-danger" href="{% url "layer_browse" %}">Upload Layers</a>
-              <p class="image-credit">Photo: UPLB</p>
-              <!-- <a >{% trans "Maps" %}</a> -->
-
             </div>
           </div>
         </div>
       </div>
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
-    </div><!-- /.carousel -->
-    <!-- end of carousel -->
+    </div><!-- end of carousel -->
     <div class="jumbotron">
     <div class="container">
       <h2>{% trans "About" %}</h2> <!-- edit this with slideshow image css jquery-->

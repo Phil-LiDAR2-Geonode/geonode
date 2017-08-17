@@ -1,6 +1,9 @@
 @import url('widgets.css');
 
 /* FORM ROWS */
+.form-row ul > li{
+  list-style-type: none;
+}
 
 .form-row {
     overflow: hidden;

@@ -29,6 +29,9 @@ from geonode.base.models import ResourceBase
 from pprint import pprint
 from geonode.people.models import Profile
 
+# PARMAP DataRequest application
+from parmap_data_request.views import DataRequest
+
 ALLOWED_DOC_TYPES = settings.ALLOWED_DOCUMENT_TYPES
 
 _PERMISSION_MSG_DELETE = _("You are not permitted to delete this document")
@@ -96,13 +99,38 @@ def document_detail(request, docid):
         metadata = document.link_set.metadata().filter(
             name__in=settings.DOWNLOAD_FORMATS_METADATA)
 
+        # JC: I think PARMAP related code should be separated to geonode core code as much as possible
+        pending_status = False
+        if request.user.is_authenticated():
+            try:
+                pending_request = DataRequest.objects.filter(profile=request.user).get(resource=document)
+                if pending_request.status != 'APPROVED':
+                    pending_status = True
+            except DataRequest.DoesNotExist:
+                pending_status = False
+            except DataRequest.MultipleObjectsReturned:
+                pending_status = True
+
+        if document.extension.lower() in IMGTYPES and document.doc_file:
+            download_url = request.build_absolute_uri() + "/download/"
+        elif document.doc_file:
+            download_url = request.build_absolute_uri() + "/download/"
+        elif  document.doc_url:
+            download_url = document.doc_url
+
         context_dict = {
             'perms_list': get_perms(request.user, document.get_self_resource()),
             'permissions_json': _perms_info_json(document),
             'resource': document,
             'metadata': metadata,
             'imgtypes': IMGTYPES,
-            'related': related}
+            'related': related,
+            # custom parmap props
+            'download_url': download_url,
+            'has_pending_request': pending_status,
+            # document.__class__._meta.object_name.lower() does not work if invoked directly from template
+            'resource_type': document.__class__._meta.object_name.lower(),
+            }
 
         if settings.SOCIAL_ORIGINS:
             context_dict["social_links"] = build_social_links(request, document)
