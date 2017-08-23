@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/style.css">
     <!-- google web font css -->
     <link href='https://fonts.googleapis.com/css?family=Raleway:400,300,600,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     {% if DEBUG_STATIC %}
     <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css?v={{ VERSION }}" rel="stylesheet" />
     <link href="{{ STATIC_URL }}lib/css/select2.css?v={{ VERSION }}" rel="stylesheet"/>
@@ -55,8 +56,8 @@
 				<span class="icon icon-bar"></span>
 				<span class="icon icon-bar"></span>
 			</button>
-			<img src="{{ STATIC_URL }}geonode/images/home-btn.png" style="margin-left:-140px" alt="home img">
-			<a href="https://coastmap.dream.upd.edu.ph/indexhome" class="navbar-brand smoothScroll" style="background-image: none; height: 70px">CoastMap</a>
+			<!--<img src="{{ STATIC_URL }}geonode/images/home-btn.png" style="margin-left:-140px" alt="home img">-->
+			<a href="https://coastmap.dream.upd.edu.ph/indexhome" class="navbar-brand smoothScroll" style="font-size: 24px; font-weight: normal; line-height: 30px; text-indent: 0; background-image: none; height: 70px">CoastMap</a>
 		</div>
 		<div class="collapse navbar-collapse" style="background-color:#ffffff">
 			<ul class="nav navbar-nav navbar-right">
@@ -94,9 +95,9 @@
          		</form>-->
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="{% url "layer_browse" %}">{% trans "LAYERS" %}</a></li>
-				<li><a href="{% url "maps_browse" %}">{% trans "MAPS" %}</a></li>
-				<li><a href="{% url "document_browse" %}">{% trans "DOCUMENTS" %}</a></li>
-				<li><a href="{% url "profile_browse" %}">{% trans "PEOPLE" %}</a></li>
+				<!--<li><a href="{% url "maps_browse" %}">{% trans "MAPS" %}</a></li>-->
+				<li><a href="{% url "document_browse" %}">{% trans "MAPS" %}</a></li>
+				<!--<li><a href="{% url "profile_browse" %}">{% trans "PEOPLE" %}</a></li>-->
 				<!--<li><a href="{% url "group_list" %}">{% trans "GROUPS" %}</a></li>-->
 			</ul>
 		</div>

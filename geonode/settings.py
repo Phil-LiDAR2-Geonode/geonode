@@ -430,7 +430,7 @@ AGON_RATINGS_CATEGORY_CHOICES = {
         "layer": "How good is this layer?"
     },
     "documents.Document": {
-        "document": "How good is this document?"
+        "document": "How good is this map?"
     }
 }
 

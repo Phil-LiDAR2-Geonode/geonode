@@ -276,7 +276,7 @@
       {% endif %}
     </li>
     {% endif %}
-    <li class="list-group-item">
+  <!--<li class="list-group-item">
       <h4>{% trans "Maps using this layer" %}</h4>
       {% if resource.maps %}
         <p>{% trans "List of maps using this layer:" %}</p>
@@ -293,12 +293,12 @@
       <h4>{% trans "Create a map using this layer" %}</h4>
       <p>{% trans "Click the button below to generate a new map based on this layer." %}</p>
         <a href="{% url "new_map" %}?layer={{resource.service_typename}}" class="btn btn-primary btn-block">{% trans "Create a Map" %}</a>
-    </li>
+    </li>-->
 
     {% if documents.count > 0 %}
     <li class="list-group-item">
-      <h4>{% trans "Documents related to this layer" %}</h4>
-      <p>{% trans "List of documents related to this layer:" %}</p>
+      <h4>{% trans "Maps related to this layer" %}</h4>
+      <p>{% trans "List of uploaded map images related to this layer:" %}</p>
       <ul class="list-unstyled">
         {% for document in documents %} 
           <li><a href="{{ document.get_absolute_url }}">{{ document.title }}</a></li>
