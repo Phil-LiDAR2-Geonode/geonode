@@ -62,14 +62,22 @@ def handle_upload(request):
     # then tear down the connection in msg.send()
     connection.open()
 
+
     # needed for template rendering
     context = {
         'site_url': settings.SITEURL,
         'data_requestor': unicode(requestor.get_full_name()).encode('utf8'),
         'data_resource': unicode(requested_resource.title).encode('utf8'),
-        'data_url': settings.SITEURL + 'documents/' + str(requested_resource.id),
         'site_admin_email': site_admin_email,
     }
+
+    resource_type = unicode(requested_resource.polymorphic_ctype.model).encode('utf8')
+    if resource_type == "layer":
+        data_url = settings.SITEURL + 'layers/geonode:' + unicode(requested_resource.layer.name).encode('utf8'),
+    else:
+        data_url = settings.SITEURL + 'documents/' + unicode(requested_resource.id).encode('utf8'),
+
+    context['data_url'] = data_url
 
     # we send notification of received request to requestor
     subject = 'Notification of Received Request'

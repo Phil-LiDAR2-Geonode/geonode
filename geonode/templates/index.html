@@ -213,11 +213,11 @@
 {% endblock %}
 
 {% block extra_script %}
-{% comment %}
-{% if DEBUG_STATIC %}
-{% endcomment %}
+    {% comment %}
+    {% if DEBUG_STATIC %}
+    {% endcomment %}
     <script src="{{ STATIC_URL }}lib/js/angular.js"></script>
-     <!-- Carousel.js -->
+    <!-- Carousel.js -->
     <script src="{{ STATIC_URL }}lib/js/jquery.min.js"></script>
     <script src="{{ STATIC_URL }}lib/js/jquery.dataTables.js"></script>
     <script src="{{ STATIC_URL }}lib/js/jquery.timeago.js"></script>
@@ -233,7 +233,7 @@
     {% else %}
     <script src="{{ STATIC_URL }}lib/js/assets.min.js"></script>
     {% endif %}
-    {% endcomment%}
+    {% endcomment %}
     <script src="{{ STATIC_URL }}geonode/js/utils/utils.js"></script>
     <script src="{{ STATIC_URL }}geonode/js/base/base.js"></script>
 
