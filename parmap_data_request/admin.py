@@ -41,6 +41,10 @@ class DataRequestAdmin(admin.ModelAdmin):
         approved_count = 0
         ignored_count = 0
 
+        subject = 'Notification of Approval'
+        site_admin_email = settings.THEME_ACCOUNT_CONTACT_EMAIL
+        context = {'site_admin_email': site_admin_email,}
+
         # since this is bulk approval, parse the csv contents only once
         csv_contents = []
         muncode_file = staticfiles_storage.path('geonode/files/NSO_Muni.csv')
@@ -53,15 +57,57 @@ class DataRequestAdmin(admin.ModelAdmin):
             if data_request.status == 'APPROVED':
                 ignored_count = ignored_count + 1
             else:
-                subject = 'Notification of Approval'
-                site_admin_email = settings.THEME_ACCOUNT_CONTACT_EMAIL
-                context = {'site_admin_email': site_admin_email,}
+                requesting_user = data_request.profile
+                requested_resource = data_request.resource
+                resource_type = unicode(requested_resource.polymorphic_ctype.model).encode('utf8')
+                if resource_type == "layer":
+                    resources = []
+                    layer_title = unicode(requested_resource.title).encode('utf8')
+                    layer_resource = get_object_or_404(Layer, title=layer_title)
+                    resource_keywords = layer_resource.keywords.names()
+
+                    for keyword in resource_keywords:
+                        if keyword in csv_contents:
+                            for related_layer in Layer.objects.filter(keywords__name__in=[keyword]):
+                                resources.append(related_layer)
+
+                    # remove duplicate items
+                    resources = set(resources)
+                    # convert back to indexable object
+                    resources = list(resources)
+
+                    resource_links = []
+                    for related_layer in resources:
+                        resource_link = (
+                            unicode(related_layer.title).encode('utf8'),
+                            settings.SITEURL + 'layers/geonode:' + unicode(related_layer.name).encode('utf8')
+                        )
+                        resource_links.append(resource_link)
+
+                        layer_resourcebase = related_layer.get_self_resource()
+                        try:
+                            assign_perm('download_resourcebase', requesting_user, layer_resourcebase)
+                        except Exception as e:
+                            print('There was an error assigning permission to %s for %s' % (layer_resourcebase, requesting_user))
+                else:
+                    resource_link = (
+                        requested_resource.title,
+                        settings.SITEURL + 'documents/' + unicode(requested_resource.id).encode('utf8')
+                    )
+                    resource_links = [resource_link]
+                    assign_perm('download_resourcebase', requesting_user, requested_resource)
+
+                context['resource_links'] = resource_links
+                data_request.date_approved = timezone.now()
+                data_request.status = 'APPROVED'
+                data_request.save()
+                approved_count = approved_count + 1
+
                 html_content = render_to_string('parmap_data_request/email_approval.html', context)
                 text_content = strip_tags(html_content)
                 sender = settings.DEFAULT_FROM_EMAIL
                 recipient = unicode(data_request.profile.email).encode('utf8')
                 recipients = [recipient]
-                requesting_user = data_request.profile
 
                 try:
                     # create the email, and attach the HTML version as well.
@@ -72,38 +118,6 @@ class DataRequestAdmin(admin.ModelAdmin):
                 except Exception as e:
                     # @todo, put this on a error log handler
                      print('There was an error sending an email: ', e)
-
-                requested_resource = data_request.resource
-                resource_type = unicode(requested_resource.polymorphic_ctype.model).encode('utf8')
-                if resource_type == "layer":
-                    layer_title = unicode(requested_resource.title).encode('utf8')
-                    layer_resource = get_object_or_404(Layer, title=layer_title)
-                    resource_keywords = layer_resource.keywords.names()
-
-                    related_layers = []
-                    for keyword in resource_keywords:
-                        if keyword in csv_contents:
-                            for related_layer in Layer.objects.filter(keywords__name__in=[keyword]):
-                                related_layers.append(related_layer)
-
-                    # remove duplicate items
-                    related_layers = set(related_layers)
-                    # convert back to indexable object
-                    related_layers = list(related_layers)
-
-                    for related_layer in related_layers:
-                        layer_resourcebase = related_layer.get_self_resource()
-                        try:
-                            assign_perm('download_resourcebase', requesting_user, layer_resourcebase)
-                        except Exception as e:
-                            print('There was an error assigning permission to %s for %s' % (layer_resourcebase, requesting_user))
-                else:
-                    assign_perm('download_resourcebase', requesting_user, requested_resource)
-
-                data_request.date_approved = timezone.now()
-                data_request.status = 'APPROVED'
-                data_request.save()
-                approved_count = approved_count + 1
 
         if approved_count == 1:
             message_bit = "One request was successfully approved, %s request(s) were already approved" % ignored_count
@@ -125,15 +139,13 @@ class DataRequestAdmin(admin.ModelAdmin):
         # data is available via POST method
         status = unicode(request.POST.get('status', 'PENDING')).encode('utf8')
         if status == 'APPROVED':
-            subject = 'Notification of Approval'
-            html_content = render_to_string('parmap_data_request/email_approval.html', context)
-
             # @todo check ADMIN_PERMISSIONS and LAYER_ADMIN_PERMISSIONS variables
             resource_id = request.POST.get('resource')
             requested_resource = get_object_or_404(ResourceBase, id=resource_id)
             requesting_user = obj.profile
 
             resource_type = unicode(requested_resource.polymorphic_ctype.model).encode('utf8')
+            resources = []
             if resource_type == "layer":
                 layer_title = unicode(requested_resource.title).encode('utf8')
                 layer_resource = get_object_or_404(Layer, title=layer_title)
@@ -146,29 +158,41 @@ class DataRequestAdmin(admin.ModelAdmin):
                     for row in csv_reader:
                         csv_contents.append(row[3])
 
-                related_layers = []
                 for keyword in resource_keywords:
                     if keyword in csv_contents:
                         for related_layer in Layer.objects.filter(keywords__name__in=[keyword]):
-                            related_layers.append(related_layer)
+                            resources.append(related_layer)
 
                 # remove duplicate items
-                related_layers = set(related_layers)
+                resources = set(resources)
                 # convert back to indexable object
-                related_layers = list(related_layers)
+                resources = list(resources)
 
-                for related_layer in related_layers:
+                resource_links = []
+                for related_layer in resources:
+                    resource_link = (
+                        unicode(related_layer.title).encode('utf8'),
+                        settings.SITEURL + 'layers/geonode:' + unicode(related_layer.name).encode('utf8')
+                    )
+                    resource_links.append(resource_link)
                     layer_resourcebase = related_layer.get_self_resource()
                     try:
                         assign_perm('download_resourcebase', requesting_user, layer_resourcebase)
                     except Exception as e:
                         print('There was an error assigning permission to %s for %s' % (layer_resourcebase, requesting_user))
-
             else:
+
+                resource_link = (
+                    requested_resource.title,
+                    settings.SITEURL + 'documents/' + unicode(requested_resource.id).encode('utf8')
+                )
+                resource_links = [resource_link]
                 assign_perm('download_resourcebase', requesting_user, requested_resource)
 
+            context['resource_links'] = resource_links
             obj.date_approved = timezone.now()
-
+            subject = 'Notification of Approval'
+            html_content = render_to_string('parmap_data_request/email_approval.html', context)
         elif status == 'REJECTED':
             subject = 'Denial of Request'
 
