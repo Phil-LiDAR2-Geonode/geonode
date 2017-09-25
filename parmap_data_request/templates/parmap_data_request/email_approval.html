@@ -7,11 +7,17 @@
 </head>
 <body>
     <p>Greetings!</p>
-    <p>Your data request has now been approved. You may now download your requested data upon accepting the End User License Agreement (EULA) document.</p>
+    <p>Your data request has now been approved. You may now download your requested data upon accepting the End User License Agreement (EULA) document. Approved data is as follows:</p>
+    {% if resource_links %}
+    <ol>
+        {% for title, link in resource_links %}
+        <li><a href="{{link}}">{{title}}</a></li>
+        {% endfor %}
+    </ol>
+    {% endif %}
     <p>If you have any questions or concerns, you can contact us as at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
-    <p>Thank you.</p>
-    <br/>
-    <p>NOTICE:</p>
+    <p style="margin-top: 1.75em;">Thank you.</p>
+    <p style="margin-top: 2em;">NOTICE:</p>
     <ul>
         <li>Maps prepared by participating State Universities and Colleges and Higher Education Institutions (Phil-LiDAR 2 Program B) &amp; Reviewed by University of the Philippines Training Center for Applied Geodesy and Photogrammetry (Phil-LiDAR 2 Program A Project 1)</li>
         <li>Use of the datasets provided herewith are covered by End Users License Agreement (EULA)</li>
