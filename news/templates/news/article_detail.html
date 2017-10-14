@@ -1,0 +1,18 @@
+{% extends "news/article_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {% trans "Keep Updated" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}news news-list explore{% endblock %}
+
+{% block body %}
+
+<h1>{{ article }}</h1>
+<p>{{ article.content }}</p>
+<p>{{ article.content }}</p>
+<p>{{ article.author }}</p>
+<p>{{ article.pub_date }} </p>
+
+{% endblock %}
