@@ -59,9 +59,7 @@
 							<div class = "col-md-6">
 								<div class = "newsListWrapper">
 										{% for article in latest_article_list %}
-										<div class = "newsListImage">
-												<img src="{{ article.image.url }}" width="250"/>
-										</div>
+												<img src="{{ article.image1.url }}" class="newsListImage"/>
 									<div class = "newsListTitle"><a href="/news/{{ article.id }}/">{{ article }}</a></div>
 									<div class = "newsListDate">{{ article.pub_date }}</div>
 									{% endfor %}
