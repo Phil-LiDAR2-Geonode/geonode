@@ -3,9 +3,9 @@
 {% load staticfiles %}
 {% load url from future %}
 
-{% block title %} {% trans "Explore Documents" %} - {{ block.super }} {% endblock %}
+{% block title %} {% trans "Keep Updated" %} - {{ block.super }} {% endblock %}
 
-{% block body_class %}documents documents-list explore{% endblock %}
+{% block body_class %}news news-list explore{% endblock %}
 
 {% block body %}
 <div class = "section firstChild">
@@ -58,9 +58,13 @@
 							?>
 							<div class = "col-md-6">
 								<div class = "newsListWrapper">
-									<div class = "newsListImage"></div>
-									<div class = "newsListTitle"><a href = "<?php echo SITE_URL; ?>read-news/">News <?php echo $a; ?></a></div>
-									<div class = "newsListDate">Date <?php echo $a; ?></div>
+										{% for article in latest_article_list %}
+										<div class = "newsListImage">
+												<img src="{{ article.image.url }}" width="250"/>
+										</div>
+									<div class = "newsListTitle"><a href="/news/{{ article.id }}/">{{ article }}</a></div>
+									<div class = "newsListDate">{{ article.pub_date }}</div>
+									{% endfor %}
 								</div>
 							</div>
 							<?php
@@ -72,15 +76,5 @@
 		</div>
 	</div>
 </div>
-
-{% if latest_article_list %}
-    <ul>
-    {% for article in latest_article_list %}
-        <li><a href="/news/{{ article.id }}/">{{ article }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
 
 {% endblock %}
