@@ -1,0 +1,69 @@
+{% extends 'site_base.html' %}
+{% block body %}
+
+<div class = "section firstChild">
+	<div class = "container">
+		<div class = "newsWrapper">
+			<div class = "newsTitle">Keep Updated</div>
+			<div class = "newsHeadLine">
+				<div class = "newsHeadLineTitle">Headline Title</div>
+				<div class = "newsHeadLineDate">Date</div>
+			</div>
+			<div class = "newsBorder"></div>
+		</div>
+
+		<div class = "newsListMainWrapper">
+			<div class = "row">
+				<div class = "col-md-3">
+					<div class = "newsArchiveWrapper">
+						<p>Browse articles by date published</p>
+
+						<ul class = "yearList">
+							<li>
+								<div class = "year">2017</div>
+								<ul class = "monthList">
+									<li><a href = "javascript:;">January</a></li>
+									<li><a href = "javascript:;">February</a></li>
+									<li><a href = "javascript:;">March</a></li>
+									<li><a href = "javascript:;">April</a></li>
+									<li><a href = "javascript:;">May</a></li>
+									<li><a href = "javascript:;">June</a></li>
+								</ul>
+							</li>
+							<li>
+								<div class = "year">2016</div>
+								<ul class = "monthList">
+									<li><a href = "javascript:;">January</a></li>
+									<li><a href = "javascript:;">February</a></li>
+									<li><a href = "javascript:;">March</a></li>
+									<li><a href = "javascript:;">April</a></li>
+									<li><a href = "javascript:;">May</a></li>
+									<li><a href = "javascript:;">June</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class = "col-md-9">
+					<div class = "row">
+						<?php
+						for($a = 1; $a <= 10; $a++) {
+							?>
+							<div class = "col-md-6">
+								<div class = "newsListWrapper">
+									<div class = "newsListImage"></div>
+									<div class = "newsListTitle"><a href = "<?php echo SITE_URL; ?>read-news/">News <?php echo $a; ?></a></div>
+									<div class = "newsListDate">Date <?php echo $a; ?></div>
+								</div>
+							</div>
+							<?php
+						}
+						?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
