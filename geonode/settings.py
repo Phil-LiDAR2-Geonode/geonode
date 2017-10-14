@@ -312,7 +312,8 @@ INSTALLED_APPS = (
     'django_cas_ng',
 
     # data request management
-    'parmap_data_request'
+    'parmap_data_request',
+    'news'
 ) + GEONODE_APPS
 
 LOGGING = {
