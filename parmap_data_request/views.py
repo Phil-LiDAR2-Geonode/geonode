@@ -62,7 +62,6 @@ def handle_upload(request):
     # then tear down the connection in msg.send()
     connection.open()
 
-
     # needed for template rendering
     context = {
         'site_url': settings.SITEURL,
@@ -131,4 +130,3 @@ def handle_upload(request):
     # django 1.6.x
     return HttpResponse(response_data, mimetype='application/json')
     #return HttpResponseRedirect(settings.SITEURL + "documents/")
-

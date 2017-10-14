@@ -59,6 +59,14 @@ from geonode.documents.models import get_related_documents
 from geonode.utils import build_social_links
 from geonode.geoserver.helpers import cascading_delete, gs_catalog
 
+from geonode.reports.models import DownloadTracker
+from geonode.base.models import ResourceBase
+from pprint import pprint
+from geonode.people.models import Profile
+from django.utils import timezone
+import csv
+from unidecode import unidecode
+
 # PARMAP DataRequest application
 from parmap_data_request.views import DataRequest
 
@@ -583,3 +591,59 @@ def layer_thumbnail(request, layername):
                 status=500,
                 mimetype='text/plain'
             )
+
+def layer_tracker(request, layername, dl_type):
+    layer = _resolve_layer(
+        request,
+        layername,
+        'base.view_resourcebase',
+        _PERMISSION_MSG_VIEW)
+    pprint(request.user.is_authenticated)
+    if request.user.is_authenticated():
+        #action.send(request.user, verb='downloaded', action_object=layer)
+        DownloadTracker(actor=Profile.objects.get(username=request.user),
+                        title=str(layername),
+                        resource_type=str(ResourceBase.objects.get(layer__typename=layername).csw_type),
+                        keywords=Layer.objects.get(typename=layername).keywords.slugs(),
+                        dl_type=dl_type
+                        ).save()
+        pprint('Download Tracked')
+    return HttpResponse(status=200)
+
+@login_required
+def layer_download_csv(request):
+    if not request.user.is_superuser:
+        return HttpResponseRedirect("/forbidden/")
+    response = HttpResponse(content_type='text/csv')
+    datetoday = timezone.now()
+    response['Content-Disposition'] = 'attachment; filename="layerdownloads-"' + \
+        str(datetoday.month) + str(datetoday.day) + \
+        str(datetoday.year) + '.csv"'
+    listtowrite = []
+    writer = csv.writer(response)
+
+    auth_list = DownloadTracker.objects.order_by('timestamp')
+    writer.writerow(['username', 'lastname', 'firstname', 'email', 'organization',
+                    #'organization type', 'purpose', 'layer name', 'date downloaded','area','size_in_bytes'])
+                     'layer name', 'date downloaded','area','size_in_bytes'])
+
+    pprint("writing authenticated downloads list")
+
+    for auth in auth_list:
+        username = auth.actor
+        getprofile = Profile.objects.get(username=username)
+        firstname = unidecode(getprofile.first_name)
+        lastname = unidecode(getprofile.last_name)
+        email = getprofile.email
+        organization = unidecode(getprofile.organization) if getprofile.organization is not None else getprofile.organization
+        #orgtype = getprofile.org_type
+        area = 0
+        if auth.resource_type != 'document':
+            #listtowrite.append([username, lastname, firstname, email, organization, orgtype,"",
+            listtowrite.append([username, lastname, firstname, email, organization,
+                                auth.title, auth.timestamp.strftime('%Y/%m/%d'),area,''])
+
+    for eachtowrite in listtowrite:
+        writer.writerow(eachtowrite)
+
+    return response

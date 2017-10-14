@@ -119,7 +119,6 @@ class DataRequestAdmin(admin.ModelAdmin):
                     # @todo, put this on a error log handler
                      print('There was an error sending an email: ', e)
 
-
         if approved_count == 1:
             message_bit = "One request was successfully approved, %s request(s) were already approved" % ignored_count
         else:
@@ -194,7 +193,6 @@ class DataRequestAdmin(admin.ModelAdmin):
             obj.date_approved = timezone.now()
             subject = 'Notification of Approval'
             html_content = render_to_string('parmap_data_request/email_approval.html', context)
-
         elif status == 'REJECTED':
             subject = 'Denial of Request'
 

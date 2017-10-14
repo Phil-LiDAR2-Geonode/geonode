@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # Geonode
 
-__version__ = "0.3"
+__version__ = "0.3.1"
 
 # Setup GeoNode environment
 import os
@@ -56,7 +56,7 @@ def select_by_map_no(cur, quad_name):
     # Construct query
     cur.execute('''
 SELECT mapno, quadname, city_munic, province,
-	   resourcema, completed, muncode, suc_hei
+	   resource, for_upload, muncode, suc_hei
 FROM metadata_index
 WHERE quadname = %s''', (quad_name,))
 
@@ -133,7 +133,7 @@ def update_layer_perms(layer):
 def update_lulc(layer):
 
     # Get quad name
-    quad_name = layer.name.replace("_parmap", "").upper()
+    quad_name = layer.name.replace("_lulc", "").upper()
     print layer.name, ': quad name:', quad_name
 
     # Connect to db
@@ -143,20 +143,19 @@ def update_lulc(layer):
     # list
     city_munic_list = []
     province_list = []
-    resourcema_list = []
+    resource_list = []
     suc_hei_list = []
     muncode_list = []
     keywords_list = []
 
     # Iterating through each result
     for r in results:
-        # Check if muni is completed
-        if r['completed'] == "Yes":
+        # Check if muni is for uploading
+        if r['for_upload'] == "Y":
             mapno = r['mapno']
-            city_munic_list.append(
-                r['city_munic'].replace("Bulacan", "Bulakan"))
+            city_munic_list.append(r['city_munic'])
             province_list.append(r['province'])
-            resourcema_list.append(r['resourcema'])
+            resource_list.append(r['resource'])
             muncode_list.append(r['muncode'])
             suc_hei_list.append(r['suc_hei'])
 
@@ -171,7 +170,7 @@ def update_lulc(layer):
     # Check landcover type
     landcover = "AGRILANDCOVER"
     landcover_title = "Agricultural Land Cover Map"
-    if "Agricultural And Coastal" in resourcema_list:
+    if "Agricultural And Coastal" in resource_list:
         landcover = "AGRICOASTLANDCOVER"
         landcover_title = "Agricultural And Coastal Land Cover Map"
 
@@ -284,7 +283,7 @@ def update_metadata(layer):
 
 if __name__ == "__main__":
 
-    layers = Layer.objects.filter(title__icontains='Land Cover Map')
+    layers = Layer.objects.filter(title__icontains='Lulc')
 
     total = len(layers)
     print 'Updating', total, 'layers!'
