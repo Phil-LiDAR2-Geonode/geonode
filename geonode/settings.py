@@ -167,7 +167,7 @@ STATIC_URL = "/static/"
 # Additional directories which hold static files
 STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, "static"),
-    os.path.join(PROJECT_ROOT, "static/geonode/bower_components"),
+    # os.path.join(PROJECT_ROOT, "static/geonode/bower_components"),
 ]
 
 # List of finder classes that know how to find static files in
