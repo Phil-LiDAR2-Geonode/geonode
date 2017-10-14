@@ -88,10 +88,7 @@ urlpatterns = patterns('',
                         # Parmap Data Request URLs
                         # @todo follow PEP 8 style guide on this file
                        (r'^datarequest/', include('parmap_data_request.urls')),
-                       url(r'^news/$', 'news.views.index'),
-                       url(r'^news/(?P<article_id>\d+)/$', 'news.views.detail'),
-                       url(r'^news/(?P<article_id>\d+)/results/$', 'news.views.results'),
-                       url(r'^news/(?P<article_id>\d+)/vote/$', 'news.views.vote'),
+                       (r'^news/', include('news.urls')),
 
                        # Accounts
                        # url(r'^account/ajax_login$', 'geonode.views.ajax_login',
