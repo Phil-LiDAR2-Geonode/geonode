@@ -13,8 +13,11 @@
 		<div class = "newsWrapper">
 			<div class = "newsTitle">Keep Updated</div>
 			<div class = "newsHeadLine">
-				<div class = "newsHeadLineTitle">Headline Title</div>
-				<div class = "newsHeadLineDate">Date</div>
+				<div align = "middle">
+					<img src="{{ latest_headline.image2.url }}" class = "newsHeadLine">
+				</div>
+				<div class = "newsHeadLineTitle"><a href="/news/headline/{{ latest_headline.id }}/">{{ latest_headline }}</a></div>
+				<div class = "newsHeadLineDate">{{ latest_headline.pub_date }}</div>
 			</div>
 			<div class = "newsBorder"></div>
 		</div>
@@ -60,7 +63,7 @@
 								<div class = "newsListWrapper">
 										{% for article in latest_article_list %}
 												<img src="{{ article.image1.url }}" class="newsListImage"/>
-									<div class = "newsListTitle"><a href="/news/{{ article.id }}/">{{ article }}</a></div>
+									<div class = "newsListTitle"><a href="/news/article/{{ article.id }}/">{{ article }}</a></div>
 									<div class = "newsListDate">{{ article.pub_date }}</div>
 									{% endfor %}
 								</div>
