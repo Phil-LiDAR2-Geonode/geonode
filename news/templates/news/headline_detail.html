@@ -1,0 +1,64 @@
+{% extends "news/article_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {% trans "Keep Updated" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}news news-list explore{% endblock %}
+
+{% block body %}
+
+<div class = "section firstChild">
+	<div class = "container">
+		<div class = "readNewsWrapper">
+			<div class = "readNewsTitle">{{ headline }}</div>
+			<div class = "readNewsDate">{{ headline.pub_date }}</div>
+			<div class = "newsBorder"></div>
+		</div>
+
+		<div class = "newsListMainWrapper">
+			<div class = "row">
+				<div class = "col-md-3">
+					<div class = "newsArchiveWrapper">
+						<p>Browse articles by date published</p>
+
+						<ul class = "yearList">
+							<li>
+								<div class = "year">2017</div>
+								<ul class = "monthList">
+									<li><a href = "javascript:;">January</a></li>
+									<li><a href = "javascript:;">February</a></li>
+									<li><a href = "javascript:;">March</a></li>
+									<li><a href = "javascript:;">April</a></li>
+									<li><a href = "javascript:;">May</a></li>
+									<li><a href = "javascript:;">June</a></li>
+								</ul>
+							</li>
+							<li>
+								<div class = "year">2016</div>
+								<ul class = "monthList">
+									<li><a href = "javascript:;">January</a></li>
+									<li><a href = "javascript:;">February</a></li>
+									<li><a href = "javascript:;">March</a></li>
+									<li><a href = "javascript:;">April</a></li>
+									<li><a href = "javascript:;">May</a></li>
+									<li><a href = "javascript:;">June</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class = "col-md-9">
+					<div class = "newsBody">
+            <div align="middle">
+            <img src="{{ headline.image.url }}" width="500"/>
+            </div>
+						<p>{{ headline.content }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
