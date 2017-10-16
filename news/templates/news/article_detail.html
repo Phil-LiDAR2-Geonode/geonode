@@ -9,11 +9,6 @@
 
 {% block body %}
 
-<!-- <h1>{{ article }}</h1>
-<p>{{ article.content }}</p>
-<p>{{ article.content }}</p>
-<p>{{ article.author }}</p>
-<p>{{ article.pub_date }}</p> -->
 
 <div class = "section firstChild">
 	<div class = "container">
@@ -58,7 +53,8 @@
 				<div class = "col-md-9">
 					<div class = "newsBody">
             <div align="middle">
-            <img src="{{ article.image.url }}" width="500"/>
+            <img src="{{ article.image1.url }}" width="400"/>
+						<img src="{{ article.image2.url }}" width="400"/>
             </div>
 						<p>{{ article.content }}</p>
 					</div>
