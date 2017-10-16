@@ -8,30 +8,25 @@
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
     {% block head %}
       {% if DEBUG_STATIC %}
-      <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}lib/css/select2.css" rel="stylesheet"/>
-      <link href="{{ STATIC_URL }}lib/css/bootstrap.min.css" rel="stylesheet"/>
-      <link href="{{ STATIC_URL }}lib/css/jquery-ui.css" rel="stylesheet"/>
-      <link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
+      <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css?v={{ VERSION }}" rel="stylesheet" />
+      <link href="{{ STATIC_URL }}lib/css/select2.css?v={{ VERSION }}" rel="stylesheet"/>
+      <link href="{{ STATIC_URL }}lib/css/bootstrap.min.css?v={{ VERSION }}" rel="stylesheet"/>
+      <link href="{{ STATIC_URL }}lib/css/jquery-ui.css?v={{ VERSION }}" rel="stylesheet"/>
+      <link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css?v={{ VERSION }}" rel="stylesheet"/>
       {% else %}
-      <!-- edit -->
-      <link href="{{ STATIC_URL }}geonode/bower_components/bootstrap/dist/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
-      <!-- end edit -->
-      <!-- overrides the bootstrap css above -->
-      <link href="{{ STATIC_URL }}lib/css/assets.min.css" rel="stylesheet"/>
-      <!-- -->
+      <link href="{{ STATIC_URL }}lib/css/assets.min.css?v={{ VERSION }}" rel="stylesheet"/>
       {% endif %}
-      <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" />
-      <!-- from wfp.org slide image jquery-->
-      <link href="{{ STATIC_URL }}geonode/css/assets.css" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/wfp.css" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/site_base.css" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/d.css" rel="stylesheet" />
+      <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css?v={{ VERSION }}" rel="stylesheet" />
+      <link href="{{ STATIC_URL }}geonode/css/base.css?v={{ VERSION }}" rel="stylesheet" />
 
-      <link href="{{ STATIC_URL }}geonode/css/Carousel_css.css" rel="stylesheet" />
-      <!-- -->
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/parmap/css/font-awesome/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/parmap/css/leaflet.css">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/parmap/css/style.css">
+
+      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/jquery-1.9.1.min.js"></script>
+      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/search-script.js"></script>
+      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/leaflet.js"></script>
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
       {% block extra_head %}
       {% endblock %}
@@ -46,178 +41,76 @@
         }
       </style>
     <![endif]-->
-
-    <style>
-    /* monkey patching, not available in bootstrap3 but available in bootstrap4 */
-    .font-weight-bold{
-      font-weight: bold
-    }
-
-    /* EULA info associated styles */
-    .eula-list-text{
-      margin-left: 1em;
-    }
-    .eula-level-1{
-      padding-left: 1em;
-      list-style: decimal;
-    }
-    .eula-level-2{
-      padding-left: 2em;
-      list-style: lower-alpha;
-    }
-    .eula-level-3{
-      padding-left: 2em;
-      list-style: lower-roman;
-    }
-
-    /* carousel css start */
-    .carousel {
-      background: #605e5e;
-      margin-bottom: 0px;
-      margin-top: 0.5%;
-    }
-    .carousel .container {
-      position: relative;
-      z-index: 9;
-    }
-    .carousel-control{
-      background-color:transparent;
-      border: 0;
-      font-size: 8em;
-      height: 60px;
-      margin-top: 0;
-      text-shadow: 0 1px 1px rgba(0,0,0,.4);
-      z-index: 10;
-    }
-    .carousel .item{
-      height: 300px;
-    }
-    .carousel img {
-      position: absolute;
-      top: 0;
-      left:0;
-      min-height: 300px;
-      min-width: 100%;
-      overflow: hidden;
-    }
-    .carousel-caption {
-      background: none;
-      position: static;
-      padding: 0;
-      margin-top: 60px;
-      width:860px;
-    }
-    .carousel-caption h1{
-      color: #fff;
-      font-size: 3em;
-      font-weight: 400;
-      line-height: 0.5em;
-      margin:0;
-      padding:20px;
-      text-shadow:2px 2px 2px rgba(0,0,0,.4);
-    }
-    .carousel-caption .lead {
-      color: #fff;
-      font-weight: 600;
-      line-height: 1.125em;
-      padding: 20px;
-      text-shadow: 2px 2px 2px rgba(0,0,0,.4);
-    }
-    </style>
-    <!-- end of carousel css-->
-
+    <link rel="search" type="application/opensearchdescription+xml" href="/catalogue/opensearch" title="GeoNode Search"/>
   </head>
 
   <body class="{% block body_class %}{% endblock %}">
 
     {% block header %}
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{% url "home" %}" >
-            <img src="{{ STATIC_URL }}geonode/img/logo_parmap.png" class="logo-header" />
-            <img src="{{ STATIC_URL }}geonode/img/logo_pl2.png" class="logo-header" />
-            <p class="navbar-title">Phil-LiDAR 2 Project 1: Agricultural Resources Extraction from LiDAR Surveys</p>
-          </a>
+    <nav class = "navbar navbar-default navbar-fixed-top">
+      <div class = "container">
+        <a href="/" class = "navbar-brand">
+          <img src = "{{ STATIC_URL }}/parmap/img/menu-bar/home_logo.png">
+        </a>
+
+        <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">
+          <spam class = "icon-bar"></spam>
+          <spam class = "icon-bar"></spam>
+          <spam class = "icon-bar"></spam>
+        </button>
+
+        <div class = "collapse navbar-collapse navHeaderCollapse">
+          <ul class = "nav navbar-nav navbar-right">
+            <li class = "dropdown <?php echo ($page == 'layer-land-cover' || $page == 'layer-vulnerability-assessment' ? 'active' : ''); ?>">
+              <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Layers <span class = "caret"></span></a>
+              <ul class = "dropdown-menu">
+                <li><a href = "/layers/">Agricultural and Coastal Land Cover</a></li>
+                <li><a href = "/layers/">Vulnerability Assessment</a></li>
+                <li><a href = "/layers/">Other RS</a></li>
+              </ul>
+            </li>
+            <li class = "dropdown <?php echo ($page == 'maps-land-cover' || $page == 'maps-vulnerability-assessment' ? 'active' : ''); ?>">
+              <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Maps <span class = "caret"></span></a>
+              <ul class = "dropdown-menu">
+                <li><a href = "/documents/">Agricultural and Coastal Land Cover</a></li>
+                <li><a href = "/documents/">Vulnerability Assessment</a></li>
+                <li><a href = "/documents/">Other RS</a></li>
+              </ul>
+            </li>
+
+            <li class = "dropdown <?php echo ($page == 'spectral-library' || $page == 'uav-images' ? 'active' : ''); ?>">
+              <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Data Library <span class = "caret"></span></a>
+              <ul class = "dropdown-menu">
+                <li><a href = "/">Spectral Library</a></li>
+                <li><a href = "/">UAV Images</a></li>
+              </ul>
+            </li>
+
+            <!-- <li class = "<?php echo ($page == 'spectral-library' ? 'active' : ''); ?>"><a href = "<?php echo SITE_URL; ?>spectral-library/">Spectral Library</a></li> -->
+            <!-- <li class = "<?php echo ($page == 'documents' ? 'active' : ''); ?>"><a href = "<?php echo SITE_URL; ?>documents/">Documents</a></li> -->
+            <li class = "dropdown <?php echo ($page == '' || $page == '' ? 'active' : ''); ?>">
+              <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Documents <span class = "caret"></span></a>
+              <ul class = "dropdown-menu">
+                <li><a href = "/">Publications</a></li>
+                <li><a href = "/">Technical Reports</a></li>
+              </ul>
+            </li>
+            <li class = "<?php echo ($page == 'news' ? 'active' : ''); ?>"><a href = "<?php echo SITE_URL; ?>news/">News</a></li>
+            <li class = "<?php echo ($page == 'faqs' ? 'active' : ''); ?>"><a href = "<?php echo SITE_URL; ?>faqs/">FAQs</a></li>
+            <li class = "dropdown <?php echo ($page == '' || $page == '' ? 'active' : ''); ?>">
+              <a href = "<?php echo SITE_URL; ?>about/" class = "dropdown-toggle about" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">About <span class = "caret"></span></a>
+              <ul class = "dropdown-menu">
+                <li><a href = "/about/">PARMap Team</a></li>
+                <li><a href = "/about/">Participating SUC/HEIs</a></li>
+                <li><a href = "/about/">Participating Agencies</a></li>
+              </ul>
+            </li>
+            <li class = "signInRegister"><a href = "https://lipad-sso.dream.upd.edu.ph/login?service=http%3A%2F%2Fparmap.dream.upd.edu.ph%2Faccount%2Flogin%2F%3Fnext%3Dhttps%253A%252F%252Fparmap.dream.upd.edu.ph%252F"><i class = "fa fa-user"></i> Sign in/Register</a></li>
+          </ul>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            {% block tabs %}
-            <li id="nav_home">
-              <a href="{% url "home" %}">{% trans "Home" %}</a>
-            </li>
-            <li id="nav_layers">
-              <a href="{% url "layer_browse" %}">{% trans "Layers" %}</a>
-            </li>
-<!--             <li id="nav_maps">
-              <a href="{% url "maps_browse" %}">{% trans "Maps" %}</a>
-            </li> -->
-            <li id="nav_documents">
-              <a href="{% url "document_browse" %}">{% trans "Maps" %}</a>
-            </li>
-           {% block extra_tab %}
-           {% endblock %}
-<!--             <li id="nav_people">
-              <a href="{% url "profile_browse" %}">{% trans "People" %}</a>
-            </li>
-            <li id="nav_groups">
-              <a href="{% url "group_list" %}">{% trans "Groups" %}</a>
-            </li> -->
-            {% endblock %}
-          </ul>
-          <form class="navbar-form" id="search" action="{% url "search" %}" >
-            <div class="col-md-3">
-              <div class="input-group">
-                {% if HAYSTACK_SEARCH %}
-                <input id="search_input" type="text" placeholder="Search" class="form-control" name="q">
-                {% else %}
-                <!-- input id="search_input" type="text" placeholder="Search" class="form-control" name="title__icontains" -->
-                <input id="search_input" type="text" placeholder="Search" class="form-control" name="keywords__slug__in">
-                {% endif %}
-                <span class="input-group-btn">
-                  <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
-                </span>
-              </div>
-            </div>
-          </form>
-          <ul class="nav navbar-nav navbar-right">
-            {% comment %}
-            {% if not user.is_authenticated and REGISTRATION_OPEN %}
-            <li><a href="{% url "account_signup" %}">{% trans "Register" %}</a></li>
-            {% endif %}
-            {% endcomment %}
-            {% if not user.is_authenticated %}
-            <li><a href="https://lipad.dream.upd.edu.ph/requests/register/profile_request/" role="button">{% trans "Register" %}</a></li>
-            {% endif %}
-            {% if user.is_authenticated %}
-            <li>
-              <a href="#" data-toggle="modal" data-target="#UserModal" role="button" aria-expanded="false">
-                {% avatar user 30 %} {{ user.username }}
-              </a>
-            </li>
-            {% else %}
-            <li>
-              <!-- <a href="#" data-toggle="modal" data-target="#SigninModal" role="button" > -->
-              <a href="{% url "cas_ng_login" %}" role="button">
-                {% trans "Sign in" %}
-              </a>
-            </li>
-            {% endif %}
-          </ul>
-        </div><!--/.nav-collapse -->
       </div>
     </nav>
     {% endblock header %}
-
-<!-- Carousel==============================================  -->
-
-
 
     <div class="alert alert-danger alert-dismissible" role="alert" id="ieflag" style="display:none">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -249,16 +142,12 @@
     <footer class="footer">
       <div class="container">
         <div class="row">
-          <div class="col-md-8" >
-            <!-- {% trans "Built for" %} <a href=#>{% trans "PARMap" %}</a> <em>{% trans "version 1" %} </em> |
+          <div class="col-md-8">
+            {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a> <em>{% trans "version" %} {{ VERSION }}</em> |
             <a href="{% url "developer" %}">{% trans "Developers" %}</a> |
-            <a href="{% url "about" %}">{% trans "About" %}</a> -->
-            <img src="{{ STATIC_URL }}geonode/img/logo_dost.jpg" class="logo-footer" />
-            <img src="{{ STATIC_URL }}geonode/img/logo_pcieerd.png" class="logo-footer" />
-            <img src="{{ STATIC_URL }}geonode/img/logo_dge.jpg" class="logo-footer" />
-            © 2017 Phil-LiDAR 2 Program. All Rights Reserved
+            <a href="{% url "about" %}">{% trans "About" %}</a>
           </div>
-<!--           <div class="col-md-4">
+          <div class="col-md-4">
             <label class="hidden">{% trans "Language" %}</label>
             {% if csrf_token != "NOTPROVIDED" %}
             {% get_current_language as LANGUAGE %}
@@ -273,7 +162,7 @@
               </select>
             </form>
             {% endif %}
-          </div> -->
+          </div>
         </div>
       </div>
     </footer>
@@ -282,7 +171,8 @@
 
     <!-- Modal must stay outside the navbar -->
     {% if not user.is_authenticated %}
-    <!-- <div class="modal fade" id="SigninModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <!--
+    <div class="modal fade" id="SigninModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
@@ -310,7 +200,8 @@
           </form>
         </div>
       </div>
-    </div> -->
+    </div>
+    -->
     {% else %}
     <div class="modal fade" id="UserModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-sm">
@@ -347,12 +238,14 @@
             </ul>
           </div>
           <div class="modal-footer">
-            <!-- <form action="{% url "account_logout" %}" id="logout_form" method="post">
+            <!--
+            <form action="{% url "account_logout" %}" id="logout_form" method="post">
               {% csrf_token %}
               <a class="btn btn-warning btn-block" href="javascript:{}" onclick="document.getElementById('logout_form').submit();">{% trans "Log out" %}</a>
-            </form> -->
+            </form>
+            -->
             <a class="btn btn-warning btn-block" href="{% url "cas_ng_logout" %}" role="button">
-              {% trans "Sign out" %}
+                {% trans "Sign out" %}
             </a>
           </div>
         </div>
@@ -362,62 +255,40 @@
     <!-- End of Modal -->
 
     {% if DEBUG_STATIC %}
-    <script src="{{ STATIC_URL }}lib/js/jquery.min.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.dataTables.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.timeago.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.ajaxprogress.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.ajaxQueue.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery-ui.custom.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.raty.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/moment-with-locales.min.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/json2.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/select2.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/waypoints.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/Carousel_js.js"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery.min.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery.dataTables.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery.timeago.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery.ajaxprogress.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery.ajaxQueue.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery-ui.custom.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/jquery.raty.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/bootstrap.min.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/moment-with-locales.min.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/bootstrap-datetimepicker.min.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/json2.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/select2.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}lib/js/waypoints.js?v={{ VERSION }}"></script>
     {% else %}
-    <script src="{{ STATIC_URL }}lib/js/assets.min.js"></script>
+    <script src="{{ STATIC_URL }}lib/js/assets.min.js?v={{ VERSION }}"></script>
     {% endif %}
-    <script src="{{ STATIC_URL }}geonode/js/utils/utils.js"></script>
-    <script src="{{ STATIC_URL }}geonode/js/base/base.js"></script>
-
-    <!-- static files for bootstrap-fileinput -->
-    <link href="{{ STATIC_URL }}geonode/bower_components/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
-    <!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script -->
-    <!-- canvas-to-blob.min.js is only needed if you wish to resize images before upload.
-         This must be loaded before fileinput.min.js -->
-    <script src="{{ STATIC_URL }}geonode/bower_components/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
-    <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
-         This must be loaded before fileinput.min.js -->
-    <script src="{{ STATIC_URL }}geonode/bower_components/bootstrap-fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
-    <!-- purify.min.js is only needed if you wish to purify HTML content in your preview for HTML files.
-         This must be loaded before fileinput.min.js -->
-    <script src="{{ STATIC_URL }}geonode/bower_components/bootstrap-fileinput/js/plugins/purify.min.js" type="text/javascript"></script>
-    <!-- the main fileinput plugin file -->
-    <script src="{{ STATIC_URL }}geonode/bower_components/bootstrap-fileinput/js/fileinput.min.js"></script>
-    <!-- bootstrap.js below is needed if you wish to zoom and view file content
-         in a larger detailed modal dialog -->
-    <!-- needed to create slug version of keyword names in the search bar -->
-    <script src="{{ STATIC_URL }}geonode/bower_components/slugify/dist/slugify.min.js"></script>
-    <!-- script src="{{ STATIC_URL }}lib/js/bootstrap.min.js"></script -->
-    <!-- script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script -->
-
-
+    <script src="{{ STATIC_URL }}geonode/js/utils/utils.js?v={{ VERSION }}"></script>
+    <script src="{{ STATIC_URL }}geonode/js/base/base.js?v={{ VERSION }}"></script>
     {% include 'autocomplete_light/static.html' %}
     <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
     {% block extra_script %}{% endblock extra_script %}
     <script type="text/javascript">
         var autocomplete = $('#search_input').yourlabsAutocomplete({
-            url: '{% url "autocomplete_light_autocomplete" "ParmapAutocomplete" %}',
+            url: '{% url "autocomplete_light_autocomplete" "ResourceBaseAutocomplete" %}',
             choiceSelector: 'span',
             hideAfter: 200,
             minimumCharacters: 1,
             placeholder: '{% trans 'Type your search here ...' %}',
-            appendAutocomplete: $('#search_input')
+            appendAutocomplete: $('#search_input'),
+            autoHilightFirst: false
         });
         $('#search_input').bind('selectChoice', function(e, choice, autocomplete) {
             if(choice[0].children[0] == undefined) {
-                $('#search_input').val( slugify(choice[0].innerHTML) );
+                $('#search_input').val($(choice[0]).text());
                 $('#search').submit();
             }
         });
