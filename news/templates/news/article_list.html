@@ -14,7 +14,7 @@
 			<div class = "newsTitle">Keep Updated</div>
 			<div class = "newsHeadLine">
 				<div align = "middle">
-					<img src="{{ latest_headline.image2.url }}" class = "newsHeadLine">
+					<img src="{{ latest_headline.image1.url }}" class = "newsHeadLine">
 				</div>
 				<div class = "newsHeadLineTitle"><a href="/news/headline/{{ latest_headline.id }}/">{{ latest_headline }}</a></div>
 				<div class = "newsHeadLineDate">{{ latest_headline.pub_date }}</div>
@@ -29,36 +29,24 @@
 						<p>Browse articles by date published</p>
 
 						<ul class = "yearList">
-							<li>
-								<div class = "year">2017</div>
-								<ul class = "monthList">
-									<li><a href = "javascript:;">January</a></li>
-									<li><a href = "javascript:;">February</a></li>
-									<li><a href = "javascript:;">March</a></li>
-									<li><a href = "javascript:;">April</a></li>
-									<li><a href = "javascript:;">May</a></li>
-									<li><a href = "javascript:;">June</a></li>
-								</ul>
-							</li>
-							<li>
-								<div class = "year">2016</div>
-								<ul class = "monthList">
-									<li><a href = "javascript:;">January</a></li>
-									<li><a href = "javascript:;">February</a></li>
-									<li><a href = "javascript:;">March</a></li>
-									<li><a href = "javascript:;">April</a></li>
-									<li><a href = "javascript:;">May</a></li>
-									<li><a href = "javascript:;">June</a></li>
-								</ul>
-							</li>
+							{% for yr in year_list %}
+								<li>
+									<div class = "year">{{ yr |date:"Y"}} </div>
+									<ul class = "monthList">
+										{% for mon in month_list %}
+											{% if mon.year == yr.year %}
+													<li><a href="/news/{{yr.year}}/{{mon.month}}">{{ mon | date:"F"}}</a></li>
+											{% endif %}
+										{% endfor %}
+									</ul>
+								</li>
+							{% endfor %}
 						</ul>
+						
 					</div>
 				</div>
 				<div class = "col-md-9">
 					<div class = "row">
-						<?php
-						for($a = 1; $a <= 10; $a++) {
-							?>
 							<div class = "col-md-6">
 								<div class = "newsListWrapper">
 										{% for article in latest_article_list %}
