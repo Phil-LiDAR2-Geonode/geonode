@@ -17,7 +17,7 @@
 					<img src="{{ latest_headline.image1.url }}" class = "newsHeadLine">
 				</div>
 				<div class = "newsHeadLineTitle"><a href="/news/headline/{{ latest_headline.id }}/">{{ latest_headline }}</a></div>
-				<div class = "newsHeadLineDate">{{ latest_headline.pub_date }}</div>
+				<div class = "newsHeadLineDate">{{ latest_headline.pub_date.date }}</div>
 			</div>
 			<div class = "newsBorder"></div>
 		</div>
@@ -42,7 +42,7 @@
 								</li>
 							{% endfor %}
 						</ul>
-						
+
 					</div>
 				</div>
 				<div class = "col-md-9">
@@ -52,7 +52,7 @@
 										{% for article in latest_article_list %}
 												<img src="{{ article.image1.url }}" class="newsListImage"/>
 									<div class = "newsListTitle"><a href="/news/article/{{ article.id }}/">{{ article }}</a></div>
-									<div class = "newsListDate">{{ article.pub_date }}</div>
+									<div class = "newsListDate">{{ article.pub_date.date }}</div>
 									{% endfor %}
 								</div>
 							</div>
