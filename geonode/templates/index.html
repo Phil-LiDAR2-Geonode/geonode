@@ -2,252 +2,107 @@
 {% load i18n %}
 {% load staticfiles %}
 {% load base_tags %}
-{% block title %} {% trans "PARMap" %} - {{ block.super }} {% endblock %}
+
+{% block title %} {% trans "Welcome!" %} - {{ block.super }} {% endblock %}
 
 {% block body_class %}home{% endblock %}
 
 {% block middle %}
-   {{ block.super }}
-  {% block hero %}
-
-<head>
-  <!-- from wfp.org slide image jquery-->
-      <link href="{{ STATIC_URL }}geonode/css/assets.css" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/wfp.css" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/site_base.css" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/base.css" rel="stylesheet" />
-      <link href="{{ STATIC_URL }}geonode/css/d.css" rel="stylesheet" />
-      <!-- end of new files-->
-  <style>
-
-  /* hardware accelatator class */
-  /*.trans3d
-  {
-    -webkit-transform-style: preserve-3d;
-    -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform-style: preserve-3d;
-    -moz-transform: translate3d(0, 0, 0);
-    -ms-transform-style:preserve-3d;
-    -ms-transform: translate3d(0, 0, 0);
-    transform-style:preserve-3d;
-    transform: translate3d(0, 0, 0);
-    */
-    /*-webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -ms-backface-visibility:hidden;
-    backface-visibility:hidden;*/
-    /*
-  }
-
-  #contentContainer
-  {
-    position:absolute;
-    margin-left:-500px;
-    margin-top:-500px;
-    left:50%;
-    top:50%;
-    width:1000px;
-    height:1000px;
-  }
-
-  #carouselContainer
-  {
-    position:absolute;
-    margin-left:-500px;
-    margin-top:-500px;
-    left:50%;
-    top:50%;
-    width:1000px;
-    height:1000px;
-  }
-
-  .carouselItem
-  {
-    width:320px;
-    height:130px;
-    position:absolute;
-    left:50%;
-    top:50%;
-    margin-left:-160px;
-    margin-top:-90px;
-    visibility:hidden;
-  }
-
-  .carouselItemInner
-  {
-    width:320px;
-    height:130px;
-    position:absolute;
-    background-color:rgba(255, 255, 255, .75);
-    border:10px solid rgba(255, 255, 255, .5);
-    color:aqua;
-    font-size:72px;
-    left:50%;
-    top:50%;
-    margin-left:-160px;
-    margin-top:-90px;
-    text-align:center;
-    padding-top:50px;
-
-  }
-  */
-  .carousel {
-      background: #605e5e;
-      margin-bottom: 0px;
-      margin-top: 60px;
-    }
-    .carousel .container {
-      position: relative;
-      z-index: 9;
-    }
-    .carousel-control{
-      background-color:transparent;
-      border: 0;
-      font-size: 8em;
-      height: 60px;
-      margin-top: 0;
-      text-shadow: 0 1px 1px rgba(0,0,0,.4);
-      z-index: 10;
-    }
-    .carousel .item{
-      height: 300px;
-    }
-    .carousel img {
-      position: absolute;
-      top: 0;
-      left:0;
-      min-height: 300px;
-      min-width: 100%;
-      overflow: hidden;
-    }
-    .carousel-caption {
-      background: none;
-      position: static;
-      padding: 0;
-      margin-top: 60px;
-      width:860px;
-    }
-    .carousel-caption h1{
-      color: #fff;
-      font-size: 3em;
-      font-weight: 400;
-      line-height: 0.5em;
-      margin:0;
-      padding:20px;
-      text-shadow:2px 2px 2px rgba(0,0,0,.4);
-    }
-    .carousel-caption .lead {
-      color: #fff;
-      font-weight: 600;
-      line-height: 1.125em;
-      padding: 20px;
-      text-shadow: 2px 2px 2px rgba(0,0,0,.4);
-    }
-  </style>
-</head>
-<!-- container for about text -->
-    <div class="carousel"><!-- carousel -->
-      <div class="carousel-inner">
-        <div class="item active">
-          <img src="/static/geonode/img/layer11.png" alt="">
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Welcome to <strong>PARMap Web Portal</strong></h1>
-              <p class="lead">Phil-LiDAR 2 Project 1: Agricultural Resources Extraction <br>
-              from LiDAR Surveys</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><!-- end of carousel -->
-    <div class="jumbotron">
-    <div class="container">
-      <h2>{% trans "About" %}</h2> <!-- edit this with slideshow image css jquery-->
-      <p>{% blocktrans %}PARMap Web Portal serves as a repository of Agricultural Resource Maps based on available LiDAR dataset{% endblocktrans %}</p>
-      <br>
-      <p>{% blocktrans %}The Phil-LiDAR 2 Project 1 Agricultural Resources Extraction from LiDAR Surveys (PARMap) is a directed research program funded by the Philippines' Department of Science Technology through the Philippine Council for Industry, Energy and Emerging Technology Research and Development. This complements on-going programs of the Philippines’ Department of Agriculture by utilizing LiDAR data for the mapping of agricultural resources and vulnerability assessment.{% endblocktrans %}</p>
-    </div>
-  </div>
-  {% endblock %}
-
   {% block mainbody %}
-  <div class="container">
-    <div class="row home-facets">
-    {% with facet_type='home' %}
-     {% facets as facets %}
-      <div class="col-md-6">
-        <p><a href="{% url "layer_browse" %}"><i class="fa fa-square-o fa-5x rotate-45"></i></a></p>
-        <h2><a href="{% url "layer_browse" %}">{{ facets.layer|default:_("No") }} {% blocktrans count counter=facets.layer %}Layer{% plural %}Layers{% endblocktrans %}</a></h2>
-        <!-- <p>{% trans "Click to search for geospatial data published by other users, organizations and public sources. Download data in standard formats." %}</p> -->
-        <!-- <p class="text-center"><a class="btn btn-default" href="{% url "layer_upload" %}" role="button">{% trans "Add layers" %} &raquo;</a></p> -->
-        <p class="text-center"><a class="btn btn-default" href="{% url "layer_browse" %}" role="button">{% trans "Explore layers" %} &raquo;</a></p>
-      </div>
-<!--       <div class="col-md-4">
-        <p><a href="{% url "maps_browse" %}"><i class="fa fa-map-marker fa-5x"></i></a></p>
-        <h2><a href="{% url "maps_browse" %}">{{ facets.map|default:_("No") }} {% blocktrans count counter=facets.map %}Map{% plural %}Maps{% endblocktrans %}</a></h2>
-        <p>{% trans "Data is available for browsing, aggregating and styling to generate maps which can be shared publicly or restricted to specific users only." %}</p>
-        {% if user.is_authenticated %}
-        <p><a class="btn btn-default" href="{% url "new_map" %}" role="button">{% trans "Create maps" %} &raquo;</a></p>
-        {% else %}
-        <p><a class="btn btn-default" href="{% url "maps_browse" %}" role="button">{% trans "Explore maps" %} &raquo;</a></p>
-        {% endif %}
-      </div> -->
-      <div class="col-md-6">
-        <p><a href="{% url "document_browse" %}"><i class="fa fa-files-o fa-5x"></i></a></p>
-        <h2><a href="{% url "document_browse" %}">{{ facets.document|default:_("No") }} {% blocktrans count counter=facets.document %}Map{% plural %}Maps{% endblocktrans %}</a></h2>
-        <!-- <p>{% trans "Maps" %}</p> -->
-        <p><a class="btn btn-default" href="{% url "document_browse" %}" role="button">{% trans "Explore maps" %} &raquo;</a></p>
-      </div>
-    {% endwith %}
-    </div>
-  </div>
-  {% verbatim %}
-  <div ng-app="featured">
-    <div ng-repeat="item in featured">
-      <!--{{ item.title }}-->
-    </div>
-  </div>
-  {% endverbatim %}
-  {% endblock %}
 
+<div class = "section firstChild">
+	<div class = "container">
+		<p class = "bannerTitle">The <b>PARMap</b> Web Portal</p>
+	</div>
+</div>
+
+<div class = "section">
+  <div class = "container">
+    <div class = "row">
+      <div class = "col-sm-6 contentImgWrapper">
+
+        <img src = "{{ STATIC_URL }}parmap/img/page-home/GIFs/Home_1k.gif" class = "contentImg">
+        <!-- <img src = "{{ STATIC_URL }}parmap/img/shadow.jpg" class = "contentImg shadow"> -->
+      </div>
+      <div class = "col-sm-6">
+        <p class = "contentDescription">Download GIS Layers and Maps.</p>
+        <p class = "contentDescription"><a href = "https://lipad.dream.upd.edu.ph/requests/register/profile_request/" class = "btn downloadBtn">GET DATA <i class = "fa fa-download"></i></a></p>
+        <p class = "contentDescription">PARMap aims to map the country's agricultural resources using LiDAR technology and assess vulnerability through remote sensing and GIS.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class = "section">
+  <div class = "container" style = "height: 550px;">
+    <div class = "bg1"></div>
+    <div class = "bg2"></div>
+    <div class = "parmapBg">
+      <p>The <b>PARMap</b> Web Portal</p>
+      <p>serves as a repository of agricultural resource maps based on available LiDAR dataset.</p>
+    </div>
+  </div>
+</div>
+
+<div class = "section">
+  <div class = "container">
+    <div class = "row">
+      <div class = "col-sm-6">
+        <p class = "sectionTitle alignRight contentDescription">Land Cover</p>
+        <p class = "alignRight contentDescription">Download land cover layers and maps in .shp or .jpeg.</p>
+        <p class = "alignRight contentDescription">Using geographic infrmation systems and remote sensing techniques, we have mapped agricultural and coastal resources of areas with LiDAR data.</p>
+      </div>
+      <div class = "col-sm-6 contentImgWrapper">
+        <img src = "{{ STATIC_URL }}parmap/img/page-home/GIFs/LandCover.gif" class = "contentImg">
+        <!-- <img src = "{{ STATIC_URL }}parmap/img/shadow.jpg" class = "contentImg shadow"> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class = "section">
+  <div class = "container">
+    <div class = "row">
+      <div class = "col-sm-6 contentImgWrapper">
+        <img src = "{{ STATIC_URL }}parmap/img/page-home/GIFs/VA.gif" class = "contentImg">
+        <!-- <img src = "{{ STATIC_URL }}parmap/img/shadow.jpg" class = "contentImg shadow"> -->
+      </div>
+      <div class = "col-sm-6">
+        <p class = "sectionTitle contentDescription">Vulnerability Assessment</p>
+        <p class = "contentDescription">Download agricultural vulnerability layers and maps in .shp or .jpeg.</p>
+        <p class = "contentDescription">We have also assessed the vulnerability of selected areas to various hazards in coordination with governing bodies and experts throughout the countries.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class = "section">
+  <div class = "container">
+    <div class = "row">
+      <div class = "col-sm-6">
+        <p class = "sectionTitle alignRight contentDescription">Spectral Library</p>
+        <p class = "alignRight contentDescription">Explore spectral signatures of different crops.</p>
+        <p class = "alignRight contentDescription">Spectral signaturesof agricultural resources were recorded are compiled from ground measurements.</p>
+      </div>
+      <div class = "col-sm-6 contentImgWrapper">
+        <img src = "{{ STATIC_URL }}parmap/img/page-home/GIFs/Spectro.gif" class = "contentImg">
+        <!-- <img src = "{{ STATIC_URL }}parmap/img/shadow.jpg" class = "contentImg shadow"> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class = "section contactUs">
+	<div class = "container"><a href = "{% url "about" %}">Contact Us</a></div>
+</div>
+
+  {% endblock %}
 {% endblock %}
 
 {% block extra_script %}
-    {% comment %}
-    {% if DEBUG_STATIC %}
-    {% endcomment %}
-    <script src="{{ STATIC_URL }}lib/js/angular.js"></script>
-    <!-- Carousel.js -->
-    <script src="{{ STATIC_URL }}lib/js/jquery.min.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.dataTables.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.timeago.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.ajaxprogress.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.ajaxQueue.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery-ui.custom.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/jquery.raty.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/bootstrap.min.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/json2.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/select2.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/waypoints.js"></script>
-    {% comment %}
-    {% else %}
-    <script src="{{ STATIC_URL }}lib/js/assets.min.js"></script>
-    {% endif %}
-    {% endcomment %}
-    <script src="{{ STATIC_URL }}geonode/js/utils/utils.js"></script>
-    <script src="{{ STATIC_URL }}geonode/js/base/base.js"></script>
-
-    <!-- .js files from wfp -->
-    <!-- paste inside .js folder -->
-    <script src="{{ STATIC_URL }}lib/js/ga.js"></script>
-    <script src="{{ STATIC_URL }}lib/js/ooy8mlk.js"></script>
-
-    <!-- end of new files -->
-    <!-- Carousel.js -->
-    <script src="{{ STATIC_URL }}lib/js/carousel/Carousel_js.js"></script>
-    <!-- end of Carousel.js -->
-    <!-- end of Carousel.js -->
-
+{% if DEBUG_STATIC %}
+<script src="{{ STATIC_URL }}lib/js/angular.js"></script>
+{% endif %}
   <script type="text/javascript">
     FEATURED_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='featured' %}'
     'use strict';
@@ -259,6 +114,17 @@
         });
       });
     })();
+  </script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+  	$(".parmapBg").hover(function() {
+  		$(".bg1").addClass("bg1Tilt");
+  		$(".bg2").addClass("bg2Tilt");
+  	}, function() {
+  		$(".bg1").removeClass("bg1Tilt");
+  		$(".bg2").removeClass("bg2Tilt");
+  	});
+  });
   </script>
 
 {% endblock extra_script %}
