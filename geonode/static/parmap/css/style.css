@@ -38,7 +38,7 @@ body {
 }
 
 body.spectral {
-	background: url('../img/spectral-library-bg.jpg') fixed center center;
+	background: url('../img/page-spectral-library/SpectralLib_bg.jpg') fixed center center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -52,7 +52,7 @@ body.spectral {
 }
 
 .navbar .navbar-brand img {
-	width: 80px;
+	width: 100px;
 }
 
 .navbar .nav {
@@ -667,6 +667,273 @@ body.spectral {
 	font-style: italic;
 }
 
+.teamsWrapper {
+	border: 1px solid transparent;
+	position: relative;
+	height: 1100px;
+}
+
+.teamsWrapper .frameWrapper {
+	border: 1px solid transparent;
+	width: 150px;
+}
+
+.teamsWrapper .fw1 {
+	position: absolute;
+	left: 45%;
+}
+
+.teamsWrapper .fw2 {
+	position: absolute;
+	left: 45%;
+	top: 150px;
+}
+
+.teamsWrapper .fw3 {
+	position: absolute;
+	left: 65%;
+	top: 300px;
+}
+
+.teamsWrapper .fw4 {
+	position: absolute;
+	left: 45%;
+	top: 350px;
+}
+
+.teamsWrapper .fw5 {
+	position: absolute;
+	left: 65%;
+	top: 450px;
+}
+
+.teamsWrapper .fw6 {
+	position: absolute;
+	left: 45%;
+	top: 600px;
+}
+
+.teamsWrapper .fw7 {
+	position: absolute;
+	left: 15%;
+	top: 600px;
+}
+
+.teamsWrapper .fw8 {
+	position: absolute;
+	right: 15%;
+	top: 600px;
+}
+
+.teamsWrapper .fw9 {
+	position: absolute;
+	left: 0%;
+	top: 780px;
+}
+
+.teamsWrapper .fw10 {
+	position: absolute;
+	left: 25%;
+	top: 780px;
+}
+
+.teamsWrapper .fw11 {
+	position: absolute;
+	left: 45%;
+	top: 780px;
+}
+
+.teamsWrapper .fw12 {
+	position: absolute;
+	right: 25%;
+	top: 780px;
+}
+
+.teamsWrapper .fw13 {
+	position: absolute;
+	right: 0%;
+	top: 780px;
+}
+
+.teamsWrapper .fw14 {
+	position: absolute;
+	left: 15%;
+	top: 900px;
+}
+
+.teamsWrapper .fw15 {
+	position: absolute;
+	left: 45%;
+	top: 900px;
+}
+
+.teamsWrapper .fw16 {
+	position: absolute;
+	right: 15%;
+	top: 900px;
+}
+
+.teamsWrapper .border0 {
+	position: absolute;
+	border-left: 1px solid #303030;
+	border-top: 1px solid #303030;
+}
+
+.teamsWrapper .border1 {
+	height: 800px;
+	width: 1px;
+	left: 51.5%;
+	top: 5px;
+}
+
+.teamsWrapper .border2 {
+	height: 1px;
+	width: 60%;
+	left: 20%;
+	top: 190px;
+}
+
+.teamsWrapper .border3 {
+	height: 1px;
+	width: 200px;
+	left: 51.5%;
+	top: 320px;
+}
+
+.teamsWrapper .border4 {
+	height: 200px;
+	width: 1px;
+	right: 28.5%;
+	top: 320px;
+}
+
+.teamsWrapper .border5 {
+	height: 1px;
+	width: 60%;
+	left: 20%;
+	top: 640px;
+}
+
+.teamsWrapper .border6 {
+	height: 2px;
+	width: 110px;
+	left: 42%;
+	top: 750px;
+}
+
+.teamsWrapper .border7 {
+	height: 190px;
+	width: 1px;
+	left: 42%;
+	top: 750px;
+}
+
+.teamsWrapper .border8 {
+	height: 1px;
+	width: 80%;
+	left: 10%;
+	top: 820px;
+}
+
+.teamsWrapper .border9 {
+	height: 1px;
+	width: 60%;
+	position: absolute;
+	left: 20%;
+	top: 940px;
+}
+
+.frameWrapperStaff {
+	width: 220px;
+	height: 300px;
+	border: 3px solid #303030;
+	position: absolute;
+	top: 50px;
+	background: #fff;
+}
+
+.teamsWrapper .staff1 {
+	left: 50px
+}
+
+.teamsWrapper .staff2 {
+	right: 50px
+}
+
+.teamsWrapper .staff1 .borderGreen,
+.teamsWrapper .staff2 .borderGreen {
+	border-top: 3px solid #ADD271;
+	border-right: 3px solid #ADD271;
+	position: absolute;
+	top: -3px;
+	right: -3px;
+	width: 100px;
+	height: 150px;
+}
+
+.teamsWrapper .frameWrapper .frame .borderGreen {
+	border-top: 3px solid #ADD271;
+	border-right: 3px solid #ADD271;
+	position: absolute;
+	top: -3px;
+	right: -3px;
+	width: 40px;
+	height: 40px;
+	border-top-right-radius: 100%;
+}
+
+.teamsWrapper .frameWrapper .frame {
+	border: 3px solid #303030;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	margin: 0px auto;
+	background: #fff;
+	position: relative;
+}
+
+
+.teamsWrapper .frameWrapper .name {
+	font-size: 13px;
+	margin: 0px auto;
+	text-align: center;
+	background: #fff;
+}
+
+.teamsWrapper .frameWrapper .position {
+	font-size: 11px;
+	font-style: italic;
+	font-weight: bold;
+	margin: 0px auto;
+	text-align: center;
+	background: #fff;
+}
+
+.agencySection {
+	border: 1px solid transparent;
+	margin: 30px 0px 0px 0px;
+}
+
+.agencySection .agencyTitle,
+.agencySection .agencyLogo,
+.agencySection .agencyDescription {
+	text-align: center;
+	width: 60%;
+	margin: 0px auto;
+}
+
+.agencySection .agencyTitle {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.agencySection .agencyLogo {
+}
+
+.agencySection .agencyLogo img {
+	width: 80%;
+}
+
 .partnersWrapper .partnersTitle {
 	border: 1px solid transparent;
 	font-size: 40px;
@@ -706,6 +973,44 @@ body.spectral {
 
 .partner2Logo .partnerImg {
 	width: 35%;
+}
+
+.contactUsContent .container {
+	background: #A9D198;
+}
+
+.contactUsLeft {
+	background: #9CD09F;
+}
+
+.contactUsRight {
+	background: #A9D198;
+}
+
+.contactUsSection {
+	border: 1px solid transparent;
+	padding: 30px 10px;
+	text-align: center;
+	/*max-width: 500px;*/
+}
+
+.contactUsRight .contactUsSection:first-child {
+	margin-top: 50px;
+}
+
+.contactUsSection p {
+	margin: 0px !important;
+	border: 1px solid transparent;
+	display: block;
+	width: 100%;
+}
+
+.contactUsSection p.caption {
+	font-family: LatoLight;
+}
+
+.contactUsSection p.description {
+	font-family: LatoRegular;
 }
 
 .contactUs {
@@ -757,6 +1062,19 @@ footer ul li img {
 footer p.navbar-text {
 	float: right;
 	margin: 30px 10px;
+}
+
+.container .indented p {
+    text-indent: 100px;
+    text-align: left;
+    width: 80% !important;
+    margin: 5px auto;
+}
+.container .indent p {
+    text-indent: 130px;
+    text-align: left;
+    width: 80% !important;
+    margin: 1px auto;
 }
 
 .error404 {
