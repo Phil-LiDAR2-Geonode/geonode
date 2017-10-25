@@ -642,7 +642,7 @@ body.spectral {
 }
 
 .aboutContent .aboutLogo {
-	border: 1px solid #aaa;
+	border: 1px solid transparent;
 	height: 150px;
 	width: 150px;
 	position: absolute;
@@ -650,6 +650,10 @@ body.spectral {
 	top: -75px;
 	border-radius: 50%;
 	background: #fff;
+}
+
+.aboutContent .aboutLogo img {
+	width: 100%;
 }
 
 .aboutContent .container {
@@ -662,6 +666,25 @@ body.spectral {
 	width: 80% !important;
 	margin: 20px auto;
 }
+.container .indented p {
+	text-indent: 100px;
+	text-align: left;
+	width: 80% !important;
+	margin: 5px auto;
+}
+.container .indent p {
+	text-indent: 130px;
+	text-align: left;
+	width: 80% !important;
+	margin: 1px auto;
+}
+
+.container .indented p.i {
+	text-indent: 100px;
+	text-align: left;
+	width: 80% !important;
+	margin: 20px auto;
+}
 
 .aboutContent .container p.i {
 	font-style: italic;
@@ -670,12 +693,12 @@ body.spectral {
 .teamsWrapper {
 	border: 1px solid transparent;
 	position: relative;
-	height: 1100px;
+	height: 800px;
 }
-
 .teamsWrapper .frameWrapper {
 	border: 1px solid transparent;
 	width: 150px;
+	margin: 0px auto;
 }
 
 .teamsWrapper .fw1 {
@@ -691,7 +714,7 @@ body.spectral {
 
 .teamsWrapper .fw3 {
 	position: absolute;
-	left: 65%;
+	left: 60%;
 	top: 300px;
 }
 
@@ -703,8 +726,8 @@ body.spectral {
 
 .teamsWrapper .fw5 {
 	position: absolute;
-	left: 65%;
-	top: 450px;
+	right: 60%;
+	top: 300px;
 }
 
 .teamsWrapper .fw6 {
@@ -759,18 +782,87 @@ body.spectral {
 	position: absolute;
 	left: 15%;
 	top: 900px;
+	display: none;
 }
 
 .teamsWrapper .fw15 {
 	position: absolute;
 	left: 45%;
 	top: 900px;
+	display: none;
 }
 
 .teamsWrapper .fw16 {
 	position: absolute;
 	right: 15%;
 	top: 900px;
+	display: none;
+}
+
+.teamsWrapper .fw17 {
+	position: absolute;
+	left: 0%;
+	top: 0px;
+}
+
+.teamsWrapper .fw18 {
+	position: absolute;
+	right: 0%;
+	top: 0px;
+}
+
+.teamsWrapper .fw19 {
+	position: absolute;
+	right: 0%;
+	top: 0px;
+}
+
+.teamsWrapper .fw20 {
+	position: absolute;
+	left: 0%;
+	top: 0px;
+}
+
+.teamsWrapper .fw21 {
+	position: absolute;
+	right: 0%;
+	top: 115px;
+}
+
+.teamsWrapper .fw22 {
+	position: absolute;
+	left: 0%;
+	top: 115px;
+}
+
+.teamsWrapper .fw23 {
+	position: absolute;
+	right: 0%;
+	top: 230px;
+}
+
+.teamsWrapper .fw24 {
+	position: absolute;
+	left: 0%;
+	top: 230px;
+}
+
+.teamsWrapper .fw25 {
+	position: absolute;
+	right: 0%;
+	top: 345px;
+}
+
+.teamsWrapper .fw26 {
+	position: absolute;
+	left: 0%;
+	top: 345px;
+}
+
+.teamsWrapper .fw27 {
+	position: absolute;
+	left: 80px;
+	top: 460px;
 }
 
 .teamsWrapper .border0 {
@@ -795,8 +887,8 @@ body.spectral {
 
 .teamsWrapper .border3 {
 	height: 1px;
-	width: 200px;
-	left: 51.5%;
+	width: 350px;
+	left: 35%;
 	top: 320px;
 }
 
@@ -805,6 +897,7 @@ body.spectral {
 	width: 1px;
 	right: 28.5%;
 	top: 320px;
+	display: none;
 }
 
 .teamsWrapper .border5 {
@@ -819,6 +912,7 @@ body.spectral {
 	width: 110px;
 	left: 42%;
 	top: 750px;
+	display: none;
 }
 
 .teamsWrapper .border7 {
@@ -826,6 +920,7 @@ body.spectral {
 	width: 1px;
 	left: 42%;
 	top: 750px;
+	display: none;
 }
 
 .teamsWrapper .border8 {
@@ -841,24 +936,44 @@ body.spectral {
 	position: absolute;
 	left: 20%;
 	top: 940px;
+	display: none;
 }
 
 .frameWrapperStaff {
-	width: 220px;
+	width: 300px;
 	height: 300px;
-	border: 3px solid #303030;
+	border: 0px solid #303030;
 	position: absolute;
-	top: 50px;
+	top: 0px;
 	background: #fff;
 }
 
-.teamsWrapper .staff1 {
-	left: 50px
+.teamsWrapper .left {
+	left: 	0px;
 }
 
-.teamsWrapper .staff2 {
-	right: 50px
+.teamsWrapper .right {
+	right: 0px;
 }
+
+.frameWrapperStaff .staff1 {
+	width: 300px;
+	height: 80px;
+	border: 3px solid #303030;
+	position: absolute;
+	top: 130px;
+	background: #fff;
+}
+
+.frameWrapperStaff .staff2 {
+	width: 300px;
+	height: 120px;
+	border: 3px solid #303030;
+	position: absolute;
+	background: #fff;
+	top: 230px;
+}
+
 
 .teamsWrapper .staff1 .borderGreen,
 .teamsWrapper .staff2 .borderGreen {
@@ -868,7 +983,7 @@ body.spectral {
 	top: -3px;
 	right: -3px;
 	width: 100px;
-	height: 150px;
+	height: 35px;
 }
 
 .teamsWrapper .frameWrapper .frame .borderGreen {
@@ -893,6 +1008,8 @@ body.spectral {
 }
 
 
+.staff1 .name,
+.staff2 .name,
 .teamsWrapper .frameWrapper .name {
 	font-size: 13px;
 	margin: 0px auto;
@@ -900,6 +1017,8 @@ body.spectral {
 	background: #fff;
 }
 
+.staff1 .position,
+.staff2 .position,
 .teamsWrapper .frameWrapper .position {
 	font-size: 11px;
 	font-style: italic;
@@ -909,16 +1028,17 @@ body.spectral {
 	background: #fff;
 }
 
+
 .agencySection {
 	border: 1px solid transparent;
-	margin: 30px 0px 0px 0px;
+	margin: 10px 0px 20px 0px;
 }
 
 .agencySection .agencyTitle,
 .agencySection .agencyLogo,
 .agencySection .agencyDescription {
 	text-align: center;
-	width: 60%;
+	width: 40%;
 	margin: 0px auto;
 }
 
@@ -937,10 +1057,10 @@ body.spectral {
 .partnersWrapper .partnersTitle {
 	border: 1px solid transparent;
 	font-size: 40px;
-	padding: 20px 0px;
+	/*padding: 20px 0px;*/
 	text-align: center;
-	margin-top: 50px;
-	margin-bottom: 50px;
+	/*margin-top: 50px;
+	margin-bottom: 80px;*/
 }
 
 .partner1 {
@@ -952,27 +1072,84 @@ body.spectral {
 	float: left;
 	border: 0px solid #aaa;
 	text-align: center;
-	margin: 0px 0px 20px 0px;
+	margin: 20px 0px 60px 0px;
 }
 
 .partner1Logo .partnerImg {
-	width: 40%;
+	width: 35%;
 }
+.partner1 .partner1Logo1 {
+	width: 10;
+	float: left;
+	border: 0px solid #aaa;
+	text-align: center;
+	margin: 0px px 60px 0px;
+}
+
+.partner1Logo1 .partnerImg {
+	width: 10%;
+}
+
 
 .partner2 {
 	border: 1px solid transparent;
 }
 
 .partner2 .partner2Logo {
-	width: 25%;
+	width: 22%;
 	float: left;
 	border: 0px solid #aaa;
 	text-align: center;
-	margin: 0px 0px 80px 0px;
+	margin: 0px 0px 60px 0px;
 }
 
 .partner2Logo .partnerImg {
-	width: 35%;
+	width: 38%;
+}
+.partner12 {
+	border: 1px solid transparent;
+}
+
+.partner12 .partner12Logo {
+	width: 20%;
+	float: left;
+	border: 0px solid #aaa;
+	text-align: center;
+	margin: 0px 0px 60px 0px;
+}
+
+.partner12Logo .partnerImg {
+	width: 38%;
+}
+
+.partner12 .partner123Logo {
+	width: 20%;
+	float: left;
+	border: 0px solid #aaa;
+	text-align: center;
+	margin: 20px 0px 60px 0px;
+}
+
+.partner123Logo .partnerImg {
+	width: 44%;
+}
+.partner12 .partner1234Logo {
+	width: 15%;
+	float: left;
+	border: 0px solid #aaa;
+	text-align: center;
+	margin: 20px 0px 60px 0px;
+}
+
+.partner1234Logo .partnerImg {
+	width: 48%;
+}
+.partner3 .partner3Logo {
+	width: 50%;
+	float: left;
+	border: 0px solid #aaa;
+	text-align: center;
+	margin: 0px 0px 20px 0px;
 }
 
 .contactUsContent .container {
@@ -1041,46 +1218,6 @@ footer {
 footer.nav {
 	shadow: -5px -5px 5px #EAEAEA;
 	background: #F8F8F8 !important;
-}
-
-footer ul {
-	padding: 0px;
-	margin: 10px 0px;
-	list-style: none;
-	float: left;
-}
-
-footer ul li {
-	display: inline;
-	margin: 0px 10px 0px 0px;
-}
-
-footer ul li img {
-	width: 40px;
-}
-
-footer p.navbar-text {
-	float: right;
-	margin: 30px 10px;
-}
-
-.container .indented p {
-    text-indent: 100px;
-    text-align: left;
-    width: 80% !important;
-    margin: 5px auto;
-}
-.container .indent p {
-    text-indent: 130px;
-    text-align: left;
-    width: 80% !important;
-    margin: 1px auto;
-}
-
-.error404 {
-	border: 1px solid transparent;
-	margin: 100px 0px;
-	text-align: center;
 }
 
 .error404 h1 {
