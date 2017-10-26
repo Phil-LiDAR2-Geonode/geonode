@@ -1,9 +1,11 @@
 {% extends "site_base.html" %}
-
 {% load i18n %}
+{% load staticfiles %}
+{% load base_tags %}
 {% block title %} {% trans "About GeoNode" %} — {{ block.super }} {% endblock %}
 
-{% block body_outer %}
+{% block middle %}
+  {% block mainbody %}
 <div class = "section firstChild">
 	<div class = "container">
 		<div class = "aboutWrapper">
@@ -243,4 +245,5 @@
 </div>
 <a name = "contactus"></i>
 </a>
+{% endblock %}
 {% endblock %}
