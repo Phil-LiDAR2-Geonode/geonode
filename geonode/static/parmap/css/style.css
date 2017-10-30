@@ -657,7 +657,7 @@ body.spectral {
 }
 
 .aboutContent .container {
-	padding: 60px 20px;
+	padding: 60px 20px 0px;
 	width: 90% !important;
 }
 
@@ -1043,8 +1043,8 @@ body.spectral {
 }
 
 .agencySection .agencyTitle {
-	font-size: 16px;
-	font-weight: bold;
+	font-size: 25px;
+	width: 70%;
 }
 
 .agencySection .agencyLogo {
@@ -1153,15 +1153,15 @@ body.spectral {
 }
 
 .contactUsContent .container {
-	background: #A9D198;
+	background: #B9FAA9;
 }
 
 .contactUsLeft {
-	background: #9CD09F;
+	background: #92DA9C;
 }
 
 .contactUsRight {
-	background: #A9D198;
+	background: #B9FAA9;
 }
 
 .contactUsSection {
@@ -1188,6 +1188,10 @@ body.spectral {
 
 .contactUsSection p.description {
 	font-family: LatoRegular;
+}
+
+.contactUsSection a {
+	color: inherit;
 }
 
 .contactUs {
