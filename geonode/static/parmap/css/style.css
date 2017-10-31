@@ -38,7 +38,7 @@ body {
 }
 
 body.spectral {
-	background: url('../img/spectral-library-bg.jpg') fixed center center;
+	background: url('../img/page-spectral-library/SpectralLib_bg.jpg') fixed center center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -52,7 +52,7 @@ body.spectral {
 }
 
 .navbar .navbar-brand img {
-	width: 80px;
+	width: 100px;
 }
 
 .navbar .nav {
@@ -642,7 +642,7 @@ body.spectral {
 }
 
 .aboutContent .aboutLogo {
-	border: 1px solid #aaa;
+	border: 1px solid transparent;
 	height: 150px;
 	width: 150px;
 	position: absolute;
@@ -652,8 +652,12 @@ body.spectral {
 	background: #fff;
 }
 
+.aboutContent .aboutLogo img {
+	width: 100%;
+}
+
 .aboutContent .container {
-	padding: 60px 20px;
+	padding: 60px 20px 0px;
 	width: 90% !important;
 }
 
@@ -662,18 +666,401 @@ body.spectral {
 	width: 80% !important;
 	margin: 20px auto;
 }
+.container .indented p {
+	text-indent: 100px;
+	text-align: left;
+	width: 80% !important;
+	margin: 5px auto;
+}
+.container .indent p {
+	text-indent: 130px;
+	text-align: left;
+	width: 80% !important;
+	margin: 1px auto;
+}
+
+.container .indented p.i {
+	text-indent: 100px;
+	text-align: left;
+	width: 80% !important;
+	margin: 20px auto;
+}
 
 .aboutContent .container p.i {
 	font-style: italic;
 }
 
+.teamsWrapper {
+	border: 1px solid transparent;
+	position: relative;
+	height: 800px;
+}
+.teamsWrapper .frameWrapper {
+	border: 1px solid transparent;
+	width: 150px;
+	margin: 0px auto;
+}
+
+.teamsWrapper .fw1 {
+	position: absolute;
+	left: 45%;
+}
+
+.teamsWrapper .fw2 {
+	position: absolute;
+	left: 45%;
+	top: 150px;
+}
+
+.teamsWrapper .fw3 {
+	position: absolute;
+	left: 60%;
+	top: 300px;
+}
+
+.teamsWrapper .fw4 {
+	position: absolute;
+	left: 45%;
+	top: 350px;
+}
+
+.teamsWrapper .fw5 {
+	position: absolute;
+	right: 60%;
+	top: 300px;
+}
+
+.teamsWrapper .fw6 {
+	position: absolute;
+	left: 45%;
+	top: 600px;
+}
+
+.teamsWrapper .fw7 {
+	position: absolute;
+	left: 15%;
+	top: 600px;
+}
+
+.teamsWrapper .fw8 {
+	position: absolute;
+	right: 15%;
+	top: 600px;
+}
+
+.teamsWrapper .fw9 {
+	position: absolute;
+	left: 0%;
+	top: 780px;
+}
+
+.teamsWrapper .fw10 {
+	position: absolute;
+	left: 25%;
+	top: 780px;
+}
+
+.teamsWrapper .fw11 {
+	position: absolute;
+	left: 45%;
+	top: 780px;
+}
+
+.teamsWrapper .fw12 {
+	position: absolute;
+	right: 25%;
+	top: 780px;
+}
+
+.teamsWrapper .fw13 {
+	position: absolute;
+	right: 0%;
+	top: 780px;
+}
+
+.teamsWrapper .fw14 {
+	position: absolute;
+	left: 15%;
+	top: 900px;
+	display: none;
+}
+
+.teamsWrapper .fw15 {
+	position: absolute;
+	left: 45%;
+	top: 900px;
+	display: none;
+}
+
+.teamsWrapper .fw16 {
+	position: absolute;
+	right: 15%;
+	top: 900px;
+	display: none;
+}
+
+.teamsWrapper .fw17 {
+	position: absolute;
+	left: 0%;
+	top: 0px;
+}
+
+.teamsWrapper .fw18 {
+	position: absolute;
+	right: 0%;
+	top: 0px;
+}
+
+.teamsWrapper .fw19 {
+	position: absolute;
+	right: 0%;
+	top: 0px;
+}
+
+.teamsWrapper .fw20 {
+	position: absolute;
+	left: 0%;
+	top: 0px;
+}
+
+.teamsWrapper .fw21 {
+	position: absolute;
+	right: 0%;
+	top: 115px;
+}
+
+.teamsWrapper .fw22 {
+	position: absolute;
+	left: 0%;
+	top: 115px;
+}
+
+.teamsWrapper .fw23 {
+	position: absolute;
+	right: 0%;
+	top: 230px;
+}
+
+.teamsWrapper .fw24 {
+	position: absolute;
+	left: 0%;
+	top: 230px;
+}
+
+.teamsWrapper .fw25 {
+	position: absolute;
+	right: 0%;
+	top: 345px;
+}
+
+.teamsWrapper .fw26 {
+	position: absolute;
+	left: 0%;
+	top: 345px;
+}
+
+.teamsWrapper .fw27 {
+	position: absolute;
+	left: 80px;
+	top: 460px;
+}
+
+.teamsWrapper .border0 {
+	position: absolute;
+	border-left: 1px solid #303030;
+	border-top: 1px solid #303030;
+}
+
+.teamsWrapper .border1 {
+	height: 800px;
+	width: 1px;
+	left: 51.5%;
+	top: 5px;
+}
+
+.teamsWrapper .border2 {
+	height: 1px;
+	width: 60%;
+	left: 20%;
+	top: 190px;
+}
+
+.teamsWrapper .border3 {
+	height: 1px;
+	width: 350px;
+	left: 35%;
+	top: 320px;
+}
+
+.teamsWrapper .border4 {
+	height: 200px;
+	width: 1px;
+	right: 28.5%;
+	top: 320px;
+	display: none;
+}
+
+.teamsWrapper .border5 {
+	height: 1px;
+	width: 60%;
+	left: 20%;
+	top: 640px;
+}
+
+.teamsWrapper .border6 {
+	height: 2px;
+	width: 110px;
+	left: 42%;
+	top: 750px;
+	display: none;
+}
+
+.teamsWrapper .border7 {
+	height: 190px;
+	width: 1px;
+	left: 42%;
+	top: 750px;
+	display: none;
+}
+
+.teamsWrapper .border8 {
+	height: 1px;
+	width: 80%;
+	left: 10%;
+	top: 820px;
+}
+
+.teamsWrapper .border9 {
+	height: 1px;
+	width: 60%;
+	position: absolute;
+	left: 20%;
+	top: 940px;
+	display: none;
+}
+
+.frameWrapperStaff {
+	width: 300px;
+	height: 300px;
+	border: 0px solid #303030;
+	position: absolute;
+	top: 0px;
+	background: #fff;
+}
+
+.teamsWrapper .left {
+	left: 	0px;
+}
+
+.teamsWrapper .right {
+	right: 0px;
+}
+
+.frameWrapperStaff .staff1 {
+	width: 300px;
+	height: 80px;
+	border: 3px solid #303030;
+	position: absolute;
+	top: 130px;
+	background: #fff;
+}
+
+.frameWrapperStaff .staff2 {
+	width: 300px;
+	height: 120px;
+	border: 3px solid #303030;
+	position: absolute;
+	background: #fff;
+	top: 230px;
+}
+
+
+.teamsWrapper .staff1 .borderGreen,
+.teamsWrapper .staff2 .borderGreen {
+	border-top: 3px solid #ADD271;
+	border-right: 3px solid #ADD271;
+	position: absolute;
+	top: -3px;
+	right: -3px;
+	width: 100px;
+	height: 35px;
+}
+
+.teamsWrapper .frameWrapper .frame .borderGreen {
+	border-top: 3px solid #ADD271;
+	border-right: 3px solid #ADD271;
+	position: absolute;
+	top: -3px;
+	right: -3px;
+	width: 40px;
+	height: 40px;
+	border-top-right-radius: 100%;
+}
+
+.teamsWrapper .frameWrapper .frame {
+	border: 3px solid #303030;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	margin: 0px auto;
+	background: #fff;
+	position: relative;
+}
+
+
+.staff1 .name,
+.staff2 .name,
+.teamsWrapper .frameWrapper .name {
+	font-size: 13px;
+	margin: 0px auto;
+	text-align: center;
+	background: #fff;
+}
+
+.staff1 .position,
+.staff2 .position,
+.teamsWrapper .frameWrapper .position {
+	font-size: 11px;
+	font-style: italic;
+	font-weight: bold;
+	margin: 0px auto;
+	text-align: center;
+	background: #fff;
+}
+
+
+.agencySection {
+	border: 1px solid transparent;
+	margin: 10px 0px 20px 0px;
+}
+
+.agencySection .agencyTitle,
+.agencySection .agencyLogo,
+.agencySection .agencyDescription {
+	text-align: center;
+	width: 40%;
+	margin: 0px auto;
+}
+
+.agencySection .agencyTitle {
+	font-size: 25px;
+	width: 70%;
+}
+
+.agencySection .agencyLogo {
+}
+
+.agencySection .agencyLogo img {
+	width: 80%;
+}
+
 .partnersWrapper .partnersTitle {
 	border: 1px solid transparent;
 	font-size: 40px;
-	padding: 20px 0px;
+	/*padding: 20px 0px;*/
 	text-align: center;
-	margin-top: 50px;
-	margin-bottom: 50px;
+	/*margin-top: 50px;
+	margin-bottom: 80px;*/
 }
 
 .partner1 {
@@ -685,27 +1072,126 @@ body.spectral {
 	float: left;
 	border: 0px solid #aaa;
 	text-align: center;
-	margin: 0px 0px 20px 0px;
+	margin: 20px 0px 60px 0px;
 }
 
 .partner1Logo .partnerImg {
-	width: 40%;
+	width: 35%;
 }
+.partner1 .partner1Logo1 {
+	width: 10;
+	float: left;
+	border: 0px solid #aaa;
+	text-align: center;
+	margin: 0px px 60px 0px;
+}
+
+.partner1Logo1 .partnerImg {
+	width: 10%;
+}
+
 
 .partner2 {
 	border: 1px solid transparent;
 }
 
 .partner2 .partner2Logo {
-	width: 25%;
+	width: 22%;
 	float: left;
 	border: 0px solid #aaa;
 	text-align: center;
-	margin: 0px 0px 80px 0px;
+	margin: 0px 0px 60px 0px;
 }
 
 .partner2Logo .partnerImg {
-	width: 35%;
+	width: 38%;
+}
+.partner12 {
+	border: 1px solid transparent;
+}
+
+.partner12 .partner12Logo {
+	width: 20%;
+	float: left;
+	border: 0px solid #aaa;
+	text-align: center;
+	margin: 0px 0px 60px 0px;
+}
+
+.partner12Logo .partnerImg {
+	width: 38%;
+}
+
+.partner12 .partner123Logo {
+	width: 20%;
+	float: left;
+	border: 0px solid #aaa;
+	text-align: center;
+	margin: 20px 0px 60px 0px;
+}
+
+.partner123Logo .partnerImg {
+	width: 44%;
+}
+.partner12 .partner1234Logo {
+	width: 15%;
+	float: left;
+	border: 0px solid #aaa;
+	text-align: center;
+	margin: 20px 0px 60px 0px;
+}
+
+.partner1234Logo .partnerImg {
+	width: 48%;
+}
+.partner3 .partner3Logo {
+	width: 50%;
+	float: left;
+	border: 0px solid #aaa;
+	text-align: center;
+	margin: 0px 0px 20px 0px;
+}
+
+.contactUsContent .container {
+	background: #B9FAA9;
+}
+
+.contactUsLeft {
+	background: #92DA9C;
+}
+
+.contactUsRight {
+	background: #B9FAA9;
+}
+
+.contactUsSection {
+	border: 1px solid transparent;
+	padding: 30px 10px;
+	text-align: center;
+	/*max-width: 500px;*/
+}
+
+.contactUsRight .contactUsSection:first-child {
+	margin-top: 50px;
+}
+
+.contactUsSection p {
+	margin: 0px !important;
+	border: 1px solid transparent;
+	display: block;
+	width: 100%;
+}
+
+.contactUsSection p.caption {
+	font-family: LatoLight;
+}
+
+.contactUsSection p.description {
+	font-family: LatoRegular;
+}
+
+.contactUsSection a {
+	color: inherit;
 }
 
 .contactUs {
@@ -736,33 +1222,6 @@ footer {
 footer.nav {
 	shadow: -5px -5px 5px #EAEAEA;
 	background: #F8F8F8 !important;
-}
-
-footer ul {
-	padding: 0px;
-	margin: 10px 0px;
-	list-style: none;
-	float: left;
-}
-
-footer ul li {
-	display: inline;
-	margin: 0px 10px 0px 0px;
-}
-
-footer ul li img {
-	width: 40px;
-}
-
-footer p.navbar-text {
-	float: right;
-	margin: 30px 10px;
-}
-
-.error404 {
-	border: 1px solid transparent;
-	margin: 100px 0px;
-	text-align: center;
 }
 
 .error404 h1 {
