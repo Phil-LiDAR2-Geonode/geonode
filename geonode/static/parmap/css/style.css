@@ -37,13 +37,13 @@ body {
 	font-family: LatoLight;
 }
 
-body.spectral {
-	background: url('../img/page-spectral-library/SpectralLib_bg.jpg') fixed center center;
+/*body.spectral {
+	background: url('<?php echo IMAGES_URL; ?>website/spectral-library-bg.jpg') fixed center center;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
-}
+}*/
 
 .navbar {
 	box-shadow: 1px 1px 5px #EAEAEA;
@@ -52,7 +52,7 @@ body.spectral {
 }
 
 .navbar .navbar-brand img {
-	width: 100px;
+	width: 60px;
 }
 
 .navbar .nav {
@@ -123,6 +123,10 @@ body.spectral {
 
 .section.firstChild {
 	margin: 75px 0px 0px 0px;
+}
+
+.section.backToTop {
+	margin: 105px 0px 0px 0px;
 }
 
 .section .bannerTitle,
@@ -212,11 +216,11 @@ body.spectral {
 }
 
 .bg1 {
-	background: url('../img/page-home/ortho_up.png') center center no-repeat;
+	background: url('<?php echo IMAGES_URL; ?>website/ortho-up.png') center center no-repeat;
 }
 
 .bg2 {
-	background: url('../img/page-home/ortho_down.png') center center no-repeat;
+	background: url('<?php echo IMAGES_URL; ?>website/ortho-down.png') center center no-repeat;
 }
 
 .bg1Tilt {
@@ -236,12 +240,19 @@ body.spectral {
 
 .parmapBg p:first-child {
 	font-size: 40px;
-	margin: 150px 0px 0px 100px;
+	margin: 100px 0px 0px 100px;
+}
+
+.parmapBg p:nth-child(2) {
+	font-size: 25px;
+	margin: 0px 0px 0px 110px;
+	text-align: left;
+	width: 34%;
 }
 
 .parmapBg p:last-child {
 	font-size: 25px;
-	margin: 140px 100px 0px 0px;
+	margin: -40px 100px 0px 0px;
 	text-align: right;
 	width: 34%;
 	float: right;
@@ -301,6 +312,12 @@ body.spectral {
 	border: 1px solid transparent;
 	padding: 15px 10px 15px 0px;
 	border-bottom: 1px solid #F8F8F8;
+	position: fixed;
+	top: 75px;
+	left: 0px;
+	right: 0px;
+	background: #fff;
+	z-index: 500;
 }
 
 .landCoverTitleWrapper .landCoverTitle {
@@ -362,6 +379,20 @@ body.spectral {
 	height: 300px;
 }
 
+.rightPanel {
+	border: 1px solid transparent;
+}
+
+.rightPanel p {
+	text-align: right;
+	margin-left: 200px;
+}
+
+.rightPanel p a {
+	color: #97bc63;
+	text-decoration: underline;
+}
+
 .rightMapWrapper {
 	border: 1px solid transpartent;
 	margin: 20px 0px 50px 0px;
@@ -375,6 +406,20 @@ body.spectral {
 
 .resultWrapper .resultTitle {
 	font-size: 20px;
+	overflow: hidden;
+}
+
+.resultWrapper .resultTitle a {
+	border: 1px solid #aaa;
+	test-align: right;
+	float: right;
+	font-size: 12px;
+	display: inline-block;
+	padding: 3px 5px;
+	color: #97bc63;
+	text-transform: uppercase;
+	background: #676767;
+	text-decoration: none;
 }
 
 .resultWrapper ul {
@@ -401,10 +446,13 @@ body.spectral {
 	width: 150px;
 }
 
-.resultWrapper ul li .description1 {
+.resultWrapper ul li .description1,
+.resultWrapper ul li .description1 a {
 	border: 1px solid transparent;
 	font-size: 20px;
 	color: #12650b;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 .resultWrapper ul li .description2 {
@@ -415,6 +463,78 @@ body.spectral {
 	font-size: 15px;
 	font-style: italic;
 }
+
+.resultWrapper ul li .description4 {
+	overflow: hidden;
+}
+
+.resultWrapper ul li .description4 p {
+	text-align: left;
+	margin-left: 0px;
+}
+
+.resultWrapper ul li .actions a {
+	color: #12650b;
+	margin-right: 20px;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.resultWrapper ul li .actions a i {
+	color: #12650b;
+	margin-right: 5px;
+}
+
+/* CROP DETAILS */
+.cropDetailsWrapper {
+	margin-bottom: 50px;
+}
+
+.cropName,
+.cropName2 {
+	border: 1px solid transparent;
+	font-size: 20px;
+	color: #12650b;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.cropLocation {
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.cropImg {
+	border: 1px solid transparent;
+	margin-bottom: 20px;
+}
+
+.cropImg img:nth-child(1) {
+	width: 400px;
+	margin-right: 20px;
+}
+
+.cropImg img:nth-child(2) {
+	width: 280px;
+}
+
+.cropName2 {
+	text-transform: uppercase;
+}
+
+.cropActions a {
+	color: #12650b;
+	margin-right: 20px;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+.cropActions a i {
+	color: #12650b;
+	margin-right: 5px;
+}
+
 
 .vaFormulaWrapper {
 	background: #7D7D7D;
@@ -443,45 +563,85 @@ body.spectral {
 }
 
 .spectralWrapper {
-	background: rgba(0, 0, 0, 0.5);
-	height: 450px;
-	margin: 60px 0px;
+	margin: 0px 0px 0px 0px;
 	border-radius: 10px;
 	padding: 50px;
+	border: 1px solid transparent;
+}
+
+.spectralWrapper img {
+	width: 450px;
+	margin: -100px auto 0px;
+	border: 1px solid transparent;
 }
 
 .spectralTitle {
 	text-align: center;
-	color: #fff;
-	font-size: 55px;
+	font-size: 45px;
+	font-family: LatoRegular;
+	margin: -80px 0px 0px 0px;
 }
 
 .spectralSubTitle {
 	text-align: center;
-	color: #fff;
-	font-size: 40px;
-	font-family: LatoBold;
+	font-size: 18px;
+	width: 460px;
+	margin: 0px auto;
 }
 
 .spectralForm {
 	border: 1px solid transparent;
 	width: 300px;
-	margin: 70px auto;
+	margin: 10px auto;
 	text-align: center;
 	font-size: 16px;
 }
 
 .spectralForm label {
-	color: #fff;
 	text-align: center;
+	font-weight: normal;
+	margin-bottom: 20px;
 }
 
 .spectralForm .form-control {
 	margin-bottom: 20px;
 }
 
+.spectralForm input {
+	border-radius: 0px;
+	background: #444444;
+	color: #fff;
+	outline: none;
+}
+
 .spectralForm .btn {
 	background: #ADD274;
+	text-transform: uppercase;
+	margin-top: -25px;
+	font-weight: bold;
+	padding: 5px;
+	border-radius: 10px;
+}
+
+.downloadUav {
+	border: 3px solid #96AB70;
+	color: #96AB70;
+	width: 180px;
+	margin: 0px auto;
+	padding: 5px;
+	text-align: center;
+	border-radius: 5px;
+	margin-top: 20px;
+}
+
+.downloadUav i,
+.downloadUav a {
+	color: #96AB70;
+	text-decoration: none;
+	font-weight: bold;
+	display: block;
+	text-transform: uppercase;
+	font-size: 12px;
 }
 
 .newsWrapper {
@@ -498,8 +658,13 @@ body.spectral {
 	border: 1px solid transparent;
 	height: 300px;
 	position: relative;
-	background: #000;
+	background: url('<?php echo IMAGES_URL; ?>website/news-header.jpg') no-repeat center center;
 	margin: 0px 0px 10px 0px;
+
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .newsWrapper .newsHeadLine .newsHeadLineTitle {
@@ -547,16 +712,40 @@ body.spectral {
 }
 
 .newsListMainWrapper .newsArchiveWrapper .year {
-	border-top: 1px solid #282828;
-	border-bottom: 1px solid #282828;
+	/*border-top: 1px solid #282828;
+	border-bottom: 1px solid #282828;*/
 	padding: 3px;
+}
+
+.newsListMainWrapper .newsArchiveWrapper .year a {
+	color: #282828;
+	font-weight: bold;
+	display: block;
+	text-decoration: none;
+}
+
+.newsListMainWrapper .newsArchiveWrapper .year i {
+	margin-right: 5px;
+}
+
+.newsListMainWrapper .newsArchiveWrapper .monthList {
+	display: none;
+}
+
+.newsListMainWrapper .newsArchiveWrapper .monthList.show {
+	display: block;
 }
 
 .newsListMainWrapper .newsArchiveWrapper .monthList a {
 	display: block;
 	border: 1px solid transparent;
-	padding: 3px 3px 3px 20px;
+	padding: 3px 3px 3px 25px;
 	color: #282828;
+	font-weight: normal;
+}
+
+.newsListMainWrapper .newsArchiveWrapper .monthList a.active {
+	font-weight: bold;
 }
 
 .newsListWrapper {
@@ -565,24 +754,80 @@ body.spectral {
 }
 
 .newsListWrapper .newsListImage {
-	border: 5px solid #353535;
-	height: 150px;
+	border: 1px solid transparent;
+	height: 170px;
+	overflow: hidden;
+	position: relative;
+	cursor: pointer;
 }
+
+.newsListWrapper .newsListImage:hover a {
+	text-decoration: underline;
+}
+
+.newsListWrapper .newsListImage img {
+	width: 100%;
+}
+
+.newsListWrapper .overlay {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	z-index: 1;
+
+    background: rgb(140,181,82);
+	background: -moz-linear-gradient(bottom, rgba(140,181,82,0.1) 0%, rgba(140,181,82,1) 120%);
+	background: -webkit-linear-gradient(bottom, rgba(140,181,82,0.1) 0%,rgba(140,181,82,1) 120%);
+	background: linear-gradient(to bottom, rgba(140,181,82,0.1) 0%,rgba(140,181,82,1) 120%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8cb552', endColorstr='#8cb552',GradientType=0 );
+	background-size: 100% 200%;
+
+	-webkit-transition: background-position 1s;
+	-moz-transition: background-position 1s;
+	transition: background-position 1s;
+}
+
+.newsListWrapper .newsListImage:hover .overlay {
+	background: none;
+	background-position: 0 100%;
+	background: none;
+}
+
+/*.newsListWrapper .overlay.hide {
+	display: none;
+}*/
 
 .newsListWrapper .newsListTitle {
 	text-align: right;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 120px;
+	border: 0px solid #f00;
+	padding: 5px;
+	z-index: 2;
 }
 
 .newsListWrapper .newsListTitle a {
-	font-size: 20px;
-	padding: 5px 0px;
-	color: #12650b;
+	font-size: 16px;
+	padding: 5px 10px;
+	color: #fff;
+	font-weight: bold;
 }
 
 .newsListWrapper .newsListDate {
-	font-size: 14px;
-	padding: 0px;
+	font-size: 12px;
+	padding: 0px 15px;
 	text-align: right;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 145px;
+	border: 0px solid #f00;
+	color: #fff;
+	z-index: 2;
 }
 
 .newsBorder {
@@ -606,6 +851,30 @@ body.spectral {
 
 }
 
+.faqCategory {
+	border: 0.75pt solid #8cb552;
+	margin: 10px 10px 20px 10px;
+}
+
+.faqCategoryTitle {
+	color: #8cb552;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 5px 10px;
+	cursor: pointer;
+}
+
+.faqCategoryTitle i {
+	color: #8cb552;
+	margin-right: 10px;
+}
+
+.faqCategoryContent {
+	border-top: 0.75pt solid #ddd;
+	padding: 20px 0px 0px 0px;
+	display: none;
+}
+
 .faqsWrapper .faqsTitle {
 	border: 1px solid transparent;
 	font-size: 30px;
@@ -613,14 +882,19 @@ body.spectral {
 }
 
 .faqsWrapper .faqsList {
-	padding: 0px 20px;
-	margin: 0px 20px 30px 50px;
+	padding: 0px 0px;
+	margin: 0px 20px 30px 30px;
+	list-style: none;
 }
 
 .faqsWrapper .faqsList .question {
 	font-style: italic;
 	font-weight: bold;
 	font-size: 18px;
+}
+
+.faqsWrapper .faqsList .asnwers {
+	margin: 0px 20px;
 }
 
 .aboutWrapper .aboutTitle {
@@ -657,7 +931,7 @@ body.spectral {
 }
 
 .aboutContent .container {
-	padding: 60px 20px 0px;
+	padding: 60px 20px;
 	width: 90% !important;
 }
 
@@ -666,24 +940,11 @@ body.spectral {
 	width: 80% !important;
 	margin: 20px auto;
 }
-.container .indented p {
-	text-indent: 100px;
-	text-align: left;
-	width: 80% !important;
-	margin: 5px auto;
-}
-.container .indent p {
-	text-indent: 130px;
-	text-align: left;
-	width: 80% !important;
-	margin: 1px auto;
-}
 
-.container .indented p.i {
-	text-indent: 100px;
-	text-align: left;
-	width: 80% !important;
-	margin: 20px auto;
+.aboutContent .container ol {
+	padding: 0px;
+	margin: -20px 0px 0px 260px;
+	font-size: 16px;
 }
 
 .aboutContent .container p.i {
@@ -693,8 +954,9 @@ body.spectral {
 .teamsWrapper {
 	border: 1px solid transparent;
 	position: relative;
-	height: 800px;
+	height: 1000px;
 }
+
 .teamsWrapper .frameWrapper {
 	border: 1px solid transparent;
 	width: 150px;
@@ -1028,10 +1290,9 @@ body.spectral {
 	background: #fff;
 }
 
-
 .agencySection {
 	border: 1px solid transparent;
-	margin: 10px 0px 20px 0px;
+	margin: 20px 0px 0px 0px;
 }
 
 .agencySection .agencyTitle,
@@ -1040,18 +1301,19 @@ body.spectral {
 	text-align: center;
 	width: 40%;
 	margin: 0px auto;
+	font-size: 13px;
 }
 
 .agencySection .agencyTitle {
-	font-size: 25px;
-	width: 70%;
+	font-size: 16px;
+	font-weight: bold;
 }
 
 .agencySection .agencyLogo {
 }
 
 .agencySection .agencyLogo img {
-	width: 80%;
+	width: 55%;
 }
 
 .partnersWrapper .partnersTitle {
@@ -1059,8 +1321,8 @@ body.spectral {
 	font-size: 40px;
 	/*padding: 20px 0px;*/
 	text-align: center;
-	/*margin-top: 50px;
-	margin-bottom: 80px;*/
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 .partner1 {
@@ -1152,16 +1414,23 @@ body.spectral {
 	margin: 0px 0px 20px 0px;
 }
 
+.partner1 p,
+.partner2 p,
+.partner3 p {
+	font-size: 13px;
+}
+
+
 .contactUsContent .container {
-	background: #B9FAA9;
+	background: #A9D198;
 }
 
 .contactUsLeft {
-	background: #92DA9C;
+	background: #9CD09F;
 }
 
 .contactUsRight {
-	background: #B9FAA9;
+	background: #A9D198;
 }
 
 .contactUsSection {
@@ -1169,6 +1438,10 @@ body.spectral {
 	padding: 30px 10px;
 	text-align: center;
 	/*max-width: 500px;*/
+}
+
+.contactUsSection img {
+	width: 60px;
 }
 
 .contactUsRight .contactUsSection:first-child {
@@ -1188,10 +1461,6 @@ body.spectral {
 
 .contactUsSection p.description {
 	font-family: LatoRegular;
-}
-
-.contactUsSection a {
-	color: inherit;
 }
 
 .contactUs {
@@ -1222,6 +1491,33 @@ footer {
 footer.nav {
 	shadow: -5px -5px 5px #EAEAEA;
 	background: #F8F8F8 !important;
+}
+
+/*footer ul {
+	padding: 0px;
+	margin: 10px 0px;
+	list-style: none;
+	float: left;
+}
+
+footer ul li {
+	display: inline;
+	margin: 0px 10px 0px 0px;
+}
+
+footer ul li img {
+	width: 40px;
+}*/
+
+footer p.navbar-text {
+	float: right;
+	margin: 30px 10px;
+}
+
+.error404 {
+	border: 1px solid transparent;
+	margin: 100px 0px;
+	text-align: center;
 }
 
 .error404 h1 {
