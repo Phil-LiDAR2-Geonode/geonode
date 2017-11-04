@@ -18,10 +18,11 @@
 
 <div class = "section aboutContent">
 	<div class = "container">
-		<div class = "aboutLogo">
-			<img src = "{{ STATIC_URL }}/parmap/img/logos/parmap.png">
-		</div>
-    <br />
+    <div class = "aboutWrapper" style=" margin-top: -165px;">
+      <div class = "aboutTitle">
+        <img src = "{{ STATIC_URL }}/parmap/img/logos/parmap.png" width="150px">
+      </div>
+    </div>
 		<p>The Phil-LiDAR 2.A.1 Agricultural Resources Extraction from LiDAR Surveys or <b>PARMap</b> provides an updated and detailed inventory of agricultural resources in the Philippines by using Light Detection and Ranging (LiDAR) and other geospatial technologies.</p>
 
 		<div class="indented">
@@ -44,17 +45,31 @@
 	</div>
 </div>
 
+<div class = "section firstChild">
+	<div class = "container">
+		<div class = "aboutWrapper">
+			<div class = "aboutTitle">The UPD PARMap Team</div>
+		</div>
+	</div>
+</div>
+
 <div class = "section">
 	<div class = "container">
 		<div class = "teamsWrapper">
 			<img src = "{{ STATIC_URL }}/parmap/img/page-about/orgchart.png" style = "width: 100%;">
-
 		</div>
 	</div>
-
 </div>
 
-<div class = "section agencySection">
+<div class = "section firstChild" style=" margin-top: 20px">
+	<div class = "container">
+		<div class = "aboutWrapper">
+			<div class = "aboutTitle">Other People Involved in the Project</div>
+		</div>
+	</div>
+</div>
+
+<div class = "section agencySection" style=" margin-top: -50px">
 	<div class = "container teamsWrapper">
 		<img src = "{{ STATIC_URL }}/parmap/img/page-about/otherpeople.png" style = "width: 100%;">
 	</div>
@@ -66,8 +81,8 @@
 			<div class = "partnersTitle">Partners SUC & HEIs</div>
 		</div>
 	</div>
-
 </div>
+
 <div class = "section">
 	<div class = "container">
 		<div class = "partner1">
