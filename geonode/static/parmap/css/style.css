@@ -651,7 +651,7 @@ body {
 	border: 1px solid transparent;
 	height: 300px;
 	position: relative;
-	background: url('<?php echo IMAGES_URL; ?>website/news-header.jpg') no-repeat center center;
+	/*background: url('<?php echo IMAGES_URL; ?>website/news-header.jpg') no-repeat center center;*/
 	margin: 0px 0px 10px 0px;
 
 	-webkit-background-size: cover;
@@ -668,6 +668,7 @@ body {
 	padding: 5px 20px;
 	font-size: 30px;
 	color: #fff;
+	text-align: right;
 }
 
 .newsWrapper .newsHeadLine .newsHeadLineDate {
@@ -719,10 +720,6 @@ body {
 
 .newsListMainWrapper .newsArchiveWrapper .year i {
 	margin-right: 5px;
-}
-
-.newsListMainWrapper .newsArchiveWrapper .monthList {
-	display: none;
 }
 
 .newsListMainWrapper .newsArchiveWrapper .monthList.show {
@@ -788,14 +785,12 @@ body {
 	background: none;
 }
 
-
-
 .newsListWrapper .newsListTitle {
 	text-align: right;
 	position: absolute;
 	left: 0;
 	right: 0;
-	top: 120px;
+	bottom: 10px;
 	border: 0px solid #f00;
 	padding: 5px;
 	z-index: 2;
@@ -806,6 +801,7 @@ body {
 	padding: 5px 10px;
 	color: #fff;
 	font-weight: bold;
+	display: block;
 }
 
 .newsListWrapper .newsListDate {
