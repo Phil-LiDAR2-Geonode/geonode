@@ -89,6 +89,8 @@ urlpatterns = patterns('',
                         # @todo follow PEP 8 style guide on this file
                        (r'^datarequest/', include('parmap_data_request.urls')),
 
+                       url(r'^api_static/$', 'api_static.views.index'),
+
                        # Accounts
                        # url(r'^account/ajax_login$', 'geonode.views.ajax_login',
                        #     name='account_ajax_login'),

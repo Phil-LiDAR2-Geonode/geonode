@@ -312,7 +312,10 @@ INSTALLED_APPS = (
     'django_cas_ng',
 
     # data request management
-    'parmap_data_request'
+    'parmap_data_request',
+
+    # api_static
+    'api_static'
 ) + GEONODE_APPS
 
 LOGGING = {
