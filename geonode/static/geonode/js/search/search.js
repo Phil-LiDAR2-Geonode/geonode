@@ -78,6 +78,12 @@
         });
     }
 
+    module.load_locations = function ($http, $rootScope, $location){
+      $http.get(LOCATIONS_ENDPOINT).success(function(data){
+        $rootScope.locations = data;
+      });
+    }
+    
     module.load_owners = function ($http, $rootScope, $location){
         var params = typeof FILTER_TYPE == 'undefined' ? {} : {'type': FILTER_TYPE};
         if ($location.search().hasOwnProperty('title__icontains')){
@@ -167,6 +173,8 @@
     if ($('#owners').length > 0){
        module.load_owners($http, $rootScope, $location);
     }
+
+    module.load_locations($http, $rootScope, $location);
 
 
     // Activate the type filters if in the url
