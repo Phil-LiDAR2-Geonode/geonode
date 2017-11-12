@@ -1,4 +1,25 @@
 {% load i18n %}
+
+{% if SEARCH_FILTERS.LOCATIONS_ENABLED %}
+<nav class="filter">
+    <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i>{% trans "Province" %}</a></h4>
+    <select name="mySelect" id="mySelect"
+      class="nav closed"
+      ng-options="location.name for location in locations | orderBy: 'code' track by location.code"
+      ng-model="selectedProvince"></select>
+</nav>
+
+<nav class="filter">
+    <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i>{% trans "Municipality" %}</a></h4>
+    <select name="mySelect" id="mySelect"
+      class="nav closed"
+      ng-options="municipality.name for municipality in selectedProvince.municipality | orderBy: 'name' track by municipality.code"
+      ng-model="selectedMunicipality"></select>
+</nav>
+
+<button ng-click="location_submit(selectedProvince, selectedMunicipality)" type="submit">Filter</button>
+{% endif %}
+
 {% if SEARCH_FILTERS.CATEGORIES_ENABLED %}
 <nav class="filter">
   <h4><a href="#" class="toggle toggle-nav"><i class="fa fa-chevron-right"></i>{% trans "Categories" %}</a></h4>

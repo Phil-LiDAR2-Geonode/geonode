@@ -80,7 +80,36 @@
 
     module.load_locations = function ($http, $rootScope, $location){
       $http.get(LOCATIONS_ENDPOINT).success(function(data){
-        $rootScope.locations = data;
+        var provinces = [];
+        var provincesObj = [];
+
+        data.forEach(function(loc){
+          var province = loc.province.toLowerCase();
+          if(provinces.indexOf(province) < 0 && province != 'province'){
+            provinces.push(province);
+            provincesObj.push({
+              code: province,
+              name: loc.province,
+              municipality: []
+            })
+          }
+        })
+
+        data.forEach(function(loc){
+          var province_name = loc.province.toLowerCase();
+          var province = provincesObj.find(function(target){
+            return target.code === province_name;
+          });
+
+          if(province) {
+            province.municipality.push({
+              name: loc.city,
+              code: loc.mun_code
+            });
+          }
+        });
+
+        $rootScope.locations = provincesObj;
       });
     }
     
@@ -291,6 +320,26 @@
         $scope.$watch('query', function(){
           $location.search($scope.query);
         }, true);
+    }
+
+    /*
+    * Listens to province select field
+    */
+    $scope.location_submit = function(selectedProvince, selectedMunicipality){      
+      var query_entry = [];
+      var data_filter = 'keywords__slug__in';
+      var value = selectedMunicipality ? selectedMunicipality.code : selectedProvince.code;
+      // console.log(selectedProvince);
+      // console.log(selectedMunicipality);
+            
+      // If the query object has the record then grab it
+      if ($scope.query.hasOwnProperty(data_filter)){
+        query_entry = $scope.query[data_filter];
+      }
+
+      $scope.query[data_filter] = value;
+
+      query_api($scope.query);
     }
 
     /*
