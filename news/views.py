@@ -42,7 +42,7 @@ def article_list_filter(request, pub_year, pub_month):
     latest_headline = Headline.objects.all().order_by('-creation_date')[0]
     year_list = Article.objects.dates('pub_date','year', order='DESC')
     month_list = Article.objects.dates('pub_date','month',order='DESC')
-    return render_to_response('news/article_list.html', RequestContext(request, {
+    return render_to_response('news/article_results.html', RequestContext(request, {
         'latest_article_list': latest_article_list,
         'year_list': year_list,
         'month_list' : month_list,
