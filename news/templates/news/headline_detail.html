@@ -13,7 +13,15 @@
 	<div class = "container">
 		<div class = "readNewsWrapper">
 			<div class = "readNewsTitle">{{ headline }}</div>
-			<div class = "readNewsDate">{{ headline.pub_date.date }}</div>
+
+			{% if headline.start_date == headline.end_date %}
+			<div class = "readNewsDate">{{ headline.start_date }}</div>
+			{% elif headline.start_date.month == headline.end_date.month %}
+			<div class = "readNewsDate">{{ headline.start_date | date:"F j" }} - {{ headline.end_date | date:"d, Y" }}</div>
+			{% else %}
+			<div class = "readNewsDate">{{ headline.start_date | date:"F j" }} - {{ headline.end_date | date:"F j, Y" }}</div>
+			{% endif %}
+
 			<div class = "newsBorder"></div>
 		</div>
 
