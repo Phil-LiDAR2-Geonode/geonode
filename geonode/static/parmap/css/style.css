@@ -872,8 +872,8 @@ body {
 	font-size: 14px;
 }
 
-.newsBody {
-
+.newsBody p {
+	text-align: justify;
 }
 
 .faqCategory {

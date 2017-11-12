@@ -3,7 +3,7 @@
 {% load staticfiles %}
 {% load url from future %}
 
-{% block title %} {% trans "Keep Updated" %} - {{ block.super }} {% endblock %}
+{% block title %} {{ headline }} - {{ block.super }} {% endblock %}
 
 {% block body_class %}news news-list explore{% endblock %}
 
@@ -22,22 +22,22 @@
 				<div class = "col-md-3">
 					<div class = "newsArchiveWrapper">
 						<p>Browse articles by date published</p>
-
-						<ul class = "yearList">
+						<ul>
 							{% for yr in year_list %}
 								<li>
-									<div class = "year">{{ yr |date:"Y"}} </div>
-									<ul class = "monthList">
-										{% for mon in month_list %}
-											{% if mon.year == yr.year %}
-													<li><a href="/news/{{yr.year}}/{{mon.month}}">{{ mon | date:"F"}}</a></li>
-											{% endif %}
-										{% endfor %}
-									</ul>
+									<div class="dropdown">
+										<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{ yr |date:"Y"}} <span class="caret"></span></button>
+											<ul class="dropdown-menu">
+												{% for mon in month_list %}
+													{% if mon.year == yr.year %}
+															<li><a href="/news/{{yr.year}}/{{mon.month}}">{{ mon | date:"F"}}</a></li>
+													{% endif %}
+												{% endfor %}
+											</ul>
+									</div>
 								</li>
 							{% endfor %}
 						</ul>
-
 					</div>
 				</div>
 				<div class = "col-md-9">
