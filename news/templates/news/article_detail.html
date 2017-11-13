@@ -1,0 +1,57 @@
+{% extends "news/news_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {{ article }} - {{ block.super }} {% endblock %}
+
+{% block body_class %}news news-list explore{% endblock %}
+
+{% block body %}
+
+
+<div class = "section firstChild">
+	<div class = "container">
+		<div class = "readNewsWrapper">
+			<div class = "readNewsTitle">{{ article }}</div>
+			<div class = "readNewsDate">{{ article.pub_date.date }}</div>
+			<div class = "newsBorder"></div>
+		</div>
+
+		<div class = "newsListMainWrapper">
+			<div class = "row">
+				<div class = "col-md-3">
+					<div class = "newsArchiveWrapper">
+						<p>Browse articles by date published</p>
+						<ul>
+							{% for yr in year_list %}
+								<li>
+									<div class="dropdown">
+										<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{ yr |date:"Y"}} <span class="caret"></span></button>
+											<ul class="dropdown-menu">
+												{% for mon in month_list %}
+													{% if mon.year == yr.year %}
+															<li><a href="/news/{{yr.year}}/{{mon.month}}">{{ mon | date:"F"}}</a></li>
+													{% endif %}
+												{% endfor %}
+											</ul>
+									</div>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				<div class = "col-md-9">
+					<div class = "newsBody">
+            <div align="middle">
+            <img src="{{ article.image1.url }}" width="400"/>
+						<img src="{{ article.image2.url }}" width="400"/>
+            </div>
+						<p>{{ article.content }}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

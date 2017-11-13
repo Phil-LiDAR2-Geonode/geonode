@@ -28,7 +28,7 @@ import geonode.proxy.urls
 
 from geonode.api.urls import api
 
-# autocomplete_light should be imported before django admin or before 
+# autocomplete_light should be imported before django admin or before
 # any import of a form with autocompletes
 import autocomplete_light
 autocomplete_light.autodiscover()
@@ -88,6 +88,7 @@ urlpatterns = patterns('',
                         # Parmap Data Request URLs
                         # @todo follow PEP 8 style guide on this file
                        (r'^datarequest/', include('parmap_data_request.urls')),
+                       (r'^news/', include('news.urls')),
 
                        url(r'^api_static/locations$', 'api_static.views.index'),
 
