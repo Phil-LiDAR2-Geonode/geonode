@@ -8,7 +8,13 @@
 {% block body_class %}layers explore{% endblock %}
 
 {% block body %}
-<div class="page-header">
+<div class = "landCoverTitleWrapper">
+  <div class = "container">
+    <a href = "javascript:;" class = "pull-right scrollToTop">back to top</a>
+    <div class = "landCoverTitle">{% trans "Agricultural and Coastal Land Cover <b>Layers</b>" %}</div>
+  </div>
+</div>
+<div class="page-header" style="display: none">
   {% if request.user.is_authenticated and user.is_active and user.is_superuser %}
   <a href="{% url "layer_upload" %}" class="btn btn-primary pull-right">{% trans "Upload Layers" %}</a>
   {% endif %}
@@ -42,5 +48,6 @@
   </script>
   {% with include_spatial='true' %}
   {% include 'search/search_scripts.html' %}
+  {% include 'search/search_layer_scripts.html' %}
   {% endwith %}
 {% endblock extra_script %}

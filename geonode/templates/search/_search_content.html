@@ -1,5 +1,40 @@
 {% load i18n %}
-<div class="row" ng-controller="CartList">
+
+<div class="section firstChild backToTop" ng-controller="CartList">
+  <div class = "container">
+      <div class = "row">
+        <div class = "col-sm-3 filterWrapper">
+          <div class = "filterHeader">
+            <span>Filters</span>
+            <a href = "javascript:;" class = "pull-right">Clear</a>
+          </div>
+          <div class = "filterForm">
+            {% include "search/_general_filters.html" %}
+
+            {% if SEARCH_FILTERS.EXTENT_ENABLED %}
+              {% include "search/_extent_filter.html" %}
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-sm-9 rightPanel">
+          {% if facet_type == 'layers' %}
+            <div ng-if="hasNoFilter === true">
+                <p>PARMap uses a multi-level approach in mapping agricultural and coastal land cover.</p>
+                <p>Using LiDAR and other remotely-sensed data, detailed crop mapping is carried out through object-based image analysis and support vector machine. These data underwent refinement, schema implementation, integration, then produced into GIS files. </p>
+                <p>To know more about the mapping design, click <a href = "javascript:;">here</a>. </p>
+                <p>To know more about the land use/land cover classification, click <a href = "javascript:;">here</a>.</p>
+                <div class = "rightMapWrapper" id = "mainMapView"></div>
+            </div>
+          {% endif %}
+          <div ng-if="hasNoFilter !== true">
+            {% include 'base/_resourcebase_snippet.html' %}
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="row" ng-controller="CartList" ng-if="false">
   <div class="col-md-3">
     <!-- <resource-cart></resource-cart> -->
     <div class="row">

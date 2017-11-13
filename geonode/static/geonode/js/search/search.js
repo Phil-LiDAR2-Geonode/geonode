@@ -336,9 +336,11 @@
       if ($scope.query.hasOwnProperty(data_filter)){
         query_entry = $scope.query[data_filter];
       }
-
+      
+      delete $scope.query['extent'];
       $scope.query[data_filter] = value;
 
+      $scope.hasNoFilter = false;
       query_api($scope.query);
     }
 
@@ -560,6 +562,8 @@
       map.then(function(map){
         map.on('moveend', function(){
           $scope.query['extent'] = map.getBounds().toBBoxString();
+                    
+          $scope.hasNoFilter = false;
           query_api($scope.query);
         });
       });
@@ -574,5 +578,7 @@
         } 
       });
     }
+
+    $scope.hasNoFilter = true;
   });
 })();
