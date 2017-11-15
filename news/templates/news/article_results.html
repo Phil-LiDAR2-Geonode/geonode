@@ -51,9 +51,9 @@
 										{% if article.start_date == article.end_date %}
 										<div class = "newsListDate">{{ article.start_date }}</div>
 										{% elif article.start_date.month == article.end_date.month %}
-										<div class = "newsListDate">{{ article.start_date | date:"F j" }} - {{ article.end_date | date:"d, Y" }}</div>
+										<div class = "newsListDate">{{ article.start_date | date:"M. j" }} - {{ article.end_date | date:"j, Y" }}</div>
 										{% else %}
-										<div class = "newsListDate">{{ article.start_date | date:"F j" }} - {{ article.end_date | date:"F j, Y" }}</div>
+										<div class = "newsListDate">{{ article.start_date | date:"M. j" }} - {{ article.end_date | date:"M. j, Y" }}</div>
 										{% endif %}
 
 										<div class = "overlay"></div>

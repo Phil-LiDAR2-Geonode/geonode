@@ -14,11 +14,11 @@
 	<div class = "container">
 		<div class = "readNewsWrapper">
 			<div class = "readNewsTitle">{{ article }}</div>
-			
+
 			{% if article.start_date == article.end_date %}
-			<div class = "readNewsDate">{{ article.start_date }}</div>
+			<div class = "readNewsDate">{{ article.start_date | date:"F j, Y" }}</div>
 			{% elif article.start_date.month == article.end_date.month %}
-			<div class = "readNewsDate">{{ article.start_date | date:"F j" }} - {{ article.end_date | date:"d, Y" }}</div>
+			<div class = "readNewsDate">{{ article.start_date | date:"F j" }} - {{ article.end_date | date:"F, Y" }}</div>
 			{% else %}
 			<div class = "readNewsDate">{{ article.start_date | date:"F j" }} - {{ article.end_date | date:"F j, Y" }}</div>
 			{% endif %}
@@ -55,7 +55,7 @@
             <img src="{{ article.image1.url }}" width="400"/>
 						<img src="{{ article.image2.url }}" width="400"/>
             </div>
-						<p>{{ article.content }}</p>
+						<p>{{ article.content | safe | linebreaks }}</p>
 					</div>
 				</div>
 			</div>

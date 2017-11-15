@@ -19,9 +19,9 @@
 			{% if latest_headline.start_date == latest_headline.end_date %}
 			<div class = "newsHeadLineDate">{{ latest_headline.start_date }}</div>
 			{% elif latest_headline.start_date.month == latest_headline.end_date.month %}
-			<div class = "newsHeadLineDate">{{ latest_headline.start_date | date:"F j" }} - {{ latest_headline.end_date | date:"d, Y" }}</div>
+			<div class = "newsHeadLineDate">{{ latest_headline.start_date | date:"M. j" }} - {{ latest_headline.end_date | date:"j, Y" }}</div>
 			{% else %}
-			<div class = "newsHeadLineDate">{{ latest_headline.start_date | date:"F j" }} - {{ latest_headline.end_date | date:"F j, Y" }}</div>
+			<div class = "newsHeadLineDate">{{ latest_headline.start_date | date:"M. j" }} - {{ latest_headline.end_date | date:"M. j, Y" }}</div>
 			{% endif %}
 
 			</div>
@@ -54,7 +54,7 @@
 				<div class = "col-md-9">
 					<div class = "row">
 
-						{% if latest_headline in latest_article_list %}
+						{% if latest_headline in latest_article_list|slice:":3" %}
 							{% trans ":4" as article_count %}
 						{% else %}
 							{% trans ":3" as article_count %}
@@ -71,9 +71,9 @@
 											{% if article.start_date == article.end_date %}
 											<div class = "newsListDate">{{ article.start_date }}</div>
 											{% elif article.start_date.month == article.end_date.month %}
-											<div class = "newsListDate">{{ article.start_date | date:"F j" }} - {{ article.end_date | date:"d, Y" }}</div>
+											<div class = "newsListDate">{{ article.start_date | date:"M. j" }} - {{ article.end_date | date:"j, Y" }}</div>
 											{% else %}
-											<div class = "newsListDate">{{ article.start_date | date:"F j" }} - {{ article.end_date | date:"F j, Y" }}</div>
+											<div class = "newsListDate">{{ article.start_date | date:"M. j" }} - {{ article.end_date | date:"M. j, Y" }}</div>
 											{% endif %}
 
 											<div class = "overlay"></div>
