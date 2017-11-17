@@ -26,24 +26,12 @@ def article_detail(request, article_id):
         'article': article
         }))
 
-def headline_detail(request, headline_id):
-    headline = Article.objects.get(pk=headline_id)
-    year_list = Article.objects.dates('start_date','year', order='DESC')
-    month_list = Article.objects.dates('start_date','month',order='DESC')
-    return render_to_response('news/headline_detail.html', RequestContext(request, {
-        'year_list': year_list,
-        'month_list' : month_list,
-        'headline': headline
-        }))
-
 def article_list_filter(request, pub_year, pub_month):
-    latest_article_list = Article.objects.filter(start_date__year=pub_year, start_date__month=pub_month)
-    latest_headline = Article.objects.all().order_by('-creation_date')[0]
+    latest_article_list = Article.objects.filter(start_date__year=pub_year, start_date__month=pub_month).order_by('-start_date')
     year_list = Article.objects.dates('start_date','year', order='DESC')
     month_list = Article.objects.dates('start_date','month',order='DESC')
     return render_to_response('news/article_results.html', RequestContext(request, {
         'latest_article_list': latest_article_list,
         'year_list': year_list,
         'month_list' : month_list,
-        'latest_headline': latest_headline
         }))
