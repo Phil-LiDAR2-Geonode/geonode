@@ -647,22 +647,3 @@ def layer_download_csv(request):
         writer.writerow(eachtowrite)
 
     return response
-
-
-def land_cover(request, template='layers/layer_landing_land_cover.html'):
-    ctx = {
-        'is_layer': True,
-    }
-    return render_to_response(template, RequestContext(request, ctx))
-
-def vulnerability_assessment(request, template='layers/layer_landing_vulnerability_assessment.html'):
-    ctx = {
-        'is_layer': True,
-    }
-    return render_to_response(template, RequestContext(request, ctx))
-
-def rs_products(request, template='layers/layer_landing_rs_products.html'):
-    ctx = {
-        'is_layer': True,
-    }
-    return render_to_response(template, RequestContext(request, ctx))

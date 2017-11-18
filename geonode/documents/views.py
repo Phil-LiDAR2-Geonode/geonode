@@ -490,21 +490,3 @@ def document_remove(request, docid, template='documents/document_remove.html'):
             mimetype="text/plain",
             status=401
         )
-
-def land_cover(request, template='documents/document_landing_land_cover.html'):
-    ctx = {
-        'is_layer': False,
-    }
-    return render_to_response(template, RequestContext(request, ctx))
-
-def vulnerability_assessment(request, template='documents/document_landing_vulnerability_assessment.html'):
-    ctx = {
-        'is_layer': False,
-    }
-    return render_to_response(template, RequestContext(request, ctx))
-
-def rs_products(request, template='documents/document_landing_rs_products.html'):
-    ctx = {
-        'is_layer': False,
-    }
-    return render_to_response(template, RequestContext(request, ctx))
