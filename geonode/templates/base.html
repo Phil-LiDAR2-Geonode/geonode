@@ -129,6 +129,7 @@
       <h1>You are using an outdated browser that is not supported by GeoNode.</h1>
       <p>Please use a <strong>modern browser</strong> like Mozilla Firefox, Google Chrome or Safari.</p>
     </div>
+  <div class="se-pre-con"></div>
 
   <div id="wrap">
     {% block middle %}
@@ -318,6 +319,12 @@
         jQuery('html,body').animate({scrollTop:0}, 500);
       });
     });
+
+    $(window).load(function() {
+  // Animate loader off screen
+  $(".se-pre-con")fadeOut("fast");;
+  });
+
     </script>
 
   </body>
