@@ -1,7 +1,16 @@
-#!/usr/bin/python
+#!/usr/bin/env python2
 # Geonode
 
-__version__ = "0.2.2"
+__version__ = "0.2.3"
+
+# Setup GeoNode environment
+import os
+import sys
+from pprint import pprint
+from os.path import abspath, dirname, join
+PROJECT_ROOT = dirname(dirname(dirname(abspath(__file__))))
+sys.path.append(join(PROJECT_ROOT, 'geonode'))
+sys.path.append(PROJECT_ROOT)
 
 from geonode.settings import GEONODE_APPS
 import geonode.settings as settings
@@ -38,9 +47,8 @@ def seed_layers(layer):
 if __name__ == "__main__":
 
 	# Get lulc layers uploaded within the past 2 days
-	lastday = datetime.now() - timedelta(days=2)
-	layers = Layer.objects.filter(Q(name__iregex=r'parmap') & \
-	Q(upload_session__date__gte=lastday))
+	lastday = datetime.now() - timedelta(days=5)
+	layers = Layer.objects.filter(Q(name__iregex=r'lulc') & Q(upload_session__date__gte=lastday))
 
 	total = len(layers)
 	print 'Updating', total, 'layers!'
