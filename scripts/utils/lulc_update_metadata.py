@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # Geonode
 
-__version__ = "0.4"
+__version__ = "0.4.1"
 
 # Setup GeoNode environment
 import os
@@ -56,7 +56,7 @@ def select_by_map_no(cur, quad_name):
     # Construct query
     cur.execute('''
 SELECT mapno, quadname, city_munic, province,
-	   resource, for_upload, muncode, suc_hei
+	   resource, lulc_10k, muncode, suc_hei
 FROM index_metadata
 WHERE quadname = %s''', (quad_name,))
 
@@ -155,7 +155,7 @@ def update_lulc(layer):
     # Iterating through each result
     for r in results:
         # Check if muni is for uploading
-        if r['for_upload'] == "Y":
+        if r['lulc_10k'] == 1:
             mapno = r['mapno']
             city_munic_list.append(r['city_munic'])
             province_list.append(r['province'])
@@ -289,7 +289,7 @@ def update_metadata(layer):
 
 if __name__ == "__main__":
 
-    layers = Layer.objects.filter(title__icontains='Map')
+    layers = Layer.objects.filter(title__icontains='lulc')
 
     total = len(layers)
     print 'Updating', total, 'layers!'
