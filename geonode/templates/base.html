@@ -97,9 +97,15 @@
             </li>
             <li class = "<?php echo ($page == 'news' ? 'active' : ''); ?>"><a href = "/news/">News</a></li>
             <li class = "<?php echo ($page == 'faqs' ? 'active' : ''); ?>"><a href = "<?php echo SITE_URL; ?>faqs/">FAQs</a></li>
-            <li class = "<?php echo ($page == 'about' ? 'active' : ''); ?>"><a href = "/about/">About</a></li>
-
-            <li class = "signInRegister"><a href = "https://lipad-sso.dream.upd.edu.ph/login?service=http%3A%2F%2Fparmap.dream.upd.edu.ph%2Faccount%2Flogin%2F%3Fnext%3Dhttps%253A%252F%252Fparmap.dream.upd.edu.ph%252F"><i class = "fa fa-user"></i> Sign in/Register</a></li>
+            <li class = "dropdown <?php echo ($page == '' || $page == '' ? 'active' : ''); ?>">
+              <a href = "<?php echo SITE_URL; ?>about/" class = "dropdown-toggle about" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">About <span class = "caret"></span></a>
+              <ul class = "dropdown-menu">
+                <li><a href = "/about/">PARMap Team</a></li>
+                <li><a href = "/about/">Participating SUC/HEIs</a></li>
+                <li><a href = "/about/">Participating Agencies</a></li>
+              </ul>
+            </li>
+            <li class = "signInRegister"><a href = "https://lipad-sso.dream.upd.edu.ph/login?service=http%3A%2F%2Fparmap-tst.dream.upd.edu.ph%2Faccount%2Flogin%2F%3Fnext%3Dhttps%253A%252F%252Fparmap-tst.dream.upd.edu.ph%252F"><i class = "fa fa-user"></i> Sign in/Register</a></li>
           </ul>
         </div>
       </div>
