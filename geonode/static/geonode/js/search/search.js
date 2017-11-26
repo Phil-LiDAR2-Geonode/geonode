@@ -252,19 +252,21 @@
             }
             
             // Get locations from keywords
+            var locationStr = [];
             var locationArr = location_data.filter(function(location){
               var exists = keywordList.indexOf(location.mun_code) >= 0;
               if(exists){
+                locationStr.push(location.city.toLowerCase() + ', ' + location.province.toLowerCase());
                 addToLocations(location);
               }
               
               return exists;
             });
-
+            
             result.keywords = keywordList;
             result.locations = locationArr;
+            result.locationsLabel = locationStr.join('; ');
             delete result['metadata_xml'];  
-
             return result;
           });  
 
