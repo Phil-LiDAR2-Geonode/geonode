@@ -157,10 +157,10 @@ def update_lulc(layer):
         # Check if muni is for uploading
         if r['lulc_10k'] == 1:
             mapno = r['mapno']
-            city_munic_list.append(r['city_munic'])
-            province_list.append(r['province'])
+            city_munic_list.append(r['city_munic'].title())
+            province_list.append(r['province'].title())
             resource_list.append(r['resource'])
-            muncode_list.append(r['muncode'])
+            muncode_list.append(str(int(r['muncode'])))
             suc_hei_list.append(r['suc_hei'])
 
     suc_hei = u", ".join(list(set(suc_hei_list))).replace(",", " and")
@@ -239,12 +239,12 @@ Accuracy and Limitations: The accuracy of the delivered products/outputs are dep
         has_layer_changes = True
         layer.purpose = layer_purpose
 
-    for keyword in keywords_list:
-        if keyword not in layer.keyword_list():
-            print layer.name, ': layer_keyword:', keyword
-            print layer.name, ': Adding keyword...'
-            layer.keywords.add(keyword)
-            has_layer_changes = True
+    layer.keywords.clear()
+    for keyword in sorted(keywords_list):
+        print layer.name, ': layer_keyword:', keyword
+        print layer.name, ': Adding keyword...'
+        layer.keywords.add(keyword)
+        has_layer_changes = True
 
     if layer.category != TopicCategory.objects.get(identifier="imageryBaseMapsEarthCover"):
         print layer.name, ': Setting layer.category...'
