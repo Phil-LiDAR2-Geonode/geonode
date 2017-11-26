@@ -451,7 +451,7 @@ class CommonModelApi(ModelResource):
             'thumbnail_url',
             'detail_url',
             'rating',
-            'metadata_xml',
+            'metadata_xml'
         ]
 
         if isinstance(
@@ -595,3 +595,11 @@ class LayerParmapResource(CommonModelApi):
             'typename',
             'workspace',
         ]
+
+class MapParmapResource(CommonModelApi):
+
+    class Meta:
+        queryset = Document.objects.distinct().order_by('-date')
+        if settings.RESOURCE_PUBLISHING:
+            queryset = queryset.filter(is_published=True)
+        resource_name = 'documents_parmap'
