@@ -1,0 +1,71 @@
+{% extends "news/news_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {% trans "News" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}news news-list explore{% endblock %}
+
+{% block body %}
+
+<div class = "section firstChild">
+	<div class = "container">
+		<div class = "newsWrapper">
+			<div class = "newsTitle">Be Updated.</div>
+			<div class = "newsBorder"></div>
+		</div>
+
+		<div class = "newsListMainWrapper">
+			<div class = "row">
+				<div class = "col-md-3">
+					<div class = "newsArchiveWrapper">
+						<p>Browse articles by date published</p>
+						<ul>
+							{% for yr in year_list %}
+								<li>
+									<div class="dropdown">
+										<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">{{ yr |date:"Y"}} <span class="caret"></span></button>
+											<ul class="dropdown-menu">
+												{% for mon in month_list %}
+													{% if mon.year == yr.year %}
+															<li><a href="/news/{{yr.year}}/{{mon.month}}">{{ mon | date:"F"}}</a></li>
+													{% endif %}
+												{% endfor %}
+											</ul>
+									</div>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				<div class = "col-md-9">
+					<div class = "row">
+						{% for article in latest_article_list %}
+							<div class = "col-md-4">
+								<div class = "newsListWrapper">
+									<div class = "newsListImage">
+										<img src= "{{ article.image1.url }}" />
+										<div class = "newsListTitle"><a href="/news/article/{{ article.id }}/">{{ article|truncatechars:45 }}</a></div>
+
+										{% if article.start_date == article.end_date %}
+										<div class = "newsListDate">{{ article.start_date }}</div>
+										{% elif article.start_date.month == article.end_date.month %}
+										<div class = "newsListDate">{{ article.start_date | date:"M. j" }} - {{ article.end_date | date:"j, Y" }}</div>
+										{% else %}
+										<div class = "newsListDate">{{ article.start_date | date:"M. j" }} - {{ article.end_date | date:"M. j, Y" }}</div>
+										{% endif %}
+
+										<div class = "overlay"></div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
