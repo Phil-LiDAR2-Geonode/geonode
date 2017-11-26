@@ -1,20 +1,23 @@
 {% load i18n %}
 
 {% if SEARCH_FILTERS.LOCATIONS_ENABLED %}
+<form ng-submit="location_submit(selectedProvince, selectedMunicipality)">
+  <label>Province</label>
+  <select name="mySelect" id="mySelect"
+    class="nav closed form-control"
+    ng-options="location.name for location in locations | orderBy: 'code' track by location.code"
+    ng-model="selectedProvince"
+    required></select>
 
-<label>Province</label>
-<select name="mySelect" id="mySelect"
-  class="nav closed form-control"
-  ng-options="location.name for location in locations | orderBy: 'code' track by location.code"
-  ng-model="selectedProvince"></select>
+  <label>Municipality</label>
+  <select name="mySelect" id="mySelect"
+    class="nav closed form-control"
+    ng-options="municipality.name for municipality in selectedProvince.municipality | orderBy: 'name' track by municipality.code"
+    ng-model="selectedMunicipality"
+    required></select>
 
-<label>Municipality</label>
-<select name="mySelect" id="mySelect"
-  class="nav closed form-control"
-  ng-options="municipality.name for municipality in selectedProvince.municipality | orderBy: 'name' track by municipality.code"
-  ng-model="selectedMunicipality"></select>
-
-<button ng-click="location_submit(selectedProvince, selectedMunicipality)" class="btn pull-right" name="search">Search</button>
+  <button type="submit" class="btn pull-right">Search</button>
+</form>
 <div class = "clearfix"></div><br><br>
 {% endif %}
 

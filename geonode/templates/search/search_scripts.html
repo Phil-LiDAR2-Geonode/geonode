@@ -32,7 +32,8 @@
 
   var module = angular.module('search', ['geonode_main_search', 'cart']);
   module.constant('Configs', {
-    url: SEARCH_URL
+    url: SEARCH_URL,
+    disableQuerySync: true
   });
 
   var deps = ['search'];

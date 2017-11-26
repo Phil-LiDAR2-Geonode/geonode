@@ -78,41 +78,6 @@
         });
     }
 
-    module.load_locations = function ($http, $rootScope, $location){
-      $http.get(LOCATIONS_ENDPOINT).success(function(data){
-        var provinces = [];
-        var provincesObj = [];
-
-        data.forEach(function(loc){
-          var province = loc.province.toLowerCase();
-          if(provinces.indexOf(province) < 0 && province != 'province'){
-            provinces.push(province);
-            provincesObj.push({
-              code: province,
-              name: loc.province,
-              municipality: []
-            })
-          }
-        })
-
-        data.forEach(function(loc){
-          var province_name = loc.province.toLowerCase();
-          var province = provincesObj.find(function(target){
-            return target.code === province_name;
-          });
-
-          if(province) {
-            province.municipality.push({
-              name: loc.city,
-              code: loc.mun_code
-            });
-          }
-        });
-
-        $rootScope.locations = provincesObj;
-      });
-    }
-    
     module.load_owners = function ($http, $rootScope, $location){
         var params = typeof FILTER_TYPE == 'undefined' ? {} : {'type': FILTER_TYPE};
         if ($location.search().hasOwnProperty('title__icontains')){
@@ -203,9 +168,6 @@
        module.load_owners($http, $rootScope, $location);
     }
 
-    module.load_locations($http, $rootScope, $location);
-
-
     // Activate the type filters if in the url
     if($location.search().hasOwnProperty('type__in')){
       var types = $location.search()['type__in'];
@@ -232,7 +194,7 @@
   * Load data from api and defines the multiple and single choice handlers
   * Syncs the browser url with the selections
   */
-  module.controller('geonode_search_controller', function($injector, $scope, $location, $http, Configs){
+  module.controller('geonode_search_controller', function($injector, $scope, $window, $location, $http, Configs, $rootScope){
     $scope.query = $location.search();
     $scope.query.limit = $scope.query.limit || CLIENT_RESULTS_LIMIT;
     $scope.query.offset = $scope.query.offset || 0;
@@ -240,10 +202,78 @@
    
     //Get data from apis and make them available to the page
     function query_api(data){
-      $http.get(Configs.url, {params: data || {}}).success(function(data){
-        $scope.results = data.objects;
+      $http.get(Configs.url, {params: data || {}}).success(function(data){        
+        $http.get(LOCATIONS_ENDPOINT).success(function(location_data){
+
+          var allLocations = [];
+
+          var addToLocations = function(location) {
+            // Store to allLocations
+            var province = location.province.toLowerCase();
+            var found = allLocations.some(function (loc) {
+              return loc.code === province;
+            });
+            
+            if(!found){
+              allLocations.push({
+                  code: province,
+                  name: location.province,
+                  municipality: []
+              })
+            }
+            
+            var targetLocation = allLocations.find(function(loc) {
+              return loc.code === province;
+            });
+            
+            // Add to municipality
+            if(targetLocation){
+              var hasMunicipality = targetLocation.municipality.some(function(mun) {
+                return mun.code === location.mun_code;
+              });
+
+              if(!hasMunicipality){
+                targetLocation.municipality.push({
+                  name: location.city,
+                  code: location.mun_code
+                })
+              }
+            }
+          }
+
+          $scope.results = data.objects.map(function(result) {
+            // Get keywords
+            var xmlDoc = $.parseXML( result.metadata_xml );
+            var keywordObjects = xmlDoc.getElementsByTagName('gmd:keyword'); //gmd:keyword
+            var keywordList = [];
+            var locationArr = [];
+            for (var keyword of keywordObjects) {
+              keywordList.push(keyword.getElementsByTagName('gco:CharacterString')[0].innerHTML);
+            }
+            
+            // Get locations from keywords
+            var locationArr = location_data.filter(function(location){
+              var exists = keywordList.indexOf(location.mun_code) >= 0;
+              if(exists){
+                addToLocations(location);
+              }
+              
+              return exists;
+            });
+
+            result.keywords = keywordList;
+            result.locations = locationArr;
+            delete result['metadata_xml'];  
+
+            return result;
+          });  
+
+          if(!$rootScope.locations) $rootScope.locations = allLocations;
+        });
+
         $scope.total_counts = data.meta.total_count;
         $scope.$root.query_data = data;
+        
         if (HAYSTACK_SEARCH) {
           if ($location.search().hasOwnProperty('q')){
             $scope.text_query = $location.search()['q'].replace(/\+/g," ");
@@ -322,10 +352,14 @@
         }, true);
     }
 
+    $scope.clearSearch = function() {
+      $window.location.reload(true);
+    }
+
     /*
     * Listens to province select field
     */
-    $scope.location_submit = function(selectedProvince, selectedMunicipality){      
+    $scope.location_submit = function(selectedProvince, selectedMunicipality){  
       var query_entry = [];
       var data_filter = 'keywords__slug__in';
       var value = selectedMunicipality ? selectedMunicipality.code : selectedProvince.code;
@@ -562,6 +596,7 @@
       map.then(function(map){
         map.on('moveend', function(){
           $scope.query['extent'] = map.getBounds().toBBoxString();
+          delete $scope.query['keywords__slug__in'];
                     
           $scope.hasNoFilter = false;
           query_api($scope.query);

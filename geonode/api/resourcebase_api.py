@@ -451,6 +451,7 @@ class CommonModelApi(ModelResource):
             'thumbnail_url',
             'detail_url',
             'rating',
+            'metadata_xml',
         ]
 
         if isinstance(
@@ -547,7 +548,7 @@ class DownloadCountResource(ModelResource):
         queryset = DownloadCount.objects.all().order_by('-date')
         resource_name = 'download_count'
 
-class LayerParmapResource(ModelResource):
+class LayerParmapResource(CommonModelApi):
 
     class Meta(CommonMetaApi):
         queryset = Layer.objects.distinct().order_by('-date')
