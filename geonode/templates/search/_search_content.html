@@ -11,8 +11,10 @@
           <div class = "filterForm">
             {% include "search/_general_filters.html" %}
 
-            {% if SEARCH_FILTERS.EXTENT_ENABLED and facet_type == 'layers' %}
-              {% include "search/_extent_filter.html" %}
+            {% if SEARCH_FILTERS.EXTENT_ENABLED and facet_type == 'layers' %}            
+              <div ng-if="hasNoFilter === false">
+                {% include "search/_extent_filter.html" %}
+              </div>
             {% endif %}
           </div>
         </div>
@@ -27,6 +29,7 @@
                 <div class = "rightMapWrapper" id = "mainMapView"></div>
               {% endif %}
 
+              {% if facet_type == 'documents' %}
               <div class = "resultWrapper">
                 <div class="resultTitle">Recently Added:</div>
                 {% verbatim %}
@@ -42,6 +45,7 @@
                 </ul>
                 {% endverbatim %}
               </div>
+              {% endif %}
           </div>
           <div ng-if="hasNoFilter !== true">
             {% include 'base/_resourcebase_snippet.html' %}
