@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # Geonode
 
-__version__ = "0.4.1"
+__version__ = "0.4.2"
 
 # Setup GeoNode environment
 import os
