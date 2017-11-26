@@ -1,21 +1,262 @@
 {% extends "site_base.html" %}
-
 {% load i18n %}
-{% block title %} {% trans "About GeoNode" %} — {{ block.super }} {% endblock %}
+{% load staticfiles %}
+{% load base_tags %}
+{% block title %} {% trans "About" %} — {{ block.super }} {% endblock %}
 
-{% block body_outer %}
-<div class="page-header">
-  <h2>{% trans "About GeoNode" %}</h2>
+{% block body_class %}about{% endblock %}
+
+{% block middle %}
+  {% block mainbody %}
+<div class = "section firstChild">
+	<div class = "container">
+		<div class = "aboutWrapper">
+			<div class = "aboutTitle">About</div>
+		</div>
+	</div>
 </div>
-<p class="lead">{% trans "About GeoNode." %}</p>
-<p>
-GeoNode is a geospatial content management system, a platform for the management and publication of geospatial data. It brings together mature and stable open-source software projects under a consistent and easy-to-use interface allowing non-specialized users to share data and create interactive maps.
-</p>
-<p>
-Data management tools built into GeoNode allow for integrated creation of data, metadata, and map visualizations. Each dataset in the system can be shared publicly or restricted to allow access to only specific users. Social features like user profiles and commenting and rating systems allow for the development of communities around each platform to facilitate the use, management, and quality control of the data the GeoNode instance contains.
-</p>
-<p>
-It is also designed to be a flexible platform that software developers can extend, modify or integrate against to meet requirements in their own applications.
-</p>
 
+<div class = "section aboutContent">
+	<div class = "container">
+    <div class = "aboutWrapper" style=" margin-top: -165px;">
+      <div class = "aboutTitle">
+        <img src = "{{ STATIC_URL }}parmap/img/logos/parmap.png" width="150px">
+      </div>
+    </div>
+		<p>The Phil-LiDAR 2.A.1 Agricultural Resources Extraction from LiDAR Surveys or <b>PARMap</b> provides an updated and detailed inventory of agricultural resources in the Philippines by using Light Detection and Ranging (LiDAR) and other geospatial technologies.</p>
+
+		<div class="indented">
+			<p>To specify, PARMap provides the following:</p>
+		</div>
+		<div class="indent">
+			<p>1. feature extraction using LiDAR point cloud data and various types of remotely sensed data;</p>
+			<p>2. post-processing procedures for agricultural land cover classification;</p>
+			<p>3. maps of cropping intensisty of temporary crops in the Philippines;</p>
+			<p>4. vulnerability assessment of agricultural resources from drought, flood, and seawater intrusion;</p>
+			<p>5. multispectral images using unmanned aerial systems to complement LiDAR data;</p>
+			<p>6. spectral signatures of the Philippine agricultural crops;</p>
+			<p>7. geographic information systems (GIS)-based web applications of agricultural resource mapping. </p>
+		</div>
+
+		<p>This web portal is a repository of the knowledge products generated from the project. It contains downloadable agricultural land cover maps, vulnerability assessment maps, spectral library, unmanned aerial system (UAS) imageries, technical documents, reports, and updates.</p>
+		<p>PARMap envisions that these products will be used by planners, managers, and decision-makers in determining production areas for agriculture, crop management, and crop inventory. </p>
+		<p>PARMap is one of the five components of a directed research program entitled Detailed Resources Assessment Using LiDAR (Phil-LiDAR 2). The program is funded by the Department of Science and Technology through the Philippine Council for Industry, Energy, and Emerging Technology Research and Development (DOST-PCIEERD). </p>
+
+	</div>
+</div>
+
+<div class = "section firstChild">
+	<div class = "container">
+		<div class = "aboutWrapper">
+			<div class = "aboutTitle">The UPD PARMap Team</div>
+		</div>
+	</div>
+</div>
+
+<div class = "section">
+	<div class = "container">
+		<div class = "teamsWrapper">
+			<img src = "{{ STATIC_URL }}parmap/img/page-about/orgchart.png" style = "width: 100%;">
+		</div>
+	</div>
+</div>
+
+<div class = "section firstChild" style=" margin-top: 20px">
+	<div class = "container">
+		<div class = "aboutWrapper">
+			<div class = "aboutTitle">Other People Involved in the Project</div>
+		</div>
+	</div>
+</div>
+
+<div class = "section agencySection" style=" margin-top: -50px">
+	<div class = "container teamsWrapper">
+		<img src = "{{ STATIC_URL }}parmap/img/page-about/otherpeople.png" style = "width: 100%;">
+	</div>
+</div>
+
+<div class = "section">
+	<div class = "container">
+		<div class = "partnersWrapper">
+			<div class = "partnersTitle">Partners SUC & HEIs</div>
+		</div>
+	</div>
+</div>
+
+<div class = "section">
+	<div class = "container">
+		<div class = "partner1">
+			<div class = "partner1Logo">
+				<a href="https://www.adnu.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/AteneoDeNagaUniversity.png" class = "partnerImg"></a>
+				<p>Ateneo De Naga<br> University</p>
+			</div>
+			<div class = "partner1Logo">
+				<a href="https://www.adzu.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/AteneoDeZamboangaUniversity.png" class = "partnerImg"></a>
+				<p>Ateneo De Zamboanga<br> University</p>
+			</div>
+			<div class = "partner1Logo">
+				<a href="http://www.carsu.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/CaragaStateUniversity.png" class = "partnerImg"></a>
+				<p>Caraga State University</p>
+			</div>
+			<div class = "partner1Logo">
+				<a href="https://clsu.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/CentralLuzonStateUniversity.png" class = "partnerImg"></a>
+				<p>Central Luzon<br> State University</p>
+			</div>
+			<div class = "partner1Logo">
+				<a href="http://www.cmu.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/CentralMindanaoUniversity.png" class = "partnerImg"></a>
+				<p>Central Mindanao<br> University</p>
+			</div>
+		</div>
+
+		<div class = "partner2">
+			<div class = "partner2Logo">
+				<a href="http://www.isu.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/IsabelaStateUniversity.png" class = "partnerImg"></a>
+				<p>Isabela State <br> University</p>
+			</div>
+			<div class = "partner2Logo">
+				<a href="https://www.mapua.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/MapuaUniversity.png" class = "partnerImg"></a>
+				<p>Mapúa University</p>
+			</div>
+			<div class = "partner2Logo">
+				<a href="http://www.mmsu.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/MarianoMarcosStateUniversity.png" class = "partnerImg"></a>
+				<p>Mariano Marcos <br> State University</p>
+			</div>
+			<div class = "partner2Logo">
+				<a href="https://www.msuiit.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/MSUIliganInstituteOfTechnology.png" class = "partnerImg"></a>
+				<p>Mindanao State University -<br>Iligan Institute Of Technology</p>
+			</div>
+		</div>
+
+		<div class = "partner12">
+			<div class = "partner12Logo">
+				<a href="http://upcebu.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/UPCebu.png" class = "partnerImg"></a>
+				<p>University of the<br> Philippines - Cebu</p>
+			</div>
+			<div class = "partner123Logo">
+				<a href="https://uplb.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/UPLB.png" class = "partnerImg"></a>
+				<p>University of the<br> Philippines - Los Baños</p>
+			</div>
+			<div class = "partner123Logo">
+				<a href="https://www2.upmin.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/UPMindanao.jpg" class = "partnerImg"></a>
+				<p>University of the<br> Philippines - Mindanao</p>
+			</div>
+			<div class = "partner123Logo">
+				<a href="http://www.usc.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/UniversityOfSanCarlos.png" class = "partnerImg"></a>
+				<p>University Of<br> San Carlos</p>
+			</div>
+			<div class = "partner1234Logo">
+				<a href="https://www.vsu.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Partner SUC-HEIs Logos/VisayasStateUniversity.png" class = "partnerImg"></a>
+				<p>Visayas State<br> University</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class = "section agencySection" style= "margin-bottom: 70px">
+	<div class = "container">
+		<div class = "row">
+			<div class = "col-md-4">
+				<div class = "agencyTitle">Funding Agency</div>
+				<div class = "agencyLogo"><a href="http://www.dost.gov.ph/" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Agencies/DOSTlogo.png"></a></div>
+				<div class = "agencyDescription">Department of Science and Technology</div>
+			</div>
+			<div class = "col-md-4">
+				<div class = "agencyTitle">Monitoring Agency</div>
+				<div class = "agencyLogo"><a href="http://pcieerd.dost.gov.ph/" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Agencies/pcieerd logo.png"></a></div>
+				<div class = "agencyDescription" style = "width: 70%">DOST - Philippine Council for Industry, Energy and Emerging Technology Research Development</div>
+			</div>
+			<div class = "col-md-4">
+				<div class = "agencyTitle">Coordinating Agency</div>
+				<div class = "agencyLogo"><a href="http://www.da.gov.ph/" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Agencies/DeptOfAgri.png"></a></div>
+				<div class = "agencyDescription">Department of Agriculture</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class = "section agencySection">
+	<div class = "container">
+		<div class = "partnersWrapper">
+			<div class = "partnersTitle">Phil-LiDAR 2 Program and Other Components</div>
+		</div>
+	</div>
+</div>
+
+<div class = "section agencySection">
+	<div class = "container">
+		<div class = "row">
+			<div class = "col-md-4"></div>
+			<div class = "col-md-4">
+				<div class = "agencyLogo" style = "width: 40%"><a href="https://dream.upd.edu.ph/about/phil-lidar-2/" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Phil-LiDAR Components/PhilLiDAR2.png"></a></div>
+				<div class = "agencyDescription">Phil-LiDAR 2</div>
+			</div>
+			<div class = "col-md-4"></div>
+		</div>
+
+		<div class = "row">
+			<div class = "col-md-3">
+				<div class = "agencyLogo" style = "width: 50%"><a href="https://coastmap.dream.upd.edu.ph" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Phil-LiDAR Components/CoastMAP.png"></a></div>
+				<div class = "agencyDescription">CoastMap</div>
+			</div>
+			<div class = "col-md-3">
+				<div class = "agencyLogo" style = "width: 90%"><a href="https://frexls.dream.upd.edu.ph/" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Phil-LiDAR Components/FRExLS.png"></a></div>
+				<div class = "agencyDescription">FRExLS</div>
+			</div>
+			<div class = "col-md-3">
+				<div class = "agencyLogo" style = "width: 50%"><a href="https://phd.dream.upd.edu.ph/" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Phil-LiDAR Components/PHD.png"></a></div>
+				<div class = "agencyDescription">PHD</div>
+			</div>
+			<div class = "col-md-3">
+				<div class = "agencyLogo" style = "width: 90%"><a href="https://remap.dream.upd.edu.ph/" target="_blank"><img src = "{{ STATIC_URL }}parmap/img/page-about/Phil-LiDAR Components/REMAP.png"></a></div>
+				<div class = "agencyDescription">REMap</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class = "section firstChild">
+	<div class = "container">
+		<div class = "aboutWrapper">
+			<div class = "aboutTitle">Contact Us</div>
+		</div>
+	</div>
+</div>
+
+<div class = "section contactUsContent">
+	<div class = "container" style=" width: 100%">
+		<div class = "row">
+			<div class = "col-md-6 contactUsLeft">
+				<div class = "contactUsSection">
+          <i class = "fa fa-map-marker fa-4x"></i>
+					<p class = "caption">Contact Us:</p>
+					<p class = "description"><a href="https://goo.gl/LixRq5" target="_blank">Rm. 108 - 110, Melchor Hall, College of Engineering, <br /> University of the Philippines, Diliman, Quezon City, 1101</a></p>
+				</div>
+				<div class = "contactUsSection">
+					<i class = "fa fa-phone fa-4x"></i>
+					<p class = "caption">(02) 981-8500 local 3123</p>
+				</div>
+				<div class = "contactUsSection">
+					<i class = "fa fa-envelope fa-4x"></i>
+					<p class = "caption">Email Us:</p>
+					<p class = "description"><a href="mailto:parmap-admin@dream.upd.edu.ph" target="_blank">parmap-admin@dream.upd.edu.ph</a></p>
+				</div>
+			</div>
+			<div class = "col-md-6 contactUsRight">
+				<div class = "contactUsSection">
+					<i class = "fa fa-facebook fa-4x"></i>
+					<p class = "caption">Check Us Out:</p>
+					<p class = "description"><a href="https://facebook.com/phillidar2/" target="_blank">facebook.com/phillidar2</a></p>
+				</div>
+				<div class = "contactUsSection">
+					<i class = "fa fa-github fa-4x"></i>
+					<p class = "caption">Explore the codes we developed:</p>
+					<p class = "description"><a href = "https://github.com/phil-lidar2-parmap" target="_blank">github.com/phil-lidar2-parmap</a></p>
+					<p class = "description"><a href = "https://github.com/Phil-LiDAR2-Geonode/pl2-geonode/tree/parmap-prod" target="_blank">github.com/phil-lidar2-geonode</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
 {% endblock %}
