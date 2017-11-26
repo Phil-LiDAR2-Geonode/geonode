@@ -11,10 +11,8 @@
           <div class = "filterForm">
             {% include "search/_general_filters.html" %}
 
-            {% if SEARCH_FILTERS.EXTENT_ENABLED and facet_type == 'layers' %}            
-              <div ng-if="hasNoFilter === false">
+            {% if SEARCH_FILTERS.EXTENT_ENABLED and facet_type == 'layers' %}      
                 {% include "search/_extent_filter.html" %}
-              </div>
             {% endif %}
           </div>
         </div>
