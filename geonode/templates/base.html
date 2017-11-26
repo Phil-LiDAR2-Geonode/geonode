@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ STATIC_URL }}parmap/img/logos/parmap.png" type="image/png">
     {% block head %}
       {% if DEBUG_STATIC %}
       <link href="{{ STATIC_URL }}lib/css/jquery.dataTables.css?v={{ VERSION }}" rel="stylesheet" />
@@ -18,16 +19,19 @@
       {% endif %}
       <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css?v={{ VERSION }}" rel="stylesheet" />
       <link href="{{ STATIC_URL }}geonode/css/base.css?v={{ VERSION }}" rel="stylesheet" />
-
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/parmap/css/font-awesome/css/font-awesome.min.css">
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/parmap/css/leaflet.css">
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/parmap/css/style.css">
-
-      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/jquery-1.9.1.min.js"></script>
-      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/bootstrap.min.js"></script>
-      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/search-script.js"></script>
-      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/leaflet.js"></script>
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
+
+      <link rel = "stylesheet" type = "text/css" href = "{{ STATIC_URL }}parmap/css/bootstrap.min.css">
+    	<link rel = "stylesheet" type = "text/css" href = "{{ STATIC_URL }}parmap/css/font-awesome/css/font-awesome.min.css">
+    	<link rel = "stylesheet" type = "text/css" href = "https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+    	<link rel = "stylesheet" type = "text/css" href = "{{ STATIC_URL }}parmap/css/style.css">
+
+    	<script type = "text/javascript" src = "{{ STATIC_URL }}parmap/js/jquery-1.9.1.min.js"></script>
+    	<script type = "text/javascript" src = "{{ STATIC_URL }}parmap/js/jquery-ui-1.9.2.custom.min.js"></script>
+    	<script type = "text/javascript" src = "{{ STATIC_URL }}parmap/js/bootstrap.min.js"></script>
+    	<script type = "text/javascript" src = "{{ STATIC_URL }}parmap/js/search-script.js"></script>
+    	<script src = "https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+
       {% block extra_head %}
       {% endblock %}
     {% endblock %}
@@ -47,11 +51,10 @@
   <body class="{% block body_class %}{% endblock %}">
 
     {% block header %}
+
     <nav class = "navbar navbar-default navbar-fixed-top">
       <div class = "container">
-        <a href="/" class = "navbar-brand">
-          <img src = "{{ STATIC_URL }}/parmap/img/menu-bar/home_logo.png">
-        </a>
+        <a href = "/" class = "navbar-brand"><img src = "{{ STATIC_URL }}parmap/img/menu-bar/home_logo.png"></a>
 
         <button class = "navbar-toggle" data-toggle = "collapse" data-target = ".navHeaderCollapse">
           <spam class = "icon-bar"></spam>
@@ -61,7 +64,7 @@
 
         <div class = "collapse navbar-collapse navHeaderCollapse">
           <ul class = "nav navbar-nav navbar-right">
-            <li class = "dropdown <?php echo ($page == 'layer-land-cover' || $page == 'layer-vulnerability-assessment' ? 'active' : ''); ?>">
+            <li class = "dropdown">
               <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Layers <span class = "caret"></span></a>
               <ul class = "dropdown-menu">
                 <li><a href = "/layers/">Agricultural and Coastal Land Cover</a></li>
@@ -69,7 +72,7 @@
                 <li><a href = "/layers/">Other RS</a></li>
               </ul>
             </li>
-            <li class = "dropdown <?php echo ($page == 'maps-land-cover' || $page == 'maps-vulnerability-assessment' ? 'active' : ''); ?>">
+            <li class = "dropdown">
               <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Maps <span class = "caret"></span></a>
               <ul class = "dropdown-menu">
                 <li><a href = "/documents/">Agricultural and Coastal Land Cover</a></li>
@@ -77,39 +80,49 @@
                 <li><a href = "/documents/">Other RS</a></li>
               </ul>
             </li>
-
-            <li class = "dropdown <?php echo ($page == 'spectral-library' || $page == 'uav-images' ? 'active' : ''); ?>">
+            <li class = "dropdown">
               <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Data Library <span class = "caret"></span></a>
               <ul class = "dropdown-menu">
-                <li><a href = "/">Spectral Library</a></li>
-                <li><a href = "/">UAV Images</a></li>
+                <li><a href = "/page_unavailable/">Spectral Library</a></li>
+                <li><a href = "/page_unavailable/">UAV Imagery</a></li>
               </ul>
             </li>
 
-            <!-- <li class = "<?php echo ($page == 'spectral-library' ? 'active' : ''); ?>"><a href = "<?php echo SITE_URL; ?>spectral-library/">Spectral Library</a></li> -->
-            <!-- <li class = "<?php echo ($page == 'documents' ? 'active' : ''); ?>"><a href = "<?php echo SITE_URL; ?>documents/">Documents</a></li> -->
-            <li class = "dropdown <?php echo ($page == '' || $page == '' ? 'active' : ''); ?>">
+            <li class = "dropdown">
               <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Documents <span class = "caret"></span></a>
               <ul class = "dropdown-menu">
-                <li><a href = "/">Publications</a></li>
-                <li><a href = "/">Technical Reports</a></li>
+                <li><a href = "/page_unavailable/">Publications</a></li>
+                <li><a href = "/page_unavailable/">Technical Reports and Manuals</a></li>
               </ul>
             </li>
-            <li class = "<?php echo ($page == 'news' ? 'active' : ''); ?>"><a href = "/news/">News</a></li>
-            <li class = "<?php echo ($page == 'faqs' ? 'active' : ''); ?>"><a href = "<?php echo SITE_URL; ?>faqs/">FAQs</a></li>
-            <li class = "dropdown <?php echo ($page == '' || $page == '' ? 'active' : ''); ?>">
-              <a href = "<?php echo SITE_URL; ?>about/" class = "dropdown-toggle about" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">About <span class = "caret"></span></a>
-              <ul class = "dropdown-menu">
-                <li><a href = "/about/">PARMap Team</a></li>
-                <li><a href = "/about/">Participating SUC/HEIs</a></li>
-                <li><a href = "/about/">Participating Agencies</a></li>
-              </ul>
+            <li><a href = "/news/">News</a></li>
+            <li><a href = "/page_unavailable/">FAQs</a></li>
+            <li><a href = "/about/">About</a></li>
+
+            {% if user.is_authenticated %}
+            <li class = "signInRegister">
+              <a href="#" data-toggle="modal" data-target="#UserModal" role="button" aria-expanded="false">
+                <i class = "fa fa-user"></i>  {{ user.username }}
+              </a>
             </li>
-            <li class = "signInRegister"><a href = "https://lipad-sso.dream.upd.edu.ph/login?service=http%3A%2F%2Fparmap-tst.dream.upd.edu.ph%2Faccount%2Flogin%2F%3Fnext%3Dhttps%253A%252F%252Fparmap-tst.dream.upd.edu.ph%252F"><i class = "fa fa-user"></i> Sign in/Register</a></li>
+            {% else %}
+            <li class = "signInRegister">
+              <a href="{% url "cas_ng_login" %}" role="button">
+                <i class = "fa fa-sign-in"></i> {% trans "Sign in" %}
+              </a>
+            </li>
+            <li class = "signInRegister">
+              <a href="https://lipad.dream.upd.edu.ph/requests/register/profile_request/" role="button">
+                <i class = "fa fa-edit"></i> {% trans "Register" %}
+              </a>
+            </li>
+            {% endif %}
+
           </ul>
         </div>
       </div>
     </nav>
+
     {% endblock header %}
 
     <div class="alert alert-danger alert-dismissible" role="alert" id="ieflag" style="display:none">
@@ -117,6 +130,7 @@
       <h1>You are using an outdated browser that is not supported by GeoNode.</h1>
       <p>Please use a <strong>modern browser</strong> like Mozilla Firefox, Google Chrome or Safari.</p>
     </div>
+  <div class="se-pre-con"></div>
 
   <div id="wrap">
     {% block middle %}
@@ -139,33 +153,13 @@
   </div>
 
     {% block footer %}
-    <footer class="footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8">
-            {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</a> <em>{% trans "version" %} {{ VERSION }}</em> |
-            <a href="{% url "developer" %}">{% trans "Developers" %}</a> |
-            <a href="{% url "about" %}">{% trans "About" %}</a>
-          </div>
-          <div class="col-md-4">
-            <label class="hidden">{% trans "Language" %}</label>
-            {% if csrf_token != "NOTPROVIDED" %}
-            {% get_current_language as LANGUAGE %}
-            <form class="form-inline" action="/i18n/setlang/" method="post">
-            {% csrf_token %}
-              <select class="col-md-6 pull-right" name="language" onchange="javascript:form.submit()">
-                {% for lang in LANGUAGES %}
-                <option value="{{ lang.0 }}" {% ifequal LANGUAGE_CODE lang.0 %} selected="selected"{% endifequal %}>
-                  {{ lang.1 }}
-                </option>
-                {% endfor %}
-              </select>
-            </form>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </footer>
+    <footer class = "navbar navbar-invert navbar-static-top">
+  		<div class = "container">
+  			<img src = "{{ STATIC_URL }}parmap/img/footer/footer.png">
+  			<p class = "navbar-text">&copy; 2017 Phil-LiDAR 2 Program. All Rights Reserved.<br /><br />
+          {% trans "Powered by" %} <a href="http://geonode.org">{% trans "GeoNode" %}</p>
+  		</div>
+  	</footer>
     {% endblock footer %}
 
 
@@ -241,7 +235,7 @@
             <!--
             <form action="{% url "account_logout" %}" id="logout_form" method="post">
               {% csrf_token %}
-              <a class="btn btn-warning btn-block" href="javascript:{}" onclick="document.getElementById('logout_form').submit();">{% trans "Log out" %}</a>
+              <a class="btn btn-warning btn-block" href="javascript:{}" onclick="ment.getElementById('logout_form').submit();">{% trans "Log out" %}</a>
             </form>
             -->
             <a class="btn btn-warning btn-block" href="{% url "cas_ng_logout" %}" role="button">
@@ -310,6 +304,29 @@
         };
     </script>
     <script type="text/javascript" src="{% url "lang" %}"></script>
+
+    <script type = "text/javascript">
+    $(document).ready(function() {
+
+      $('.dropdown').hover(function() {
+        $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+        $(this).addClass("open");
+      }, function() {
+        $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+        $(this).removeClass("open");
+      });
+
+      $(".scrollToTop").click(function() {
+        jQuery('html,body').animate({scrollTop:0}, 500);
+      });
+    });
+
+    $(window).load(function() {
+  // Animate loader off screen
+  $(".se-pre-con").fadeOut("fast");;
+  });
+
+    </script>
 
   </body>
 </html>
