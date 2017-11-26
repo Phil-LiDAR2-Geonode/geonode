@@ -546,3 +546,12 @@ class DownloadCountResource(ModelResource):
     class Meta:
         queryset = DownloadCount.objects.all().order_by('-date')
         resource_name = 'download_count'
+
+class LayerParmapResource(ModelResource):
+
+    class Meta(CommonMetaApi):
+        queryset = Layer.objects.distinct().order_by('-date')
+        if settings.RESOURCE_PUBLISHING:
+            queryset = queryset.filter(is_published=True)
+        resource_name = 'layer_parmap'
+        excludes = ['csw_anytext']
