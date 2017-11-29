@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # Geonode
 
-__version__ = "0.4.2"
+__version__ = "0.4.3"
 
 # Setup GeoNode environment
 import os
@@ -172,10 +172,10 @@ def update_lulc(layer):
     keywords_list.extend(list(set(suc_hei_list)))
 
     # Check landcover type
-    landcover = "AGRILANDCOVER"
+    landcover = "Agricultural"
     landcover_title = "Agricultural Land Cover Map"
-    if "Agricultural And Coastal" in resource_list:
-        landcover = "AGRICOASTLANDCOVER"
+    if "Agricultural and Coastal" in resource_list:
+        landcover = "Agricultural and Coastal"
         landcover_title = "Agricultural And Coastal Land Cover Map"
 
     if "_lulc_" in layer.name:
@@ -185,7 +185,7 @@ def update_lulc(layer):
     print layer.name, ': layer_title:', layer_title
 
     # abstract
-    if landcover == "AGRICOASTLANDCOVER":
+    if landcover == "Agricultural and Coastal":
         abstract_landcover = "Land Cover Map of Agricultural Resources integrated with Coastal Resources."
         purpose_landcover = "Integrated Agricultural and Coastal Land Cover Maps"
         resources_landcover = "resources"
@@ -239,12 +239,12 @@ Accuracy and Limitations: The accuracy of the delivered products/outputs are dep
         has_layer_changes = True
         layer.purpose = layer_purpose
 
-    layer.keywords.clear()
-    for keyword in sorted(keywords_list):
-        print layer.name, ': layer_keyword:', keyword
-        print layer.name, ': Adding keyword...'
-        layer.keywords.add(keyword)
-        has_layer_changes = True
+    for keyword in (keywords_list):
+        if keyword not in layer.keyword_list():
+            print layer.name, ': layer_keyword:', keyword
+            print layer.name, ': Adding keyword...'
+            layer.keywords.add(keyword)
+            has_layer_changes = True
 
     if layer.category != TopicCategory.objects.get(identifier="imageryBaseMapsEarthCover"):
         print layer.name, ': Setting layer.category...'
