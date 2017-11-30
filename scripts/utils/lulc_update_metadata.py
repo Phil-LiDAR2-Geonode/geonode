@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # Geonode
 
-__version__ = "0.4.3"
+__version__ = "0.5"
 
 # Setup GeoNode environment
 import os
@@ -287,6 +287,23 @@ def update_metadata(layer):
 
     return has_layer_changes
 
+def seed_layers(layer):
+	try:
+			out = subprocess.check_output(['/home/geonode/geonode/' + '/gwc.sh', 'seed',
+																		 '{0}:{1}'.format(
+																				 layer.workspace, layer.name), 'EPSG:900913', '-v', '-a',
+																		 settings.OGC_SERVER['default']['USER'] + ':' +
+																		 settings.OGC_SERVER['default'][
+																				 'PASSWORD'], '-u',
+																		 settings.OGC_SERVER['default']['LOCATION'] + 'gwc/rest'],
+																		stderr=subprocess.STDOUT)
+			print out
+	except subprocess.CalledProcessError as e:
+			print 'Error seeding layer:', layer
+			print 'e.returncode:', e.returncode
+			print 'e.cmd:', e.cmd
+			print 'e.output:', e.output
+
 if __name__ == "__main__":
 
     layers = Layer.objects.filter(title__icontains='lulc')
@@ -301,6 +318,7 @@ if __name__ == "__main__":
         print '#' * 40
 
         update_metadata(layer)
+        seed_layers(layer)
 
         counter += 1
         duration = datetime.now() - start_time
