@@ -1,7 +1,7 @@
 from tastypie.api import Api
 
 from .api import TagResource, TopicCategoryResource, ProfileResource, \
-    GroupResource, RegionResource, OwnersResource
+    GroupResource, RegionResource, OwnersResource, ParmapFilterResource
 from .resourcebase_api import LayerResource, MapResource, DocumentResource, \
     ResourceBaseResource, FeaturedResourceBaseResource, DownloadCountResource, \
     LayerParmapResource, MapParmapResource
@@ -28,3 +28,4 @@ api.register(OwnersResource())
 api.register(DownloadCountResource())
 api.register(LayerParmapResource())
 api.register(MapParmapResource())
+api.register(ParmapFilterResource())
