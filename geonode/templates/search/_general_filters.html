@@ -21,7 +21,7 @@
 <div class = "clearfix"></div><br><br>
 {% endif %}
 
-<form ng-submit="">
+<form ng-submit="filters_submit(selectedHazard, selectedScale)">
   <label>Hazard</label>
   <select name="mySelect" id="mySelect"
     class="nav closed form-control"

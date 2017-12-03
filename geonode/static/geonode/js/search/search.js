@@ -189,6 +189,30 @@
 
   });
 
+  module.filter('keywordFilter', function() { 
+      var data_filter = 'keywords__slug__in';
+      
+      return function(input, query) {
+        var output;
+        var query_entry = query[data_filter];
+
+        output = input.filter(function(item){
+          console.log(query_entry);
+          if(query_entry){
+            return query_entry.every(function(currentValue){
+              return item.keywords.indexOf(currentValue) >=0;
+            });
+          }else{
+            return false;
+          }
+        });
+    
+        return output;
+    
+      }
+    
+    });
+
   /*
   * Main search controller
   * Load data from api and defines the multiple and single choice handlers
@@ -281,9 +305,6 @@
         delete result['metadata_xml'];  
         return result;
       });
-      
-      console.log(allHazard);
-      console.log(allScale);
 
       $rootScope.hazards = allHazard;
       $rootScope.scales = allScale;
@@ -391,21 +412,60 @@
       var query_entry = [];
       var data_filter = 'keywords__slug__in';
       var value = selectedMunicipality ? selectedMunicipality.code : selectedProvince.code;
-      // console.log(selectedProvince);
-      // console.log(selectedMunicipality);
             
       // If the query object has the record then grab it
       if ($scope.query.hasOwnProperty(data_filter)){
-        query_entry = $scope.query[data_filter];
+        if ($scope.query[data_filter] instanceof Array){
+          query_entry = $scope.query[data_filter];
+        }else{
+          query_entry.push($scope.query[data_filter]);
+        }
       }
+
+      // Remove mun_code
+      query_entry = query_entry.filter(function(key){
+        return !Number(key);
+      });
+
+      query_entry.push(value);
       
       delete $scope.query['extent'];
-      $scope.query[data_filter] = value;
+      $scope.query[data_filter] = query_entry;
 
       $scope.hasNoFilter = false;
-      query_api($scope.query);
     }
 
+    /*
+    * Listens to hazard scale select field
+    */
+    $scope.filters_submit = function(selectedHazard, selectedScale){  
+      var query_entry = [];
+      var data_filter = 'keywords__slug__in';
+            
+      // If the query object has the record then grab it
+      if ($scope.query.hasOwnProperty(data_filter)){
+        if ($scope.query[data_filter] instanceof Array){
+          query_entry = $scope.query[data_filter];
+        }else{
+          query_entry.push($scope.query[data_filter]);
+        }
+      }
+
+      // Remove mun_code
+      query_entry = query_entry.filter(function(key){
+        return !Number(key);
+      });
+
+      query_entry.push(selectedHazard.filter);
+      query_entry.push(selectedScale.filter);
+
+      console.log(query_entry);
+            
+      delete $scope.query['extent'];
+      $scope.query[data_filter] = query_entry;
+
+      $scope.hasNoFilter = false;
+    }
     /*
     * Add the selection behavior to the element, it adds/removes the 'active' class
     * and pushes/removes the value of the element from the query object
