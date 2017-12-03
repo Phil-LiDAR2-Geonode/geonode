@@ -199,78 +199,104 @@
     $scope.query.limit = $scope.query.limit || CLIENT_RESULTS_LIMIT;
     $scope.query.offset = $scope.query.offset || 0;
     $scope.page = Math.round(($scope.query.offset / $scope.query.limit) + 1);
+
+    function process_results(location_data, filters_data, data){
+      var allLocations = [];
+      var allScale = [];
+      var allHazard = [];
+
+      var addToLocations = function(location) {
+        // Store to allLocations
+        var province = location.province.toLowerCase();
+        var found = allLocations.some(function (loc) {
+          return loc.code === province;
+        });
+        
+        if(!found){
+          allLocations.push({
+              code: province,
+              name: location.province,
+              municipality: []
+          })
+        }
+        
+        var targetLocation = allLocations.find(function(loc) {
+          return loc.code === province;
+        });
+        
+        // Add to municipality
+        if(targetLocation){
+          var hasMunicipality = targetLocation.municipality.some(function(mun) {
+            return mun.code === location.mun_code;
+          });
+
+          if(!hasMunicipality){
+            targetLocation.municipality.push({
+              name: location.city,
+              code: location.mun_code
+            })
+          }
+        }
+      }
+
+      function processFilter(filterData){
+        var targetFilter = filterData.type === 'scale' ? allScale : allHazard;
+        var found = targetFilter.some(function (filter) {
+          return filterData.filter === filter.filter;
+        });
+
+        if(!found) {
+          targetFilter.push(filterData);
+        }
+      }
+
+      $scope.results = data.objects.map(function(result) {
+        // Get keywords
+        var xmlDoc = $.parseXML( result.metadata_xml );
+        var keywordObjects = xmlDoc.getElementsByTagName('gmd:keyword'); //gmd:keyword
+        var keywordList = [];
+        var locationArr = [];
+        for (var keyword of keywordObjects) {
+          keywordList.push(keyword.getElementsByTagName('gco:CharacterString')[0].innerHTML);
+        }
+        
+        // Get locations from keywords
+        var locationStr = [];
+        var locationArr = location_data.filter(function(location){
+          var exists = keywordList.indexOf(location.mun_code) >= 0;
+          if(exists){
+            locationStr.push(location.city.toLowerCase() + ', ' + location.province.toLowerCase());
+            addToLocations(location);
+          }
+          
+          return exists;
+        });
+        
+        // Get filters from keywords
+        filters_data.objects.forEach(processFilter);
+        
+        result.keywords = keywordList;
+        result.locations = locationArr;
+        result.locationsLabel = locationStr.join('; ');
+        delete result['metadata_xml'];  
+        return result;
+      });
+      
+      console.log(allHazard);
+      console.log(allScale);
+
+      $rootScope.hazards = allHazard;
+      $rootScope.scales = allScale;
+      if(!$rootScope.locations) $rootScope.locations = allLocations;
+    }
    
     //Get data from apis and make them available to the page
     function query_api(data){
       $http.get(Configs.url, {params: data || {}}).success(function(data){        
-        $http.get(LOCATIONS_ENDPOINT).success(function(location_data){
-
-          var allLocations = [];
-
-          var addToLocations = function(location) {
-            // Store to allLocations
-            var province = location.province.toLowerCase();
-            var found = allLocations.some(function (loc) {
-              return loc.code === province;
-            });
-            
-            if(!found){
-              allLocations.push({
-                  code: province,
-                  name: location.province,
-                  municipality: []
-              })
-            }
-            
-            var targetLocation = allLocations.find(function(loc) {
-              return loc.code === province;
-            });
-            
-            // Add to municipality
-            if(targetLocation){
-              var hasMunicipality = targetLocation.municipality.some(function(mun) {
-                return mun.code === location.mun_code;
-              });
-
-              if(!hasMunicipality){
-                targetLocation.municipality.push({
-                  name: location.city,
-                  code: location.mun_code
-                })
-              }
-            }
-          }
-
-          $scope.results = data.objects.map(function(result) {
-            // Get keywords
-            var xmlDoc = $.parseXML( result.metadata_xml );
-            var keywordObjects = xmlDoc.getElementsByTagName('gmd:keyword'); //gmd:keyword
-            var keywordList = [];
-            var locationArr = [];
-            for (var keyword of keywordObjects) {
-              keywordList.push(keyword.getElementsByTagName('gco:CharacterString')[0].innerHTML);
-            }
-            
-            // Get locations from keywords
-            var locationStr = [];
-            var locationArr = location_data.filter(function(location){
-              var exists = keywordList.indexOf(location.mun_code) >= 0;
-              if(exists){
-                locationStr.push(location.city.toLowerCase() + ', ' + location.province.toLowerCase());
-                addToLocations(location);
-              }
-              
-              return exists;
-            });
-            
-            result.keywords = keywordList;
-            result.locations = locationArr;
-            result.locationsLabel = locationStr.join('; ');
-            delete result['metadata_xml'];  
-            return result;
-          });  
-
-          if(!$rootScope.locations) $rootScope.locations = allLocations;
+        $http.get(LOCATIONS_ENDPOINT).success(function(location) {
+          $http.get(FILTERS_ENDPOINT).success(function(filters) {
+            process_results(location, filters, data);
+          });
         });
 
         $scope.total_counts = data.meta.total_count;
