@@ -281,7 +281,7 @@
         var keywordList = [];
         var locationArr = [];
         for (var keyword of keywordObjects) {
-          keywordList.push(keyword.getElementsByTagName('gco:CharacterString')[0].innerHTML);
+          keywordList.push(keyword.getElementsByTagName('gco:CharacterString')[0].innerHTML.toLowerCase());
         }
         
         // Get locations from keywords
