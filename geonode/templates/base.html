@@ -64,9 +64,9 @@
             <li class = "dropdown <?php echo ($page == 'layer-land-cover' || $page == 'layer-vulnerability-assessment' ? 'active' : ''); ?>">
               <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Layers <span class = "caret"></span></a>
               <ul class = "dropdown-menu">
-                <li><a href = "/layers">Agricultural and Coastal Land Cover</a></li>
-                <li><a href = "/layers">Vulnerability Assessment</a></li>
-                <li><a href = "/layers">Other RS</a></li>
+                <li><a href = "/layers?keywords__slug__in=lulc">Agricultural and Coastal Land Cover</a></li>
+                <li><a href = "/layers?keywords__slug__in=va">Vulnerability Assessment</a></li>
+                <li><a href = "/layers?keywords__slug__in=rs">Other RS</a></li>
               </ul>
             </li>
             <li class = "dropdown <?php echo ($page == 'maps-land-cover' || $page == 'maps-vulnerability-assessment' ? 'active' : ''); ?>">

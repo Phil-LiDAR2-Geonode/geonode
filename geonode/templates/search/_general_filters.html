@@ -1,6 +1,6 @@
 {% load i18n %}
 
-{% if SEARCH_FILTERS.LOCATIONS_ENABLED %}
+{% if SEARCH_FILTERS.LOCATIONS_ENABLED and map_type == "lulc" %}
 <form ng-submit="location_submit(selectedProvince, selectedMunicipality)">
   <label>Province</label>
   <select name="mySelect" id="mySelect"
@@ -21,6 +21,7 @@
 <div class = "clearfix"></div><br><br>
 {% endif %}
 
+{% if map_type == "va" %}
 <form ng-submit="filters_submit(selectedHazard, selectedScale)">
   <label>Hazard</label>
   <select name="mySelect" id="mySelect"
@@ -39,6 +40,7 @@
   <button type="submit" class="btn pull-right">Search</button>
 </form>
 <div class = "clearfix"></div><br><br>
+{% endif %}
 
 {% if SEARCH_FILTERS.CATEGORIES_ENABLED %}
 <nav class="filter">
