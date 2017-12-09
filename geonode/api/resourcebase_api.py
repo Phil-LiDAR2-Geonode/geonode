@@ -598,7 +598,7 @@ class LayerParmapResource(CommonModelApi):
 
 class MapParmapResource(CommonModelApi):
 
-    class Meta:
+    class Meta(CommonMetaApi):
         queryset = Document.objects.distinct().order_by('-date')
         if settings.RESOURCE_PUBLISHING:
             queryset = queryset.filter(is_published=True)
