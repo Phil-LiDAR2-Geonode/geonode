@@ -295,10 +295,7 @@
           
           return exists;
         });
-        
-        // Get filters from keywords
-        filters_data.objects.forEach(processFilter);
-        
+                
         result.keywords = keywordList;
         result.locations = locationArr;
         result.locationsLabel = locationStr.join('; ');
@@ -306,6 +303,9 @@
         return result;
       });
 
+      // Get filters from keywords
+      filters_data.objects.forEach(processFilter);
+      
       $rootScope.hazards = allHazard;
       $rootScope.scales = allScale;
       if(!$rootScope.locations) $rootScope.locations = allLocations;
