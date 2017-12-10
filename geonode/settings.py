@@ -314,8 +314,9 @@ INSTALLED_APPS = (
     # data request management
     'parmap_data_request',
 
-    # api_static
+    # parmap apps
     'api_static',
+    'parmap',
     'news'
 ) + GEONODE_APPS
 
