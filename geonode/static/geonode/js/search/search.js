@@ -298,7 +298,13 @@
         }
 
         if(result.hasOwnProperty('detail_url')){
-          console.log(result.detail_url);
+          var detailArr = decodeURIComponent(detail)[1].split('_');
+          for(var detail of detailArr) {
+            detail = detail.toLowerCase();
+            if(keywordList.indexOf(detail) < 0) {
+              keywordList.push(detail.toLowerCase()); 
+            }          
+          }
         }
 
         // Get keywords from title
