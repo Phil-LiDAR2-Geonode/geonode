@@ -280,8 +280,16 @@
         var keywordObjects = xmlDoc.getElementsByTagName('gmd:keyword'); //gmd:keyword
         var keywordList = [];
         var locationArr = [];
+
+        // Get keywords
         for (var keyword of keywordObjects) {
           keywordList.push(keyword.getElementsByTagName('gco:CharacterString')[0].innerHTML.toLowerCase());
+        }
+
+        // Get keywords from title
+        var titleArr = result.title.split('_');
+        for(var title of titleArr) {
+          keywordList.push(title.toLowerCase());
         }
         
         // Get locations from keywords
@@ -462,8 +470,6 @@
       if(selectedScale){
         query_entry.push(selectedScale.filter);
       }
-
-      console.log(query_entry);
             
       delete $scope.query['extent'];
       $scope.query[data_filter] = query_entry;
