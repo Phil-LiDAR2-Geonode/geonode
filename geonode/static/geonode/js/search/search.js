@@ -322,16 +322,17 @@
         }
         
         
-        // Get keywords from title
-        if(result.hasOwnProperty('title')){
+        // Get keywords from doc_file
+        if(result.hasOwnProperty('doc_file')){
+          // "documents/agri_72204000_lulc.jpg".split('.')[0].split('/')[1].split('_')
           // check if file
-          var titleArr = result.title.split('.')[0];
-          titleArr = titleArr.split('_');
-          if(titleArr.length > 1){
-            for(var title of titleArr) {
-              title = title.toLowerCase();
-              if(keywordList.indexOf(title) < 0) {
-                keywordList.push(title); 
+          var docFileArr = result.doc_file.split('.')[0].split('/')[1].split('_');
+          docFileArr = docFileArr.split('_');
+          if(docFileArr.length > 1){
+            for(var docFile of docFileArr) {
+              docFile = docFile.toLowerCase();
+              if(keywordList.indexOf(docFile) < 0) {
+                keywordList.push(docFile); 
               }          
             }
           }          

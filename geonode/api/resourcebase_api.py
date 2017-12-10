@@ -452,8 +452,10 @@ class CommonModelApi(ModelResource):
             'detail_url',
             'rating',
             'metadata_xml',
-            'doc_file',
         ]
+
+        if self._meta.resource_name == "documents_parmap":
+            VALUES.append('doc_file')
 
         if isinstance(
                 data,
