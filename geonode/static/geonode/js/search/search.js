@@ -298,7 +298,7 @@
         }
 
         if(result.hasOwnProperty('detail_url')){
-          var detailArr = decodeURIComponent(detail)[1].split('_');
+          var detailArr = decodeURIComponent(result.detail_url)[1].split('_');
           for(var detail of detailArr) {
             detail = detail.toLowerCase();
             if(keywordList.indexOf(detail) < 0) {
