@@ -195,12 +195,13 @@
       return function(input, query) {
         var output;
         var query_entry = query[data_filter];
+
+        if(typeof query_entry == 'undefined') return true;
+
         var mapType = typeof MAP_TYPE == 'undefined' ? 'lulc' : MAP_TYPE;
         if(query_entry.indexOf(mapType) < 0){
           query_entry.push(mapType)
         }
-
-        console.log(query_entry);
 
         output = input.filter(function(item){
           if(query_entry){
