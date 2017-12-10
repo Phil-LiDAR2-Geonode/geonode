@@ -298,26 +298,44 @@
         }
 
         if(result.hasOwnProperty('detail_url')){
-          var detailArr = decodeURIComponent(result.detail_url).split(':')[1].split('_');
-          for(var detail of detailArr) {
-            detail = detail.toLowerCase();
-            if(keywordList.indexOf(detail) < 0) {
-              keywordList.push(detail.toLowerCase()); 
-            }          
+          var detailUrl = decodeURIComponent(result.detail_url).split(':')[1];
+          if(typeof detailUrl == 'undefined') {
+            var detailArr = decodeURIComponent(result.detail_url).split(':')[1].split('_');
+            for(var detail of detailArr) {
+              detail = detail.toLowerCase();
+              if(keywordList.indexOf(detail) < 0) {
+                keywordList.push(detail.toLowerCase()); 
+              }          
+            }
           }
         }
 
-        // Get keywords from title
+        // Get keywords from name
         if(result.hasOwnProperty('name')){
-          var titleArr = result.name.split('_');
-          for(var title of titleArr) {
-            title = title.toLowerCase();
-            if(keywordList.indexOf(title) < 0) {
-              keywordList.push(title.toLowerCase()); 
+          var nameArr = result.name.split('_');
+          for(var name of nameArr) {
+            name = name.toLowerCase();
+            if(keywordList.indexOf(name) < 0) {
+              keywordList.push(name); 
             }          
           }
         }
         
+        
+        // Get keywords from title
+        if(result.hasOwnProperty('title')){
+          var titleArr = result.title.split('_');
+          if(titleArr.length > 1){
+            for(var title of titleArr) {
+              title = title.toLowerCase();
+              if(keywordList.indexOf(title) < 0) {
+                keywordList.push(title); 
+              }          
+            }
+          }          
+        }
+        
+
         // Get locations from keywords
         var locationStr = [];
         var locationArr = location_data.filter(function(location){
