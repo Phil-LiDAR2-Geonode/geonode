@@ -42,4 +42,8 @@
   deps.push('leaflet-directive');
   {% endif %}
   angular.bootstrap(document, deps);
+
+  $(".scrollToTop").click(function() {
+			$('html,body').animate({scrollTop:0}, 500);
+  });
 </script>
