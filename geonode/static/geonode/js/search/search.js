@@ -196,7 +196,9 @@
         var output;
         var query_entry = query[data_filter];
         var mapType = typeof MAP_TYPE == 'undefined' ? 'lulc' : MAP_TYPE;
-        query_entry.push(mapType)
+        if(query_entry.indexOf(mapType) < 0){
+          query_entry.push(mapType)
+        }
 
         console.log(query_entry);
 
