@@ -456,8 +456,12 @@
         return !Number(key);
       });
 
-      query_entry.push(selectedHazard.filter);
-      query_entry.push(selectedScale.filter);
+      if(selectedHazard){
+        query_entry.push(selectedHazard.filter);
+      }
+      if(selectedScale){
+        query_entry.push(selectedScale.filter);
+      }
 
       console.log(query_entry);
             
