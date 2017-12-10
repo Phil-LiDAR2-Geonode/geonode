@@ -491,9 +491,9 @@ def document_remove(request, docid, template='documents/document_remove.html'):
             status=401
         )
 
-def document_list(request, template='documents/document_list.html'):
+def document_list(request, maptype='lulc', template='documents/document_list.html'):
     context_dict = {
-        "map_type": request.GET['keywords__slug__in']
+        "map_type": maptype
     }
 
     return render_to_response(template, RequestContext(request, context_dict))
