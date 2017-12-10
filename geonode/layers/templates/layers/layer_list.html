@@ -45,6 +45,7 @@
           SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='layers_parmap' %}';
       {% endif %}
     FILTER_TYPE = 'layer';
+    MAP_TYPE = '{{map_type}}';
   </script>
   {% with include_spatial='true' %}
   {% include 'search/search_scripts.html' %}

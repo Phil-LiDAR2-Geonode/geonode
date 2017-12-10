@@ -131,9 +131,9 @@ def _resolve_layer(request, typename, permission='base.view_resourcebase',
 
 # Basic Layer Views #
 
-def layer_list(request, template='layers/layer_list.html'):
+def layer_list(request, maptype='lulc', template='layers/layer_list.html'):
     context_dict = {
-        "map_type": request.GET['keywords__slug__in']
+        "map_type": maptype
     }
 
     return render_to_response(template, RequestContext(request, context_dict))
