@@ -327,7 +327,6 @@
           // "documents/agri_72204000_lulc.jpg".split('.')[0].split('/')[1].split('_')
           // check if file
           var docFileArr = result.doc_file.split('.')[0].split('/')[1].split('_');
-          docFileArr = docFileArr.split('_');
           if(docFileArr.length > 1){
             for(var docFile of docFileArr) {
               docFile = docFile.toLowerCase();
