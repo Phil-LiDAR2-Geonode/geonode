@@ -324,7 +324,9 @@
         
         // Get keywords from title
         if(result.hasOwnProperty('title')){
-          var titleArr = result.title.split('_');
+          // check if file
+          var titleArr = result.title.split('.')[0];
+          titleArr = result.title.split('_');
           if(titleArr.length > 1){
             for(var title of titleArr) {
               title = title.toLowerCase();
