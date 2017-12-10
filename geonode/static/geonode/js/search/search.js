@@ -299,8 +299,8 @@
 
         if(result.hasOwnProperty('detail_url')){
           var detailUrl = decodeURIComponent(result.detail_url).split(':')[1];
-          if(typeof detailUrl == 'undefined') {
-            var detailArr = decodeURIComponent(result.detail_url).split(':')[1].split('_');
+          if(typeof detailUrl !== 'undefined') {
+            var detailArr = detailUrl.split('_');
             for(var detail of detailArr) {
               detail = detail.toLowerCase();
               if(keywordList.indexOf(detail) < 0) {
