@@ -10,7 +10,7 @@
           <div class = "filterForm">
             {% include "search/_general_filters.html" %}
 
-            {% if SEARCH_FILTERS.EXTENT_ENABLED and facet_type == 'layers' %}      
+            {% if SEARCH_FILTERS.EXTENT_ENABLED and facet_type == 'layers' and map_type == "lulc" %}      
                 {% include "search/_extent_filter.html" %}
             {% endif %}
           </div>
@@ -25,9 +25,7 @@
             {% endif %}
           </div>
           <div ng-if="hasNoFilter !== true">
-              {% if map_type == "lulc" %}
-                {% include 'base/_resourcebase_snippet.html' %}
-              {% endif %}
+            {% include 'base/_resourcebase_snippet.html' %}
           </div>
         </div>
       </div>
