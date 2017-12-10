@@ -195,9 +195,12 @@
       return function(input, query) {
         var output;
         var query_entry = query[data_filter];
+        var mapType = typeof MAP_TYPE == 'undefined' ? 'lulc' : MAP_TYPE;
+        query_entry.push(mapType)
+
+        console.log(query_entry);
 
         output = input.filter(function(item){
-          console.log(query_entry);
           if(query_entry){
             return query_entry.every(function(currentValue){
               return item.keywords.indexOf(currentValue) >=0;
@@ -310,6 +313,8 @@
         delete result['metadata_xml'];  
         return result;
       });
+
+      console.log($scope.results);
 
       // Get filters from keywords
       filters_data.objects.forEach(processFilter);
