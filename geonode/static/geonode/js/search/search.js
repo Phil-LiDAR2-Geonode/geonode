@@ -290,9 +290,12 @@
         }
 
         // Get keywords from title
-        var titleArr = result.title.split('_');
+        var titleArr = result.name.split('_');
         for(var title of titleArr) {
-          keywordList.push(title.toLowerCase());
+          title = title.toLowerCase();
+          if(keywordList.indexOf(title) < 0) {
+            keywordList.push(title.toLowerCase()); 
+          }          
         }
         
         // Get locations from keywords
