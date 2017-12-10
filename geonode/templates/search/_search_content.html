@@ -25,7 +25,9 @@
             {% endif %}
           </div>
           <div ng-if="hasNoFilter !== true">
-            {% include 'base/_resourcebase_snippet.html' %}
+              {% if map_type == "lulc" %}
+                {% include 'base/_resourcebase_snippet.html' %}
+              {% endif %}
           </div>
         </div>
       </div>
