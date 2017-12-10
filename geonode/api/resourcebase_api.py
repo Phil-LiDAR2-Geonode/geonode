@@ -451,8 +451,7 @@ class CommonModelApi(ModelResource):
             'thumbnail_url',
             'detail_url',
             'rating',
-            'metadata_xml',
-            'name',
+            'metadata_xml'
         ]
 
         if isinstance(

@@ -297,13 +297,19 @@
           keywordList.push(keyword.getElementsByTagName('gco:CharacterString')[0].innerHTML.toLowerCase());
         }
 
+        if(result.hasOwnProperty('detail_url')){
+          console.log(result.detail_url);
+        }
+
         // Get keywords from title
-        var titleArr = result.name.split('_');
-        for(var title of titleArr) {
-          title = title.toLowerCase();
-          if(keywordList.indexOf(title) < 0) {
-            keywordList.push(title.toLowerCase()); 
-          }          
+        if(result.hasOwnProperty('name')){
+          var titleArr = result.name.split('_');
+          for(var title of titleArr) {
+            title = title.toLowerCase();
+            if(keywordList.indexOf(title) < 0) {
+              keywordList.push(title.toLowerCase()); 
+            }          
+          }
         }
         
         // Get locations from keywords
