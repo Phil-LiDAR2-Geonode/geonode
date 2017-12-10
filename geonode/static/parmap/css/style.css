@@ -439,6 +439,10 @@ body {
 	width: 150px;
 }
 
+.resultWrapper ul li .resultImgWrapper.resultImgWrapperRs img {
+	width: 300px;
+}
+
 .resultWrapper ul li .description1,
 .resultWrapper ul li .description1 a {
 	border: 1px solid transparent;
