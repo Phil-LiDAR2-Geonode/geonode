@@ -326,7 +326,7 @@
         if(result.hasOwnProperty('title')){
           // check if file
           var titleArr = result.title.split('.')[0];
-          titleArr = result.title.split('_');
+          titleArr = titleArr.split('_');
           if(titleArr.length > 1){
             for(var title of titleArr) {
               title = title.toLowerCase();
