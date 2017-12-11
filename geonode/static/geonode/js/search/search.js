@@ -252,7 +252,7 @@
               code: province,
               name: location.province,
               municipality: []
-          })
+          });
         }
         
         var targetLocation = allLocations.find(function(loc) {
@@ -457,9 +457,25 @@
         }, true);
     }
 
-    $scope.clearSearch = function() {
-      console.log($scope.selectedProvince)
-      console.log($scope.selectedMunicipality)
+    $scope.clearSearch = function(evt) {
+      var data_filter = 'keywords__slug__in';
+
+      evt.preventDefault();
+
+      if($('#myProvinceSelect').length){
+        $('#myProvinceSelect').val('');
+      }
+      if($('#myMunicipalitySelect').length){
+        $('#myMunicipalitySelect').val('');
+      }
+      if($('#myHazardSelect').length){
+        $('#myHazardSelect').val('');
+      }
+      if($('#myScaleSelect').length){
+        $('#myScaleSelect').val('');
+      }
+
+      $scope.query[data_filter] = [];
       // $window.location.reload(true);
     }
 
@@ -499,7 +515,7 @@
     $scope.filters_submit = function(selectedHazard, selectedScale){  
       var query_entry = [];
       var data_filter = 'keywords__slug__in';
-            
+      
       if(selectedHazard){
         query_entry.push(selectedHazard.filter);
       }
