@@ -483,6 +483,11 @@
     * Listens to province select field
     */
     $scope.location_submit = function(selectedProvince, selectedMunicipality){  
+      if(
+        typeof selectedProvince === 'undefined' ||
+        typeof selectedMunicipality === 'undefined'
+      ) return false;
+      
       var query_entry = [];
       var data_filter = 'keywords__slug__in';
       var value = selectedMunicipality ? selectedMunicipality.code : selectedProvince.code;
