@@ -458,7 +458,9 @@
     }
 
     $scope.clearSearch = function() {
-      $window.location.reload(true);
+      console.log($scope.selectedProvince)
+      console.log($scope.selectedMunicipality)
+      // $window.location.reload(true);
     }
 
     /*
