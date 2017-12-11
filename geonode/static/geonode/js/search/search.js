@@ -493,18 +493,18 @@
       var value = selectedMunicipality ? selectedMunicipality.code : selectedProvince.code;
             
       // If the query object has the record then grab it
-      if ($scope.query.hasOwnProperty(data_filter)){
-        if ($scope.query[data_filter] instanceof Array){
-          query_entry = $scope.query[data_filter];
-        }else{
-          query_entry.push($scope.query[data_filter]);
-        }
-      }
+      // if ($scope.query.hasOwnProperty(data_filter)){
+      //   if ($scope.query[data_filter] instanceof Array){
+      //     query_entry = $scope.query[data_filter];
+      //   }else{
+      //     query_entry.push($scope.query[data_filter]);
+      //   }
+      // }
 
       // Remove mun_code
-      query_entry = query_entry.filter(function(key){
-        return !Number(key);
-      });
+      // query_entry = query_entry.filter(function(key){
+      //   return !Number(key);
+      // });
 
       query_entry.push(value);
       
