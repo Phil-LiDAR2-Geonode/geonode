@@ -488,6 +488,13 @@
         typeof selectedMunicipality === 'undefined'
       ) return false;
 
+      // Validate selectedMunicipality
+      var found = selectedProvince.municipality.some(function (municipality) {
+        return municipality.code === selectedMunicipality.code;
+      });
+
+      if(!found) return;
+
       var query_entry = [];
       var data_filter = 'keywords__slug__in';
       var value = selectedMunicipality ? selectedMunicipality.code : selectedProvince.code;
