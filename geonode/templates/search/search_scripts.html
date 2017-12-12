@@ -46,4 +46,12 @@
   $(".scrollToTop").click(function() {
 			$('html,body').animate({scrollTop:0}, 500);
   });
+
+  $(window).on('scroll', function(e){
+    if(e.currentTarget.pageYOffset < 100){
+      $(".scrollToTop").hide();
+    }else{
+      $(".scrollToTop").show();
+    }
+  })
 </script>
