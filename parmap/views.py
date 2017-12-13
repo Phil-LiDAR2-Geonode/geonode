@@ -10,6 +10,7 @@ from geonode.services.models import Service
 from geonode.utils import resolve_object
 from geonode.layers.models import Layer
 
+_PERMISSION_MSG_GENERIC = _('You do not have permissions for this layer.')
 _PERMISSION_MSG_VIEW = _("You are not permitted to view this layer")
 
 def _resolve_layer(request, typename, permission='base.view_resourcebase',
