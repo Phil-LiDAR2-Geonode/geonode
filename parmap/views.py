@@ -14,18 +14,7 @@ def other_rs(request, facettype='layers'):
 
 def rs_links(request, facettype, layername):
     context_dict = {
-        "facettype": facettype,
-        "layer_name": layername,
-        "links": [
-            {
-                "name": 'Sample 1',
-                "url": 'Sample 1',
-            },
-            {
-                "name": 'Sample 2',
-                "url": 'Sample 2',
-            }
-        ]
+        "facettype": facettype
     }
     
     return HttpResponse(json.dumps(context_dict),mimetype='application/json',status=200)
