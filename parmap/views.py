@@ -12,7 +12,7 @@ def other_rs(request, facettype='layers'):
     
     return render_to_response('parmap/other_rs.html', RequestContext(request, context_dict))
 
-def rs_links(request, facettype, layer_name):
+def rs_links(request, facettype, layername):
     context_dict = {
         "facettype": facettype,
         "layer_name": layer_name,
