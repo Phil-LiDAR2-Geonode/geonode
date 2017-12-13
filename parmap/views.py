@@ -5,6 +5,7 @@ from django.template import RequestContext, loader
 from django.shortcuts import render_to_response
 
 from django.conf import settings
+from django.utils.translation import ugettext as _
 from geonode.services.models import Service
 from geonode.utils import resolve_object
 from geonode.layers.models import Layer
