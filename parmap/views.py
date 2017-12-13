@@ -4,7 +4,6 @@ from django.shortcuts import render
 from django.template import RequestContext, loader
 from django.shortcuts import render_to_response
 
-from lxml import etree
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from geonode.services.models import Service
@@ -67,8 +66,8 @@ def rs_links(request, facettype, layername):
     context_dict = {
         "facettype": facettype,
         "layername": layername,
-        "links": etree.tostring(links, encoding='utf8', method='xml')
+        "links": links
     }
     
-    return HttpResponse(json.dumps(context_dict),mimetype='application/json',status=200)
+    return render_to_response('parmap/rs_links.html', RequestContext(request, context_dict))
 
