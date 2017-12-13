@@ -15,7 +15,7 @@ def other_rs(request, facettype='layers'):
 def rs_links(request, facettype='layers', layer_name):
     context_dict = {
         "facettype": facettype,
-        "layer_name": layer_name
+        "layer_name": layer_name,
         "links": [
             {
                 "name": 'Sample 1',
