@@ -91,7 +91,7 @@ urlpatterns = patterns('',
                        (r'^news/', include('news.urls')),
 
                        url(r'^api_static/locations$', 'api_static.views.index'),
-                       url(r'^parmap/other_rs/(?P<facettype>[^/]*)$', 'parmap.views.other_rs'),
+                       (r'^parmap/', include('parmap.urls')),
 
                        # Accounts
                        # url(r'^account/ajax_login$', 'geonode.views.ajax_login',
