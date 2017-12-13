@@ -68,6 +68,8 @@ def rs_links(request, facettype, layername):
         "layername": layername,
         "links": links
     }
+
+    pprint(context_dict)
     
     return HttpResponse(json.dumps(context_dict),mimetype='application/json',status=200)
 
