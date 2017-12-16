@@ -102,14 +102,16 @@
     {% endif %}
   FILTER_TYPE = 'layer';
 
-  $('.download-item').on('click', function(){
+  $('.download-item').on('click', function(evt){
+      evt.preventDefault();
       console.log($(this));
 
       $('#resource-download').modal('show');
   });
 
 
-  $('.queue-item').on('click', function(){
+  $('.queue-item').on('click', function(evt){
+      evt.preventDefault();
       console.log($(this));
   });
 </script>
