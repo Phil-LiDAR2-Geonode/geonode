@@ -110,7 +110,7 @@
     //   https://parmap-tst.dream.upd.edu.ph/parmap/other_rs/links/layers/geonode%3Aupper_disakan_3617_iv_2_lulc_1
 
     $.get('/parmap/other_rs/links/layers/' + item, function(data){
-        console.log(data);
+        $('.parmap-download-list').html(data);
     })
 
     $('#resource-download').modal('show');
