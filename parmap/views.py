@@ -57,7 +57,8 @@ def rs_links(request, facettype, layername):
     
     context_dict = {
         "facettype": facettype,
-        "layername": layername
+        "layername": layername,
+        "links": []
     }
     
     if request.user.has_perm('download_resourcebase', layer.get_self_resource()):
