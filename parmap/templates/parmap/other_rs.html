@@ -102,7 +102,7 @@
     {% endif %}
   FILTER_TYPE = 'layer';
 
-  $('.download-item').on('click', function(evt){
+  $('.resultWrapper').on('click', '.download-item', function(evt){
       evt.preventDefault();
       console.log($(this));
 
@@ -110,7 +110,7 @@
   });
 
 
-  $('.queue-item').on('click', function(evt){
+  $('.resultWrapper').on('click', '.queue-item', function(evt){
       evt.preventDefault();
       console.log($(this));
   });
