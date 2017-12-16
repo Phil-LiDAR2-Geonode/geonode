@@ -55,12 +55,6 @@ def rs_links(request, facettype, layername):
 
     config = layer.attribute_config()
     
-    context_dict = {
-        "facettype": facettype,
-        "layername": layername,
-        "links": []
-    }
-    
     if request.user.has_perm('download_resourcebase', layer.get_self_resource()):
         if layer.storeType == 'dataStore':
             links = layer.link_set.download().filter(
@@ -68,8 +62,14 @@ def rs_links(request, facettype, layername):
         else:
             links = layer.link_set.download().filter(
                 name__in=settings.DOWNLOAD_FORMATS_RASTER)
+    else:
+        links = []
 
-        context_dict.links = links
+    context_dict = {
+        "facettype": facettype,
+        "layername": layername,
+        "links": links
+    }
     
     return render_to_response('parmap/rs_links.html', RequestContext(request, context_dict))
 
