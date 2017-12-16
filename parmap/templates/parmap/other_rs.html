@@ -34,8 +34,8 @@
                                 <div class = "description2" style="text-transform: capitalize;">{{ item.locationsLabel }}</div>
                                 <div class = "description3">by <a href="/people/profile/{{ item.owner__username }}">{{ item.owner__username }}</a></div>
                                 <div class = "actions">
-                                    <a href = "javascript:;"><i class = "fa fa-plus-square"></i> Add to Queue</a>
-                                    <a href="#" data-toggle="modal" data-target="#resource-download"><i class = "fa fa-download"></i>Download</a>
+                                    <a href="#" class="queue-item" data-url="{{item.datail_url}}"><i class = "fa fa-plus-square"></i> Add to Queue</a>
+                                    <a href="#" class="download-item" data-url="{{item.detail_url}}" data-target="#resource-download"><i class = "fa fa-download"></i>Download</a>
                                 </div>
                                 <div class = "description4">
                                     <p>{{ item.abstract }}</p>
@@ -77,7 +77,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h4 class="modal-title" id="myModalLabel">{% trans "Download Layer" %}</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body parmap-download-list">
                 Download Links
             </div>
             <div class="modal-footer">
@@ -101,6 +101,17 @@
         SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='layers_parmap' %}';
     {% endif %}
   FILTER_TYPE = 'layer';
+
+  $('.download-item').on('click', function(){
+      console.log($(this));
+
+      $('#resource-download').modal('show');
+  });
+
+
+  $('.queue-item').on('click', function(){
+      console.log($(this));
+  });
 </script>
 {% with include_spatial='true' %}
 {% include 'search/search_scripts.html' %}
