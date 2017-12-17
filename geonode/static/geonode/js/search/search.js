@@ -471,16 +471,16 @@
       evt.preventDefault();
 
       if($('#myProvinceSelect').length){
-        $('#myProvinceSelect').val(undefined);
+        $('#myProvinceSelect').val("0");
       }
       if($('#myMunicipalitySelect').length){
-        $('#myMunicipalitySelect').val(undefined);
+        $('#myMunicipalitySelect').val("0");
       }
       if($('#myHazardSelect').length){
-        $('#myHazardSelect').val(undefined);
+        $('#myHazardSelect').val("0");
       }
       if($('#myScaleSelect').length){
-        $('#myScaleSelect').val(undefined);
+        $('#myScaleSelect').val("0");
       }
 
       $scope.query[data_filter] = ['clear-results'];
