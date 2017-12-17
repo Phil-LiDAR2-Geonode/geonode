@@ -332,7 +332,7 @@
             <div class="modal-body">
               <ul>
                 {% for link in metadata %}
-                  {% if link.name === "ISO" %}
+                  {% if link.name == "ISO" %}
                   <li><a href="{{ link.url }}">{{ link.name }}</a></li>
                   {% endif %}
                 {% endfor %}
