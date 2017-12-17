@@ -16,7 +16,7 @@
     ng-model="selectedMunicipality"
     required></select>
 
-  <button type="submit" class="btn pull-right">Search</button>
+  <button type="submit" class="btn pull-right" ng-disabled="selectedProvince && selectedMunicipality">Search</button>
 </form>
 <div class = "clearfix"></div><br><br>
 {% endif %}
@@ -34,10 +34,10 @@
   <select name="mySelect" id="myScaleSelect"
     class="nav closed form-control"
     ng-options="scale.label for scale in scales | orderBy: 'filter' track by scale.filter"
-    ng-model="selectedScale"
+    ng-model="selectedHazard"
     required></select>
 
-  <button type="submit" class="btn pull-right">Search</button>
+  <button type="submit" class="btn pull-right" ng-disabled="selectedHazard && selectedHazard">Search</button>
 </form>
 <div class = "clearfix"></div><br><br>
 {% endif %}
