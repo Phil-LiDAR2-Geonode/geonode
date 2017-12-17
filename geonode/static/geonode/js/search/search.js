@@ -236,7 +236,13 @@
     $scope.query.keywords__slug__in = $scope.query.keywords__slug__in || mapType;
 
     function process_results(location_data, filters_data, data){
-      var allLocations = [];
+      var allLocations = [
+        {
+          code: '',
+          name: '',
+          municipality: []
+        }
+      ];
       var allScale = [];
       var allHazard = [];
 
@@ -251,7 +257,9 @@
           allLocations.push({
               code: province,
               name: location.province,
-              municipality: []
+              municipality: [
+                { name: '', code: '' }
+              ]
           });
         }
         
@@ -492,8 +500,6 @@
 
       if(!found) return true;
 
-      if($scope.query['keywords__slug__in'].indexOf('clear-results') >= 0) return true;
-
       return false;
     }
 
@@ -503,8 +509,6 @@
         typeof selectedScale === 'undefined'
       ) return true;
 
-      if($scope.query['keywords__slug__in'].indexOf('clear-results') >= 0) return true;
-      
       return false;
     }
 
