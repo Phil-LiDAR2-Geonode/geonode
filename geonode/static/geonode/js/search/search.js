@@ -493,6 +493,8 @@
         typeof selectedMunicipality === 'undefined'
       ) return true;
 
+      if( typeof selectedMunicipality.code === '') return true;
+      
       // Validate selectedMunicipality
       var found = selectedProvince.municipality.some(function (municipality) {
         return municipality.code === selectedMunicipality.code;
@@ -520,6 +522,8 @@
         typeof selectedProvince === 'undefined' ||
         typeof selectedMunicipality === 'undefined'
       ) return false;
+
+      if( typeof selectedMunicipality.code === '') return false;
 
       // Validate selectedMunicipality
       var found = selectedProvince.municipality.some(function (municipality) {
