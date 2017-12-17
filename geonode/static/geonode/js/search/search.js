@@ -492,6 +492,8 @@
 
       if(!found) return true;
 
+      if($scope.query['keywords__slug__in'].indexOf('clear-results') >= 0) return true;
+
       return false;
     }
 
@@ -501,6 +503,8 @@
         typeof selectedScale === 'undefined'
       ) return true;
 
+      if($scope.query['keywords__slug__in'].indexOf('clear-results') >= 0) return true;
+      
       return false;
     }
 
