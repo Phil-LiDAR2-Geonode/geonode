@@ -343,7 +343,9 @@
         </div>
       </div>
     {% else %}
+    <li class="list-group-item">
       <button class="btn btn-default btn-md btn-block" disabled>{% trans "Download Metadata" %}</button>
+    </li>
     {% endif %}
 
     {% if resource.get_legend %}
