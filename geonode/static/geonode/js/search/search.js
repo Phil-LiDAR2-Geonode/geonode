@@ -495,10 +495,10 @@
       return false;
     }
 
-    $scope.validateFilter = function(selectedHazard, selectedHazard) {
+    $scope.validateFilter = function(selectedHazard, selectedScale) {
       if(
         typeof selectedHazard === 'undefined' &&
-        typeof selectedHazard === 'undefined'
+        typeof selectedScale === 'undefined'
       ) return true;
 
       return false;
