@@ -236,13 +236,7 @@
     $scope.query.keywords__slug__in = $scope.query.keywords__slug__in || mapType;
 
     function process_results(location_data, filters_data, data){
-      var allLocations = [
-        {
-          code: '',
-          name: '',
-          municipality: []
-        }
-      ];
+      var allLocations = [];
       var allScale = [];
       var allHazard = [];
 
@@ -257,9 +251,7 @@
           allLocations.push({
               code: province,
               name: location.province,
-              municipality: [
-                { name: '', code: '' }
-              ]
+              municipality: []
           });
         }
         
@@ -471,16 +463,16 @@
       evt.preventDefault();
 
       if($('#myProvinceSelect').length){
-        $('#myProvinceSelect').val("0");
+        $('#myProvinceSelect').val(undefined);
       }
       if($('#myMunicipalitySelect').length){
-        $('#myMunicipalitySelect').val("0");
+        $('#myMunicipalitySelect').val(undefined);
       }
       if($('#myHazardSelect').length){
-        $('#myHazardSelect').val("0");
+        $('#myHazardSelect').val(undefined);
       }
       if($('#myScaleSelect').length){
-        $('#myScaleSelect').val("0");
+        $('#myScaleSelect').val(undefined);
       }
 
       $scope.query[data_filter] = ['clear-results'];
@@ -494,6 +486,8 @@
       ) return true;
 
       if( typeof selectedMunicipality.code === '') return true;
+
+      console.log($('#myMunicipalitySelect'));
       
       // Validate selectedMunicipality
       var found = selectedProvince.municipality.some(function (municipality) {
