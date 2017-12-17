@@ -505,6 +505,11 @@
         typeof selectedScale === 'undefined'
       ) return true;
 
+      if(
+        $('#myHazardSelect')[0].selectedOptions.length === 0 &&
+        $('#myScaleSelect')[0].selectedOptions.length === 0
+      ) return true;
+
       return false;
     }
 
