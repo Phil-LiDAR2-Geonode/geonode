@@ -479,6 +479,31 @@
       // $window.location.reload(true);
     }
 
+    $scope.validateLocation = function(selectedProvince, selectedMunicipality) {
+      if(
+        typeof selectedProvince === 'undefined' ||
+        typeof selectedMunicipality === 'undefined'
+      ) return true;
+
+      // Validate selectedMunicipality
+      var found = selectedProvince.municipality.some(function (municipality) {
+        return municipality.code === selectedMunicipality.code;
+      });
+
+      if(!found) return true;
+
+      return false;
+    }
+
+    $scope.validateFilter = function(selectedHazard, selectedHazard) {
+      if(
+        typeof selectedHazard === 'undefined' &&
+        typeof selectedHazard === 'undefined'
+      ) return true;
+
+      return false;
+    }
+
     /*
     * Listens to province select field
     */

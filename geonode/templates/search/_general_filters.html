@@ -16,7 +16,7 @@
     ng-model="selectedMunicipality"
     required></select>
 
-  <button type="submit" class="btn pull-right" ng-disabled="selectedProvince && selectedMunicipality">Search</button>
+  <button type="submit" class="btn pull-right" ng-disabled="validateLocation(selectedProvince, selectedMunicipality)">Search</button>
 </form>
 <div class = "clearfix"></div><br><br>
 {% endif %}
@@ -37,7 +37,7 @@
     ng-model="selectedHazard"
     required></select>
 
-  <button type="submit" class="btn pull-right" ng-disabled="selectedHazard && selectedHazard">Search</button>
+  <button type="submit" class="btn pull-right" ng-disabled="validateFilter(selectedHazard, selectedHazard)">Search</button>
 </form>
 <div class = "clearfix"></div><br><br>
 {% endif %}
