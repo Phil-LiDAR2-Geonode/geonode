@@ -487,7 +487,7 @@
 
       if( typeof selectedMunicipality.code === '') return true;
 
-      if($('#myMunicipalitySelect').selectedOptions.length === 0) return true;
+      if($('#myMunicipalitySelect')[0].selectedOptions.length === 0) return true;
       
       // Validate selectedMunicipality
       var found = selectedProvince.municipality.some(function (municipality) {
