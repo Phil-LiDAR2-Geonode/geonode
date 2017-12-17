@@ -27,15 +27,13 @@
   <select name="mySelect" id="myHazardSelect"
     class="nav closed form-control"
     ng-options="hazard.label for hazard in hazards | orderBy: 'filter' track by hazard.filter"
-    ng-model="selectedHazard"
-    required></select>
+    ng-model="selectedHazard"></select>
 
   <label>Scale</label>
   <select name="mySelect" id="myScaleSelect"
     class="nav closed form-control"
     ng-options="scale.label for scale in scales | orderBy: 'filter' track by scale.filter"
-    ng-model="selectedScale"
-    required></select>
+    ng-model="selectedScale"></select>
 
   <button type="submit" class="btn pull-right" ng-disabled="validateFilter(selectedHazard, selectedScale)">Search</button>
 </form>
