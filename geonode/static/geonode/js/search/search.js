@@ -198,9 +198,10 @@
 
         if(typeof query_entry == 'undefined') query_entry = [];
 
-        var mapType = typeof MAP_TYPE == 'undefined' ? 'lulc' : MAP_TYPE;
-        if(query_entry.indexOf(mapType) < 0){
-          query_entry.push(mapType)
+        if(typeof MAP_TYPE !== 'undefined'){
+          if(query_entry.indexOf(MAP_TYPE) < 0){
+            query_entry.push(MAP_TYPE)
+          }
         }
 
         console.log(query_entry);
@@ -232,11 +233,10 @@
     $scope.query.offset = $scope.query.offset || 0;
     $scope.page = Math.round(($scope.query.offset / $scope.query.limit) + 1);
     
-    var mapType =  MAP_TYPE;
     if(typeof MAP_TYPE == 'undefined'){
       $scope.query['other_rs'] = true;
     }else{
-      $scope.query.keywords__slug__in = $scope.query.keywords__slug__in || mapType;
+      $scope.query.keywords__slug__in = $scope.query.keywords__slug__in || MAP_TYPE;
     }
 
     function process_results(location_data, filters_data, data){
