@@ -599,12 +599,6 @@ class LayerParmapResource(CommonModelApi):
             'workspace',
         ]
 
-        def get_object_list(self, request):
-            if request.GET.get('other_rs'):
-                return super(LayerParmapResource, self).get_object_list(request).filter(detail_url__contains='lulc')
-            else
-                return super(LayerParmapResource, self)
-
 class MapParmapResource(CommonModelApi):
 
     class Meta(CommonMetaApi):
