@@ -222,6 +222,20 @@
     
     });
 
+
+  module.filter('rsFilter', function() { 
+    return function(input) {
+      var output = true;
+
+      if(input.hasOwnProperty('detail_url')){
+        if(input.detail_url.indexOf('lulc') >= 0 || input.detail_url.indexOf('va') >= 0) output = false;
+      }
+
+      return output;
+    }
+  
+  });
+    
   /*
   * Main search controller
   * Load data from api and defines the multiple and single choice handlers
