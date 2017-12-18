@@ -232,8 +232,12 @@
     $scope.query.offset = $scope.query.offset || 0;
     $scope.page = Math.round(($scope.query.offset / $scope.query.limit) + 1);
     
-    var mapType = typeof MAP_TYPE == 'undefined' ? 'lulc' : MAP_TYPE;
-    $scope.query.keywords__slug__in = $scope.query.keywords__slug__in || mapType;
+    var mapType =  MAP_TYPE;
+    if(typeof MAP_TYPE == 'undefined'){
+      $scope.query['other_rs'] = true;
+    }else{
+      $scope.query.keywords__slug__in = $scope.query.keywords__slug__in || mapType;
+    }
 
     function process_results(location_data, filters_data, data){
       var allLocations = [];
