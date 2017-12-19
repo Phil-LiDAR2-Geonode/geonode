@@ -11,7 +11,7 @@
     <div class = "landCoverTitleWrapper">
     <div class = "container">
         <a href = "javascript:;" class = "pull-right scrollToTop" style="display: none">back to top</a>
-        <div class = "landCoverTitle">{% trans "Other RS <b>Layers</b>" %}</div>
+        <div class = "landCoverTitle">{% trans "Other RS <b style="text-transform: capitalize;">{{facettype}}</b>" %}</div>
     </div>
     </div>
     
@@ -150,7 +150,7 @@
     {% else %}
         SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='layers_parmap' %}';
     {% endif %}
-  FILTER_TYPE = 'layer';
+  FILTER_TYPE = '{{facettype}}';
     MAP_TYPE = 'rs';
 
 $(function (){
