@@ -41,6 +41,7 @@ def _resolve_layer(request, typename, permission='base.view_resourcebase',
 # Create your views here.
 def other_rs(request, facettype='layers'):
     context_dict = {
+        "facettype": facettype,
         "map_type": 'rs'
     }
     
