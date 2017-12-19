@@ -26,7 +26,7 @@
                         </div>
                         {% verbatim %}
                         <ul>
-                            <li ng-repeat="item in results | rsFilter" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
+                            <li ng-repeat="item in results" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
                                 <div class = "resultImgWrapper resultImgWrapperRs">
                                     <a href="{{ item.detail_url }}"><img ng-src="{{ item.thumbnail_url }}" /></a>
                                 </div>
@@ -34,7 +34,7 @@
                                 <div class = "description2" style="text-transform: capitalize;">{{ item.locationsLabel }}</div>
                                 <div class = "description3">by <a href="/people/profile/{{ item.owner__username }}">{{ item.owner__username }}</a></div>
                                 <div class = "actions">
-                                    <a href="#" class="queue-item" data-url="{{item.datail_url}}"><i class = "fa fa-plus-square"></i> Add to Queue</a>
+                                    <a href="#" class="queue-item" data-url="{{item.datail_url}}" style="display: none"><i class = "fa fa-plus-square"></i> Add to Queue</a>
                                     <a href="#" class="download-item" data-url="{{item.detail_url}}" data-target="#resource-download"><i class = "fa fa-download"></i>Download</a>
                                 </div>
                                 <div class = "description4">
