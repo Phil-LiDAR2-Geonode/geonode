@@ -437,10 +437,12 @@ body {
 
 .resultWrapper ul li .resultImgWrapper img {
 	width: 150px;
+	min-height: 100px;
 }
 
 .resultWrapper ul li .resultImgWrapper.resultImgWrapperRs img {
 	width: 385px;
+	min-height: 200px;
 }
 
 .resultWrapper ul li .description1,
