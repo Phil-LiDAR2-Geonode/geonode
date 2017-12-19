@@ -181,6 +181,8 @@ $(function (){
     location.reload()
   });
 
+});
+
   $('.resultWrapper').on('click', '.download-item', function(evt){
     evt.preventDefault();
     var target = $(this).data('target');
@@ -204,7 +206,6 @@ $(function (){
       evt.preventDefault();
       console.log($(this));
   });
-});
 </script>
 {% with include_spatial='true' %}
 {% include 'search/search_scripts.html' %}
