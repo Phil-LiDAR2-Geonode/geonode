@@ -33,7 +33,7 @@
                             </div>
                             <div class="description1"><a href="{{ item.detail_url }}">{{ item.title }}</a></div>
                             <div class="description2" style="text-transform: capitalize;">Location, Location</div>
-                            <div class="description3">by <a href="/people/profile/">{{ item.owner }}</a></div>
+                            <div class="description3">by <a href="/people/profile/{{ item.owner__username }}">{{ item.owner__username }}</a></div>
                           </li>
                           </li>
                         {% endfor %}
