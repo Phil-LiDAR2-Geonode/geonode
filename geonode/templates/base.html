@@ -21,9 +21,18 @@
 
       <!-- static files for bootstrap-fileinput -->
       <link href="{{ STATIC_URL }}geonode/bower_components/bootstrap-fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/parmap/css/font-awesome/css/font-awesome.min.css">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/parmap/css/leaflet.css">
+      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/parmap/css/style.css">
+
+      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/jquery-1.9.1.min.js"></script>
+      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/search-script.js"></script>
+      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/leaflet.js"></script>
+
       <!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script -->
       <!-- canvas-to-blob.min.js is only needed if you wish to resize images before upload.
-          This must be loaded before fileinput.min.js -->
+      This must be loaded before fileinput.min.js -->
       <script src="{{ STATIC_URL }}geonode/bower_components/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
       <!-- sortable.min.js is only needed if you wish to sort / rearrange files in initial preview.
           This must be loaded before fileinput.min.js -->
@@ -39,15 +48,7 @@
       <script src="{{ STATIC_URL }}geonode/bower_components/slugify/dist/slugify.min.js"></script>
       <!-- script src="{{ STATIC_URL }}lib/js/bootstrap.min.js"></script -->
       <!-- script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script -->
-
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/parmap/css/font-awesome/css/font-awesome.min.css">
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/parmap/css/leaflet.css">
-      <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}/parmap/css/style.css">
-
-      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/jquery-1.9.1.min.js"></script>
-      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/bootstrap.min.js"></script>
-      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/search-script.js"></script>
-      <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/leaflet.js"></script>
+    
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
       {% block extra_head %}
       {% endblock %}
