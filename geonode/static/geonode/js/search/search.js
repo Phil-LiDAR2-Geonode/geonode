@@ -305,14 +305,16 @@
 
       $scope.results = data.objects.map(function(result) {
         // Get keywords
-        var xmlDoc = $.parseXML( result.metadata_xml );
-        var keywordObjects = xmlDoc.getElementsByTagName('gmd:keyword'); //gmd:keyword
         var keywordList = [];
         var locationArr = [];
 
         // Get keywords
-        for (var keyword of keywordObjects) {
-          keywordList.push(keyword.getElementsByTagName('gco:CharacterString')[0].innerHTML.toLowerCase());
+        if(result.hasOwnProperty('metadata_xml')){
+          var xmlDoc = $.parseXML( result.metadata_xml );
+          var keywordObjects = xmlDoc.getElementsByTagName('gmd:keyword'); //gmd:keyword
+          for (var keyword of keywordObjects) {
+            keywordList.push(keyword.getElementsByTagName('gco:CharacterString')[0].innerHTML.toLowerCase());
+          }
         }
 
         if(result.hasOwnProperty('detail_url')){
