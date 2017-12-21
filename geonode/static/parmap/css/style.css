@@ -433,6 +433,11 @@ body {
 	margin-bottom: 20px;
 }
 
+.resultWrapper .modal-body ul li {
+	padding: 0;
+	margin: 0;
+}
+
 .resultWrapper ul li .resultImgWrapper {
 	border: 1px solid transparent;
 	float: left;
