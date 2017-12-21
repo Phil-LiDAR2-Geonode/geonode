@@ -433,7 +433,8 @@ body {
 	margin-bottom: 20px;
 }
 
-.resultWrapper .modal-body ul li {
+.resultWrapper .modal-body ul li,
+.resultWrapper .modal-body ol li {
 	padding: 0;
 	margin: 0;
 }
