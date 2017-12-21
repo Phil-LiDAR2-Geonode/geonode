@@ -43,7 +43,7 @@ def _resolve_layer(request, typename, permission='base.view_resourcebase',
 def other_rs(request, facettype='layers'):
     if(facettype == 'layers'):
         queryset = Layer.objects.distinct().filter(title__icontains='3618-II').order_by('-date')[:5]
-    else
+    else:
         queryset = Document.objects.distinct().order_by('-date')[:5]
 
 
