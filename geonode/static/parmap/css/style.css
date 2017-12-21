@@ -386,6 +386,10 @@ body {
 	text-decoration: underline;
 }
 
+.rightPanel .modal-body .p {
+	text-align: left;
+}
+
 .rightMapWrapper {
 	border: 1px solid transpartent;
 	margin: 20px 0px 50px 0px;
