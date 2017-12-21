@@ -44,7 +44,7 @@ def other_rs(request, facettype='layers'):
     if(facettype == 'layers'):
         queryset = Layer.objects.distinct().filter(title__icontains='3618-II').order_by('-date')[:5]
     else:
-        queryset = Document.objects.distinct().order_by('-date')[:5]
+        queryset = Document.objects.distinct().filter(title__icontains='Bulacan').order_by('-date')[:5]
 
 
     context_dict = {
