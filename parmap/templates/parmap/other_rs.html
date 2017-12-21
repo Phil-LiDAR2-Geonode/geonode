@@ -51,7 +51,14 @@
             </div>
         </div>
     </div>
-    <pre> {{ list | json}} </pre>
+    <table>
+        {% for key, value in list %}
+            <tr>
+                <td>{{key}}</td>
+                <td>{{value}}</td>
+            </tr>
+        {% endfor %}
+      </table>
 
 
     
