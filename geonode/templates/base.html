@@ -21,14 +21,12 @@
       <link href="{{ STATIC_URL }}geonode/css/base.css?v={{ VERSION }}" rel="stylesheet" />
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
 
-      <link rel = "stylesheet" type = "text/css" href = "{{ STATIC_URL }}parmap/css/bootstrap.min.css">
     	<link rel = "stylesheet" type = "text/css" href = "{{ STATIC_URL }}parmap/css/font-awesome/css/font-awesome.min.css">
     	<link rel = "stylesheet" type = "text/css" href = "https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
     	<link rel = "stylesheet" type = "text/css" href = "{{ STATIC_URL }}parmap/css/style.css">
 
     	<script type = "text/javascript" src = "{{ STATIC_URL }}parmap/js/jquery-1.9.1.min.js"></script>
     	<script type = "text/javascript" src = "{{ STATIC_URL }}parmap/js/jquery-ui-1.9.2.custom.min.js"></script>
-    	<script type = "text/javascript" src = "{{ STATIC_URL }}parmap/js/bootstrap.min.js"></script>
     	<script type = "text/javascript" src = "{{ STATIC_URL }}parmap/js/search-script.js"></script>
     	<script src = "https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 
@@ -83,7 +81,7 @@
             <li class = "dropdown">
               <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Data Library <span class = "caret"></span></a>
               <ul class = "dropdown-menu">
-                <li><a href = "/page_unavailable/">Spectral Library</a></li>
+                <li><a href = "/spectral_library/">Spectral Library</a></li>
                 <li><a href = "/page_unavailable/">UAV Imagery</a></li>
               </ul>
             </li>
@@ -317,8 +315,16 @@
       });
 
       $(".scrollToTop").click(function() {
-        jQuery('html,body').animate({scrollTop:0}, 500);
+          $('html,body').animate({scrollTop:0}, 500);
       });
+
+      $(window).on('scroll', function(e){
+        if(e.currentTarget.pageYOffset < 100){
+          $(".scrollToTop").hide();
+        }else{
+          $(".scrollToTop").show();
+        }
+      })
     });
 
     $(window).load(function() {
@@ -328,5 +334,93 @@
 
     </script>
 
+    <script type = "text/javascript">
+    function searchFunction() {
+    	var element = document.getElementById("target_search").value;
+    	window.location = "/spectral_library/filter_by_target/" + element.toLowerCase() + "/all";
+    }
+    </script>
+
+    <script type = "text/javascript">
+    function searchTargetFunction() {
+    	var targetElement = document.getElementById("target_option");
+    	var selectedTarget = targetElement.options[targetElement.selectedIndex].value;
+      var provElement = document.getElementById("prov_option");
+    	var selectedProv = provElement.options[provElement.selectedIndex].value;
+    	window.location = "/spectral_library/filter_by_target/" + selectedTarget.toLowerCase() + "/" + selectedProv.toLowerCase();
+    }
+    </script>
+
+    <script type = "text/javascript">
+    function clearSelection() {
+      window.location = "/spectral_library/filter_by_target/null/null"
+      document.getElementById("target_option").selectedIndex = 0;
+      document.getElementById("prov_option").selectedIndex = 0;
+    }
+
+    function enableSearch() {
+      if (document.getElementById("target_option").selectedIndex != 0 && document.getElementById("prov_option").selectedIndex != 0) {
+        document.getElementById("search").disabled = false;
+      } else {
+          document.getElementById("search").disabled = true;
+        }
+      }
+
+    </script>
+
+    <script type = "text/javascript">
+    function changeQueue(target_id){
+      if (document.getElementById("queue_link" + target_id).innerHTML == "unmark"){
+        document.getElementById("queue_link" + target_id).innerHTML = "mark as selected";
+        document.getElementById("queue_link" + target_id).className = "queueRemoved";
+        document.getElementById("queue_icon" + target_id).className = "fa fa-square-o";
+      } else {
+        document.getElementById("queue_link" + target_id).innerHTML = "unmark";
+        document.getElementById("queue_link" + target_id).className = "queueAdded";
+        document.getElementById("queue_icon" + target_id).className = "fa fa-check-square-o";
+        }
+      }
+
+    function changeQueueBtn() {
+      if (document.getElementsByClassName("queueAdded").length > 0){
+        document.getElementById("addToQueueBtn").disabled = false;
+      } else {
+        document.getElementById("addToQueueBtn").disabled = true;
+      }
+    }
+
+    function addToQueue(){
+      var targetElement = document.getElementById("target_option");
+    	var selectedTarget = targetElement.options[targetElement.selectedIndex].value;
+      var provElement = document.getElementById("prov_option");
+    	var selectedProv = provElement.options[provElement.selectedIndex].value;
+
+      var elements = document.getElementsByClassName("queueAdded");
+      var names = '';
+      for(var i=0; i<elements.length; i++) {
+          names += elements[i].name + " ";
+      }
+      window.location = "/spectral_library/add_to_queue/" + selectedTarget.toLowerCase() + "/" + selectedProv.toLowerCase() + "/" + names;
+    }
+
+    function updateQueue(target_id){
+      window.location = "/spectral_library/target/" + target_id + "/update_queue/";
+    }
+
+    function removeQueue(target_id){
+      window.location = "/spectral_library/remove_from_queue/" + target_id;
+    }
+    </script>
+
+    <script>
+    function downloadAll(){
+      var elements = document.getElementsByClassName("target_filelink");
+      var names = '';
+      for(var i=0; i<elements.length; i++) {
+          names += elements[i].name + " ";
+      }
+      window.location = "/spectral_library/browse_queue/" + names;
+    }
+    </script>
   </body>
 </html>

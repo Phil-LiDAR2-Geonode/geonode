@@ -1,0 +1,169 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {% trans "Spectral Library" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block body %}
+<div class = "landCoverTitleWrapper">
+	<div class = "container">
+		<a href = "javascript:;" class = "pull-right scrollToTop">back to top</a>
+		<div class = "landCoverTitle">Spectral Library</div>
+	</div>
+</div>
+
+<div class = "section firstChild backToTop">
+	<div class = "container">
+		<div class = "row">
+			<div class = "col-sm-3 filterWrapper">
+
+				<div class = "filterHeader">
+					<span>Filters</span>
+					<a href = "javascript:;" onclick = "clearSelection()" class = "pull-right">Clear</a>
+				</div>
+				<div class = "filterForm">
+					<label>TARGET</label>
+					<select id = "target_option" class = "form-control" onchange="enableSearch()">
+
+						{% if target_results %}
+							<option disabled value = "Null"> -- select a target -- </option>
+						{% else %}
+						<option disabled selected value = "Null"> -- select a target -- </option>
+						{% endif %}
+
+						<option value="All">ALL</option>
+						{% for target in target_list %}
+							{% if target_type == target.common_name %}
+					  		<option value="{{ target.common_name }}" selected id="selected_target">{{ target.common_name }}</option>
+							{% else %}
+								<option value="{{ target.common_name }}">{{ target.common_name }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+
+					<label>PROVINCE</label>
+					<select id = "prov_option" class = "form-control" onchange="enableSearch()">
+
+						{% if target_results %}
+							<option disabled value = "Null"> -- select a province -- </option>
+							<option value="All" selected>ALL</option>
+						{% else %}
+						<option disabled selected value = "Null"> -- select a province -- </option>
+						<option value="All">ALL</option>
+						{% endif %}
+
+						{% for prov in prov_list %}
+							{% if prov_name == prov.province %}
+								<option value="{{ prov.province }}" selected="selected">{{ prov.province }}</option>
+							{% else %}
+							<option value="{{ prov.province }}">{{ prov.province }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+
+					{% if target_results %}
+						<button class = "btn pull-right" id = "search" onclick = "searchTargetFunction()">Search</button>
+					{% else %}
+						<button class = "btn pull-right" id = "search" onclick = "searchTargetFunction()" disabled>Search</button>
+					{% endif %}
+					<div class = "clearfix"></div><br>
+					{% if user.is_authenticated %}
+						<a href = "javascript:;" onclick = "addToQueue();"><button class = "btn pull-right" id = "addToQueueBtn" disabled>Add to queue</button></a>
+						<div class = "clearfix"></div><br>
+						{% if queue_list %}
+							<a href="/spectral_library/browse_queue/null/null"><button class = "btn pull-right">Browse queue</button></a>
+						{% else %}
+							<a href="/spectral_library/browse_queue/null/null"><button class = "btn pull-right" disabled>Browse queue</button></a>
+						{% endif %}
+					{% else %}
+						<button class = "btn pull-right" onclick = "" disabled>Add to queue</button>
+						<div class = "clearfix"></div><br>
+						<button class = "btn pull-right" onclick = "" disabled>Browse queue</button>
+					{% endif %}
+				</div>
+
+			</div>
+
+			<div class = "col-sm-9 rightPanel">
+				<div class = "resultWrapper">
+					{% if target_results %}
+						<div class = "resultTitle">Results:</div>
+					{% else %}
+						<div class = "resultTitle">No results found</div>
+					{% endif %}
+					<ul>
+						{% for target in target_results %}
+							<li>
+								<div class = "resultImgWrapper">
+									<img src = "{{ target.graph.url }}"/>
+								</div>
+								<div class = "description1"><a href = "/spectral_library/target/{{ target.id }}">{{ target }}</a></div>
+								<div class = "actions">
+									{% if user.is_authenticated %}
+										{% if target.title in queue_list|join:", " %}
+											<i class = "fa fa-check-square" style="color: rgba(85, 85, 85, 0.34)" id = "queue_icon{{ target.id }}"></i>
+											<a href = "#" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)" id = "queue_link{{ target.id }}" onclick="changeQueue({{ target.id }})" class="queueAdded" name="{{ target.id }}">added</a>
+										{% else %}
+											<i class = "fa fa-square-o" style = "color: #12650b" id = "queue_icon{{ target.id }}"></i>
+											<a href = "javascript:;" id = "queue_link{{ target.id }}" onclick="changeQueue({{ target.id }});changeQueueBtn();" class="queueRemoved" name="{{ target.id }}">mark as selected</a>
+										{% endif %}
+
+										<i class = "fa fa-download" style = "color: #12650b"></i>
+										<a href = "#resource-download" data-toggle = "modal">download</a>
+									{% else %}
+										<a href = "javascript:;" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-square-o" style = "color: rgba(85, 85, 85, 0.34)"></i>mark as selected</a>
+										<a href = "#resource-download" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-download" style = "color: rgba(85, 85, 85, 0.34)"></i>download</a>
+									{% endif %}
+									 <div class="modal fade" id="download-layer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+										 <div class="modal-dialog">
+											 <div class="modal-content">
+												 <div class="modal-header">
+													 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													 <h4 class="modal-title" id="myModalLabel">{% trans "Download Data" %}</h4>
+												 </div>
+												 <div class="modal-body">
+													 <a href = "/uploaded/{{ target.target_file }}" style="font-size: 14px">Zip Archive</a>
+												 </div>
+												 <div class="modal-footer">
+													 <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+												 </div>
+											 </div>
+										 </div>
+									 </div>
+								</div>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="resource-download" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width: 80%; height: 60%;">
+		<div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
+			<div class="modal-header">
+				{% comment %}
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				{% endcomment %}
+				<h4 class="modal-title" id="ResDownloadModalLabel">END-USER LICENSE AGREEMENT (Non-Commercial)</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row edit-modal">
+					<div class="col-sm-12 text-left">
+						{% include "parmap_data_request/eula.html" %}
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<input type="button" class="btn btn-default" data-toggle="modal" data-target="#download-layer" data-dismiss="modal" value="{% trans "Accept" %}"/>
+				<input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
