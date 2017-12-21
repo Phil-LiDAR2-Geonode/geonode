@@ -161,7 +161,7 @@ def update_lulc(layer):
             province_list.append(r['province'].title())
             resource_list.append(r['resource'])
             muncode_list.append(str(int(r['muncode'])))
-            suc_hei_list.append(r['suc_hei'])
+            suc_hei_list.append(r['suc_hei'].replace(u'\xf1',"n"))
 
     suc_hei = u", ".join(list(set(suc_hei_list))).replace(",", " and")
 
@@ -278,6 +278,7 @@ def update_metadata(layer):
         if has_layer_changes:
             print layer.name, ': Saving layer...'
             layer.save()
+            seed_layers(layer)
         else:
             print layer.name, ': No changes to layer. Skipping...'
 
@@ -318,7 +319,6 @@ if __name__ == "__main__":
         print '#' * 40
 
         update_metadata(layer)
-        seed_layers(layer)
 
         counter += 1
         duration = datetime.now() - start_time
