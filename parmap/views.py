@@ -75,7 +75,7 @@ def rs_links_layers(request, layername):
         links = []
 
     context_dict = {
-        "facettype": facettype,
+        "facettype": "layers",
         "layername": layername,
         "links": links
     }
