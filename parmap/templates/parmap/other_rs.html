@@ -149,24 +149,26 @@
 {% endif %}
 <script type="text/javascript">
 
-$('.upload-request-file').each('click', function(){
-  console.log(this);
-})
+$(function (){
+  $('.upload-request-file').each('click', function(){
+    console.log(this);
+  })
 
-$('.resultWrapper').on('click', '.download-item', function(evt){
-  evt.preventDefault();
-  var id = $(this).data('id');
-  var urlArr = $(this).data('url').split('/');
-  var item = urlArr[urlArr.length - 1];
-  //   https://parmap-tst.dream.upd.edu.ph/parmap/other_rs/links/layers/geonode%3Aupper_disakan_3617_iv_2_lulc_1
+  $('.resultWrapper').on('click', '.download-item', function(evt){
+    evt.preventDefault();
+    var id = $(this).data('id');
+    var urlArr = $(this).data('url').split('/');
+    var item = urlArr[urlArr.length - 1];
+    //   https://parmap-tst.dream.upd.edu.ph/parmap/other_rs/links/layers/geonode%3Aupper_disakan_3617_iv_2_lulc_1
 
-  $.get('/parmap/other_rs/links/layers/' + item, function(data){
-      if(data.trim() === '') {
-          $('#request-download-'+id).modal('show');
-      }else {
-          $('.parmap-download-list-'+id).html(data);
-          $('#resource-download-'+id).modal('show');
-      }
+    $.get('/parmap/other_rs/links/layers/' + item, function(data){
+        if(data.trim() === '') {
+            $('#request-download-'+id).modal('show');
+        }else {
+            $('.parmap-download-list-'+id).html(data);
+            $('#resource-download-'+id).modal('show');
+        }
+    });
   });
 });
 </script>
