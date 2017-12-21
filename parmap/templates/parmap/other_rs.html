@@ -3,11 +3,7 @@
 {% load staticfiles %}
 {% load url from future %}
 
-{% if facettype == "layers" %}
-  {% block title %} {% trans "RS Layers" %} - {{ block.super }} {% endblock %}
-{% else %}
-  {% block title %} {% trans "RS Maps" %} - {{ block.super }} {% endblock %}
-{% endif %}
+{% block title %} RS {% facettype == "layers" ? "Layers" : "Maps" %} - {{ block.super }} {% endblock %}
 
 {% block body_class %}documents documents-list explore{% endblock %}
 
