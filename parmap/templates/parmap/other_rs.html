@@ -93,12 +93,12 @@
                                       <div class="row edit-modal">
                                         <div class="col-sm-12 text-left">
                                           <form id="data_request_form" action="{% url 'datarequest_add' %}" method="post" enctype="multipart/form-data">
-                                              <input type="hidden" name="uiid" value="{{ item.uiid }}">
+                                              <input type="hidden" name="uuid" value="{{ item.uuid }}">
                                               {% csrf_token %}
                                               <p><span style="font-style: italic">Note on the formal request letter:</span></p>
                                               <p>The letter is a signed endorsement from the head of agency, department head, academic adviser, etc. Purpose of the data, types of data requested and intended use should be specified in the letter.</p>
                                               <p>Letter should be addressed to Ariel C. Blanco, Dr. Eng., Director, Training Center for Applied Geodesy and Photogrammetry (TCAGP).</p>
-                                              <input class="upload-request-file" data-uiid="{{item.uiid}}" data-id="{{item.id}}" type="file" name="letter_file"/>
+                                              <input class="upload-request-file" data-uuid="{{item.uuid}}" data-id="{{item.id}}" type="file" name="letter_file"/>
                                               <div id="kv-error-1" style="margin-top:10px;display:none"></div>
                                               <div id="kv-success-1" class="alert alert-success " style="margin-top:10px;display:none"><ul></ul></div>
                                           </form>
@@ -151,7 +151,7 @@
 
 $(function (){
   $('.upload-request-file').each(function(){
-    var uiid = $(this).data('uiid')
+    var uuid = $(this).data('uuid')
     var itemId = $(this).data('id')
 
     $(this).fileinput({
@@ -167,7 +167,7 @@ $(function (){
         "allowedPreviewMimeTypes": ["application/pdf"],
         "browseLabel": "Select file",
         "uploadLabel": "Upload file",
-        "uploadExtraData": {"uiid":uiid},
+        "uploadExtraData": {"uuid":uuid},
         "elErrorContainer": '#kv-error-1',
         "msgFileRequired": "Please select a PDF file to upload.",
         "msgSizeTooLarge": "The file your trying to upload exceeds the maximum allowed upload size.",
