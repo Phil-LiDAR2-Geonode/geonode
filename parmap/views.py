@@ -40,9 +40,8 @@ def _resolve_layer(request, typename, permission='base.view_resourcebase',
 
 # Create your views here.
 def other_rs(request, facettype='layers'):
-    queryset = Layer.objects.distinct().filter(title__contains='3618').order_by('-date')
-    queryset.owner.all()
-
+    queryset = Layer.objects.distinct().filter(title__icontains='3618').order_by('-date')
+    
     context_dict = {
         "list": queryset,
         "facettype": facettype,
