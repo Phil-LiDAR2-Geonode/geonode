@@ -83,4 +83,10 @@ def rs_links_layers(request, layername):
     return render_to_response('parmap/rs_links.html', RequestContext(request, context_dict))
 
 def rs_links_maps(request, mapname):
+    context_dict = {
+        "facettype": "maps",
+        "layername": mapname
+    }
     
+    return render_to_response('parmap/rs_links.html', RequestContext(request, context_dict))
+
