@@ -55,7 +55,7 @@ def other_rs(request, facettype='layers'):
     
     return render_to_response('parmap/other_rs.html', RequestContext(request, context_dict))
 
-def rs_links(request, facettype, layername):
+def rs_links_layers(request, layername):
     layer = _resolve_layer(
         request,
         layername,
@@ -82,3 +82,5 @@ def rs_links(request, facettype, layername):
     
     return render_to_response('parmap/rs_links.html', RequestContext(request, context_dict))
 
+def rs_links_maps(request, mapname):
+    

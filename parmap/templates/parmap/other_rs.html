@@ -184,14 +184,12 @@ $(function (){
 
   $('.resultWrapper').on('click', '.download-item', function(evt){
     evt.preventDefault();
-    console.log(this)
     var id = $(this).data('id');
-    console.log(id);
     var urlArr = $(this).data('url').split('/');
     var item = urlArr[urlArr.length - 1];
     //   https://parmap-tst.dream.upd.edu.ph/parmap/other_rs/links/layers/geonode%3Aupper_disakan_3617_iv_2_lulc_1
 
-    $.get('/parmap/other_rs/links/layers/' + item, function(data){
+    $.get('/parmap/other_rs/links/{{facettype}}/' + item, function(data){
         if(data.trim() === '') {
             $('#request-download-'+id).modal('show');
         }else {
