@@ -37,21 +37,99 @@
                                         
                             <div class = "actions">
                               <a href = "javascript:;"><i class = "fa fa-plus-square"></i> Add to Queue</a>
-                              <a href = "javascript:;"><i class = "fa fa-download"></i>Download</a>
+                              <a href="#" data-target="#resource-download-{{ item.id }}"><i class = "fa fa-download"></i>Download</a>
                             </div>
                             <div class = "description4">
                               <p>{{item.abstract}}</p>
-                              <p>{{item.uuid}}</p>
                             </div>		
-                            <table>
-                                {% for key, value in item.items %}
-                                    <tr>
-                                        <td>{{key}}</td>
-                                        <td>{{value}}</td>
-                                    </tr>
-                                {% endfor %}
-                              </table>
-                          </li>
+
+                            <div class="modal fade" id="resource-download-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" style="width: 80%; height: 60%;">
+                                  <div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title" id="ResDownloadModalLabel">{{ item.id }} END-USER LICENSE AGREEMENT (Non-Commercial)</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="row edit-modal">
+                                        <div class="col-sm-12 text-left">
+                                          {% include "parmap_data_request/eula.html" %}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <input type="button" class="btn btn-default" data-toggle="modal" data-target="#download-layer" data-dismiss="modal" value="{% trans "Accept" %}"/>
+                                      <input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        
+                            <div class="modal fade" id="download-layer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                      <h4 class="modal-title" id="myModalLabel">{% trans "Download Layer" %}</h4>
+                                    </div>
+                                    <div class="modal-body parmap-download-list">
+                                        Download Links
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                        
+                            
+                              <div class="modal fade" id="request-download" tabindex="-1" role="dialog" aria-labelledby="ReqDownloadModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                      <h4 class="modal-title" id="ReqDownloadModalLabel">{% trans "Request Data" %}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="row edit-modal">
+                                        <div class="col-sm-12 text-left">
+                                          <form id="data_request_form" action="{% url 'datarequest_add' %}" method="post" enctype="multipart/form-data">
+                                              <input type="hidden" name="uuid" value="{{ resource.uuid }}">
+                                              {% csrf_token %}
+                                              <p><span style="font-style: italic">Note on the formal request letter:</span></p>
+                                              <p>The letter is a signed endorsement from the head of agency, department head, academic adviser, etc. Purpose of the data, types of data requested and intended use should be specified in the letter.</p>
+                                              <p>Letter should be addressed to Ariel C. Blanco, Dr. Eng., Director, Training Center for Applied Geodesy and Photogrammetry (TCAGP).</p>
+                                              <input id="upload-request-file" type="file" name="letter_file"/>
+                                              <div id="kv-error-1" style="margin-top:10px;display:none"></div>
+                                              <div id="kv-success-1" class="alert alert-success " style="margin-top:10px;display:none"><ul></ul></div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer"></div>
+                                  </div>
+                                </div>
+                              </div>
+                        
+                              <div class="modal fade" id="request-letter-upload-success" tabindex="-1" role="dialog" aria-labelledby="SuccessUploadModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                      <h4 class="modal-title">{% trans "Request Data" %}</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div class="row edit-modal">
+                                        <div class="col-sm-12 text-left">
+                                          <p>Successfully uploaded request letter</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                         {% endfor %}
                         </ul>
                     </div>
