@@ -37,7 +37,7 @@
                                         
                             <div class = "actions">
                               <a href = "javascript:;"><i class = "fa fa-plus-square"></i> Add to Queue</a>
-                              <a href="#" data-target="#resource-download-{{ item.id }}"><i class = "fa fa-download"></i>Download</a>
+                              <a href="#" class="download-item" data-url="{{item.detail_url}}" data-id="{{item.id}}"><i class = "fa fa-download"></i>Download</a>
                             </div>
                             <div class = "description4">
                               <p>{{item.abstract}}</p>
@@ -71,7 +71,7 @@
                                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                       <h4 class="modal-title" id="myModalLabel">{% trans "Download Layer" %}</h4>
                                     </div>
-                                    <div class="modal-body parmap-download-list">
+                                    <div class="modal-body parmap-download-list-{{ item.id }}">
                                         Download Links
                                     </div>
                                     <div class="modal-footer">
@@ -82,7 +82,7 @@
                               </div>
                         
                             
-                              <div class="modal fade" id="request-download" tabindex="-1" role="dialog" aria-labelledby="ReqDownloadModalLabel" aria-hidden="true">
+                              <div class="modal fade" id="request-download-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="ReqDownloadModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -148,6 +148,24 @@
   {% include "_permissions_form_js.html" %}
 {% endif %}
 <script type="text/javascript">
+
+$('.resultWrapper').on('click', '.download-item', function(evt){
+  evt.preventDefault();
+  var id = $(this).data('id');
+  var urlArr = $(this).data('url').split('/');
+  var item = urlArr[urlArr.length - 1];
+  //   https://parmap-tst.dream.upd.edu.ph/parmap/other_rs/links/layers/geonode%3Aupper_disakan_3617_iv_2_lulc_1
+
+  $.get('/parmap/other_rs/links/layers/' + item, function(data){
+      if(data.trim() === '') {
+          $('#request-download-'+id).modal('show');
+      }else {
+          $('.parmap-download-list-'+id).html(data);
+          $('#resource-download-'+id).modal('show');
+      }
+  })
+
+});
 </script>
 {% with include_spatial='true' %}
 {% include 'search/search_layer_scripts.html' %}
