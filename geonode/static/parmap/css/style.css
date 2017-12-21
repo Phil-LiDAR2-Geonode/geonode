@@ -388,6 +388,7 @@ body {
 
 .rightPanel .modal-body p {
 	text-align: left;
+	margin-left: 0px;
 }
 
 .rightMapWrapper {
