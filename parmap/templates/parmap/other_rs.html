@@ -93,7 +93,7 @@
                                       <div class="row edit-modal">
                                         <div class="col-sm-12 text-left">
                                           <form id="data_request_form" action="{% url 'datarequest_add' %}" method="post" enctype="multipart/form-data">
-                                              <input type="hidden" name="uuid" value="{{ item.uuid }}">
+                                              <input type="hidden" name="uiid" value="{{ item.uiid }}">
                                               {% csrf_token %}
                                               <p><span style="font-style: italic">Note on the formal request letter:</span></p>
                                               <p>The letter is a signed endorsement from the head of agency, department head, academic adviser, etc. Purpose of the data, types of data requested and intended use should be specified in the letter.</p>
@@ -154,7 +154,7 @@ $(function (){
     var uiid = $(this).data('uiid')
     var itemId = $(this).data('id')
 
-    $("#upload-request-file").fileinput({
+    $(this).fileinput({
         "uploadUrl": "{% url "datarequest_add" %}",
         "uploadAsync": false,
         "dropZoneEnabled": false,
@@ -167,7 +167,7 @@ $(function (){
         "allowedPreviewMimeTypes": ["application/pdf"],
         "browseLabel": "Select file",
         "uploadLabel": "Upload file",
-        "uploadExtraData": {"uuid":itemId},
+        "uploadExtraData": {"uiid":itemId},
         "elErrorContainer": '#kv-error-1',
         "msgFileRequired": "Please select a PDF file to upload.",
         "msgSizeTooLarge": "The file your trying to upload exceeds the maximum allowed upload size.",
