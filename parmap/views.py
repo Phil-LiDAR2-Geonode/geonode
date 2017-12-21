@@ -55,6 +55,16 @@ def other_rs(request, facettype='layers'):
     
     return render_to_response('parmap/other_rs.html', RequestContext(request, context_dict))
 
+
+def _resolve_document(request, docid, permission='base.change_resourcebase',
+                      msg=_PERMISSION_MSG_GENERIC, **kwargs):
+    '''
+    Resolve the document by the provided primary key and check the optional permission.
+    '''
+    return resolve_object(request, Document, {'pk': docid},
+                          permission=permission, permission_msg=msg, **kwargs)
+
+
 def rs_links_layers(request, layername):
     layer = _resolve_layer(
         request,
@@ -83,6 +93,12 @@ def rs_links_layers(request, layername):
     return render_to_response('parmap/rs_links.html', RequestContext(request, context_dict))
 
 def rs_links_maps(request, mapname):
+    document = _resolve_document(
+        request,
+        docid,
+        'base.view_resourcebase',
+        _PERMISSION_MSG_VIEW)
+
     context_dict = {
         "facettype": "maps",
         "layername": mapname

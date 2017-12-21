@@ -185,6 +185,10 @@ $(function (){
   })
 
   $('.resultWrapper').on('click', '.download-item', function(evt){
+    if ("{{facettype}}" == 'maps'){
+      console.log('Not available');
+      return false;
+    }
     evt.preventDefault();
     var id = $(this).data('id');
     var urlArr = $(this).data('url').split('/');
