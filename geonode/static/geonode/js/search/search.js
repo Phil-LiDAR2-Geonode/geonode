@@ -198,11 +198,11 @@
 
         if(typeof query_entry == 'undefined') query_entry = [];
 
-        if(typeof MAP_TYPE !== 'undefined'){
-          if(query_entry.indexOf(MAP_TYPE) < 0){
-            query_entry.push(MAP_TYPE)
-          }
-        }
+        // if(typeof MAP_TYPE !== 'undefined'){
+        //   if(query_entry.indexOf(MAP_TYPE) < 0){
+        //     query_entry.push(MAP_TYPE)
+        //   }
+        // }
 
         console.log(query_entry);
 
@@ -377,7 +377,7 @@
         return result;
       });
 
-      console.log($scope.results);
+      // console.log($scope.results);
 
       // Get filters from keywords
       filters_data.objects.forEach(processFilter);
