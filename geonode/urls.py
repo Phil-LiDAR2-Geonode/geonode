@@ -92,6 +92,8 @@ urlpatterns = patterns('',
 
                        url(r'^api_static/locations$', 'api_static.views.index'),
                        (r'^parmap/', include('parmap.urls')),
+                       (r'^spectral_library/', include('spectral_library.urls')),
+                       url(r'^page_unavailable/$', TemplateView.as_view(template_name='page_unavailable.html'), name='page_unavailable'),
 
                        # Accounts
                        # url(r'^account/ajax_login$', 'geonode.views.ajax_login',

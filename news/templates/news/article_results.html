@@ -47,7 +47,15 @@
 									<div class = "newsListImage">
 										<img src= "{{ article.image1.url }}" />
 										<div class = "newsListTitle"><a href="/news/article/{{ article.id }}/">{{ article|truncatechars:45 }}</a></div>
-										<div class = "newsListDate">{{ article.pub_date.date }}</div>
+
+										{% if article.start_date == article.end_date %}
+										<div class = "newsListDate">{{ article.start_date }}</div>
+										{% elif article.start_date.month == article.end_date.month %}
+										<div class = "newsListDate">{{ article.start_date | date:"M. j" }} - {{ article.end_date | date:"j, Y" }}</div>
+										{% else %}
+										<div class = "newsListDate">{{ article.start_date | date:"M. j" }} - {{ article.end_date | date:"M. j, Y" }}</div>
+										{% endif %}
+
 										<div class = "overlay"></div>
 									</div>
 								</div>

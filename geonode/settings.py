@@ -317,7 +317,8 @@ INSTALLED_APPS = (
     # parmap apps
     'api_static',
     'parmap',
-    'news'
+    'news',
+    'spectral_library'
 ) + GEONODE_APPS
 
 LOGGING = {

@@ -130,3 +130,4 @@ def handle_upload(request):
     # django 1.6.x
     return HttpResponse(response_data, mimetype='application/json')
     #return HttpResponseRedirect(settings.SITEURL + "documents/")
+

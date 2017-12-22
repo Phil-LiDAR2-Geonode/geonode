@@ -1,7 +1,16 @@
-#!/usr/bin/python
+#!/usr/bin/env python2
 # Geonode
 
-__version__ = "0.2"
+__version__ = "0.2.1"
+
+# Setup GeoNode environment
+import os
+import sys
+from pprint import pprint
+from os.path import abspath, dirname, join
+PROJECT_ROOT = dirname(dirname(dirname(abspath(__file__))))
+sys.path.append(join(PROJECT_ROOT, 'geonode'))
+sys.path.append(PROJECT_ROOT)
 
 import os
 from datetime import datetime
@@ -15,7 +24,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geonode.settings")
 cat = Catalog(settings.OGC_SERVER['default']['LOCATION'] + 'rest',
                   username=settings.OGC_SERVER['default']['USER'],
                   password=settings.OGC_SERVER['default']['PASSWORD'])
-layers = Layer.objects.filter(name__icontains='miruyan_3230_iv_13_parmap')
+layers = Layer.objects.filter(title__icontains='lulc')
 for layer in layers:
     try:
         gs_style = cat.get_style(layer.name)

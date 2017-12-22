@@ -45,7 +45,8 @@ body {
 }
 
 .navbar .navbar-brand img {
-	width: 100px;
+	width: 80px;
+	padding-top: 5px;
 }
 
 .navbar .nav {
@@ -59,7 +60,7 @@ body {
 }
 
 .navbar-default .navbar-nav li.signInRegister {
-	padding: 20px;
+	padding: 20px 2px;
 }
 
 .navbar-default .navbar-nav li.signInRegister a {
@@ -91,7 +92,7 @@ body {
 }
 
 .navbar-default .navbar-nav>.dropdown>a .caret {
-	color: #fff !important;
+	color: #000 !important;
 }
 
 .navbar .dropdown-menu {
@@ -409,7 +410,7 @@ body {
 
 .resultWrapper .resultTitle a {
 	border: 1px solid #aaa;
-	test-align: right;
+	text-align: right;
 	float: right;
 	font-size: 12px;
 	display: inline-block;
@@ -1533,6 +1534,23 @@ body {
 	text-decoration: none;
 }
 
+/* EULA info associated styles */
+.eula-list-text{
+	margin-left: 1em;
+}
+.eula-level-1{
+	padding-left: 1em;
+	list-style: decimal;
+}
+.eula-level-2{
+	padding-left: 2em;
+	list-style: lower-alpha;
+}
+.eula-level-3{
+	padding-left: 2em;
+	list-style: lower-roman;
+}
+
 footer {
 	border: 1px solid #aaa;
 	background: #fff;
@@ -1544,8 +1562,43 @@ footer.nav {
 }
 footer p.navbar-text {
 	float: right;
-	margiin:30px 10px;
+	margin: 20px 10px;
 }
+
+
+.spectralAttribue {
+	width: 50%;
+}
+
+.spectralAttribue td{
+	padding: 2px;
+}
+
+.spectralInfo dt{
+	float: left;
+}
+
+.spectralInfo p{
+	font-size: 14px;
+}
+
+.spectralInfo p{
+	margin-left: 100px;
+	text-align: justify;
+}
+
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url("../img/loading.gif") center no-repeat #fff;
+}
+
 .error404 {
 	border: 1px solid transparent;
 	margin:100px 0px;

@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # Geonode
 
-__version__ = "0.3.1"
+__version__ = "0.4.2"
 
 # Setup GeoNode environment
 import os
@@ -56,8 +56,8 @@ def select_by_map_no(cur, quad_name):
     # Construct query
     cur.execute('''
 SELECT mapno, quadname, city_munic, province,
-	   resource, for_upload, muncode, suc_hei
-FROM metadata_index
+	   resource, lulc_10k, muncode, suc_hei
+FROM index_metadata
 WHERE quadname = %s''', (quad_name,))
 
     # Return results
@@ -94,12 +94,12 @@ def update_style(layer, style_template):
                 gs_layer._set_default_style(gs_style)
                 cat.save(gs_layer)
 
-                print layer.name, ': Deleting old default style from geoserver...'
-                cat.delete(cur_def_gs_style)
+                #print layer.name, ': Deleting old default style from geoserver...'
+                #cat.delete(cur_def_gs_style)
 
-                print layer.name, ': Deleting old default style from geonode...'
-                gn_style = Style.objects.get(name=layer.name)
-                gn_style.delete()
+                #print layer.name, ': Deleting old default style from geonode...'
+                #gn_style = Style.objects.get(name=layer.name)
+                #gn_style.delete()
 
     except Exception:
         print layer.name, ': Error setting style!'
@@ -133,7 +133,11 @@ def update_layer_perms(layer):
 def update_lulc(layer):
 
     # Get quad name
-    quad_name = layer.name.replace("_lulc", "").upper()
+    # quad_name = layer.name.replace("_lulc", "").upper()
+    ctr = ""
+    quad_name = layer.name.split("_lulc")[0].upper()
+    if "_lulc_" in layer.name:
+        ctr = layer.name.split("_lulc_")[1]
     print layer.name, ': quad name:', quad_name
 
     # Connect to db
@@ -151,12 +155,12 @@ def update_lulc(layer):
     # Iterating through each result
     for r in results:
         # Check if muni is for uploading
-        if r['for_upload'] == "Y":
+        if r['lulc_10k'] == 1:
             mapno = r['mapno']
-            city_munic_list.append(r['city_munic'])
-            province_list.append(r['province'])
+            city_munic_list.append(r['city_munic'].title())
+            province_list.append(r['province'].title())
             resource_list.append(r['resource'])
-            muncode_list.append(r['muncode'])
+            muncode_list.append(str(int(r['muncode'])))
             suc_hei_list.append(r['suc_hei'])
 
     suc_hei = u", ".join(list(set(suc_hei_list))).replace(",", " and")
@@ -174,7 +178,10 @@ def update_lulc(layer):
         landcover = "AGRICOASTLANDCOVER"
         landcover_title = "Agricultural And Coastal Land Cover Map"
 
-    layer_title = str(mapno) + " " + landcover_title
+    if "_lulc_" in layer.name:
+        layer_title = str(mapno) + " " + landcover_title + " " + ctr
+    else:
+        layer_title = str(mapno) + " " + landcover_title
     print layer.name, ': layer_title:', layer_title
 
     # abstract
@@ -183,38 +190,37 @@ def update_lulc(layer):
         purpose_landcover = "Integrated Agricultural and Coastal Land Cover Maps"
         resources_landcover = "resources"
         keywords_list.extend(["PARMap", "Agriculture", "CoastMap", "Mangrove", "Aquaculture",
-                              "Landcover", "Phil-LiDAR 2"])
+                              "Landcover", "Phil-LiDAR 2", "LULC"])
     else:
         abstract_landcover = "Land Cover Map of Agricultural Resources."
         purpose_landcover = "Detailed Agricultural Land Cover Maps"
         resources_landcover = "agricultural resources"
         keywords_list.extend(
-            ["PARMap", "Agriculture", "Landcover", "Phil-LiDAR 2"])
+            ["PARMap", "Agriculture", "Landcover", "Phil-LiDAR 2", "LULC"])
 
     # check if processed by UPD
     if len(list(set(suc_hei_list))) == 1 and list(set(suc_hei_list))[0] == "University of the Philippines Diliman":
         layer_abstract = """Maps prepared by University of the Philippines Training Center for Applied Geodesy and Photogrammetry (Phil-LiDAR 2 Program A Project 1). The use of the datasets provided herewith are covered by End Users License Agreement (EULA). Shapefiles include initial {0}
 
-Note: Datasets subject to updating. Maps show land cover on date of data acquisition and may not reflect present land cover.
+Notice: Datasets subject to updating. Maps show land cover on date of data acquisition and may not reflect present land cover.
 
 Major Source of Information: LiDAR Datasets from DREAM/Phil-LiDAR 1 Program
 
-Accuracy and Limitations: The accuracy of the delivered Products/ouputs are dependent on the source datasets, and limitations of the software and algorithms used and implemented procedures. The Products are provided "as is" without any warranty of any kind, expressed or implied. Phil-LiDAR 2 Program does not warrant that the Products will meet the needs or expectations of the end users, or that the operations or use of the Products will be error free.""".format(abstract_landcover)
+Accuracy and Limitations: The accuracy of the delivered products/outputs are dependent on the source datasets, software limitations, algorithms, and procedures used. The products are provided "as is" without warranty of any kind, expressed, or implied. Phil-LiDAR 2 Program does not warrant that the products will meet the needs or expectations of the end users, or that the operations or use of the products will be error-free.""".format(abstract_landcover)
 
     else:
-        layer_abstract = """Maps prepared by {0} (Phil-LiDAR 2 Program B) and reviewed by University of the Philippines Training Center for Applied Geodesy and Photogrammetry (Phil-LiDAR 2 Program A Project 1). The use of the datasets provided herewith are covered by End Users License Agreement (EULA). Shapefiles include initial {1}
+        layer_abstract = """Maps prepared by {0} (Phil-LiDAR 2 Program B) and reviewed by the University of the Philippines Training Center for Applied Geodesy and Photogrammetry (Phil-LiDAR 2 Program A Project 1). The use of the datasets provided herewith are covered by End Users License Agreement (EULA). Shapefiles include initial {1}
 
-Note: Datasets subject to updating. Maps show land cover on date of data acquisition and may not reflect present land cover.
+Notice: Datasets subject to updating. Maps show land cover on date of data acquisition and may not reflect present land cover.
 
 Major Source of Information: LiDAR Datasets from DREAM/Phil-LiDAR 1 Program
 
-Accuracy and Limitations: The accuracy of the delivered Products/ouputs are dependent on the source datasets, and limitations of the software and algorithms used and implemented procedures. The Products are provided "as is" without any warranty of any kind, expressed or implied. Phil-LiDAR 2 Program does not warrant that the Products will meet the needs or expectations of the end users, or that the operations or use of the Products will be error free.""".format(suc_hei, abstract_landcover)
+Accuracy and Limitations: The accuracy of the delivered products/outputs are dependent on the source datasets, software limitations, algorithms, and procedures used. The products are provided "as is" without warranty of any kind, expressed, or implied. Phil-LiDAR 2 Program does not warrant that the products will meet the needs or expectations of the end users, or that the operations or use of the products will be error-free.""".format(suc_hei, abstract_landcover)
 
     print layer.name, ': layer_abstract:', layer_abstract
 
     # purpose
-    layer_purpose = "{0} are needed by Government Agencies and Local Government Units for planning and decision making. This complements on-going programs of the Department of Agriculture by utilizing LiDAR data for the mapping of {1} and vulnerability assessment.".format(
-        purpose_landcover, resources_landcover)
+    layer_purpose = "{0} are effective planning and decision-making tools for government agencies and local government units. It also complements ongoing programs of the Department of Agriculture on mapping of {1} and assessing vulnerability.".format(purpose_landcover, resources_landcover)
 
     print layer.name, ': layer_purpose:', layer_purpose
 
@@ -233,12 +239,12 @@ Accuracy and Limitations: The accuracy of the delivered Products/ouputs are depe
         has_layer_changes = True
         layer.purpose = layer_purpose
 
-    for keyword in keywords_list:
-        if keyword not in layer.keyword_list():
-            print layer.name, ': layer_keyword:', keyword
-            print layer.name, ': Adding keyword...'
-            layer.keywords.add(keyword)
-            has_layer_changes = True
+    layer.keywords.clear()
+    for keyword in sorted(keywords_list):
+        print layer.name, ': layer_keyword:', keyword
+        print layer.name, ': Adding keyword...'
+        layer.keywords.add(keyword)
+        has_layer_changes = True
 
     if layer.category != TopicCategory.objects.get(identifier="imageryBaseMapsEarthCover"):
         print layer.name, ': Setting layer.category...'
@@ -283,7 +289,7 @@ def update_metadata(layer):
 
 if __name__ == "__main__":
 
-    layers = Layer.objects.filter(title__icontains='Lulc')
+    layers = Layer.objects.filter(title__icontains='lulc')
 
     total = len(layers)
     print 'Updating', total, 'layers!'

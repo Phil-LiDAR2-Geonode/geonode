@@ -1,0 +1,10 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+{% block title %} {% trans "Page Under Construction" %} — {{ block.super }} {% endblock %}
+
+{% block body_outer %}
+
+<img src = "{{ STATIC_URL }}parmap/img/under_construction.png" width="100%">
+
+{% endblock %}
