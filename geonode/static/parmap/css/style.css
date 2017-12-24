@@ -45,8 +45,7 @@ body {
 }
 
 .navbar .navbar-brand img {
-	width: 80px;
-	padding-top: 5px;
+	width: 100px;
 }
 
 .navbar .nav {
@@ -60,7 +59,7 @@ body {
 }
 
 .navbar-default .navbar-nav li.signInRegister {
-	padding: 20px 2px;
+	padding: 20px;
 }
 
 .navbar-default .navbar-nav li.signInRegister a {
@@ -92,7 +91,7 @@ body {
 }
 
 .navbar-default .navbar-nav>.dropdown>a .caret {
-	color: #000 !important;
+	color: #fff !important;
 }
 
 .navbar .dropdown-menu {
@@ -388,8 +387,9 @@ body {
 }
 
 .rightPanel .modal-body p {
-	text-align: left;
-	margin-left: 0px;
+    text-align: left;
+    font-size: 14px;
+    margin: 0 0 10px;
 }
 
 .rightMapWrapper {
@@ -434,10 +434,15 @@ body {
 	margin-bottom: 20px;
 }
 
+.resultWrapper h4.modal-title {
+	font-size: 18px;
+}
+
 .resultWrapper .modal-body ul li,
 .resultWrapper .modal-body ol li {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
+    overflow: inherit;
 }
 
 .resultWrapper ul li .resultImgWrapper {
@@ -1562,7 +1567,7 @@ footer.nav {
 }
 footer p.navbar-text {
 	float: right;
-	margin: 20px 10px;
+	margiin:30px 10px;
 }
 
 
