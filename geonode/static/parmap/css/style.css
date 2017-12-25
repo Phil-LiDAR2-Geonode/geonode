@@ -45,7 +45,8 @@ body {
 }
 
 .navbar .navbar-brand img {
-	width: 100px;
+	width: 80px;
+	padding-top: 5px;
 }
 
 .navbar .nav {
@@ -59,7 +60,7 @@ body {
 }
 
 .navbar-default .navbar-nav li.signInRegister {
-	padding: 20px;
+	padding: 20px 2px;
 }
 
 .navbar-default .navbar-nav li.signInRegister a {
@@ -387,7 +388,7 @@ body {
 }
 
 .rightPanel .modal-body p {
-    text-align: left;
+	text-align: left;
     font-size: 14px;
     margin: 0 0 10px;
 }
@@ -1567,7 +1568,7 @@ footer.nav {
 }
 footer p.navbar-text {
 	float: right;
-	margiin:30px 10px;
+	margin: 20px 10px;
 }
 
 
