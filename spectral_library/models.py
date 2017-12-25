@@ -4,14 +4,15 @@ from geonode.people.models import Profile
 
 class Target(models.Model):
     site_id = models.CharField("Site ID", max_length=200, blank=True)
-    datetime_acquired = models.DateTimeField(blank=True)
+    date_acquired = models.DateField("Date", blank=True)
     purpose = models.CharField(max_length=200, blank=True)
     observer = models.CharField(max_length=200, blank=True)
+    time_acquired = models.TimeField("Time", blank=True)
     waypoint = models.CharField(max_length=200, blank=True)
     latitude = models.CharField(max_length=200, blank=True)
     longitude = models.CharField(max_length=200, blank=True)
     altitude = models.CharField(max_length=50, blank=True)
-    gps_unit = models.CharField(max_length=200, blank=True)
+    gps_unit = models.CharField("GPS Unit", max_length=200, blank=True)
     province = models.CharField(max_length=200, blank=True)
     city_municipality = models.CharField("City/Municipality",max_length=200, blank=True)
     barangay = models.CharField(max_length=200, blank=True)
@@ -25,6 +26,8 @@ class Target(models.Model):
     sensor = models.CharField(max_length=200, blank=True)
     instrument = models.CharField(max_length=200, blank=True)
     fiber_optic_cable_length = models.CharField(max_length=50, blank=True)
+    reflectance = models.BooleanField()
+    digital_numbers = models.BooleanField()
     cloud_cover = models.CharField(max_length=200, blank=True)
     file_format = models.CharField(max_length=50, blank=True)
     target_irradiance_1 = models.CharField(max_length=200, blank=True)
@@ -39,6 +42,7 @@ class Target(models.Model):
     leaf_canopy = models.CharField("Leaf/Canopy", max_length=200, blank=True)
     ground_canopy_distance = models.CharField(max_length=50, blank=True)
     phenologic_stage = models.CharField(max_length=200, blank=True)
+    presence_of_irrigation = models.BooleanField()
     background = models.CharField("Background (soil/other)", max_length=200, blank=True)
     soil_type = models.CharField("Soil type/color", max_length=200, blank=True)
 
@@ -46,20 +50,17 @@ class Target(models.Model):
     graph = models.FileField(upload_to="spectral_graph/", blank=True)
     image = models.FileField(upload_to="spectral_image/", blank=True)
 
-    reflectance = models.BooleanField()
-    digital_numbers = models.BooleanField()
-    presence_of_irrigation = models.BooleanField()
-
     title = models.CharField(max_length=200, editable=False)
 
     def __unicode__(self):
         return self.title
 
     def save(self):
+        sample_num = self.target_file.name[-8:][:1]
         if self.phenologic_stage == "":
-            self.title = "{0} from {1} Spectral Signature".format(self.common_name, self.province)
+            self.title = "{0} from {1} Spectral Signature Sample {2}".format(self.common_name, self.province, sample_num)
         else:
-            self.title = "{0} {1} Stage from {2} Spectral Signature".format(self.common_name, self.phenologic_stage, self.province)
+            self.title = "{0} {1} Stage from {2} Spectral Signature Sample {3}".format(self.common_name, self.phenologic_stage, self.province, sample_num)
         super(Target, self).save()
 
 class Queue(models.Model):
@@ -69,7 +70,6 @@ class Queue(models.Model):
     STATUS_CHOICES = (
         ('ADDED TO QUEUE', 'Added to queue'),
         ('DOWNLOADED', 'Downloaded'),
-        ('REMOVED', 'Removed from queue')
     )
     status = models.CharField(
         max_length=20,
