@@ -1,0 +1,451 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {% trans "Spectral Library" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block body %}
+<div class = "landCoverTitleWrapper">
+	<div class = "container">
+		<a href = "javascript:;" class = "pull-right scrollToTop">back to top</a>
+		<div class = "landCoverTitle">Spectral Library</div>
+	</div>
+</div>
+
+<div class = "section firstChild backToTop">
+	<div class = "container">
+		<div class = "row">
+      <div class = "col-sm-3 filterWrapper">
+
+        <div class = "filterHeader">
+          <span>Filters</span>
+          <a href = "javascript:;" onclick = "clearSelection()" class = "pull-right">Clear</a>
+        </div>
+
+        <div class = "filterForm">
+          <label>TARGET</label>
+          <select id = "target_option" class = "form-control" onchange="enableSearch()">
+
+            {% if target_results %}
+              <option disabled value = "Null"> -- select a target -- </option>
+            {% else %}
+            <option disabled selected value = "Null"> -- select a target -- </option>
+            {% endif %}
+
+            <option value="All">ALL</option>
+            {% for target in target_list %}
+              {% if target_type == target.common_name %}
+                <option value="{{ target.common_name }}" selected id="selected_target">{{ target.common_name }}</option>
+              {% else %}
+                <option value="{{ target.common_name }}">{{ target.common_name }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+
+          <label>PROVINCE</label>
+          <select id = "prov_option" class = "form-control" onchange="enableSearch()">
+
+            {% if target_results %}
+              <option disabled value = "Null"> -- select a province -- </option>
+              <option value="All" selected>ALL</option>
+            {% else %}
+            <option disabled selected value = "Null"> -- select a province -- </option>
+            <option value="All">ALL</option>
+            {% endif %}
+
+            {% for prov in prov_list %}
+              {% if prov_name == prov.province %}
+                <option value="{{ prov.province }}" selected="selected">{{ prov.province }}</option>
+              {% else %}
+              <option value="{{ prov.province }}">{{ prov.province }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+					{% if target_results %}
+						<button class = "btn pull-right" id = "search" onclick = "searchTargetFunction()">Search</button>
+					{% else %}
+						<button class = "btn pull-right" id = "search" onclick = "searchTargetFunction()" disabled>Search</button>
+					{% endif %}
+          <div class = "clearfix"></div><br>
+					{% if user.is_authenticated %}
+						{% if queue_list %}
+							<a href="/spectral_library/browse_queue/null/null"><button class = "btn pull-right">Browse queue</button></a>
+						{% else %}
+							<a href="/spectral_library/browse_queue/null/null"><button class = "btn pull-right" disabled>Browse queue</button></a>
+						{% endif %}
+					{% else %}
+					<button class = "btn pull-right" onclick = "" disabled>Browse queue</button>
+					{% endif %}
+        </div>
+
+      </div>
+
+			<div class = "col-sm-9 rightPanel">
+				<div class = "cropDetailsWrapper">
+					<div class = "cropName" style="padding-bottom:20px">{{ target }}</div>
+					<div class = "cropImg">
+						<img src = "{{ target.graph.url }}"/>
+						<img src = "{{ target.image.url }}"/>
+					</div>
+					<div class = "cropActions" style="padding-bottom:20px">
+						{% if user.is_authenticated %}
+							{% if target.title in queue_list|join:", " %}
+							<i class = "fa fa-check-square" style="color: rgba(85, 85, 85, 0.34)" id = "queue_icon{{ target.id }}"></i>
+								<a href = "#" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)" id = "queue_link{{ target.id }}" onclick="changeQueue({{ target.id }})" class="queueAdded" name="{{ target.id }}">added</a>
+							{% else %}
+								<i class = "fa fa-plus-square" style = "color: #12650b" id = "queue_icon{{ target.id }}"></i>
+								<a href = "javascript:;" id = "queue_link{{ target.id }}" onclick="updateQueue({{ target.id }})" class="queueRemoved" name="{{ target.id }}">add to queue</a>
+							{% endif %}
+
+							<i class = "fa fa-download" style = "color: #12650b"></i>
+							<a href = "#resource-download" data-toggle = "modal">download</a>
+						{% else %}
+							<a href = "javascript:;" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-plus-square" style = "color: rgba(85, 85, 85, 0.34)"></i>add to queue</a>
+							<a href = "#resource-download" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-download" style = "color: rgba(85, 85, 85, 0.34)"></i>download</a>
+						{% endif %}
+						<div class="modal fade" id="download-layer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										<h4 class="modal-title" id="myModalLabel">{% trans "Download Data" %}</h4>
+									</div>
+									<div class="modal-body">
+										<a href = "/uploaded/{{ target.target_file }}" style="font-size: 14px">Zip Archive</a>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#info" data-toggle="tab"><i class="fa fa-info-circle"></i> Info</a></li>
+						<li><a href="#attributes" data-toggle="tab"><i class="fa fa-bars"></i> Attributes</a></li>
+					</ul>
+					<div class="tab-content">
+						<article class="description tab-pane active" id="info">
+							<dl class="spectralInfo">
+								<dt>Abstract</dt>
+								<dd><p>Spectral signatures and associated metadata prepared by Phil-LiDAR 2 Program (coordinating SUCs/HEIs and the University of the Philippines Training Center for Applied Geodesy and Photogrammetry). The use of the datasets provided herewith are covered by End Users License Agreement (EULA). Compressed .zip files contain Excel files of spectral signatures and the corresponding metadata.</p></dd>
+
+								<dt>Purpose</dt>
+								<dd><p>Spectral signatures of agricultural resources are useful in precision agriculture applications including, but not limited to, crop health assessment, remotely-sensed imagery classification, and sensor calibration.</p></dd>
+
+								<dt>Accuracy<br/> and<br/> Limitations</dt>
+								<dd><p>The accuracy of the delivered products/outputs are dependent on the source datasets, software limitations, algorithms, and procedures used. The products are provided “as is” without warranty of any kind, expressed, or implied. Phil-LiDAR 2 Program does not warrant that the products will meet the needs or expectations of the end users, or that the operations or use of the products will be error-free.</p><dd>
+
+								<dt>Notice</dt>
+								<dd><p>Spectral signatures are derived and processed datasets acquired from field campaigns. Raw data are available upon request.</p><dd>
+
+								<dt>Major Source<br/> of Information<dt>
+								<dd><p>Field spectroscopy campaigns using hand-held spectroradiometers</p>
+							</dl>
+						</article>
+						<article id="attributes" class="tab-pane">
+							<table class="spectralAttribue">
+								<tr>
+									{% if target.site_id %}
+									<td>Site ID</td>
+									<td>{{ target.site_id }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.datetime_acquired %}
+									<td>Date</td>
+									<td>{{ target.datetime_acquired | date:"n/j/y" }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.datetime_acquired %}
+									<td>Time</td>
+									<td>{{ target.datetime_acquired | time:"g:i A"}}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.purpose %}
+									<td>Purpose</td>
+									<td>{{ target.purpose }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.observer %}
+									<td>Observer</td>
+									<td>{{ target.observer }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.waypoint %}
+									<td>Waypoint</td>
+									<td>{{ target.waypoint }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.latitude %}
+									<td>Latitude</td>
+									<td>{{ target.latitude }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.longitude %}
+									<td>Longitude</td>
+									<td>{{ target.longitude }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.altitude %}
+									<td>Altitude</td>
+									<td>{{ target.altitude }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.gps_unit %}
+									<td>GPS Unit</td>
+									<td>{{ target.gps_unit }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.province %}
+									<td>Province</td>
+									<td>{{ target.province }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.city_municipality %}
+									<td>City/Municipality</td>
+									<td>{{ target.city_municipality }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.barangay %}
+									<td>Barangay</td>
+									<td>{{ target.barangay }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.land_cover_class %}
+									<td>Land Cover Class</td>
+									<td>{{ target.land_cover_class }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.land_cover_type %}
+									<td>Land Cover Type</td>
+									<td>{{ target.land_cover_type }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.spectrum %}
+									<td>Spectrum/Target Name</td>
+									<td>{{ target.spectrum }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.target_homogeneity %}
+									<td>Target Homogeneity</td>
+									<td>{{ target.target_homogeneity }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.pictures_file_name %}
+									<td>Pictures File Name</td>
+									<td>{{ target.pictures_file_name }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.num_of_spectra %}
+									<td>No. of Spectral/Sample</td>
+									<td>{{ target.num_of_spectra }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.white_reference %}
+									<td>White Reference</td>
+									<td>{{ target.white_reference }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.sensor %}
+									<td>Sensor</td>
+									<td>{{ target.sensor }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.instrument %}
+									<td>Instrument</td>
+									<td>{{ target.instrument }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.fiber_optic_cable_length %}
+									<td>Fiber Optic Cable Length</td>
+									<td>{{ target.fiber_optic_cable_length }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									<td>Reflectance</td>
+									<td>{{ target.reflectance }}</td>
+								</tr>
+
+								<tr>
+									<td>Digital Numbers</td>
+									<td>{{ target.digital_numbers }}</td>
+								</tr>
+
+								<tr>
+									{% if target.cloud_cover %}
+									<td>Cloud Cover</td>
+									<td>{{ target.cloud_cover }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.file_format %}
+									<td>File Format</td>
+									<td>{{ target.file_format }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.target_irradiance_1 %}
+									<td>Target Irradiance 1</td>
+									<td>{{ target.target_irradiance_1 }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.target_irradiance_2 %}
+									<td>Target Irradiance 2</td>
+									<td>{{ target.target_irradiance_2 }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.target_irradiance_3 %}
+									<td>Target Irradiance 3</td>
+									<td>{{ target.target_irradiance_3 }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.white_reference_file_names %}
+									<td>White Reference File Names</td>
+									<td>{{ target.white_reference_file_names }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.common_name %}
+									<td>Common Name</td>
+									<td>{{ target.common_name }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.scientific_name %}
+									<td>Scientific Name</td>
+									<td><i>{{ target.scientific_name }}</i></td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.leaf_canopy %}
+									<td>Leaf/Canopy</td>
+									<td>{{ target.leaf_canopy }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.ground_canopy_distance %}
+									<td>Ground to Canopy Distance</td>
+									<td>{{ target.ground_canopy_distance }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.phenologic_stage %}
+									<td>Phenologic Stage</td>
+									<td>{{ target.phenologic_stage }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									<td>Presence of Irrigation</td>
+									<td>{{ target.presence_of_irrigation }}</td>
+								</tr>
+
+								<tr>
+									{% if target.background %}
+									<td>Background (soil/other)</td>
+									<td>{{ target.background }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.soil_type %}
+									<td>Soil Type/Color</td>
+									<td>{{ target.purpose }}</td>
+									{% endif %}
+								</tr>
+
+							</table>
+						<article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="resource-download" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
+	<div class="modal-dialog" style="width: 80%; height: 60%;">
+		<div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
+			<div class="modal-header">
+				{% comment %}
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				{% endcomment %}
+				<h4 class="modal-title" id="ResDownloadModalLabel">END-USER LICENSE AGREEMENT (Non-Commercial)</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row edit-modal">
+					<div class="col-sm-12 text-left">
+						{% include "parmap_data_request/eula.html" %}
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<input type="button" class="btn btn-default" data-toggle="modal" data-target="#download-layer" data-dismiss="modal" value="{% trans "Accept" %}"/>
+				<input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

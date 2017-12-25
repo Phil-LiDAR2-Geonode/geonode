@@ -89,8 +89,9 @@ urlpatterns = patterns('',
                         # @todo follow PEP 8 style guide on this file
                        (r'^datarequest/', include('parmap_data_request.urls')),
                        (r'^news/', include('news.urls')),
+                       (r'^spectral_library/', include('spectral_library.urls')),
                        url(r'^page_unavailable/$', TemplateView.as_view(template_name='page_unavailable.html'), name='page_unavailable'),
-                       
+
                        # Accounts
                        # url(r'^account/ajax_login$', 'geonode.views.ajax_login',
                        #     name='account_ajax_login'),

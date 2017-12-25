@@ -313,7 +313,8 @@ INSTALLED_APPS = (
 
     # data request management
     'parmap_data_request',
-    'news'
+    'news',
+    'spectral_library'
 ) + GEONODE_APPS
 
 LOGGING = {

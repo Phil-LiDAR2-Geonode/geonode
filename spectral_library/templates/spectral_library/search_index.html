@@ -1,0 +1,35 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {% trans "Spectral Library" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block body %}
+
+<div class = "section firstChild">
+	<div class = "container">
+		<div class = "spectralWrapper">
+			<center><img src = "{{ STATIC_URL }}parmap/img/page-home/GIFs/Spectro.gif"></center>
+
+			<datalist id="targetList">
+				{% for target in target_list %}
+				<option value="{{ target.common_name }}" />
+				{% endfor %}
+			</datalist>
+
+			<div class = "spectralTitle">PARMap Spectral Library</div>
+			<div class = "spectralSubTitle">The PARMap Spectral Library is the first-ever publicly available digital collection of spectral signatures of Philippine agricultural crops and other related features.</div>
+			<div class = "spectralForm">
+				<label>Search for specific crop/object here</label>
+  				<input type = "text" name = "textfield" class = "form-control" id = "target_search" list="targetList">
+
+  				<button class = "btn searchSpectral" onclick="searchFunction()">Search Crop/Object</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
