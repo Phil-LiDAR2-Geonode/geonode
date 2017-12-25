@@ -44,7 +44,7 @@ def other_rs(request, facettype='layers'):
     if(facettype == 'layers'):
         queryset = Layer.objects.distinct().filter(typename__icontains='parmap').order_by('-date')[:5]
     else:
-        queryset = Document.objects.distinct().filter(typename__icontains='parmap').order_by('-date')[:5]
+        queryset = Document.objects.distinct().filter(title__icontains='Land Cover Map').order_by('-date')[:5]
 
 
     context_dict = {
@@ -74,7 +74,7 @@ def rs_links_layers(request, layername):
 
     config = layer.attribute_config()
     
-    if request.user.has_perm('download_resourcebase', layer.get_self_resource()):
+    if request.user.is_authenticated():
         if layer.storeType == 'dataStore':
             links = layer.link_set.download().filter(
                 name__in=settings.DOWNLOAD_FORMATS_VECTOR)
@@ -91,18 +91,3 @@ def rs_links_layers(request, layername):
     }
     
     return render_to_response('parmap/rs_links.html', RequestContext(request, context_dict))
-
-def rs_links_maps(request, mapname):
-    document = _resolve_document(
-        request,
-        mapname,
-        'base.view_resourcebase',
-        _PERMISSION_MSG_VIEW)
-
-    context_dict = {
-        "facettype": "maps",
-        "layername": mapname
-    }
-    
-    return render_to_response('parmap/rs_links.html', RequestContext(request, context_dict))
-
