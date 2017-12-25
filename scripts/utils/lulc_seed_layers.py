@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # Geonode
 
-__version__ = "0.2.3"
+__version__ = "0.2.4"
 
 # Setup GeoNode environment
 import os
@@ -46,10 +46,8 @@ def seed_layers(layer):
 
 if __name__ == "__main__":
 
-	# Get lulc layers uploaded within the past 2 days
-	lastday = datetime.now() - timedelta(days=5)
-	layers = Layer.objects.filter(Q(name__iregex=r'lulc') & Q(upload_session__date__gte=lastday))
-
+	layers = Layer.objects.filter(title__icontains='Land Cover Map')
+	print layers
 	total = len(layers)
 	print 'Updating', total, 'layers!'
 

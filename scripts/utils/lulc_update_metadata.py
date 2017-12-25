@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # Geonode
 
-__version__ = "0.4.2"
+__version__ = "0.5"
 
 # Setup GeoNode environment
 import os
@@ -161,7 +161,7 @@ def update_lulc(layer):
             province_list.append(r['province'].title())
             resource_list.append(r['resource'])
             muncode_list.append(str(int(r['muncode'])))
-            suc_hei_list.append(r['suc_hei'])
+            suc_hei_list.append(r['suc_hei'].replace(u'\xf1',"n"))
 
     suc_hei = u", ".join(list(set(suc_hei_list))).replace(",", " and")
 
@@ -172,10 +172,10 @@ def update_lulc(layer):
     keywords_list.extend(list(set(suc_hei_list)))
 
     # Check landcover type
-    landcover = "AGRILANDCOVER"
+    landcover = "Agricultural"
     landcover_title = "Agricultural Land Cover Map"
-    if "Agricultural And Coastal" in resource_list:
-        landcover = "AGRICOASTLANDCOVER"
+    if "Agricultural and Coastal" in resource_list:
+        landcover = "Agricultural and Coastal"
         landcover_title = "Agricultural And Coastal Land Cover Map"
 
     if "_lulc_" in layer.name:
@@ -185,7 +185,7 @@ def update_lulc(layer):
     print layer.name, ': layer_title:', layer_title
 
     # abstract
-    if landcover == "AGRICOASTLANDCOVER":
+    if landcover == "Agricultural and Coastal":
         abstract_landcover = "Land Cover Map of Agricultural Resources integrated with Coastal Resources."
         purpose_landcover = "Integrated Agricultural and Coastal Land Cover Maps"
         resources_landcover = "resources"
@@ -239,12 +239,12 @@ Accuracy and Limitations: The accuracy of the delivered products/outputs are dep
         has_layer_changes = True
         layer.purpose = layer_purpose
 
-    layer.keywords.clear()
-    for keyword in sorted(keywords_list):
-        print layer.name, ': layer_keyword:', keyword
-        print layer.name, ': Adding keyword...'
-        layer.keywords.add(keyword)
-        has_layer_changes = True
+    for keyword in (keywords_list):
+        if keyword not in layer.keyword_list():
+            print layer.name, ': layer_keyword:', keyword
+            print layer.name, ': Adding keyword...'
+            layer.keywords.add(keyword)
+            has_layer_changes = True
 
     if layer.category != TopicCategory.objects.get(identifier="imageryBaseMapsEarthCover"):
         print layer.name, ': Setting layer.category...'
@@ -278,6 +278,7 @@ def update_metadata(layer):
         if has_layer_changes:
             print layer.name, ': Saving layer...'
             layer.save()
+            seed_layers(layer)
         else:
             print layer.name, ': No changes to layer. Skipping...'
 
@@ -286,6 +287,23 @@ def update_metadata(layer):
         traceback.print_exc()
 
     return has_layer_changes
+
+def seed_layers(layer):
+	try:
+			out = subprocess.check_output(['/home/geonode/geonode/' + '/gwc.sh', 'seed',
+																		 '{0}:{1}'.format(
+																				 layer.workspace, layer.name), 'EPSG:900913', '-v', '-a',
+																		 settings.OGC_SERVER['default']['USER'] + ':' +
+																		 settings.OGC_SERVER['default'][
+																				 'PASSWORD'], '-u',
+																		 settings.OGC_SERVER['default']['LOCATION'] + 'gwc/rest'],
+																		stderr=subprocess.STDOUT)
+			print out
+	except subprocess.CalledProcessError as e:
+			print 'Error seeding layer:', layer
+			print 'e.returncode:', e.returncode
+			print 'e.cmd:', e.cmd
+			print 'e.output:', e.output
 
 if __name__ == "__main__":
 

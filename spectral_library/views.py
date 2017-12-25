@@ -28,11 +28,11 @@ def filter_by_target(request, target_type, prov):
         queue_list = None
 
     if target_type == "all" and prov != "all":
-        target_results = Target.objects.filter(province=prov.title().replace(" Del", " del")).order_by('-common_name')
+        target_results = Target.objects.filter(province=prov.title()).order_by('-common_name')
     elif target_type != "all" and prov == "all":
         target_results = Target.objects.filter(common_name=target_type.title()).order_by('-province')
     elif target_type != "all" and prov != "all":
-        target_results =  Target.objects.filter(common_name=target_type.title()).filter(province=prov.title().replace(" Del", " del")).order_by('-common_name').order_by('-province')
+        target_results =  Target.objects.filter(common_name=target_type.title()).filter(province=prov.title()).order_by('-common_name').order_by('-province')
     else:
         target_results = Target.objects.order_by('common_name')
 
@@ -41,7 +41,7 @@ def filter_by_target(request, target_type, prov):
         'prov_list': prov_list,
         'target_results': target_results,
         'target_type': target_type.title(),
-        'prov_name': prov.title().replace(" Del", " del"),
+        'prov_name': prov.title(),
         'queue_list': queue_list,
         }))
 
@@ -83,29 +83,19 @@ def remove_from_queue(request, target_id):
     target = Target.objects.get(pk=target_id)
     q = Queue.objects.filter(profile_id=user.id, target_id=target.id)
     q.delete()
-    return redirect(browse_queue, target_type='null', prov='null')
+    return redirect(browse_queue)
 
-def browse_queue(request, target_type, prov):
+def browse_queue(request):
+    targets = Target.objects.order_by('common_name')
     target_list = Target.objects.order_by('common_name').distinct('common_name')
     prov_list = Target.objects.order_by('province').distinct('province')
     user = Profile.objects.get(username=request.user.username)
     queue_list = Queue.objects.filter(profile=user).order_by('target')
 
-    if target_type == "all" and prov != "all":
-        target_results = Target.objects.filter(province=prov.title().replace(" Del", " del")).order_by('-common_name')
-    elif target_type != "all" and prov == "all":
-        target_results = Target.objects.filter(common_name=target_type.title()).order_by('-province')
-    elif target_type != "all" and prov != "all":
-        target_results =  Target.objects.filter(common_name=target_type.title()).filter(province=prov.title().replace(" Del", " del")).order_by('-common_name').order_by('-province')
-    else:
-        target_results = Target.objects.order_by('common_name')
-
     return render_to_response('spectral_library/browse_queue.html',RequestContext(request, {
+        'targets': targets,
         'target_list': target_list,
         'prov_list': prov_list,
-        'target_results': target_results,
-        'target_type': target_type.title(),
-        'prov_name': prov.title().replace(" Del", " del"),
         'queue_list': queue_list,
         }))
 

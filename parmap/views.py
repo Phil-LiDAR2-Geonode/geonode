@@ -95,7 +95,7 @@ def rs_links_layers(request, layername):
 def rs_links_maps(request, mapname):
     document = _resolve_document(
         request,
-        docid,
+        mapname,
         'base.view_resourcebase',
         _PERMISSION_MSG_VIEW)
 
