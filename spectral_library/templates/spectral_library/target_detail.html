@@ -72,9 +72,9 @@
           <div class = "clearfix"></div><br>
 					{% if user.is_authenticated %}
 						{% if queue_list %}
-							<a href="/spectral_library/browse_queue/null/null"><button class = "btn pull-right">Browse queue</button></a>
+							<a href="/spectral_library/browse_queue/"><button class = "btn pull-right">Browse queue</button></a>
 						{% else %}
-							<a href="/spectral_library/browse_queue/null/null"><button class = "btn pull-right" disabled>Browse queue</button></a>
+							<a href="/spectral_library/browse_queue/"><button class = "btn pull-right" disabled>Browse queue</button></a>
 						{% endif %}
 					{% else %}
 					<button class = "btn pull-right" onclick = "" disabled>Browse queue</button>
@@ -157,16 +157,9 @@
 								</tr>
 
 								<tr>
-									{% if target.datetime_acquired %}
+									{% if target.date_acquired %}
 									<td>Date</td>
-									<td>{{ target.datetime_acquired | date:"n/j/y" }}</td>
-									{% endif %}
-								</tr>
-
-								<tr>
-									{% if target.datetime_acquired %}
-									<td>Time</td>
-									<td>{{ target.datetime_acquired | time:"g:i A"}}</td>
+									<td>{{ target.date_acquired | date:"n/j/y" }}</td>
 									{% endif %}
 								</tr>
 
@@ -181,6 +174,13 @@
 									{% if target.observer %}
 									<td>Observer</td>
 									<td>{{ target.observer }}</td>
+									{% endif %}
+								</tr>
+
+								<tr>
+									{% if target.time_acquired %}
+									<td>Time</td>
+									<td>{{ target.time_acquired | time:"g:i A"}}</td>
 									{% endif %}
 								</tr>
 
@@ -412,7 +412,7 @@
 								<tr>
 									{% if target.soil_type %}
 									<td>Soil Type/Color</td>
-									<td>{{ target.purpose }}</td>
+									<td>{{ target.soil_type }}</td>
 									{% endif %}
 								</tr>
 
