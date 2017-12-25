@@ -123,6 +123,4 @@ def rs_download_maps(request):
 
     zf.close()
 
-    print s.getvalue()
-
-    return HttpResponse(json.dumps(queue),mimetype='application/json',status=200)
+    return HttpResponse(json.dumps({"zip_path": zip_path, "zip_s": s.getvalue()}),mimetype='application/json',status=200)
