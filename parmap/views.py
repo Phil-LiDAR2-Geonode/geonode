@@ -10,6 +10,10 @@ from geonode.services.models import Service
 from geonode.utils import resolve_object
 from geonode.layers.models import Layer
 from geonode.documents.models import Document
+from django.utils import timezone
+import os
+import zipfile
+import StringIO
 
 _PERMISSION_MSG_GENERIC = _('You do not have permissions for this layer.')
 _PERMISSION_MSG_VIEW = _("You are not permitted to view this layer")
@@ -91,3 +95,34 @@ def rs_links_layers(request, layername):
     }
     
     return render_to_response('parmap/rs_links.html', RequestContext(request, context_dict))
+
+
+def rs_download_layers(request):
+    queue = request.POST['queue']
+    print queue
+    return HttpResponse(json.dumps(queue),mimetype='application/json',status=200)
+
+def rs_download_maps(request):
+    queue = dict(request.POST)["queue"]
+    
+    date = timezone.now()
+    zip_subdir = "_".join(["spectro", request.user.username, date.strftime('%Y%m%d'), date.strftime('%H%M%S')])
+    zip_filename = "%s.zip" % zip_subdir
+
+    s = StringIO.StringIO()
+
+    zf = zipfile.ZipFile(s, "w")
+
+    for docid in queue:
+        document = Document.objects.get(id=docid)
+        target_path = os.path.join(settings.MEDIA_ROOT, str(document.doc_file))
+        fdir, fname = os.path.split(target_path)
+        zip_path = os.path.join(zip_subdir, fname)
+
+        zf.write(target_path, zip_path)
+
+    zf.close()
+
+    print s.getvalue()
+
+    return HttpResponse(json.dumps(queue),mimetype='application/json',status=200)
