@@ -1,0 +1,9 @@
+
+{% if links %}
+<ul>
+    {% for link in links %}
+    <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+    {% endfor %}
+    <li><a href="{{ STATIC_URL }}geonode/files/FieldDescription.xlsx">Field Description</a></li>
+</ul>
+{% endif %}

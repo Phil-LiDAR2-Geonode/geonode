@@ -490,3 +490,10 @@ def document_remove(request, docid, template='documents/document_remove.html'):
             mimetype="text/plain",
             status=401
         )
+
+def document_list(request, maptype='lulc', template='documents/document_list.html'):
+    context_dict = {
+        "map_type": maptype
+    }
+
+    return render_to_response(template, RequestContext(request, context_dict))

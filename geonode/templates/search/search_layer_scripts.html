@@ -1,0 +1,194 @@
+{% include "geonode/ext_header.html" %}
+{% include "geonode/app_header.html" %}
+{% include "geonode/geo_header.html" %}
+<script type="text/javascript" src="{{ STATIC_URL}}geonode/js/utils/thumbnail.js"></script>
+<script>
+
+    // var defaultLat = 14.5739684322;
+    // var defaultLng = 121.0628986359;
+    // var mainMap = L.map('mainMapView', {
+    //     center: [defaultLat, defaultLng],
+    //     zoom: 6,
+    //     zoomControl: false,
+    //     dragging: false,
+    //     scrollWheelZoom: false,
+    //     doubleClickZoom: false
+    // });
+
+
+    // L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+    //     maxZoom: 18,
+    //     attribution: '',
+    //     id: 'mapbox.streets'
+    // }).addTo(mainMap);
+
+    // $("[name=search]").click(function () {
+    //     searchLayerLandCover("<?php echo SITE_URL; ?>");
+
+    //     $(".dataRecoveryWrapper").html('<label>Data Coverage Map</label><div class = "mapWrapper" id = "filterMapView"></div>');
+
+    //     var defaultLat = 14.5739684322;
+    //     var defaultLng = 121.0628986359;
+    //     var mymap = L.map('filterMapView', {
+    //         center: [defaultLat, defaultLng],
+    //         zoom: 6,
+    //         zoomControl: false,
+    //         dragging: false,
+    //         scrollWheelZoom: false,
+    //         doubleClickZoom: false
+    //     });
+
+    //     var OpenStreetMap_BlackAndWhite = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.png', {
+    //         maxZoom: 18,
+    //     }).addTo(mymap);
+    // });
+    
+	var app;
+	Ext.onReady(function() {
+		GeoExt.Lang.set("en");
+		var config = {
+			tools: [{
+				ptype: "gxp_wmsgetfeatureinfo",
+				format: "grid",
+				actionTarget: "main.tbar",
+				outputConfig: {width: 400, height: 200, panIn: false}
+			}],
+			
+			proxy: '/proxy/?url=',
+			
+			localGeoServerBaseUrl: "http://localhost:1588/geoserver/",
+			authorizedRoles: "ROLE_ANONYMOUS",
+
+			/* The URL to a REST map configuration service.  This service 
+			 * provides listing and, with an authenticated user, saving of 
+			 * maps on the server for sharing and editing.
+			 */
+			rest: "/maps/",
+			
+			printService: "http://localhost:1588/geoserver/pdf/",
+			
+			
+			portalConfig: {
+				renderTo: "mainMapView",
+				height: 400 
+			},
+
+			listeners: {
+				"ready": function() {
+					var map = app.mapPanel.map;
+					var layer = app.map.layers.slice(-1)[0];
+
+					// FIXME(Ariel): Zoom to extent until #1795 is fixed.
+					//map.zoomToExtent(layer.maxExtent, false)
+					
+					var bbox = layer.bbox;
+					if (bbox != undefined)
+					{
+					   if (!Array.isArray(bbox) && Object.keys(layer.srs) in bbox) {
+						bbox = bbox[Object.keys(layer.srs)].bbox;
+					   }
+
+					   var extent = OpenLayers.Bounds.fromArray(bbox);
+					   var zoomToData = function()
+					   {
+						   map.zoomToExtent(extent, false);
+						   app.mapPanel.center = map.center;
+						   app.mapPanel.zoom = map.zoom;
+						   map.events.unregister('changebaselayer', null, zoomToData);
+					   };
+					   map.events.register('changebaselayer',null,zoomToData);
+					   if(map.baseLayer){
+						map.zoomToExtent(extent, false);
+					   }
+					}
+				},
+				"beforeunload": function() {
+					if (modified) {
+						styleEditor.show();
+						return false;
+					}
+				}
+			}
+		};
+
+		config = Ext.apply(config, {
+            "defaultSourceType": "gxp_wmscsource", 
+            "about": {"abstract": "", "title": ""}, 
+            "map": {
+                "layers": [
+                    {"opacity": 1, "group": "background", "args": ["No background"], "visibility": false, "source": "0", "fixed": true, "type": "OpenLayers.Layer"}, 
+                    {"opacity": 1, "group": "background", "name": "mapnik", "visibility": true, "source": "1", "fixed": true, "type": "OpenLayers.Layer.OSM"}, 
+                    {"opacity": 1, "group": "background", "name": "osm", "visibility": false, "source": "2", "fixed": false}, 
+                    {"opacity": 1, "group": "background", "name": "naip", "visibility": false, "source": "2", "fixed": false}, 
+                    {"opacity": 1, "source": "3", "fixed": false, "visibility": true}, 
+                    {
+                        "opacity": 1.0, 
+                        "name": "geonode:verdu_4118_iii_4_parmap", 
+                        "title": "4118-III-4 Agricultural Land Cover Map", 
+                        "selected": true, 
+                        "visibility": true, 
+                        "srs": "EPSG:900913", 
+                        "bbox": [13991433.601633059, 975193.661009349, 13993043.874524292, 977753.8672086453], 
+                        "getFeatureInfo": {
+                            "fields": ["CLASSIFICA", "RESOURCE_T", "ID_CLASS", "MAIN_CLASS", "OTHER_CLAS", "OTHER_CL_1", "CLASS_DESC", "ID_TYPE", "MAIN_TYPE", "OTHER_TYPE", "OTHER_TY_1", "TYPE_DESCR", "DATA_SOURC", "DATASET_AC", "FARMING_SY", "CROP_PLANT", "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC", "AREA", "REGION", "PROVINCE", "CITYMUNI", "BARANGAY", "REMARKS", "SHAPE_Leng", "SHAPE_Area"], 
+                            "propertyNames": {"PROVINCE": null, "FARMING_SY": null, "RESOURCE_T": null, "MAIN_CLASS": null, "DATASET_AC": null, "SHAPE_Leng": null, "FEB": null, "DEC": null, "OCT": null, "CROP_PLANT": null, "SEP": null, "OTHER_CLAS": null, "JUN": null, "JUL": null, "OTHER_TY_1": null, "TYPE_DESCR": null, "ID_CLASS": null, "MAIN_TYPE": null, "CITYMUNI": null, "DATA_SOURC": null, "AUG": null, "BARANGAY": null, "JAN": null, "REMARKS": null, "MAR": null, "ID_TYPE": null, "OTHER_CL_1": null, "CLASSIFICA": null, "SHAPE_Area": null, "MAY": null, "CLASS_DESC": null, "AREA": null, "OTHER_TYPE": null, "APR": null, "NOV": null, "REGION": null}
+                        }, 
+                        "fixed": false, 
+                        "queryable": true, 
+                        "source": "4"
+                    }
+                ], 
+                "center": [0.0, -7.081154550627918e-10], 
+                "units": "m", 
+                "maxResolution": 156543.03390625, 
+                "maxExtent": [-20037508.34, -20037508.34, 20037508.34, 20037508.34], 
+                "zoom": 2, 
+                "projection": "EPSG:900913"
+            }, 
+            "id": 0, 
+            "sources": {
+                "1": {"ptype": "gxp_osmsource"}, 
+                "0": {"ptype": "gxp_olsource"}, 
+                "3": {"ptype": "gxp_mapboxsource"}, 
+                "2": {"ptype": "gxp_mapquestsource"}, 
+                "4": {
+                    "url": "http://localhost:1588/geoserver/wms", 
+                    "restUrl": "/gs/rest", 
+                    "ptype": "gxp_wmscsource"
+                }
+            }
+        });
+
+		app = new GeoExplorer.Viewer(config);
+
+		for (var key in app.tools) {
+			var tool = app.tools[key];
+			if (tool.ptype == 'gxp_styler') {
+				tool.rasterStyling = true;
+			};
+		};
+
+		// change style displayed in map
+		Ext.get(Ext.DomQuery.select("input[@name='style']")).on("click", function(evt, elem) {
+			app.selectedLayer.getLayer().mergeNewParams({
+				"STYLES": elem.id,
+				"_dc": Math.random()
+			}); 
+		});
+		
+		Ext.get(Ext.DomQuery.select(".style-edit")).on("click", function(evt, elem) {
+			for (var key in app.tools) {
+				var tool = app.tools[key];
+				if (tool.ptype == 'gxp_styler') {
+					tool.actions[0].execute();
+				};
+			}
+		});
+		Ext.Ajax.on('requestcomplete', function(req, cippa, opts){
+			if(opts.method == 'PUT'){
+				$('#legend_icon').attr('src', $('#legend_icon').attr('src')+'&'+Math.random());
+			}   
+		}, this);
+	});
+
+</script>

@@ -451,7 +451,11 @@ class CommonModelApi(ModelResource):
             'thumbnail_url',
             'detail_url',
             'rating',
+            'metadata_xml',
         ]
+
+        if self._meta.resource_name == "documents_parmap":
+            VALUES.append('doc_file')
 
         if isinstance(
                 data,
@@ -546,3 +550,59 @@ class DownloadCountResource(ModelResource):
     class Meta:
         queryset = DownloadCount.objects.all().order_by('-date')
         resource_name = 'download_count'
+
+class LayerParmapResource(CommonModelApi):
+
+    class Meta(CommonMetaApi):
+        queryset = Layer.objects.distinct().order_by('-date')
+        if settings.RESOURCE_PUBLISHING:
+            queryset = queryset.filter(is_published=True)
+        resource_name = 'layers_parmap'
+        excludes = [
+            'csw_anytext'
+            'abstract_en',
+            'bbox_x0',
+            'bbox_x1',
+            'bbox_y0',
+            'bbox_y1',
+            'charset',
+            'constraints_other',
+            'constraints_other_en',
+            'csw_insert_date',
+            'csw_mdsource',
+            'csw_schema,' 
+            'csw_typename',
+            'data_quality_statement',
+            'data_quality_statement_en',
+            'date',
+            'date_type',
+            'detail_url',
+            'distribution_description_en',
+            'edition',
+            'featured',
+            'is_published',
+            'language',
+            'maintenance_frequency',
+            'metadata_uploaded',
+            'purpose',
+            'purpose_en',
+            'rating',
+            'resource_uri',
+            'share_count',
+            'store',
+            'storeType',
+            'supplemental_information_en',
+            'temporal_extent_end',
+            'temporal_extent_start',
+            'title_en',
+            'typename',
+            'workspace',
+        ]
+
+class MapParmapResource(CommonModelApi):
+
+    class Meta(CommonMetaApi):
+        queryset = Document.objects.distinct().order_by('-date')
+        if settings.RESOURCE_PUBLISHING:
+            queryset = queryset.filter(is_published=True)
+        resource_name = 'documents_parmap'

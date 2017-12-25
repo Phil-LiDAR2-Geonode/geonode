@@ -313,6 +313,10 @@ INSTALLED_APPS = (
 
     # data request management
     'parmap_data_request',
+
+    # parmap apps
+    'api_static',
+    'parmap',
     'news',
     'spectral_library'
 ) + GEONODE_APPS
@@ -770,7 +774,7 @@ AUTO_GENERATE_AVATAR_SIZES = (20, 32, 80, 100, 140, 200)
 NOTIFICATION_LANGUAGE_MODULE = "account.Account"
 
 # Number of results per page listed in the GeoNode search pages
-CLIENT_RESULTS_LIMIT = 100
+CLIENT_RESULTS_LIMIT = 500
 
 # Number of items returned by the apis 0 equals no limit
 API_LIMIT_PER_PAGE = 0
@@ -848,14 +852,15 @@ LAYER_PREVIEW_LIBRARY = 'geoext'
 SERVICE_UPDATE_INTERVAL = 0
 
 SEARCH_FILTERS = {
-    'TEXT_ENABLED': True,
-    'TYPE_ENABLED': True,
-    'CATEGORIES_ENABLED': True,
-    'OWNERS_ENABLED': True,
-    'KEYWORDS_ENABLED': True,
-    'DATE_ENABLED': True,
-    'REGION_ENABLED': True,
+    'TEXT_ENABLED': False,
+    'TYPE_ENABLED': False,
+    'CATEGORIES_ENABLED': False,
+    'OWNERS_ENABLED': False,
+    'KEYWORDS_ENABLED': False,
+    'DATE_ENABLED': False,
+    'REGION_ENABLED': False,
     'EXTENT_ENABLED': True,
+    'LOCATIONS_ENABLED': True,
 }
 
 # Queue non-blocking notifications.

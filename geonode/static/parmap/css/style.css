@@ -387,6 +387,11 @@ body {
 	text-decoration: underline;
 }
 
+.rightPanel .modal-body p {
+	text-align: left;
+	margin-left: 0px;
+}
+
 .rightMapWrapper {
 	border: 1px solid transpartent;
 	margin: 20px 0px 50px 0px;
@@ -405,7 +410,7 @@ body {
 
 .resultWrapper .resultTitle a {
 	border: 1px solid #aaa;
-	test-align: right;
+	text-align: right;
 	float: right;
 	font-size: 12px;
 	display: inline-block;
@@ -429,6 +434,12 @@ body {
 	margin-bottom: 20px;
 }
 
+.resultWrapper .modal-body ul li,
+.resultWrapper .modal-body ol li {
+	padding: 0;
+	margin: 0;
+}
+
 .resultWrapper ul li .resultImgWrapper {
 	border: 1px solid transparent;
 	float: left;
@@ -438,6 +449,12 @@ body {
 
 .resultWrapper ul li .resultImgWrapper img {
 	width: 150px;
+	min-height: 100px;
+}
+
+.resultWrapper ul li .resultImgWrapper.resultImgWrapperRs img {
+	width: 385px;
+	min-height: 200px;
 }
 
 .resultWrapper ul li .description1,

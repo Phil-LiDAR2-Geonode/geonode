@@ -1,0 +1,223 @@
+{% extends "parmap/parmap_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {% trans "RS Layers" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}documents documents-list explore{% endblock %}
+
+{% block body %}
+    <div class = "landCoverTitleWrapper">
+    <div class = "container">
+        <a href = "javascript:;" class = "pull-right scrollToTop" style="display: none">back to top</a>
+        <div class = "landCoverTitle">Other RS <b style='text-transform: capitalize;'>{{facettype}}</b></div>
+    </div>
+    </div>
+    
+    <div class="section firstChild backToTop" ng-controller="CartList">
+        <div class = "container">
+            <div class = "row">
+                <div class = "col-sm-12 rightPanel">
+                    <div class = "resultWrapper">
+                        <div class = "resultTitle">
+                            Results:
+                            <a href = "javascript:;">Browse Queue</a>
+                        </div>
+                        {% verbatim %}
+                        <ul>
+                            <li ng-repeat="item in results" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
+                                <div class = "resultImgWrapper resultImgWrapperRs">
+                                    <a href="{{ item.detail_url }}"><img ng-src="{{ item.thumbnail_url }}" /></a>
+                                </div>
+                                <div class = "description1"><a href="{{ item.detail_url }}">{{ item.title }}</a></div>
+                                <div class = "description2" style="text-transform: capitalize;">{{ item.locationsLabel }}</div>
+                                <div class = "description3">by <a href="/people/profile/{{ item.owner__username }}">{{ item.owner__username }}</a></div>
+                                <div class = "actions">
+                                    <a href="#" class="queue-item" data-url="{{item.datail_url}}" style="display: none"><i class = "fa fa-plus-square"></i> Add to Queue</a>
+                                    <a href="#" class="download-item" data-url="{{item.detail_url}}" data-target="#resource-download"><i class = "fa fa-download"></i>Download</a>
+                                </div>
+                                <div class = "description4">
+                                    <p>{{ item.abstract }}</p>
+                                </div>								
+                            </li>
+                        </ul>
+                        {% endverbatim %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="resource-download" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 80%; height: 60%;">
+          <div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
+            <div class="modal-header">
+              <h4 class="modal-title" id="ResDownloadModalLabel">END-USER LICENSE AGREEMENT (Non-Commercial)</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row edit-modal">
+                <div class="col-sm-12 text-left">
+                  {% include "parmap_data_request/eula.html" %}
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="button" class="btn btn-default" data-toggle="modal" data-target="#download-layer" data-dismiss="modal" value="{% trans "Accept" %}"/>
+              <input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="download-layer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">{% trans "Download Layer" %}</h4>
+            </div>
+            <div class="modal-body parmap-download-list">
+                Download Links
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+      <div class="modal fade" id="request-download" tabindex="-1" role="dialog" aria-labelledby="ReqDownloadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="ReqDownloadModalLabel">{% trans "Request Data" %}</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row edit-modal">
+                <div class="col-sm-12 text-left">
+                  <form id="data_request_form" action="{% url 'datarequest_add' %}" method="post" enctype="multipart/form-data">
+                      <input type="hidden" name="uuid" value="{{ resource.uuid }}">
+                      {% csrf_token %}
+                      <p><span style="font-style: italic">Note on the formal request letter:</span></p>
+                      <p>The letter is a signed endorsement from the head of agency, department head, academic adviser, etc. Purpose of the data, types of data requested and intended use should be specified in the letter.</p>
+                      <p>Letter should be addressed to Ariel C. Blanco, Dr. Eng., Director, Training Center for Applied Geodesy and Photogrammetry (TCAGP).</p>
+                      <input id="upload-request-file" type="file" name="letter_file"/>
+                      <div id="kv-error-1" style="margin-top:10px;display:none"></div>
+                      <div id="kv-success-1" class="alert alert-success " style="margin-top:10px;display:none"><ul></ul></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="request-letter-upload-success" tabindex="-1" role="dialog" aria-labelledby="SuccessUploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">{% trans "Request Data" %}</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row edit-modal">
+                <div class="col-sm-12 text-left">
+                  <p>Successfully uploaded request letter</p>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  {% include "_bulk_permissions_form.html" %}
+{% endblock %}
+
+{% block extra_script %}
+{% if GEONODE_SECURITY_ENABLED %}
+  {% include "_permissions_form_js.html" %}
+{% endif %}
+<script type="text/javascript">
+{% if facettype == 'layers' %}
+    {% if HAYSTACK_SEARCH %}
+        SEARCH_URL = '{% url 'api_get_search' api_name='api' resource_name='base' %}?type__in=layer'
+    {% else %}
+        SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='layers_parmap' %}';
+    {% endif %}
+{% else %}
+    {% if HAYSTACK_SEARCH %}
+        SEARCH_URL = '{% url 'api_get_search' api_name='api' resource_name='documents'%}'
+    {% else %}
+        SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='documents_parmap' %}';
+    {% endif %}
+{% endif %}
+
+  FILTER_TYPE = '{{facettype}}';
+    MAP_TYPE = 'rs';
+
+$(function (){
+  $("#upload-request-file").fileinput({
+      "uploadUrl": "{% url "datarequest_add" %}",
+      "uploadAsync": false,
+      "dropZoneEnabled": false,
+      "required": true,
+      "maxFileCount": 1,
+      "showPreview": false,
+      "maxFileSize": 10240,
+      "showClose": true,
+      "allowedFileExtensions": ["pdf"],
+      "allowedPreviewMimeTypes": ["application/pdf"],
+      "browseLabel": "Select file",
+      "uploadLabel": "Upload file",
+      "uploadExtraData": {"uuid":"{{resource.uuid}}"},
+      "elErrorContainer": '#kv-error-1',
+      "msgFileRequired": "Please select a PDF file to upload.",
+      "msgSizeTooLarge": "The file your trying to upload exceeds the maximum allowed upload size.",
+      "msgInvalidFileExtension": "You selected an invalid file. Only PDF files are supported.",
+  }).on('filebatchuploadsuccess', function(event, data, id, index) {
+    $("#request-download").modal("toggle");
+    $("#request-letter-upload-success").modal("show")
+  });
+
+  $('#request-letter-upload-success').on('hidden.bs.modal', function () {
+    location.reload()
+  });
+
+});
+
+  $('.resultWrapper').on('click', '.download-item', function(evt){
+    evt.preventDefault();
+    var target = $(this).data('target');
+    var urlArr = $(this).data('url').split('/');
+    var item = urlArr[urlArr.length - 1];
+    //   https://parmap-tst.dream.upd.edu.ph/parmap/other_rs/links/layers/geonode%3Aupper_disakan_3617_iv_2_lulc_1
+
+    $.get('/parmap/other_rs/links/layers/' + item, function(data){
+        if(data.trim() === '') {
+            $('#request-download').modal('show');
+        }else {
+            $('.parmap-download-list').html(data);
+            $('#resource-download').modal('show');
+        }
+    })
+
+  });
+
+
+  $('.resultWrapper').on('click', '.queue-item', function(evt){
+      evt.preventDefault();
+      console.log($(this));
+  });
+</script>
+{% with include_spatial='true' %}
+{% include 'search/search_scripts.html' %}
+{% include 'search/search_layer_scripts.html' %}
+{% endwith %}
+{% endblock extra_script %}

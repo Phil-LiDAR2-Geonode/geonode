@@ -1,10 +1,10 @@
 {% load i18n %}
 <ul class="nav nav-tabs">
   <li class="active"><a href="#info" data-toggle="tab"><i class="fa fa-info-circle"></i>{% trans "Info" %}</a></li>
-  {% if resource.polymorphic_ctype.name == 'layer' %}
+  {% if resource.polymorphic_ctype.name == 'layer' and false %}
   <li><a href="#attributes" data-toggle="tab"><i class="fa fa-bars"></i>{% trans "Attributes" %}</a></li>
   {% endif %}
-  {% if SOCIAL_BUTTONS %}
+  {% if SOCIAL_BUTTONS and false %}
   <li><a href="#share" data-toggle="tab"><i class="fa fa-share"></i>{% trans "Share" %}</a></li>
   {% endif %}
   {% comment %}

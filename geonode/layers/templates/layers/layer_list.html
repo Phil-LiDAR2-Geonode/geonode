@@ -8,7 +8,13 @@
 {% block body_class %}layers explore{% endblock %}
 
 {% block body %}
-<div class="page-header">
+<div class = "landCoverTitleWrapper">
+  <div class = "container">
+    <a href = "javascript:;" class = "pull-right scrollToTop" style="display: none">back to top</a>
+    <div class = "landCoverTitle">{% trans "Agricultural and Coastal Land Cover <b>Layers</b>" %}</div>
+  </div>
+</div>
+<div class="page-header" style="display: none">
   {% if request.user.is_authenticated and user.is_active and user.is_superuser %}
   <a href="{% url "layer_upload" %}" class="btn btn-primary pull-right">{% trans "Upload Layers" %}</a>
   {% endif %}
@@ -36,11 +42,13 @@
       {% if HAYSTACK_SEARCH %}
           SEARCH_URL = '{% url 'api_get_search' api_name='api' resource_name='base' %}?type__in=layer'
       {% else %}
-          SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='layers' %}';
+          SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='layers_parmap' %}';
       {% endif %}
     FILTER_TYPE = 'layer';
+    MAP_TYPE = '{{map_type}}';
   </script>
   {% with include_spatial='true' %}
   {% include 'search/search_scripts.html' %}
+  {% include 'search/search_layer_scripts.html' %}
   {% endwith %}
 {% endblock extra_script %}

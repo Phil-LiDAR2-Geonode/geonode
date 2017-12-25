@@ -168,7 +168,6 @@
        module.load_owners($http, $rootScope, $location);
     }
 
-
     // Activate the type filters if in the url
     if($location.search().hasOwnProperty('type__in')){
       var types = $location.search()['type__in'];
@@ -190,23 +189,216 @@
 
   });
 
+  module.filter('keywordFilter', function() { 
+      var data_filter = 'keywords__slug__in';
+      
+      return function(input, query) {
+        var output;
+        var query_entry = query[data_filter];
+
+        if(typeof query_entry == 'undefined') query_entry = [];
+
+        // if(typeof MAP_TYPE !== 'undefined'){
+        //   if(query_entry.indexOf(MAP_TYPE) < 0){
+        //     query_entry.push(MAP_TYPE)
+        //   }
+        // }
+
+        console.log(query_entry);
+
+        output = input.filter(function(item){
+          if(query_entry){
+            return query_entry.every(function(currentValue){
+              return item.keywords.indexOf(currentValue) >=0;
+            });
+          }else{
+            return false;
+          }
+        });
+    
+        return output;
+    
+      }
+    
+    });
+
+
+  module.filter('rsFilter', function() { 
+    return function(input) {
+      var output = true;
+
+      if(input && input.hasOwnProperty('detail_url')){
+        if(input.detail_url.indexOf('lulc') >= 0 || input.detail_url.indexOf('va') >= 0) output = false;
+      }
+
+      return output;
+    }
+  
+  });
+    
   /*
   * Main search controller
   * Load data from api and defines the multiple and single choice handlers
   * Syncs the browser url with the selections
   */
-  module.controller('geonode_search_controller', function($injector, $scope, $location, $http, Configs){
+  module.controller('geonode_search_controller', function($injector, $scope, $window, $location, $http, Configs, $rootScope){
     $scope.query = $location.search();
     $scope.query.limit = $scope.query.limit || CLIENT_RESULTS_LIMIT;
     $scope.query.offset = $scope.query.offset || 0;
     $scope.page = Math.round(($scope.query.offset / $scope.query.limit) + 1);
+    
+    if(typeof MAP_TYPE == 'undefined'){
+      $scope.query['other_rs'] = true;
+    }else{
+      $scope.query.keywords__slug__in = $scope.query.keywords__slug__in || MAP_TYPE;
+    }
+
+    function process_results(location_data, filters_data, data){
+      var allLocations = [];
+      var allScale = [];
+      var allHazard = [];
+
+      var addToLocations = function(location) {
+        // Store to allLocations
+        var province = location.province.toLowerCase();
+        var found = allLocations.some(function (loc) {
+          return loc.code === province;
+        });
+        
+        if(!found){
+          allLocations.push({
+              code: province,
+              name: location.province,
+              municipality: []
+          });
+        }
+        
+        var targetLocation = allLocations.find(function(loc) {
+          return loc.code === province;
+        });
+        
+        // Add to municipality
+        if(targetLocation){
+          var hasMunicipality = targetLocation.municipality.some(function(mun) {
+            return mun.code === location.mun_code;
+          });
+
+          if(!hasMunicipality){
+            targetLocation.municipality.push({
+              name: location.city,
+              code: location.mun_code
+            })
+          }
+        }
+      }
+
+      function processFilter(filterData){
+        var targetFilter = filterData.type === 'scale' ? allScale : allHazard;
+        var found = targetFilter.some(function (filter) {
+          return filterData.filter === filter.filter;
+        });
+
+        if(!found) {
+          targetFilter.push(filterData);
+        }
+      }
+
+      $scope.results = data.objects.map(function(result) {
+        // Get keywords
+        var keywordList = [];
+        var locationArr = [];
+
+        // Get keywords
+        if(result.hasOwnProperty('metadata_xml')){
+          var xmlDoc = $.parseXML( result.metadata_xml );
+          var keywordObjects = xmlDoc.getElementsByTagName('gmd:keyword'); //gmd:keyword
+          for (var keyword of keywordObjects) {
+            keywordList.push(keyword.getElementsByTagName('gco:CharacterString')[0].innerHTML.toLowerCase());
+          }
+        }
+
+        if(result.hasOwnProperty('detail_url')){
+          var detailUrl = decodeURIComponent(result.detail_url).split(':')[1];
+          if(typeof detailUrl !== 'undefined') {
+            var detailArr = detailUrl.split('_');
+            for(var detail of detailArr) {
+              detail = detail.toLowerCase();
+              if(keywordList.indexOf(detail) < 0) {
+                keywordList.push(detail.toLowerCase()); 
+              }          
+            }
+          }
+        }
+
+        // Get keywords from name
+        if(result.hasOwnProperty('name')){
+          var nameArr = result.name.split('_');
+          for(var name of nameArr) {
+            name = name.toLowerCase();
+            if(keywordList.indexOf(name) < 0) {
+              keywordList.push(name); 
+            }          
+          }
+        }
+        
+        
+        // Get keywords from doc_file
+        if(result.hasOwnProperty('doc_file')){
+          // "documents/agri_72204000_lulc.jpg".split('.')[0].split('/')[1].split('_')
+          // check if file
+          var docFileArr = result.doc_file.split('.')[0].split('/')[1].split('_');
+          if(docFileArr.length > 1){
+            for(var docFile of docFileArr) {
+              docFile = docFile.toLowerCase();
+              if(keywordList.indexOf(docFile) < 0) {
+                keywordList.push(docFile); 
+              }          
+            }
+          }          
+        }
+        
+
+        // Get locations from keywords
+        var locationStr = [];
+        var locationArr = location_data.filter(function(location){
+          var exists = keywordList.indexOf(location.mun_code) >= 0;
+          if(exists){
+            locationStr.push(location.city.toLowerCase() + ', ' + location.province.toLowerCase());
+            addToLocations(location);
+          }
+          
+          return exists;
+        });
+                
+        result.keywords = keywordList;
+        result.locations = locationArr;
+        result.locationsLabel = locationStr.join('; ');
+        delete result['metadata_xml'];  
+        return result;
+      });
+
+      // console.log($scope.results);
+
+      // Get filters from keywords
+      filters_data.objects.forEach(processFilter);
+      
+      $rootScope.hazards = allHazard;
+      $rootScope.scales = allScale;
+      if(!$rootScope.locations) $rootScope.locations = allLocations;
+    }
    
     //Get data from apis and make them available to the page
     function query_api(data){
-      $http.get(Configs.url, {params: data || {}}).success(function(data){
-        $scope.results = data.objects;
+      $http.get(Configs.url, {params: data || {}}).success(function(data){        
+        $http.get(LOCATIONS_ENDPOINT).success(function(location) {
+          $http.get(FILTERS_ENDPOINT).success(function(filters) {
+            process_results(location, filters, data);
+          });
+        });
+
         $scope.total_counts = data.meta.total_count;
         $scope.$root.query_data = data;
+        
         if (HAYSTACK_SEARCH) {
           if ($location.search().hasOwnProperty('q')){
             $scope.text_query = $location.search()['q'].replace(/\+/g," ");
@@ -285,6 +477,125 @@
         }, true);
     }
 
+    $scope.clearSearch = function(evt) {
+      var data_filter = 'keywords__slug__in';
+
+      evt.preventDefault();
+
+      if($('#myProvinceSelect').length){
+        $('#myProvinceSelect').val(undefined);
+      }
+      if($('#myMunicipalitySelect').length){
+        $('#myMunicipalitySelect').val(undefined);
+      }
+      if($('#myHazardSelect').length){
+        $('#myHazardSelect').val(undefined);
+      }
+      if($('#myScaleSelect').length){
+        $('#myScaleSelect').val(undefined);
+      }
+
+      $scope.query[data_filter] = ['clear-results'];
+      // $window.location.reload(true);
+    }
+
+    $scope.validateLocation = function(selectedProvince, selectedMunicipality) {
+      if(
+        typeof selectedProvince === 'undefined' ||
+        typeof selectedMunicipality === 'undefined'
+      ) return true;
+
+      if( typeof selectedMunicipality.code === '') return true;
+
+      if($('#myMunicipalitySelect')[0].selectedOptions.length === 0) return true;
+      
+      // Validate selectedMunicipality
+      var found = selectedProvince.municipality.some(function (municipality) {
+        return municipality.code === selectedMunicipality.code;
+      });
+
+      if(!found) return true;
+
+      return false;
+    }
+
+    $scope.validateFilter = function(selectedHazard, selectedScale) {
+      if(
+        typeof selectedHazard === 'undefined' &&
+        typeof selectedScale === 'undefined'
+      ) return true;
+
+      if(
+        $('#myHazardSelect')[0].selectedOptions.length === 0 &&
+        $('#myScaleSelect')[0].selectedOptions.length === 0
+      ) return true;
+
+      return false;
+    }
+
+    /*
+    * Listens to province select field
+    */
+    $scope.location_submit = function(selectedProvince, selectedMunicipality){  
+      if(
+        typeof selectedProvince === 'undefined' ||
+        typeof selectedMunicipality === 'undefined'
+      ) return false;
+
+      if( typeof selectedMunicipality.code === '') return false;
+
+      // Validate selectedMunicipality
+      var found = selectedProvince.municipality.some(function (municipality) {
+        return municipality.code === selectedMunicipality.code;
+      });
+
+      if(!found) return;
+
+      var query_entry = [];
+      var data_filter = 'keywords__slug__in';
+      var value = selectedMunicipality ? selectedMunicipality.code : selectedProvince.code;
+            
+      // If the query object has the record then grab it
+      // if ($scope.query.hasOwnProperty(data_filter)){
+      //   if ($scope.query[data_filter] instanceof Array){
+      //     query_entry = $scope.query[data_filter];
+      //   }else{
+      //     query_entry.push($scope.query[data_filter]);
+      //   }
+      // }
+
+      // Remove mun_code
+      // query_entry = query_entry.filter(function(key){
+      //   return !Number(key);
+      // });
+
+      query_entry.push(value);
+      
+      delete $scope.query['extent'];
+      $scope.query[data_filter] = query_entry;
+
+      $scope.hasNoFilter = false;
+    }
+
+    /*
+    * Listens to hazard scale select field
+    */
+    $scope.filters_submit = function(selectedHazard, selectedScale){  
+      var query_entry = [];
+      var data_filter = 'keywords__slug__in';
+      
+      if(selectedHazard){
+        query_entry.push(selectedHazard.filter);
+      }
+      if(selectedScale){
+        query_entry.push(selectedScale.filter);
+      }
+            
+      delete $scope.query['extent'];
+      $scope.query[data_filter] = query_entry;
+
+      $scope.hasNoFilter = false;
+    }
     /*
     * Add the selection behavior to the element, it adds/removes the 'active' class
     * and pushes/removes the value of the element from the query object
@@ -503,6 +814,9 @@
       map.then(function(map){
         map.on('moveend', function(){
           $scope.query['extent'] = map.getBounds().toBBoxString();
+          delete $scope.query['keywords__slug__in'];
+                    
+          $scope.hasNoFilter = false;
           query_api($scope.query);
         });
       });
@@ -517,5 +831,7 @@
         } 
       });
     }
+
+    $scope.hasNoFilter = true;
   });
 })();
