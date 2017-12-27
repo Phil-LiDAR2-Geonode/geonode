@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
+
 from geonode.reports.models import DownloadCount, SUCLuzViMin, DownloadTracker
 
 class DownloadCountAdmin(admin.ModelAdmin):

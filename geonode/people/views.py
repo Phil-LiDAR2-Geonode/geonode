@@ -75,6 +75,7 @@ def profile_detail(request, username):
 
     return render(request, "people/profile_detail.html", {
         "profile": profile,
+        "pwd_reset_link": settings.PASSWORD_RESET_LINK,
     })
 
 

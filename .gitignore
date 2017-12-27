@@ -16,10 +16,10 @@ docs/i18n/pot/
 
 # Static media handling
 *.jshintrc
-geonode/static/.components/
-geonode/static/geoexplorer/
-geonode/static_root/
-geonode/static/node_modules/
+#geonode/static/.components/
+#geonode/static/geoexplorer/
+#geonode/static_root/
+#geonode/static/node_modules/
 node_modules/
 # Listing all of them instead of putting geonode/static/lib out of version control.
 geonode/local_settings.py
@@ -92,4 +92,8 @@ geonode/*/migrations
 
 #CSV files
 *.csv
+!PH_codes.csv
+
+layers/
+layers/*
 
