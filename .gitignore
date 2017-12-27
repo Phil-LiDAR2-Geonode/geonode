@@ -92,4 +92,8 @@ geonode/*/migrations
 
 #CSV files
 *.csv
+!PH_codes.csv
+
+layers/
+layers/*
 
