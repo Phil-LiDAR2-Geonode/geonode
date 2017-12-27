@@ -3,32 +3,100 @@
 {% load staticfiles %}
 {% load base_tags %}
 
-{% block title %} {% trans "Welcome!" %} - {{ block.super }} {% endblock %}
+{% block title %} Welcome! - FRExLS Web Portal {% endblock %}
 
 {% block body_class %}home{% endblock %}
 
 {% block middle %}
    {{ block.super }}
   {% block hero %}
-  <div class="jumbotron">
-    <div class="container">
-      <h1>{% trans "Welcome" %}</h1>
-      <p>{% blocktrans %}GeoNode is an open source platform for sharing geospatial data and maps.{% endblocktrans %}</p>
-      <p>{% blocktrans %}If you have any questions about the software or service, join our <a href="http://lists.osgeo.org/cgi-bin/mailman/listinfo/geonode-users">mailing list</a>.{% endblocktrans %}</p>
-      <span>{% trans 'Need help?' %} <a href="http://docs.geonode.org/en/latest/tutorials/users/quickstart/index.html">{% trans 'Getting Started' %}</a></span>
-    </div>
-  </div>
+  
   {% endblock %}
-
+  <br>
+  <br>
+  <br>
+  <div style = "width:50%;">
+	<div class = "boxed" style = "">
+		&nbsp;&nbsp;&nbsp;<h1>FRExLS</h1>
+			<br>
+			&nbsp;&nbsp;&nbsp;<p class = "test" align = "justify">
+			Forest Resource Extraction from LiDAR Surveys (FREXLS) is a project under
+			PHIL-LIDAR 2: Nationwide Detailed Resource Assessment using LIDAR, funded
+			by the Department of  Science and Technology (DOST) in partnership with
+			UP Training Center for Applied Geodesy and Photogrammetry
+			(UP TCAGP). The project intends to develop a methodology that will process
+			LIDAR point cloud data and then combine it with different geospatial
+			data and technologies to extract forest features and creature forest
+			resource maps.
+			</text>
+			<br>
+	</div>
+  </div>
+  <br>
+  <br>
   {% block mainbody %}
-  <div class="container">
+  <table>
+  <td style = "width:50%">
+	    <div class = "boxed">
+			<div class = "mySlides">
+			<p class = "test">
+			<h3>NUMBER OF MUNICIPALITIES WITH AVAILABLE FOREST RESOURCE MAP:</h3>
+			<center>
+			<b>266:LUZON<br>210:VISAYAS<br>123:MINDANAO</br></b>
+			</center>
+			<h3>PARTNER UNIVERSITIES:</h3>
+			<center>
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/AdNU-Seal.png">
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/ateneodezamboanga.png">
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/Caraga_State_University.png">
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/Central_Mindanao_University_logo.png">
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/CLSU.png">
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/download.png">
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/Isabela_State_University_Seal.png">
+			<br>
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/LOGO-MMSU.png">
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/mapua.png">
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/MSUIIT.png">
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/Unibersidad_ng_Pilipinas_Los_Banos.png">
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/Unibersidad_ng_Pilipinas_Mindanao.png">
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/University-of-San-Carlos-Logo.png">
+			<img style = "width:10%; height:10%"src = "static/geonode/img/logo/UPCebu.png">
+			</center>
+			</p>
+			</div>
+			<center>
+			<img class="mySlides" style = "max-width:100%; max-height:100%; object-fit: contain"src="static/geonode/img/slideshow/10-FREX-03.jpg" style="width:100%" >
+			<img class="mySlides" style = "max-width:100%; max-height:100%; object-fit: contain"src="static/geonode/img/slideshow/_MG_5309.jpg" style="width:100%" >
+			<img class="mySlides" style = "max-width:100%; max-height:100%; object-fit: contain"src="static/geonode/img/slideshow/_MG_5392.jpg" style="width:100%" >
+			<img class="mySlides" style = "max-width:100%; max-height:100%; object-fit: contain"src="static/geonode/img/slideshow/CHM_ILI_JNY.jpg" style="width:100%" >
+			<img class="mySlides" style = "max-width:100%; max-height:100%; object-fit: contain"src="static/geonode/img/slideshow/DSC_1924.jpg" style="width:100%" >
+			<img class="mySlides" style = "max-width:100%; max-height:100%; object-fit: contain"src="static/geonode/img/slideshow/DSC_7993.jpg" style="width:100%" >
+			<img class="mySlides" style = "max-width:100%; max-height:100%; object-fit: contain"src="static/geonode/img/slideshow/IMG_0507.jpg" style="width:100%" >
+			<img class="mySlides" style = "max-width:100%; max-height:100%; object-fit: contain"src="static/geonode/img/slideshow/IMG_0697.jpg" style="width:100%" >
+			<img class="mySlides" style = "max-width:100%; max-height:100%; object-fit: contain"src="static/geonode/img/slideshow/IMG_0740.jpg" style="width:100%" >
+			<img class="mySlides" style = "max-width:100%; max-height:100%; object-fit: contain"src="static/geonode/img/slideshow/IMG_0743.jpg" style="width:100%" >
+			
+			</center>
+			<center>
+			<br>
+			<button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+			<button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+			</center>
+		</div>
+  </td>
+  <td style = "width:50%">
+	<center>
+	<a href = "https://frexls.dream.upd.edu.ph/layers/?limit=100&offset=0" class = "page-header"><font color = "white">DOWNLOAD FOREST RESOURCE MAP</a>
+	</center>
+	<br>
+	<br>
     <div class="row home-facets">
     {% with facet_type='home' %}
      {% facets as facets %}
       <div class="col-md-4">
         <p><a href="{% url "layer_browse" %}"><i class="fa fa-square-o fa-5x rotate-45"></i></a></p>
         <h2><a href="{% url "layer_browse" %}">{{ facets.layer|default:_("No") }} {% blocktrans count counter=facets.layer %}Layer{% plural %}Layers{% endblocktrans %}</a></h2>
-        <p>{% trans "Click to search for geospatial data published by other users, organizations and public sources. Download data in standard formats." %}</p> 
+        
         {% if user.is_authenticated %}
         <p class="text-center"><a class="btn btn-default" href="{% url "layer_upload" %}" role="button">{% trans "Add layers" %} &raquo;</a></p>
         {% else %}
@@ -36,24 +104,61 @@
         {% endif %}
       </div>
       <div class="col-md-4">
-        <p><a href="{% url "maps_browse" %}"><i class="fa fa-map-marker fa-5x"></i></a></p>
-        <h2><a href="{% url "maps_browse" %}">{{ facets.map|default:_("No") }} {% blocktrans count counter=facets.map %}Map{% plural %}Maps{% endblocktrans %}</a></h2>
-        <p>{% trans "Data is available for browsing, aggregating and styling to generate maps which can be shared publicly or restricted to specific users only." %}</p>
+        <p><a href="{% url "document_browse" %}"><i class="fa fa-file fa-5x"></i></a></p>
+        <h2><a href="{% url "document_browse" %}">{{ facets.document|default:_("No") }} {% blocktrans count counter=facets.documents %}Document{% plural %}Documents{% endblocktrans %}</a></h2>
         {% if user.is_authenticated %}
         <p><a class="btn btn-default" href="{% url "new_map" %}" role="button">{% trans "Create maps" %} &raquo;</a></p>
         {% else %}
         <p><a class="btn btn-default" href="{% url "maps_browse" %}" role="button">{% trans "Explore maps" %} &raquo;</a></p>
         {% endif %}
+		<p class = "test">{% trans "Data is available for browsing, aggregating and styling to generate maps which can be shared publicly or restricted to specific users only." %}</p>
       </div>
-      <div class="col-md-4">
-        <p><a href="{% url "profile_browse" %}"><i class="fa fa-user fa-5x"></i></a></p>
-        <h2><a href="{% url "profile_browse" %}">{{ facets.user|default:_("No") }} {% blocktrans count counter=facets.user %}User{% plural %}Users{% endblocktrans %}</a></h2>
-        <p>{% trans "GeoNode allows registered users to easily upload geospatial data in several formats including shapefile and GeoTiff." %}</p>
-        <p><a class="btn btn-default" href="{% url "profile_browse" %}" role="button">{% trans "See users" %} &raquo;</a></p>
-      </div>
+
     {% endwith %}
     </div>
-  </div>
+  </td>
+  </table>
+<script>
+var myIndex = 0;
+carousel();
+function carousel() {
+	var i;
+	var x = document.getElementsByClassName("mySlides");
+	for (i = 0; i < x.length; i++) {
+	   x[i].style.display = "none";  
+	}
+	myIndex++;
+	if (myIndex > x.length) {myIndex = 1}    
+	x[myIndex-1].style.display = "block";  
+	setTimeout(carousel, 3000); // Change image every 2 seconds
+}
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function currentDiv(n) {
+  showDivs(slideIndex = n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+	 x[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+	 dots[i].className = dots[i].className.replace(" w3-white", "");
+  }
+  x[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " w3-white";
+}
+</script>
   {% verbatim %}
   <div ng-app="featured">
     <div ng-repeat="item in featured">

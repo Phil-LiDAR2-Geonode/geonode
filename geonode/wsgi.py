@@ -19,6 +19,12 @@
 
 import os
 
+activate_this = '/home/geonode/.virtualenvs/geonode-python2.7.13/bin/activate_this.py'
+if os.path.isfile(activate_this):
+    execfile(activate_this, dict(__file__=activate_this))
+else:
+    raise FileNotFoundError("Cannot find virtualenv activate file [{0}]".format(activate_this))
+
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "geonode.settings")
