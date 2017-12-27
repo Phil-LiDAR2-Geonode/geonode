@@ -97,3 +97,6 @@ geonode/*/migrations
 layers/
 layers/*
 
+virtualenv/
+virtualenv/*
+
