@@ -305,15 +305,24 @@ def layer_detail(request, layername, template='layers/layer_detail.html'):
         'LAYER_PREVIEW_LIBRARY',
         'leaflet')
 
-    if request.user.is_authenticated():
-    # if request.user.has_perm('download_resourcebase', layer.get_self_resource()):
-        if layer.storeType == 'dataStore':
-            links = layer.link_set.download().filter(
-                name__in=settings.DOWNLOAD_FORMATS_VECTOR)
-        else:
-            links = layer.link_set.download().filter(
-                name__in=settings.DOWNLOAD_FORMATS_RASTER)
-        context_dict["links"] = links
+    if "_lulc" not in layer.typename and "_va" not in layer.typename:
+        if request.user.is_authenticated():
+            if layer.storeType == 'dataStore':
+                links = layer.link_set.download().filter(
+                    name__in=settings.DOWNLOAD_FORMATS_VECTOR)
+            else:
+                links = layer.link_set.download().filter(
+                    name__in=settings.DOWNLOAD_FORMATS_RASTER)
+            context_dict["links"] = links
+    else
+        if request.user.has_perm('download_resourcebase', layer.get_self_resource()):
+            if layer.storeType == 'dataStore':
+                links = layer.link_set.download().filter(
+                    name__in=settings.DOWNLOAD_FORMATS_VECTOR)
+            else:
+                links = layer.link_set.download().filter(
+                    name__in=settings.DOWNLOAD_FORMATS_RASTER)
+            context_dict["links"] = links
 
     if settings.SOCIAL_ORIGINS:
         context_dict["social_links"] = build_social_links(request, layer)
