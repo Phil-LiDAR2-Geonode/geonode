@@ -11,7 +11,6 @@ def index(request):
     return render(request, 'uas/uas_index.html')
 
 def browse(request, sensor, resolution):
-
     if resolution == "null" and sensor == "null":
         imagery_results =  []
     elif resolution == "all" and sensor != "all":
@@ -23,9 +22,14 @@ def browse(request, sensor, resolution):
     else:
         imagery_results = Imagery.objects.order_by('title')
 
-    return render_to_response('uas/uas_browse.html',RequestContext(request, {
+    return render_to_response('uas/imagery_browse.html',RequestContext(request, {
         'resolution': resolution.upper(),
         'sensor': sensor.upper(),
         'imagery_results': imagery_results,
+        }))
 
+def imagery_detail(request, imagery_id):
+    imagery = Imagery.objects.get(pk=imagery_id)
+    return render_to_response('uas/imagery_detail.html',RequestContext(request, {
+        'imagery': imagery,
         }))
