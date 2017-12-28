@@ -82,7 +82,7 @@
               <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Data Library <span class = "caret"></span></a>
               <ul class = "dropdown-menu">
                 <li><a href = "/spectral_library/">Spectral Library</a></li>
-                <li><a href = "/page_unavailable/">UAV Imagery</a></li>
+                <li><a href = "/uas/">UAS Imagery</a></li>
               </ul>
             </li>
 
@@ -420,6 +420,30 @@
           names += elements[i].name + " ";
       }
       window.location = "/spectral_library/browse_queue/" + names;
+    }
+    </script>
+
+    <script type = "text/javascript">
+    function searchImageryFunction() {
+      var sensorElement = document.getElementById("sensor_option");
+      var selectedSensor = sensorElement.options[sensorElement.selectedIndex].value;
+      var resolutionElement = document.getElementById("resolution_option");
+      var selectedResolution = resolutionElement.options[resolutionElement.selectedIndex].value;
+      window.location = "/uas/browse/" + selectedSensor.toLowerCase() + "/" + selectedResolution.toLowerCase();
+    }
+
+    function enableUASSearch() {
+      if (document.getElementById("sensor_option").selectedIndex != 0 && document.getElementById("resolution_option").selectedIndex != 0) {
+        document.getElementById("searchUAS").disabled = false;
+      } else {
+          document.getElementById("searchUAS").disabled = true;
+        }
+      }
+
+    function clearUASSelection() {
+      window.location = "/uas/browse/null/null"
+      document.getElementById("sensor_option").selectedIndex = 0;
+      document.getElementById("resolution_option").selectedIndex = 0;
     }
     </script>
   </body>
