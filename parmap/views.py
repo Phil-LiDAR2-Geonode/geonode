@@ -139,4 +139,4 @@ def rs_download_maps(request):
 
     zf.close()
 
-    return HttpResponse(json.dumps({"zip_path": zip_path, "zip_s": s.getvalue()}),mimetype='application/json',status=200)
+    return HttpResponse(json.dumps({"zip_path": zip_path}),mimetype='application/json',status=200)
