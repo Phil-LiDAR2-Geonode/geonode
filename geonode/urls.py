@@ -90,6 +90,8 @@ urlpatterns = patterns('',
                        (r'^datarequest/', include('parmap_data_request.urls')),
                        (r'^news/', include('news.urls')),
                        (r'^spectral_library/', include('spectral_library.urls')),
+                       (r'^uas/', include('uas.urls')),
+
                        url(r'^page_unavailable/$', TemplateView.as_view(template_name='page_unavailable.html'), name='page_unavailable'),
 
                        # Accounts
