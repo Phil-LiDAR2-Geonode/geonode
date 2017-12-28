@@ -107,7 +107,7 @@ def rs_download_layers(request):
     for layerid in queue:
         layer = Layer.objects.get(id=layerid)
 
-        readme = [readme] + [list_item(layer)]
+        readme = readme + list_item(layer)
         
 
     return HttpResponse(json.dumps({readme: readme}),mimetype='application/json',status=200)
