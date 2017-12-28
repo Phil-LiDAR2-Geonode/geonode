@@ -48,7 +48,7 @@ def other_rs(request, facettype='layers'):
     if(facettype == 'layers'):
         queryset = Layer.objects.distinct().exclude(typename__icontains='_lulc').exclude(typename__icontains='_va').order_by('-date')
     else:
-        queryset = Document.objects.distinct().filter(title__icontains='Land Cover Map').order_by('-date')[:5]
+        queryset = Document.objects.distinct().exclude(doc_file__icontains='_lulc').exclude(doc_file__icontains='_va').order_by('-date')
 
 
     context_dict = {
