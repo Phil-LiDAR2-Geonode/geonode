@@ -11,6 +11,7 @@ from geonode.utils import resolve_object
 from geonode.layers.models import Layer
 from geonode.documents.models import Document
 from django.utils import timezone
+from .helpers import get_stores, ogc_server_settings, set_styles, style_update
 import os
 import zipfile
 import StringIO
@@ -96,21 +97,40 @@ def rs_links_layers(request, layername):
     
     return render_to_response('parmap/rs_links.html', RequestContext(request, context_dict))
 
-
 def rs_download_layers(request):
+
+    from geonode.utils import http_client
+
     queue = dict(request.POST)["queue"]
     readme = """This data is provided by GeoNode.\n\nContents:\n"""
+    layers = []
 
     def list_item(lyr):
         return "%s - %s.*" % (lyr.title, lyr.name)
+
+    def layer_son(layer):
+        return {
+            "name": layer.typename,
+            "service": layer.service_type,
+            "metadataURL": "",
+            "serviceURL": ""
+        }
 
     for layerid in queue:
         layer = Layer.objects.get(id=layerid)
 
         readme = readme + list_item(layer)
-        
+        layers.append(layer_son(layer))
 
-    return HttpResponse(json.dumps({readme: readme}),mimetype='application/json',status=200)
+    fake_map = {
+        "map": {"readme": readme},
+        "layers": layers
+    }
+
+    url = "%srest/process/batchDownload/launch/" % ogc_server_settings.LOCATION
+    resp, content = http_client.request(
+        url, 'POST', body=json.dumps(fake_map))
+    return HttpResponse(content, status=resp.status)
 
 def rs_download_layers_old(request):
     queue = dict(request.POST)["queue"]
