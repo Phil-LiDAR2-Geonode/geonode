@@ -34,5 +34,4 @@ urlpatterns = patterns('geonode.geoserver.views',
                        url(r'^acls/?$', 'layer_acls', name='layer_acls'),
                        url(r'^resolve_user/?$', 'resolve_user', name='layer_resolve_user'),
                        url(r'^download$', 'layer_batch_download', name='layer_batch_download'),
-                       url(r'^rs_download$', 'rs_layer_batch_download', name='rs_layer_batch_download'),                       
                        )
