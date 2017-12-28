@@ -11,7 +11,7 @@ from geonode.utils import resolve_object
 from geonode.layers.models import Layer
 from geonode.documents.models import Document
 from django.utils import timezone
-from .helpers import get_stores, ogc_server_settings, set_styles, style_update
+from geoserver.helpers import ogc_server_settings
 import os
 import zipfile
 import StringIO
