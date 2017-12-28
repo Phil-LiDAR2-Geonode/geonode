@@ -98,7 +98,7 @@ def rs_links_layers(request, layername):
 
 
 def rs_download_layers(request):
-    queue = request.POST['queue']
+    queue = dict(request.POST)["queue"]
     print queue
     return HttpResponse(json.dumps(queue),mimetype='application/json',status=200)
 
