@@ -49,7 +49,8 @@ def other_rs(request, facettype='layers'):
     if(facettype == 'layers'):
         queryset = Layer.objects.distinct().exclude(typename__icontains='_lulc').exclude(typename__icontains='_va').order_by('-date')
     else:
-        queryset = Document.objects.distinct().exclude(doc_file__icontains='_lulc').exclude(doc_file__icontains='_va').exclude(doc_file__icontains='LANDCOVER').order_by('-date')
+        # queryset = Document.objects.distinct().exclude(doc_file__icontains='_lulc').exclude(doc_file__icontains='_va').exclude(doc_file__icontains='LANDCOVER').order_by('-date')
+        queryset = Document.objects.distinct().order_by('-date')[:5]
 
 
     context_dict = {
@@ -122,34 +123,20 @@ def rs_download_maps(request):
 
     date = timezone.now()
     zip_subdir = "_".join(["rs_maps", request.user.username, date.strftime('%Y%m%d'), date.strftime('%H%M%S')])
-    zip_filename = "%s.zip" % zip_subdir
+    zip_filename = zip_subdir + ".zip"
+
+    s = StringIO.StringIO()
+
+    zf = zipfile.ZipFile(s, "w")
 
     for docid in queue:
         document = Document.objects.get(id=docid)
         target_path = os.path.join(settings.MEDIA_ROOT, str(document.doc_file))
-        links.append(target_path)
+        fdir, fname = os.path.split(target_path)
+        zip_path = os.path.join(zip_subdir, fname)
 
-    return HttpResponse(json.dumps({
-        links: links,
-        zip_filename: zip_filename
-    }),mimetype='application/json',status=200)
-    
-    # date = timezone.now()
-    # zip_subdir = "_".join(["rs_maps", request.user.username, date.strftime('%Y%m%d'), date.strftime('%H%M%S')])
-    # zip_filename = "%s.zip" % zip_subdir
+        zf.write(target_path, zip_path)
 
-    # s = StringIO.StringIO()
+    zf.close()
 
-    # zf = zipfile.ZipFile(s, "w")
-
-    # for docid in queue:
-    #     document = Document.objects.get(id=docid)
-    #     target_path = os.path.join(settings.MEDIA_ROOT, str(document.doc_file))
-    #     fdir, fname = os.path.split(target_path)
-    #     zip_path = os.path.join(zip_subdir, fname)
-
-    #     zf.write(target_path, zip_path)
-
-    # zf.close()
-
-    # return HttpResponse(json.dumps({"zip_path": zip_path, "zip_s": s.getvalue()}),mimetype='application/json',status=200)
+    return HttpResponse(json.dumps({"zip_path": zip_path, "zip_s": s.getvalue()}),mimetype='application/json',status=200)
