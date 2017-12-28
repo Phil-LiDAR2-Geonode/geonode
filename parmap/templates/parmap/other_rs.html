@@ -221,23 +221,36 @@ $(function (){
       rsQueue.forEach(function(rsItem) {
         queue.push(rsItem.id);
       })
+
+      $.ajax({
+        "url": "/parmap/other_rs/download/{{facettype}}",
+        "type": "post",
+        "data": {queue: queue},
+        "success": function(data){
+          console.log(data);
+        },
+        "error": function(err) {
+          console.error(err);
+        }
+      })
     }else{
       rsQueue.forEach(function(rsItem) {
         queue.push(rsItem.id);
       })
+
+      $.ajax({
+        "url": "/geoserver/rs_download",
+        "type": "post",
+        "data": {queue: queue},
+        "success": function(data){
+          console.log(data);
+        },
+        "error": function(err) {
+          console.error(err);
+        }
+      })
     }
     
-    $.ajax({
-      "url": "/parmap/other_rs/download/{{facettype}}",
-      "type": "post",
-      "data": {queue: queue},
-      "success": function(data){
-        console.log(data);
-      },
-      "error": function(err) {
-        console.error(err);
-      }
-    })
   })
 
   

@@ -403,6 +403,40 @@ def layer_batch_download(request):
         resp, content = http_client.request(url, 'GET')
         return HttpResponse(content, status=resp.status)
 
+def rs_layer_batch_download(request):
+
+    from geonode.utils import http_client
+
+    queue = dict(request.POST)["queue"]
+    readme = """This data is provided by GeoNode.\n\nContents:\n"""
+    layers = []
+
+    def list_item(lyr):
+        return "%s - %s.*" % (lyr.title, lyr.name)
+
+    def layer_son(layer):
+        return {
+            "name": layer.typename,
+            "service": layer.service_type,
+            "metadataURL": "",
+            "serviceURL": ""
+        }
+
+    for layerid in queue:
+        layer = Layer.objects.get(id=layerid)
+
+        readme = readme + list_item(layer)
+        layers.append(layer_son(layer))
+
+    fake_map = {
+        "map": {"readme": readme},
+        "layers": layers
+    }
+
+    url = "%srest/process/batchDownload/launch/" % ogc_server_settings.LOCATION
+    resp, content = http_client.request(
+        url, 'POST', body=json.dumps(fake_map))
+    return HttpResponse(content, status=resp.status)
 
 def resolve_user(request):
     user = None
