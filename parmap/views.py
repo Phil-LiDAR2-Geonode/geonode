@@ -118,7 +118,7 @@ def rs_download_layers(request):
     return HttpResponse(json.dumps(links),mimetype='application/json',status=200)
 
 def rs_download_maps(request):
-    queue = dict(request.POST)["queue"]
+    queue = dict(request.GET)["queue"]
     links = []
 
     date = timezone.now()
