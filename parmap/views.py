@@ -120,12 +120,19 @@ def rs_download_maps(request):
     queue = dict(request.POST)["queue"]
     links = []
 
+    date = timezone.now()
+    zip_subdir = "_".join(["rs_maps", request.user.username, date.strftime('%Y%m%d'), date.strftime('%H%M%S')])
+    zip_filename = "%s.zip" % zip_subdir
+
     for docid in queue:
         document = Document.objects.get(id=docid)
         target_path = os.path.join(settings.MEDIA_ROOT, str(document.doc_file))
         links.append(target_path)
 
-    return HttpResponse(json.dumps(links),mimetype='application/json',status=200)
+    return HttpResponse(json.dumps({
+        links: links,
+        zip_filename: zip_filename
+    }),mimetype='application/json',status=200)
     
     # date = timezone.now()
     # zip_subdir = "_".join(["rs_maps", request.user.username, date.strftime('%Y%m%d'), date.strftime('%H%M%S')])
