@@ -111,7 +111,8 @@ def rs_download_layers(request):
             links_temp = layer.link_set.download().filter(
                 name__in=settings.DOWNLOAD_FORMATS_RASTER)
 
-        links = links + links_temp
+        for link in links_temp:
+            links.append(link.url)
 
     return HttpResponse(json.dumps(links),mimetype='application/json',status=200)
 
