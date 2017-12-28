@@ -99,8 +99,14 @@ def rs_links_layers(request, layername):
 
 def rs_download_layers(request):
     queue = dict(request.POST)["queue"]
-    print queue
-    return HttpResponse(json.dumps(queue),mimetype='application/json',status=200)
+    links = []
+    
+    for docid in queue:
+        layer = Layer.objects.get(id=docid)
+        target_path = os.path.join(settings.MEDIA_ROOT, str(layer.doc_file))
+        links.append(target_path)
+
+    return HttpResponse(json.dumps(links),mimetype='application/json',status=200)
 
 def rs_download_maps(request):
     queue = dict(request.POST)["queue"]
