@@ -50,7 +50,7 @@ def getTitle(muni, layertype, supp):
     elif layertype == "chm":
         return "Canopy Height Model (CHM) for the Municipality of %s, %s." % (muni.MName, muni.PName)
     elif layertype == "cov":
-        return "Canopy Cover Model (CCM)%s for the Municipality of %s, %s." % (muni.MName, muni.PName)
+        return "Canopy Cover Model (CCM) for the Municipality of %s, %s." % (muni.MName, muni.PName)
     elif layertype == "boundary":
         return "LiDAR Boundary for the Municipality of %s, %s." % (muni.MName, muni.PName)
     elif layertype == "class" or layertype == "diss" or layertype == "classdiss":
