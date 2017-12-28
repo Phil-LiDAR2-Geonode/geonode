@@ -1,0 +1,29 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {% trans "UAS Imagery" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block body %}
+
+<div class = "section firstChild">
+	<div class = "container">
+		<div class = "spectralWrapper">
+			<center><img src = "{{ STATIC_URL }}parmap/img/page-uas/UAV_500.gif"></center>
+
+			<div class = "spectralTitle">UAS Imagery</div>
+			<div class = "spectralSubTitle">PARMap uses data from unnamed aerial systems (UAS) to process the collect images from Philippine agricultural crops.</div><br>
+			<div class = "spectralSubTitle">Explore Images captured from different locations here</div>
+			<div class = "downloadUav">
+				<a href = "/uas/browse/all/all">
+					<i class = "fa fa-download"></i>
+					Download UAV Images
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
