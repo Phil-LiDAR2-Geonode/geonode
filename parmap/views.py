@@ -46,7 +46,7 @@ def _resolve_layer(request, typename, permission='base.view_resourcebase',
 # Create your views here.
 def other_rs(request, facettype='layers'):
     if(facettype == 'layers'):
-        queryset = Layer.objects.distinct().filter(typename__icontains='parmap').order_by('-date')[:5]
+        queryset = Layer.objects.distinct().exclude(typename__icontains='_lulc').exclude(typename__icontains='_va').order_by('-date')
     else:
         queryset = Document.objects.distinct().filter(title__icontains='Land Cover Map').order_by('-date')[:5]
 
