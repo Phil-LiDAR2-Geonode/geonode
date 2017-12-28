@@ -99,6 +99,21 @@ def rs_links_layers(request, layername):
 
 def rs_download_layers(request):
     queue = dict(request.POST)["queue"]
+    readme = """This data is provided by GeoNode.\n\nContents:\n"""
+
+    def list_item(lyr):
+        return "%s - %s.*" % (lyr.title, lyr.name)
+
+    for layerid in queue:
+        layer = Layer.objects.get(id=layerid)
+
+        readme = [readme] + [list_item(layer)]
+        
+
+    return HttpResponse(json.dumps({readme: readme}),mimetype='application/json',status=200)
+
+def rs_download_layers_old(request):
+    queue = dict(request.POST)["queue"]
     links = []
     
     for layerid in queue:
