@@ -118,23 +118,31 @@ def rs_download_layers(request):
 
 def rs_download_maps(request):
     queue = dict(request.POST)["queue"]
-    
-    date = timezone.now()
-    zip_subdir = "_".join(["rs_maps", request.user.username, date.strftime('%Y%m%d'), date.strftime('%H%M%S')])
-    zip_filename = "%s.zip" % zip_subdir
-
-    s = StringIO.StringIO()
-
-    zf = zipfile.ZipFile(s, "w")
+    links = []
 
     for docid in queue:
         document = Document.objects.get(id=docid)
         target_path = os.path.join(settings.MEDIA_ROOT, str(document.doc_file))
-        fdir, fname = os.path.split(target_path)
-        zip_path = os.path.join(zip_subdir, fname)
+        links.append(target_path)
 
-        zf.write(target_path, zip_path)
+    return HttpResponse(json.dumps(links),mimetype='application/json',status=200)
+    
+    # date = timezone.now()
+    # zip_subdir = "_".join(["rs_maps", request.user.username, date.strftime('%Y%m%d'), date.strftime('%H%M%S')])
+    # zip_filename = "%s.zip" % zip_subdir
 
-    zf.close()
+    # s = StringIO.StringIO()
 
-    return HttpResponse(json.dumps({"zip_path": zip_path, "zip_s": s.getvalue()}),mimetype='application/json',status=200)
+    # zf = zipfile.ZipFile(s, "w")
+
+    # for docid in queue:
+    #     document = Document.objects.get(id=docid)
+    #     target_path = os.path.join(settings.MEDIA_ROOT, str(document.doc_file))
+    #     fdir, fname = os.path.split(target_path)
+    #     zip_path = os.path.join(zip_subdir, fname)
+
+    #     zf.write(target_path, zip_path)
+
+    # zf.close()
+
+    # return HttpResponse(json.dumps({"zip_path": zip_path, "zip_s": s.getvalue()}),mimetype='application/json',status=200)
