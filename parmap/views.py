@@ -139,4 +139,7 @@ def rs_download_maps(request):
 
     zf.close()
 
-    return HttpResponse(json.dumps({"zip_path": zip_path}),mimetype='application/json',status=200)
+    resp = HttpResponse(s.getvalue(), mimetype = "application/x-zip-compressed")
+    resp['Content-Disposition'] = 'attachment; filename=%s' % zip_filename
+
+    return resp
