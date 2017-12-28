@@ -223,7 +223,7 @@ $(function (){
       })
 
       var params = { queue: queue };
-      window.open('/parmap/other_rs/download/{{facetype}}?'+$.param(params), '_blank');
+      window.open('/parmap/other_rs/download/maps?'+$.param(params), '_blank');
     }else{
       rsQueue.forEach(function(rsItem) {
         queue.push(rsItem.id);
