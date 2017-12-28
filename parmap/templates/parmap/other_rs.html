@@ -232,10 +232,9 @@ $(function (){
       "type": "post",
       "data": {queue: queue},
       "success": function(data){
-        console.log(data);
         if("{{facettype}}" === 'maps'){
         }else{
-          data.forEach(function(link) {            
+          data.forEach(function(link) {
             window.open(link,'_blank');
           })
         }

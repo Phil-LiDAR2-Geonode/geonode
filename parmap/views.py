@@ -120,7 +120,7 @@ def rs_download_maps(request):
     queue = dict(request.POST)["queue"]
     
     date = timezone.now()
-    zip_subdir = "_".join(["spectro", request.user.username, date.strftime('%Y%m%d'), date.strftime('%H%M%S')])
+    zip_subdir = "_".join(["rs_maps", request.user.username, date.strftime('%Y%m%d'), date.strftime('%H%M%S')])
     zip_filename = "%s.zip" % zip_subdir
 
     s = StringIO.StringIO()
