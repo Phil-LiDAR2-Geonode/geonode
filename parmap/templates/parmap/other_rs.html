@@ -221,28 +221,28 @@ $(function (){
       rsQueue.forEach(function(rsItem) {
         queue.push(rsItem.id);
       })
+
+      var params = { queue: queue };
+      window.open('/parmap/other_rs/download/{{facetype}}?'+$.param(params), '_blank');
     }else{
       rsQueue.forEach(function(rsItem) {
         queue.push(rsItem.id);
       })
-    }
-    
-    $.ajax({
-      "url": "/parmap/other_rs/download/{{facettype}}",
-      "type": "post",
-      "data": {queue: queue},
-      "success": function(data){
-        if("{{facettype}}" === 'maps'){
-        }else{
+
+      $.ajax({
+        "url": "/parmap/other_rs/download/{{facettype}}",
+        "type": "post",
+        "data": {queue: queue},
+        "success": function(data){
           data.forEach(function(link) {
             window.open(link,'_blank');
           })
+        },
+        "error": function(err) {
+          console.error(err);
         }
-      },
-      "error": function(err) {
-        console.error(err);
-      }
-    })
+      })
+    }
   })
 
   
