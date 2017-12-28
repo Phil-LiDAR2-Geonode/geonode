@@ -101,10 +101,17 @@ def rs_download_layers(request):
     queue = dict(request.POST)["queue"]
     links = []
     
-    for docid in queue:
-        layer = Layer.objects.get(id=docid)
-        target_path = os.path.join(settings.MEDIA_ROOT, str(layer.doc_file))
-        links.append(target_path)
+    for layerid in queue:
+        layer = Layer.objects.get(id=layerid)
+
+        if layer.storeType == 'dataStore':
+            links_temp = layer.link_set.download().filter(
+                name__in=settings.DOWNLOAD_FORMATS_VECTOR)
+        else:
+            links_temp = layer.link_set.download().filter(
+                name__in=settings.DOWNLOAD_FORMATS_RASTER)
+
+        links = links + links_temp
 
     return HttpResponse(json.dumps(links),mimetype='application/json',status=200)
 
