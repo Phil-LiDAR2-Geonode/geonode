@@ -223,6 +223,9 @@
               {% if user.is_staff %}
               <li><a href="{% url "admin:index" %}"><i class="fa fa-cog"></i> {% trans "Admin" %}</a></li>
               {% endif %}
+              {% if user.is_staff %}
+              <li><a href="/parmap_monitoring/"><i class="fa fa-database"></i> {% trans "PARMap Monitoring" %}</a></li>
+              {% endif %}
               {% block extra_user_menu %}
               {% endblock %}
               <li class="modal-divider"></li>
