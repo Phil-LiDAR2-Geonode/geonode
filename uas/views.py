@@ -1,5 +1,6 @@
 from django.template import RequestContext, loader
 from uas.models import Imagery
+from parmap_monitoring.models import DataDownload
 from geonode.people.models import Profile
 from django.http import HttpResponse
 from django.http import Http404
@@ -7,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.shortcuts import render
 from django.conf import settings
+from django.utils import timezone
 import os
 
 def index(request):
@@ -37,6 +39,18 @@ def imagery_detail(request, imagery_id):
         }))
 
 def download(request, imagery_id):
+    # tracking of downloads
+    dd = DataDownload()
+    dd.username = Profile.objects.get(username=request.user.username)
+    dd.email = Profile.objects.get(username=request.user.username).email
+    dd.first_name = Profile.objects.get(username=request.user.username).first_name
+    dd.last_name = Profile.objects.get(username=request.user.username).last_name
+    dd.data_id = imagery_id
+    dd.data_downloaded = Imagery.objects.get(pk=imagery_id)
+    dd.data_type = "UAS Imagery"
+    dd.date_downloaded = timezone.now()
+    dd.save()
+    # download zipped file
     imagery_path = os.path.join(settings.MEDIA_ROOT, str(Imagery.objects.get(pk=imagery_id).zipped_file))
     imagery_file = os.path.basename(imagery_path)
     fp = open(imagery_path, 'rb')
