@@ -127,3 +127,13 @@ def download_files(request, targets):
     q.delete()
 
     return resp
+
+def download(request, target_id):
+    target_path = os.path.join(settings.MEDIA_ROOT, str(Target.objects.get(pk=target_id).target_file))
+    target_file = os.path.basename(target_path)
+    fp = open(target_path, 'rb')
+    response = HttpResponse(fp.read())
+    fp.close()
+    response['content_type'] = "application/x-zip-compressed"
+    response['Content-Disposition'] = 'attachment;filename=%s ' % target_file
+    return response
