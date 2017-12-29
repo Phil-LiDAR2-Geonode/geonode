@@ -1,6 +1,7 @@
 from django.template import RequestContext, loader
 from spectral_library.models import Target, Queue
 from geonode.people.models import Profile
+from parmap_monitoring.models import DataDownload
 from django.http import HttpResponse
 from django.http import Http404
 from django.http import HttpResponseRedirect
@@ -116,6 +117,17 @@ def download_files(request, targets):
         zip_path = os.path.join(zip_subdir, fname)
 
         zf.write(target_path, zip_path)
+        # tracking of downloads
+        dd = DataDownload()
+        dd.username = Profile.objects.get(username=request.user.username)
+        dd.email = Profile.objects.get(username=request.user.username).email
+        dd.first_name = Profile.objects.get(username=request.user.username).first_name
+        dd.last_name = Profile.objects.get(username=request.user.username).last_name
+        dd.data_id = target_id
+        dd.data_downloaded = Target.objects.get(pk=target_id)
+        dd.data_type = "Spectral Signature"
+        dd.date_downloaded = timezone.now()
+        dd.save()
 
     zf.close()
 
@@ -129,6 +141,18 @@ def download_files(request, targets):
     return resp
 
 def download(request, target_id):
+    # tracking of downloads
+    dd = DataDownload()
+    dd.username = Profile.objects.get(username=request.user.username)
+    dd.email = Profile.objects.get(username=request.user.username).email
+    dd.first_name = Profile.objects.get(username=request.user.username).first_name
+    dd.last_name = Profile.objects.get(username=request.user.username).last_name
+    dd.data_id = target_id
+    dd.data_downloaded = Target.objects.get(pk=target_id)
+    dd.data_type = "Spectral Signature"
+    dd.date_downloaded = timezone.now()
+    dd.save()
+    # download zipped file
     target_path = os.path.join(settings.MEDIA_ROOT, str(Target.objects.get(pk=target_id).target_file))
     target_file = os.path.basename(target_path)
     fp = open(target_path, 'rb')
@@ -136,4 +160,5 @@ def download(request, target_id):
     fp.close()
     response['content_type'] = "application/x-zip-compressed"
     response['Content-Disposition'] = 'attachment;filename=%s ' % target_file
+
     return response
