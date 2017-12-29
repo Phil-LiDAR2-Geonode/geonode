@@ -112,12 +112,35 @@
 										{% endif %}
 
 										<i class = "fa fa-download" style = "color: #12650b"></i>
-										<a href = "#resource-download" data-toggle = "modal">download</a>
+										<a href = "#resource-download{{ target.id }}" data-toggle = "modal">download</a>
 									{% else %}
 										<a href = "javascript:;" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-square-o" style = "color: rgba(85, 85, 85, 0.34)"></i>mark as selected</a>
-										<a href = "#resource-download" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-download" style = "color: rgba(85, 85, 85, 0.34)"></i>download</a>
+										<a href = "#" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-download" style = "color: rgba(85, 85, 85, 0.34)"></i>download</a>
 									{% endif %}
-									 <div class="modal fade" id="download-layer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal fade" id="resource-download{{ target.id }}" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
+										<div class="modal-dialog" style="width: 80%; height: 60%;">
+											<div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
+												<div class="modal-header">
+													{% comment %}
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+													{% endcomment %}
+													<h4 class="modal-title" id="ResDownloadModalLabel">END-USER LICENSE AGREEMENT (Non-Commercial)</h4>
+												</div>
+												<div class="modal-body">
+													<div class="row edit-modal">
+														<div class="col-sm-12 text-left">
+															{% include "parmap_data_request/eula.html" %}
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<input type="button" class="btn btn-default" data-toggle="modal" data-target="#download-layer{{ target.id }}" data-dismiss="modal" value="{% trans "Accept" %}"/>
+													<input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
+												</div>
+											</div>
+										</div>
+									</div>
+									 <div class="modal fade" id="download-layer{{ target.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 										 <div class="modal-dialog">
 											 <div class="modal-content">
 												 <div class="modal-header">
@@ -138,30 +161,6 @@
 						{% endfor %}
 					</ul>
 				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="resource-download" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
-	<div class="modal-dialog" style="width: 80%; height: 60%;">
-		<div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
-			<div class="modal-header">
-				{% comment %}
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				{% endcomment %}
-				<h4 class="modal-title" id="ResDownloadModalLabel">END-USER LICENSE AGREEMENT (Non-Commercial)</h4>
-			</div>
-			<div class="modal-body">
-				<div class="row edit-modal">
-					<div class="col-sm-12 text-left">
-						{% include "parmap_data_request/eula.html" %}
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<input type="button" class="btn btn-default" data-toggle="modal" data-target="#download-layer" data-dismiss="modal" value="{% trans "Accept" %}"/>
-				<input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
 			</div>
 		</div>
 	</div>
