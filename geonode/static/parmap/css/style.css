@@ -1519,7 +1519,7 @@ body {
 
 /* EULA info associated styles */
 .eula-list-text{
-	margin-left: 1em;
+	margin-left: 1em !important;
 }
 .eula-level-1{
 	padding-left: 1em;
@@ -1533,6 +1533,21 @@ body {
 	padding-left: 2em;
 	list-style: lower-roman;
 }
+
+.eula p{
+	font-size: 14px !important;
+	text-align: left !important;
+	margin: 0 0 10px;
+	letter-spacing: 0px !important;
+}
+
+.eula li{
+	border: 0px !important;
+	overflow: visible !important;
+	padding: 0px !important;
+	margin-bottom: 0px !important;
+}
+
 
 footer {
 	border: 1px solid #aaa;
