@@ -6,6 +6,8 @@ from django.http import Http404
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.shortcuts import render
+from django.conf import settings
+import os
 
 def index(request):
     return render(request, 'uas/uas_index.html')
@@ -33,3 +35,13 @@ def imagery_detail(request, imagery_id):
     return render_to_response('uas/imagery_detail.html',RequestContext(request, {
         'imagery': imagery,
         }))
+
+def download(request, imagery_id):
+    imagery_path = os.path.join(settings.MEDIA_ROOT, str(Imagery.objects.get(pk=imagery_id).zipped_file))
+    imagery_file = os.path.basename(imagery_path)
+    fp = open(imagery_path, 'rb')
+    response = HttpResponse(fp.read())
+    fp.close()
+    response['content_type'] = "application/x-zip-compressed"
+    response['Content-Disposition'] = 'attachment;filename=%s ' % imagery_file
+    return response
