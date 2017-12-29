@@ -91,6 +91,7 @@ urlpatterns = patterns('',
                        (r'^news/', include('news.urls')),
                        (r'^spectral_library/', include('spectral_library.urls')),
                        (r'^uas/', include('uas.urls')),
+                       (r'^parmap_monitoring/', include('parmap_monitoring.urls')),
 
                        url(r'^page_unavailable/$', TemplateView.as_view(template_name='page_unavailable.html'), name='page_unavailable'),
 
