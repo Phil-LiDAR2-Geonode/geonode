@@ -316,7 +316,8 @@ INSTALLED_APPS = (
     'news',
     'spectral_library',
     'uas',
-    
+    'parmap_monitoring',
+
 ) + GEONODE_APPS
 
 LOGGING = {
