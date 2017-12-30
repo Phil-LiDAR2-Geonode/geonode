@@ -22,49 +22,36 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
             <div class = "row">
                 <div class = "col-sm-12 rightPanel">
                     <div class = "resultWrapper">
-                        <div class = "resultTitle">
-                            Results:
-                            <a href="#" class="hidden browse-queue" data-toggle="modal" data-target="#browse-queue">Browse Queue</a>
-                        </div>
-
-                        <div class="modal fade" id="browse-queue" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
-                          <div class="modal-dialog" style="width: 60%; min-height: 20%;">
-                            <div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
-                              <div class="modal-header">
-                                <h4 class="modal-title" id="ResDownloadModalLabel">Other RS Queue</h4>
-                              </div>
-                              <div class="modal-body">
-                                <div class="row edit-modal">
-                                  <div class="col-sm-12 text-left">
-                                    <ul class="queue-container"></ul>                                    
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="modal-footer">
-                                <input type="button" class="btn btn-default js-btn-download" data-toggle="modal" value="{% trans "Download" %}"/>
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
-                              </div>
-                            </div>
+                      
+                        {% if list %}
+                          <div class = "resultTitle">
+                              Results:
+                              <a href="/parmap/other_rs/queue/{{facettype}}" class="hidden browse-queue">Browse Queue</a>
                           </div>
-                      </div>
+                        {% else %}
+                          <div class = "resultTitle">No results found</div>
+                        {% endif %}
                         
                         <ul>
                         {% for item in list %}
                           <li>
                             <div class="resultImgWrapper resultImgWrapperRs">
-                                <a href="{{ item.detail_url }}"><img src="{{ item.thumbnail_url }}" /></a>
+                                <a href="{{ item.detail_url }}"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Ph_regions_and_provinces.png" /></a>
                             </div>
                             <div class="description1"><a href="{{ item.detail_url }}">{{ item.title }}</a></div>
                             <div class="description2" style="text-transform: capitalize;">{{ item.category__gn_description }}</div>
                             <div class="description3">by <a href="/people/profile/{{ item.owner }}">{{ item.owner }}</a></div>
-                            
+
                             {% if request.user.is_authenticated %}
-                            <div class = "actions">
+                            <div class="actions" data-id="{{item.id}}">
                               <a href="#" class="queue-item" 
                                 data-url="{{item.detail_url}}" 
                                 data-id="{{item.id}}"
                                 data-title="{{item.title}}"
+                                data-thumbnail_url="{{item.thumbnail_url}}"
                                 data-owner="{{item.owner}}"><i class = "fa fa-plus-square"></i> Add to Queue</a>
+                              <a href="#" class="unqueue-item hidden" 
+                                data-id="{{item.id}}"><i class = "fa fa-minus-circle"></i> Remove from Queue</a>
                               <a href="#" class="download-item" data-url="{{item.detail_url}}" data-id="{{item.id}}"><i class = "fa fa-download"></i>Download</a>
                             </div>
                             {% endif %}
@@ -135,7 +122,26 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
 {% endif %}
 <script type="text/javascript">
 
+var username = "{{request.user.username}}";
+var RSQUEUE_STORAGE = 'rsqueue_{{facettype}}_' + username;
+
 $(function (){
+  // Load RS Queue storage
+  var rsQueueStorage = localStorage.getItem(RSQUEUE_STORAGE);
+  var rsQueue = rsQueueStorage === null ? [] : JSON.parse(rsQueueStorage);
+  var queueContainer = $('.queue-container');
+
+  // update actions
+  if(rsQueue.length > 0) {
+    $('.browse-queue').removeClass('hidden');
+
+    rsQueue.forEach(function(queue){
+      var actionEl = $('.actions[data-id='+queue.id+']');
+      $(actionEl).find('.queue-item').addClass('hidden');
+      $(actionEl).find('.unqueue-item').removeClass('hidden');
+    })
+  }
+
   $('.resultWrapper').on('click', '.download-item', function(evt){
     evt.preventDefault();
     var id = $(this).data('id');
@@ -152,9 +158,6 @@ $(function (){
     }
   });
 
-  var rsQueue = [];
-  var queueContainer = $('.queue-container');
-
   $('.resultWrapper').on('click', '.queue-item', function(evt){
     evt.preventDefault();
     var urlArr = $(this).data('url').split('/');
@@ -162,8 +165,10 @@ $(function (){
 
     var targetItem = {
       id: $(this).data('id'),
+      url: $(this).data('url'),
       title: $(this).data('title'),
       owner: $(this).data('owner'),
+      thumbnail: $(this).data('thumbnail_url'),
       urlItem: item
     }
 
@@ -174,16 +179,6 @@ $(function (){
     if(countQueue.length == 0){
       rsQueue.push(targetItem);
     }
-    
-    queueContainer.html(rsQueue.map(function(queue) {
-      return '<li>' +
-        '<div class="description1"><a href="#">' + queue.title + '</a></div>' +
-        '<div class="description3">by <a href="/people/profile/' + queue.owner + '">' + queue.owner + '</a></div>' +
-        '<div class="actions">' +
-          '<a href="#" data-id="' + queue.id + '" class="remove-item"><i class="fa fa-remove"></i>Remove</a>' +
-        '</div>' +
-      '</li>';
-    }));
 
     if(rsQueue.length > 0){
       $('.browse-queue').removeClass('hidden');
@@ -191,8 +186,40 @@ $(function (){
       $('.browse-queue').addClass('hidden');
     }
 
-    $('.js-btn-download').attr('disabled', false);
+    // Toggle actions
+    $(this).siblings('.unqueue-item').removeClass('hidden');
+    $(this).addClass('hidden');
+
+    if(rsQueue.length > 0){
+      localStorage.setItem(RSQUEUE_STORAGE, JSON.stringify(rsQueue));
+    }
+
   })
+
+  $('.resultWrapper').on('click', '.unqueue-item', function(evt){
+    evt.preventDefault();
+    var id = $(this).data('id');
+    var targetIndex;
+
+    rsQueue.forEach(function(queue, queueId) {
+        if(queue.id === id){
+          targetIndex = queueId;
+        }
+    });
+    
+    rsQueue.splice(targetIndex, 1);
+
+    // Toggle actions
+    $(this).siblings('.queue-item').removeClass('hidden');
+    $(this).addClass('hidden');
+
+    
+    if(rsQueue.length > 0){
+      localStorage.setItem(RSQUEUE_STORAGE, JSON.stringify(rsQueue));
+    } else {
+      localStorage.removeItem(RSQUEUE_STORAGE);
+    }
+  });
 
   $('.queue-container').on('click', '.remove-item', function(evt) {
     evt.preventDefault();
@@ -214,38 +241,7 @@ $(function (){
       $('.js-btn-download').attr('disabled', true);
     }
   });
-  
-  $('.js-btn-download').on('click', function() {
-    var queue = [];
-    if("{{facettype}}" === 'maps'){
-      rsQueue.forEach(function(rsItem) {
-        queue.push(rsItem.id);
-      })
-
-      var params = { queue: queue };
-      window.open('/parmap/other_rs/download/maps?'+$.param(params), '_blank');
-    }else{
-      rsQueue.forEach(function(rsItem) {
-        queue.push(rsItem.id);
-      })
-
-      $.ajax({
-        "url": "/parmap/other_rs/download/{{facettype}}",
-        "type": "post",
-        "data": {queue: queue},
-        "success": function(data){
-          data.forEach(function(link) {
-            window.open(link,'_blank');
-          })
-        },
-        "error": function(err) {
-          console.error(err);
-        }
-      })
-    }
-  })
-
-  
+    
   $(".scrollToTop").click(function() {
 			$('html,body').animate({scrollTop:0}, 500);
   });

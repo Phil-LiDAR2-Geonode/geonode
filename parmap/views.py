@@ -47,6 +47,7 @@ def _resolve_layer(request, typename, permission='base.view_resourcebase',
 # Create your views here.
 def other_rs(request, facettype='layers'):
     if(facettype == 'layers'):
+        # queryset = Layer.objects.distinct().exclude(typename__icontains='_lulc').exclude(typename__icontains='_va').exclude(title__icontains='Metadata').order_by('-date')
         queryset = Layer.objects.distinct().exclude(typename__icontains='_lulc').exclude(typename__icontains='_va').order_by('-date')
     else:
         # queryset = Document.objects.distinct().exclude(doc_file__icontains='_lulc').exclude(doc_file__icontains='_va').exclude(doc_file__icontains='LANDCOVER').order_by('-date')
@@ -60,6 +61,14 @@ def other_rs(request, facettype='layers'):
     }
     
     return render_to_response('parmap/other_rs.html', RequestContext(request, context_dict))
+
+def other_rs_queue(request, facettype='layers'):    
+    context_dict = {
+        "facettype": facettype,
+        "map_type": 'rs'
+    }
+    
+    return render_to_response('parmap/other_rs_queue.html', RequestContext(request, context_dict))
 
 
 def _resolve_document(request, docid, permission='base.change_resourcebase',
