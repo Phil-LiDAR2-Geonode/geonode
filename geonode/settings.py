@@ -317,6 +317,7 @@ INSTALLED_APPS = (
     'spectral_library',
     'uas',
     'parmap_monitoring',
+    'parmap_docs',
 
 ) + GEONODE_APPS
 
