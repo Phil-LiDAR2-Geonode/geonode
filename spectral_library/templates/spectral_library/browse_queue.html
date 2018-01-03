@@ -86,7 +86,7 @@
 						<div class = "resultTitle">No results found</div>
 					{% endif %}
 					<ul>
-						{% for target in target_list %}
+						{% for target in targets %}
 							{% if target.title in queue_list|join:", " %}
   							<li>
   								<div class = "resultImgWrapper">
