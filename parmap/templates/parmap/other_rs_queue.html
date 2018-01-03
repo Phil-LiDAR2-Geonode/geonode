@@ -82,7 +82,7 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
       var queueTemplate = rsQueue.map(function(queue) {
         return '<li>' +
           '<div class="resultImgWrapper">' +
-            '<img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Ph_regions_and_provinces.png"/>' +
+            '<img src="' + queue.thumbnail + '"/>' +
           '</div>' +
           '<div class="description1"><a href="' + queue.url + '" target="_blank">' + queue.title + '</a></div>' +
           '<div class="actions">' +
