@@ -47,11 +47,11 @@ def _resolve_layer(request, typename, permission='base.view_resourcebase',
 # Create your views here.
 def other_rs(request, facettype='layers'):
     if(facettype == 'layers'):
-        # queryset = Layer.objects.distinct().exclude(typename__icontains='_lulc').exclude(typename__icontains='_va').exclude(title__icontains='Metadata').order_by('-date')
-        queryset = Layer.objects.distinct().exclude(typename__icontains='_lulc').exclude(typename__icontains='_va').order_by('-date')
+        queryset = Layer.objects.distinct().exclude(typename__icontains='_lulc').exclude(typename__icontains='_va').exclude(title__icontains='Metadata').order_by('-date')
+        # queryset = Layer.objects.distinct().exclude(typename__icontains='_lulc').exclude(typename__icontains='_va').order_by('-date')
     else:
-        # queryset = Document.objects.distinct().exclude(doc_file__icontains='_lulc').exclude(doc_file__icontains='_va').exclude(doc_file__icontains='LANDCOVER').order_by('-date')
-        queryset = Document.objects.distinct().order_by('-date')[:5]
+        queryset = Document.objects.distinct().exclude(doc_file__icontains='_lulc').exclude(doc_file__icontains='_va').exclude(doc_file__icontains='LANDCOVER').order_by('-date')
+        # queryset = Document.objects.distinct().order_by('-date')[:5]
 
 
     context_dict = {
