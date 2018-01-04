@@ -13,7 +13,8 @@ import os
 def publication_list(request):
     publication_list = Publication.objects.order_by('title')
     return render_to_response('parmap_docs/publication_list.html',RequestContext(request, {
-        'publication_list': publication_list,}))
+        'publication_list': publication_list,
+        }))
 
 def publication_view(request, publication_id):
     # tracking of downloads
@@ -35,3 +36,25 @@ def publication_view(request, publication_id):
         response['Content-Disposition'] = 'inline;filename=%s ' % pdf_file
         return response
     pdf.closed
+
+def techreport_list(request, techreport_type):
+    doctype_list = TechReport.objects.order_by('doc_type').distinct('doc_type')
+    if techreport_type == "all":
+        techreport_list = TechReport.objects.order_by('title')
+    elif techreport_type == "field validation manuals":
+        techreport_type = "Algorithms/Workflows and Field Validation Manuals"
+        techreport_list =  TechReport.objects.filter(doc_type="Algorithms/Workflows and Field Validation Manuals").order_by('title')
+    elif techreport_type == "web gis":
+        techreport_type = "Operational Web-based GIS Platform"
+        techreport_list =  TechReport.objects.filter(doc_type="Operational Web-based GIS Platform").order_by('title')
+    elif techreport_type == "qa documentation":
+        techreport_type = "QA/QC Documentation"
+        techreport_list =  TechReport.objects.filter(doc_type="QA/QC Documentation").order_by('title')
+    else:
+        techreport_type = techreport_type.title()
+        techreport_list =  TechReport.objects.filter(doc_type=techreport_type.title()).order_by('title')
+    return render_to_response('parmap_docs/techreport_list.html',RequestContext(request, {
+        'techreport_list': techreport_list,
+        'techreport_type': techreport_type,
+        'doctype_list': doctype_list,
+        }))
