@@ -90,7 +90,7 @@
     <ul class="list-group">
       <li class="list-group-item">
       {% if "download_resourcebase" in perms_list %}
-        {% if resource.extension|lower in imgtypes and resource.doc_file %}
+        {% if resource.extension|lower in imgtypes and resource.doc_file and request.user.is_authenticated %}
           {% comment %}
           <a style="text-decoration:none;" target="_blank" href="{% url "document_download" resource.id %}"><button class="btn btn-primary btn-md btn-block">{% trans "Download Document" %}</button></a>
           {% endcomment %}
@@ -104,6 +104,8 @@
           {% comment %}
           <a style="text-decoration:none;" target="_blank" href="{{ resource.doc_url }}"><button class="btn btn-primary btn-md btn-block">{% trans "Download Document" %}</button></a>
           {% endcomment %}
+          <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Document" %}</button>
+        {% else %}
           <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Document" %}</button>
         {%  endif %}
         <div class="modal fade" id="resource-download" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
