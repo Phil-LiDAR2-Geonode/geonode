@@ -218,6 +218,12 @@ $(function (){
     $(this).siblings('.queue-item').removeClass('hidden');
     $(this).addClass('hidden');
 
+    if(rsQueue.length > 0){
+      $('.browse-queue').removeClass('disabled');
+    }else{
+      $('.browse-queue').addClass('disabled');
+      $('.js-btn-download').attr('disabled', true);
+    }
     
     if(rsQueue.length > 0){
       localStorage.setItem(RSQUEUE_STORAGE, JSON.stringify(rsQueue));
