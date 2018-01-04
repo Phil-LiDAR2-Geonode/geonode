@@ -50,14 +50,14 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                                 data-title="{{item.title}}"
                                 data-thumbnail_url="{{item.thumbnail_url}}"
                                 data-owner="{{item.owner}}"><i class = "fa fa-plus-square"></i> Add to Queue</a>
-                              <a href="#" class="unqueue-item hidden" 
-                                data-id="{{item.id}}"><i class = "fa fa-minus-circle"></i> Added to Queue</a>
-                              <a href="#" class="download-item" data-url="{{item.detail_url}}" data-id="{{item.id}}"><i class = "fa fa-download"></i>Download</a>
+                              <a href="#" class="unqueue-item hidden" style="color: rgba(85, 85, 85, 0.34)">
+                                <i class = "fa fa-minus-circle" style="color: rgba(85, 85, 85, 0.34)"></i> Added to Queue</a>
+                              <a href="#" class="download-item" data-url="{{item.detail_url}}" data-id="{{item.id}}"><i class = "fa fa-download"></i> Download</a>
                             </div>
                             {% else %}
                             <div class="actions" data-id="{{item.id}}">
                               <a href="#" class="disabled"><i class = "fa fa-plus-square"></i> Add to Queue</a>
-                              <a href="#" class="disabled"><i class = "fa fa-download"></i>Download</a>
+                              <a href="#" class="disabled"><i class = "fa fa-download"></i> Download</a>
                             </div>
                             {% endif %}
                             <div class = "description4">
