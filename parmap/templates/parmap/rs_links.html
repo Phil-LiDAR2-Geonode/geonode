@@ -5,4 +5,6 @@
     <li><a href="{{ link.url }}">{{ link.name }}</a></li>
     {% endfor %}xss
 </ul>
+{% else %}
+<div>No results found</div>
 {% endif %}
