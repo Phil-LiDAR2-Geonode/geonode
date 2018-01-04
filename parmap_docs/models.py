@@ -1,7 +1,7 @@
 from django.db import models
 
 class Publication(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.TextField()
     doc_file = models.FileField("Document File", upload_to="doc_publication/")
     date_uploaded = models.DateTimeField(auto_now=True, editable=False)
 
@@ -12,7 +12,7 @@ class TechReport(models.Model):
     class Meta:
         verbose_name = "Technical Report and Manual"
 
-    title = models.CharField(max_length=200)
+    title = models.TextField()
     doc_file = models.FileField("Document File", upload_to="doc_techreports/")
 
     DOC_TYPE_CHOICES = (
