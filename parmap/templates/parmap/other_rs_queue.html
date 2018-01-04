@@ -92,6 +92,9 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
       });
 
       queueContainer.html(queueTemplate.join(''));
+    }else{
+      $('.resultTitle.no-result').removeClass('hidden');
+      $('.resultTitle.has-result').addClass('hidden');
     }
 
     $('.resultWrapper').on('click', '.unqueue-item', function(evt){
