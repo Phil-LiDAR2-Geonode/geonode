@@ -26,7 +26,7 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                         {% if list %}
                           <div class = "resultTitle">
                               Results:
-                              <a href="/parmap/other_rs/queue/{{facettype}}" class="browse-queue" disabled>Browse Queue</a>
+                              <a href="/parmap/other_rs/queue/{{facettype}}" class="browse-queue disabled">Browse Queue</a>
                           </div>
                         {% else %}
                           <div class = "resultTitle">No results found</div>
@@ -138,7 +138,7 @@ $(function (){
 
   // update actions
   if(rsQueue.length > 0) {
-    $('.browse-queue').prop('disabled', false);
+    $('.browse-queue').removeClass('disabled');
 
     rsQueue.forEach(function(queue){
       var actionEl = $('.actions[data-id='+queue.id+']');
@@ -186,9 +186,9 @@ $(function (){
     }
 
     if(rsQueue.length > 0){
-      $('.browse-queue').prop('disabled', false);
+      $('.browse-queue').removeClass('disabled');
     }else{
-      $('.browse-queue').prop('disabled', true);
+      $('.browse-queue').addClass('disabled');
     }
 
     // Toggle actions
@@ -240,11 +240,15 @@ $(function (){
     });
 
     if(rsQueue.length > 0){
-      $('.browse-queue').prop('disabled', false);
+      $('.browse-queue').removeClass('disabled');
     }else{
-      $('.browse-queue').prop('disabled', true);
+      $('.browse-queue').addClass('disabled');
       $('.js-btn-download').attr('disabled', true);
     }
+  });
+
+  $('.browse-queue').on('click', function(evt){
+    if($(this).hasClass('disabled')) evt.preventDefault();
   });
     
   $(".scrollToTop").click(function() {
