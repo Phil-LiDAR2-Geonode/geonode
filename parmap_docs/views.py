@@ -58,3 +58,24 @@ def techreport_list(request, techreport_type):
         'techreport_type': techreport_type,
         'doctype_list': doctype_list,
         }))
+
+def techreport_view(request, techreport_id):
+    # tracking of downloads
+    dd = DataDownload()
+    dd.username = Profile.objects.get(username=request.user.username)
+    dd.email = Profile.objects.get(username=request.user.username).email
+    dd.first_name = Profile.objects.get(username=request.user.username).first_name
+    dd.last_name = Profile.objects.get(username=request.user.username).last_name
+    dd.data_id = techreport_id
+    dd.data_downloaded = TechReport.objects.get(pk=techreport_id)
+    dd.data_type = "Technical Reports and Manuals"
+    dd.date_downloaded = timezone.now()
+    dd.save()
+    # view pdf
+    pdf_path = os.path.join(settings.MEDIA_ROOT, str(TechReport.objects.get(pk=techreport_id).doc_file))
+    pdf_file = os.path.basename(pdf_path)
+    with open(pdf_path, 'r') as pdf:
+        response = HttpResponse(pdf.read(), mimetype='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=%s ' % pdf_file
+        return response
+    pdf.closed
