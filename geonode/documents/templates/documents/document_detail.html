@@ -106,7 +106,7 @@
           {% endcomment %}
           <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Document" %}</button>
         {% else %}
-          <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Document" %}</button>
+          <button class="btn btn-primary btn-md btn-block" disabled>{% trans "Download Document" %}</button>
         {%  endif %}
         <div class="modal fade" id="resource-download" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
           <div class="modal-dialog" style="width: 80%; height: 60%;">
