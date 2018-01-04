@@ -133,6 +133,8 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
         link.target="_blank";
         link.href = '/parmap/other_rs/download/maps?'+$.param(params);
         link.click();
+        localStorage.removeItem(RSQUEUE_STORAGE);
+        location.reload();
       }else{
         rsQueue.forEach(function(rsItem) {
           queue.push(rsItem.id);
@@ -149,6 +151,8 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
               link.href = url;
               link.click();
             })
+            localStorage.removeItem(RSQUEUE_STORAGE);
+            location.reload();
           },
           "error": function(err) {
             console.error(err);

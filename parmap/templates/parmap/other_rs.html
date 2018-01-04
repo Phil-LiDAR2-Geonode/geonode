@@ -218,8 +218,6 @@ $(function (){
     $(this).siblings('.queue-item').removeClass('hidden');
     $(this).addClass('hidden');
 
-    console.log(rsQueue)
-
     if(rsQueue.length > 0){
       $('.browse-queue').removeClass('disabled');
       localStorage.setItem(RSQUEUE_STORAGE, JSON.stringify(rsQueue));
