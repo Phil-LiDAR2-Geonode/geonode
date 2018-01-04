@@ -218,38 +218,14 @@ $(function (){
     $(this).siblings('.queue-item').removeClass('hidden');
     $(this).addClass('hidden');
 
+    console.log(rsQueue)
+
     if(rsQueue.length > 0){
       $('.browse-queue').removeClass('disabled');
-    }else{
-      $('.browse-queue').addClass('disabled');
-      $('.js-btn-download').attr('disabled', true);
-    }
-    
-    if(rsQueue.length > 0){
       localStorage.setItem(RSQUEUE_STORAGE, JSON.stringify(rsQueue));
     } else {
-      localStorage.removeItem(RSQUEUE_STORAGE);
-    }
-  });
-
-  $('.queue-container').on('click', '.remove-item', function(evt) {
-    evt.preventDefault();
-    
-    var self = this;
-    var id = $(this).data('id');
-
-    $.each(rsQueue, function(queueId, queue) {
-      if(queue.id === id){
-        $(self).parents('li').remove();
-        rsQueue.splice(queueId, 1);
-      }
-    });
-
-    if(rsQueue.length > 0){
-      $('.browse-queue').removeClass('disabled');
-    }else{
       $('.browse-queue').addClass('disabled');
-      $('.js-btn-download').attr('disabled', true);
+      localStorage.removeItem(RSQUEUE_STORAGE);
     }
   });
 
