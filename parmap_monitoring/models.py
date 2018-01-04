@@ -9,6 +9,6 @@ class DataDownload(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     data_id = models.IntegerField()
-    data_downloaded = models.CharField(max_length=200)
+    data_downloaded = models.TextField()
     data_type = models.CharField(max_length=100)
     date_downloaded = models.DateTimeField()
