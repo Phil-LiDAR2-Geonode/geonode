@@ -510,6 +510,16 @@ body {
 	margin-right: 5px;
 }
 
+.resultWrapper ul li .actions a.disabled {
+	pointer-events: none; 
+	color: rgba(85, 85, 85, 0.34)
+}
+
+.resultWrapper ul li .actions a.disabled i {
+	pointer-events: none; 
+	color: rgba(85, 85, 85, 0.34)
+}
+
 /* CROP DETAILS */
 .cropDetailsWrapper {
 	margin-bottom: 50px;
