@@ -26,7 +26,7 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                         {% if list %}
                           <div class = "resultTitle">
                               Results:
-                              <a href="/parmap/other_rs/queue/{{facettype}}" class="hidden browse-queue">Browse Queue</a>
+                              <a href="/parmap/other_rs/queue/{{facettype}}" class="browse-queue" disabled>Browse Queue</a>
                           </div>
                         {% else %}
                           <div class = "resultTitle">No results found</div>
@@ -53,6 +53,11 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                               <a href="#" class="unqueue-item hidden" 
                                 data-id="{{item.id}}"><i class = "fa fa-minus-circle"></i> Added to Queue</a>
                               <a href="#" class="download-item" data-url="{{item.detail_url}}" data-id="{{item.id}}"><i class = "fa fa-download"></i>Download</a>
+                            </div>
+                            {% else %}
+                            <div class="actions" data-id="{{item.id}}">
+                              <a href="#" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-plus-square"></i> Add to Queue</a>
+                              <a href="#" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-download"></i>Download</a>
                             </div>
                             {% endif %}
                             <div class = "description4">
@@ -133,7 +138,7 @@ $(function (){
 
   // update actions
   if(rsQueue.length > 0) {
-    $('.browse-queue').removeClass('hidden');
+    $('.browse-queue').prop('disabled', false);
 
     rsQueue.forEach(function(queue){
       var actionEl = $('.actions[data-id='+queue.id+']');
@@ -181,9 +186,9 @@ $(function (){
     }
 
     if(rsQueue.length > 0){
-      $('.browse-queue').removeClass('hidden');
+      $('.browse-queue').prop('disabled', false);
     }else{
-      $('.browse-queue').addClass('hidden');
+      $('.browse-queue').prop('disabled', true);
     }
 
     // Toggle actions
@@ -235,9 +240,9 @@ $(function (){
     });
 
     if(rsQueue.length > 0){
-      $('.browse-queue').removeClass('hidden');
+      $('.browse-queue').prop('disabled', false);
     }else{
-      $('.browse-queue').addClass('hidden');
+      $('.browse-queue').prop('disabled', true);
       $('.js-btn-download').attr('disabled', true);
     }
   });
