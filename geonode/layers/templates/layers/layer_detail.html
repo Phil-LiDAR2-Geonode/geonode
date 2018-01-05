@@ -177,6 +177,7 @@
                     <h4 class="modal-title" id="myModalLabel">{% trans "Download Layer" %}</h4>
                   </div>
                   <div class="modal-body">
+                    {{ resource.typename }}
                     {% if links %}
                     <ul>
                       {% for link in links %}
