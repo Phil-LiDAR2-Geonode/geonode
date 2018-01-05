@@ -177,13 +177,14 @@
                     <h4 class="modal-title" id="myModalLabel">{% trans "Download Layer" %}</h4>
                   </div>
                   <div class="modal-body">
-                    {{ resource.typename }}
                     {% if links %}
                     <ul>
                       {% for link in links %}
                       <li><a href="{{ link.url }}">{% trans link.name %}</a></li>
                       {% endfor %}
+                      {% if not "_lulc" in resource.typename and not "_va" in resource.typename }}
                       <li><a href="{{ STATIC_URL }}geonode/files/FieldDescription.xlsx">Field Description</a></li>
+                      {% endif %}
                     </ul>
                     {% endif %}
                   </div>
