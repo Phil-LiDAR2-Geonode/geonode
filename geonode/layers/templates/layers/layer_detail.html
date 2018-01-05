@@ -182,7 +182,7 @@
                       {% for link in links %}
                       <li><a href="{{ link.url }}">{% trans link.name %}</a></li>
                       {% endfor %}
-                      {% if not "_lulc" in resource.typename and not "_va" in resource.typename %}
+                      {% if "_lulc" in resource.typename or "_va" in resource.typename %}
                       <li><a href="{{ STATIC_URL }}geonode/files/FieldDescription.xlsx">Field Description</a></li>
                       {% endif %}
                     </ul>
