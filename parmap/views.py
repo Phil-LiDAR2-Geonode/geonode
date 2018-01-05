@@ -89,15 +89,17 @@ def rs_links_layers(request, layername):
 
     config = layer.attribute_config()
     
-    if request.user.is_authenticated():
-        if layer.storeType == 'dataStore':
-            links = layer.link_set.download().filter(
-                name__in=settings.DOWNLOAD_FORMATS_VECTOR)
-        else:
-            links = layer.link_set.download().filter(
-                name__in=settings.DOWNLOAD_FORMATS_RASTER)
-    else:
-        links = []
+    # if request.user.is_authenticated():
+    #     if layer.storeType == 'dataStore':
+    #         links = layer.link_set.download().filter(
+    #             name__in=settings.DOWNLOAD_FORMATS_VECTOR)
+    #     else:
+    #         links = layer.link_set.download().filter(
+    #             name__in=settings.DOWNLOAD_FORMATS_RASTER)
+    # else:
+    #     links = []
+
+    links = layer.link_set.download()
 
     context_dict = {
         "facettype": "layers",
@@ -114,7 +116,7 @@ def rs_download_layers(request):
     for layerid in queue:
         layer = Layer.objects.get(id=layerid)
 
-        if layer.storeType == 'dataStore' or true:
+        if layer.storeType == 'dataStore':
             links_temp = layer.link_set.download().filter(
                 name__in=settings.DOWNLOAD_FORMATS_VECTOR)
         else:
