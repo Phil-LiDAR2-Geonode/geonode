@@ -114,7 +114,7 @@ def rs_download_layers(request):
     for layerid in queue:
         layer = Layer.objects.get(id=layerid)
 
-        if layer.storeType == 'dataStore':
+        if layer.storeType == 'dataStore' and false:
             links_temp = layer.link_set.download().filter(
                 name__in=settings.DOWNLOAD_FORMATS_VECTOR)
         else:
