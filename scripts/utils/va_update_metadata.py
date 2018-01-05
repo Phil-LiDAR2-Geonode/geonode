@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 
-__version__ = "0.1"
+__version__ = "0.1.1"
 
 # Setup GeoNode environment
 import os
@@ -62,12 +62,12 @@ def update_style(layer, style_template):
 				gs_layer._set_default_style(gs_style)
 				cat.save(gs_layer)
 
-				print layer.name, ': Deleting old default style from geoserver...'
-				cat.delete(cur_def_gs_style)
-
-				print layer.name, ': Deleting old default style from geonode...'
-				gn_style = Style.objects.get(name=layer.name)
-				gn_style.delete()
+				# print layer.name, ': Deleting old default style from geoserver...'
+				# cat.delete(cur_def_gs_style)
+				#
+				# print layer.name, ': Deleting old default style from geonode...'
+				# gn_style = Style.objects.get(name=layer.name)
+				# gn_style.delete()
 
 	except Exception:
 		print layer.name, ': Error setting style!'
@@ -80,8 +80,8 @@ def update_thumb_perms(layer):
 	print layer.name, ': Setting thumbnail permissions...'
 	thumbnail_str = 'layer-' + str(layer.uuid) + '-thumb.png'
 	thumb_url = '/home/geonode/geonode/geonode/uploaded/thumbs/' + thumbnail_str
-	subprocess.call(['/bin/chown', 'apache:apache', thumb_url])
-	subprocess.call(['/bin/chmod', '666', thumb_url])
+	subprocess.call(['sudo', '/bin/chown', 'apache:apache', thumb_url])
+	subprocess.call(['sudo', '/bin/chmod', '666', thumb_url])
 
 
 def update_layer_perms(layer):
@@ -101,7 +101,7 @@ def update_layer_perms(layer):
 def update_va(layer):
 	print layer.name, ': layer name:', layer.name
 	keywords_list = []
-	muni = "Kalibo"
+	muni = "Kalibo (Capital)"
 	prov = "Aklan"
 	# get scale
 	if "local" in layer.name:
@@ -119,13 +119,13 @@ def update_va(layer):
 
 	# get component
 	if "adaptivecapacity" in layer.name:
-		component = "Adaptive Capicity"
+		component = "Adaptive Capacity"
 		style_sld = "adaptivecapacity_va"
 	elif "exposure" in layer.name:
 		component = "Exposure"
 		style_sld = "exposure_va"
 	elif "sensitivity" in layer.name:
-		component = "Sensitivy"
+		component = "Sensitivity"
 		style_sld = "sensitivity_va"
 	else:
 		component = "Vulnerability"
@@ -148,6 +148,7 @@ def update_va(layer):
 	keywords_list.append(prov)
 	keywords_list.append("Agriculture")
 	keywords_list.append("Vulnerability")
+	keywords_list.append("VA")
 	keywords_list.append("Phil-LiDAR 2")
 	keywords_list.append("PARMap")
 	keywords_list.append("University of the Philippines Diliman")
@@ -237,7 +238,7 @@ def update_metadata(layer):
 		if has_layer_changes:
 			print layer.name, ': Saving layer...'
 			layer.save()
-			# seed_layers(layer)
+			seed_layers(layer)
 		else:
 			print layer.name, ': No changes to layer. Skipping...'
 
@@ -266,7 +267,7 @@ def seed_layers(layer):
 
 if __name__ == "__main__":
 
-	layers = Layer.objects.filter(title__icontains='local_drought_60407000_va')
+	layers = Layer.objects.filter(title__icontains='_va')
 
 	total = len(layers)
 	print 'Updating', total, 'layers!'
