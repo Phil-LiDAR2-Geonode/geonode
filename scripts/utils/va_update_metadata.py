@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 
-__version__ = "0.1.1"
+__version__ = "0.1.2"
 
 # Setup GeoNode environment
 import os
@@ -216,7 +216,7 @@ Accuracy and Limitations: The accuracy of the delivered products/outputs are dep
 		print layer.name, ': Setting layer.category...'
 		has_layer_changes = True
 		layer.category = TopicCategory.objects.get(
-			identifier="imageryBaseMapsEarthCover")
+			identifier="environment")
 
 	# Update style
 	# update_style(layer, style_sld)
