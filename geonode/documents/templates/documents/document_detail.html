@@ -87,7 +87,8 @@
 
   <div class="col-md-4">
     {{resource.doc_file}}
-    {{esource.extension|lower}}
+    <br>
+    {{resource.extension|lower}}
     <ul class="list-group">
       <li class="list-group-item">
       {% if "download_resourcebase" in perms_list %}
