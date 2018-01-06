@@ -182,7 +182,7 @@
                       {% for link in links %}
                       <li><a href="{{ link.url }}">{% trans link.name %}</a></li>
                       {% endfor %}
-                      {% if "_lulc" in resource.typename or "_va" in resource.typename %}
+                      {% if "_lulc" in resource.typename %}
                       <li><a href="{{ STATIC_URL }}geonode/files/FieldDescription.xlsx">Field Description</a></li>
                       {% endif %}
                     </ul>
@@ -259,7 +259,7 @@
       {% get_obj_perms request.user for resource.layer as "layer_perms" %}
     {% endif %}
     {% if "change_resourcebase_metadata" in perms_list or "change_resourcebase" in perms_list or "delete_resourcebase" in perms_list or "change_layer_style" in layer_perms %}
-    <li class="list-group-item"> 
+    <li class="list-group-item">
       <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#edit-layer">{% trans "Edit Layer" %}</button>
     </li>
     <div class="modal fade" id="edit-layer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -374,7 +374,7 @@
         <p>{% trans "List of maps using this layer:" %}</p>
         {% endif %}
         <ul class="list-unstyled">
-          {% for maplayer in resource.maps %} 
+          {% for maplayer in resource.maps %}
             <li><a href="{{ maplayer.map.get_absolute_url }}">{{ maplayer.map.title }}</a></li>
           {% empty %}
             <li>{% trans "This layer is not currently used in any maps." %}</li>
@@ -393,7 +393,7 @@
       <h4>{% trans "Documents related to this layer" %}</h4>
       <p>{% trans "List of documents related to this layer:" %}</p>
       <ul class="list-unstyled">
-        {% for document in documents %} 
+        {% for document in documents %}
           <li><a href="{{ document.get_absolute_url }}">{{ document.title }}</a></li>
         {% endfor %}
       </ul>
@@ -441,12 +441,12 @@
     {% endif %}
 
     {% if false %}
-    {% include "base/_resourcebase_contact_snippet.html" %}  
+    {% include "base/_resourcebase_contact_snippet.html" %}
     {% endif %}
   </ul>
 
 
-  {% if GEONODE_SECURITY_ENABLED %}   
+  {% if GEONODE_SECURITY_ENABLED %}
     {% include "_permissions_form.html" %}
   {% endif %}
 
@@ -508,7 +508,7 @@ $(function (){
               data: $("#form_post_comment").serialize(),
               success: function() {
                 $('#form_post_comment_div').modal('hide');
-                $('#comments_section').load(window.location.pathname + ' #comments_section', 
+                $('#comments_section').load(window.location.pathname + ' #comments_section',
                 		function(){$(this).children().unwrap()})
               }
             });
