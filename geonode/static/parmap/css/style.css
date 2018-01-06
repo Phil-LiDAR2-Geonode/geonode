@@ -92,7 +92,7 @@ body {
 }
 
 .navbar-default .navbar-nav>.dropdown>a .caret {
-	color: #fff !important;
+	color: #000 !important;
 }
 
 .navbar .dropdown-menu {
@@ -387,12 +387,6 @@ body {
 	text-decoration: underline;
 }
 
-.rightPanel .modal-body p {
-	text-align: left;
-    font-size: 14px;
-    margin: 0 0 10px;
-}
-
 .rightMapWrapper {
 	border: 1px solid transpartent;
 	margin: 20px 0px 50px 0px;
@@ -458,17 +452,6 @@ body {
 	margin-bottom: 20px;
 }
 
-.resultWrapper h4.modal-title {
-	font-size: 18px;
-}
-
-.resultWrapper .modal-body ul li,
-.resultWrapper .modal-body ol li {
-    padding: 0;
-    margin: 0;
-    overflow: inherit;
-}
-
 .resultWrapper ul li .resultImgWrapper {
 	border: 1px solid transparent;
 	float: left;
@@ -478,12 +461,6 @@ body {
 
 .resultWrapper ul li .resultImgWrapper img {
 	width: 150px;
-	min-height: 100px;
-}
-
-.resultWrapper ul li .resultImgWrapper.resultImgWrapperRs img {
-	width: 385px;
-	min-height: 200px;
 }
 
 .resultWrapper ul li .description1,
@@ -523,16 +500,6 @@ body {
 .resultWrapper ul li .actions a i {
 	color: #12650b;
 	margin-right: 5px;
-}
-
-.resultWrapper ul li .actions a.disabled {
-	pointer-events: none; 
-	color: rgba(85, 85, 85, 0.34)
-}
-
-.resultWrapper ul li .actions a.disabled i {
-	pointer-events: none; 
-	color: rgba(85, 85, 85, 0.34)
 }
 
 /* CROP DETAILS */
@@ -1575,7 +1542,7 @@ body {
 
 /* EULA info associated styles */
 .eula-list-text{
-	margin-left: 1em;
+	margin-left: 1em !important;
 }
 .eula-level-1{
 	padding-left: 1em;
@@ -1589,6 +1556,21 @@ body {
 	padding-left: 2em;
 	list-style: lower-roman;
 }
+
+.eula p{
+	font-size: 14px !important;
+	text-align: left !important;
+	margin: 0 0 10px;
+	letter-spacing: 0px !important;
+}
+
+.eula li{
+	border: 0px !important;
+	overflow: visible !important;
+	padding: 0px !important;
+	margin-bottom: 0px !important;
+}
+
 
 footer {
 	border: 1px solid #aaa;
