@@ -148,7 +148,7 @@
               <div class="modal-body">
                 <ul>
                   <li><a href="{{download_url}}" target="_blank">
-                    {% if resource.extension|lower in ["jpg", "jpeg"] %}
+                    {% if resource.extension|lower in "jpg,jpeg" %}
                       JPEG
                     {% else %}
                       {{resource.extension|upper}}
