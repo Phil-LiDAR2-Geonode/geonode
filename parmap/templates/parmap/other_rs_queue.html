@@ -136,7 +136,10 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
         link.href = '/parmap/other_rs/download/maps?'+$.param(params);
         link.click();
         localStorage.removeItem(RSQUEUE_STORAGE);
-        location.reload();
+
+        $('.resultTitle.has-result').addClass('hidden');
+        $('.resultTitle.no-result').removeClass('hidden');
+        $('.queue-list').empty();
       }else{
         rsQueue.forEach(function(rsItem) {
           queue.push(rsItem.id);
