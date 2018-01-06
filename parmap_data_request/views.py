@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, render_to_response
+from django.shortcuts import render, get_object_or_404
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse, HttpResponseRedirect
@@ -7,6 +7,7 @@ from django.views.decorators.http import require_POST
 import simplejson as json
 
 from django.template import RequestContext
+from django.shortcuts import render_to_response
 from geonode.layers.models import Layer
 
 from geonode.base.models import ResourceBase
@@ -136,10 +137,10 @@ def handle_upload(request):
 
 def test_related(request):
     title_search = 'local_drought_60407000_va'
-    # layer_title = unicode(title_search).encode('utf8')
-    # layer_resource = get_object_or_404(Layer, title=layer_title)
+    layer_title = unicode(title_search).encode('utf8')
+    layer_resource = get_object_or_404(Layer, title=layer_title)
 
-    return render_to_response('parmap_data_request/test_related.html',RequestContext(request, {
-        'title': title_search,
-        # 'resource': layer_resource
+    return render_to_response('parmap_data_request/target_filter_results.html',RequestContext(request, {
+        title: title_search,
+        resource: layer_resource
     }))
