@@ -139,8 +139,10 @@ def test_related(request):
     title_search = 'local_drought_60407000_va'
     layer_title = unicode(title_search).encode('utf8')
     layer_resource = get_object_or_404(Layer, title=layer_title)
+    resource_keywords = layer_resource.keywords.names()
 
     return render_to_response('parmap_data_request/test_related.html',RequestContext(request, {
         "title": title_search,
-        "resource": layer_resource
+        "resource": layer_resource,
+        "keywords": resource_keywords
     }))
