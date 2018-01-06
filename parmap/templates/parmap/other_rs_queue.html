@@ -158,7 +158,7 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
             localStorage.removeItem(RSQUEUE_STORAGE);
 
             $('.resultTitle.has-result').addClass('hidden');
-            $('.resultTitle.hanos-result').removeClass('hidden');
+            $('.resultTitle.no-result').removeClass('hidden');
             $('.queue-list').empty();
           },
           "error": function(err) {
