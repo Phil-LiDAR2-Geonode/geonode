@@ -86,7 +86,6 @@
   </div>
 
   <div class="col-md-4">
-    {{resource.doc_file}}
     <ul class="list-group">
       <li class="list-group-item">
       {% if "download_resourcebase" in perms_list %}
@@ -127,7 +126,7 @@
                 </div>
               </div>
               <div class="modal-footer">
-                {% if "_lulc" in resource.doc_file or "_va" in resource.doc_file or "LANDCOVER" in resource.doc_file %}
+                {% if '_lulc' in resource.doc_file or '_va' in resource.doc_file or 'LANDCOVER' in resource.doc_file %}
                   <input type="button" class="btn btn-default" id="resource-download-accept-button" 
                     data-dismiss="modal" value="{% trans "Accept" %}"/>
                 {% else %}
