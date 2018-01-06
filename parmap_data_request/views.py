@@ -5,7 +5,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 import simplejson as json
+
+from django.template import RequestContext, loader
 from django.shortcuts import render_to_response
+from geonode.layers.models import Layer
 
 from geonode.base.models import ResourceBase
 from geonode.people.models import Profile
