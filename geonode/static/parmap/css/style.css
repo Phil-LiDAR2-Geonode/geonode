@@ -422,7 +422,7 @@ body {
 	text-decoration: none;
 }
 
-.resultWrapper .resultTitle button.download-queue {
+.resultWrapper .resultTitle input.download-queue {
 	display: inline-block;
 	margin-bottom: 0;
 	font-weight: 400;
