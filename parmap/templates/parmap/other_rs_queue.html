@@ -156,7 +156,10 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
               link.click();
             })
             localStorage.removeItem(RSQUEUE_STORAGE);
-            location.reload();
+
+            $('.resultTitle.has-result').addClass('hidden');
+            $('.resultTitle.hanos-result').removeClass('hidden');
+            $('.queue-list').empty();
           },
           "error": function(err) {
             console.error(err);
