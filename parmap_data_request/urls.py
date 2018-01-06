@@ -3,4 +3,5 @@ from parmap_data_request.views import handle_upload
 
 urlpatterns = urls.patterns('',
     urls.url(r'^add/$', handle_upload, name='datarequest_add'),
+    urls.url(r'^test_related/$', test_related, name='test_related'),
 )

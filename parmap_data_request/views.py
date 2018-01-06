@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 import simplejson as json
+from django.shortcuts import render_to_response
 
 from geonode.base.models import ResourceBase
 from geonode.people.models import Profile
@@ -131,3 +132,11 @@ def handle_upload(request):
     return HttpResponse(response_data, mimetype='application/json')
     #return HttpResponseRedirect(settings.SITEURL + "documents/")
 
+def test_related(request):
+    title_search = 'local_drought_60407000_va'
+    layer_title = unicode(title_search).encode('utf8')
+    layer_resource = get_object_or_404(Layer, title=layer_title)
+
+    return render_to_response('parmap_data_request/target_filter_results.html',RequestContext(request, {
+        title: title_search
+    }))
