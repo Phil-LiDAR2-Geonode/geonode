@@ -435,11 +435,14 @@ body {
 	padding: 6px 12px;
 	font-size: 14px;
 	line-height: 1.42857143;
-	border-radius: 4px;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	background: #555555;
+	color: #97bc63;
+	text-transform: uppercase;
+	border-radius: 2px;
 }
 
 .resultWrapper ul {
