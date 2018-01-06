@@ -150,7 +150,15 @@ def document_detail(request, docid):
 
 
 def document_download(request, docid):
+    if not request.user.is_authenticated():
+        return HttpResponse(
+            loader.render_to_string(
+                '401.html', RequestContext(
+                    request, {
+                        'error_message': _("You are not allowed to view this document.")})), status=401)
+
     document = get_object_or_404(Document, pk=docid)
+
     if not request.user.has_perm(
             'base.download_resourcebase',
             obj=document.get_self_resource()):

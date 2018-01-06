@@ -322,7 +322,7 @@
     </div>
     {% endif %}
 
-    {% if request.user.is_authenticated %}
+    {% if request.user.is_superuser %}
       <li class="list-group-item">
         <button class="btn btn-default btn-md btn-block" data-toggle="modal" data-target="#download-metadata">{% trans "Download Metadata" %}</button>
       </li>
@@ -349,10 +349,6 @@
           </div>
         </div>
       </div>
-    {% else %}
-    <li class="list-group-item">
-      <button class="btn btn-default btn-md btn-block" disabled>{% trans "Download Metadata" %}</button>
-    </li>
     {% endif %}
 
     {% if resource.get_legend %}
