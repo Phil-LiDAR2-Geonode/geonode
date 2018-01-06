@@ -31,23 +31,20 @@
 
 <div class="row">
   <div class="col-md-8">
-    {% if "download_resourcebase" in perms_list %}
-      {% if resource.extension|lower in imgtypes and resource.doc_file %}
-        {% if request.user.is_authenticated %}
-        <div id="embedded_map">
-          <a style="text-decoration:none;" href="{% url "document_download" resource.id %}" target="_blank">
-            <img src="{% url "document_download" resource.id %}" width='500' class="img-responsive" />
-          </a>
-        </div>
-        {% else %}
-        <div id="embedded_map">
-          <img src="{{ resource.thumbnail_url }}" class="img-responsive" />
-        </div>
-        {% endif %}
-      {% elif resource.doc_file %}
-      <p><a href="{% url "document_download" resource.id %}" target="_blank">Download the {{ resource }} document</a></p>
-      {% elif  resource.doc_url %}
-      <p><a href="{{ resource.doc_url }}" target="_blank">Download the {{ resource }} document.</a> <small>({% trans 'External Resource' %})</small></p>
+
+    {% if request.user.is_authenticated %}
+      {% if "download_resourcebase" in perms_list %}
+        {% if resource.extension|lower in imgtypes and resource.doc_file %}
+          <div id="embedded_map">
+            <a style="text-decoration:none;" href="{% url "document_download" resource.id %}" target="_blank">
+              <img src="{% url "document_download" resource.id %}" width='500' class="img-responsive" />
+            </a>
+          </div>
+        {% elif resource.doc_file %}
+        <p><a href="{% url "document_download" resource.id %}" target="_blank">Download the {{ resource }} document</a></p>
+        {% elif  resource.doc_url %}
+        <p><a href="{{ resource.doc_url }}" target="_blank">Download the {{ resource }} document.</a> <small>({% trans 'External Resource' %})</small></p>
+        {%  endif %}
       {%  endif %}
     {%  endif %}
 
