@@ -86,9 +86,6 @@
   </div>
 
   <div class="col-md-4">
-    {{resource.doc_file}}
-    <br>
-    {{resource.extension|lower}}
     <ul class="list-group">
       <li class="list-group-item">
       {% if "download_resourcebase" in perms_list %}
@@ -150,7 +147,13 @@
               </div>
               <div class="modal-body">
                 <ul>
-                  <li><a href="{{download_url}}">PNG OR JPEG</a></li>
+                  <li><a href="{{download_url}}" target="_blank">
+                    {% if resource.extension|lower in ["jpg", "jpeg"] %}
+                      JPEG
+                    {% else %}
+                      {{resource.extension|upper}}
+                    {% endif %}
+                  </a></li>
                 </ul>
               </div>
               <div class="modal-footer">
