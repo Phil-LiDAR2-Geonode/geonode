@@ -87,8 +87,11 @@
 
   <div class="col-md-4">
     {{ resource.doc_file }}
-    {{ '_va' in resource.doc_file }}
-    {{ '_lulc' in resource.doc_file or '_va' in resource.doc_file or 'LANDCOVER' in resource.doc_file }}
+    {% if '_va' in resource.doc_file %}
+    VA
+    {% else %}
+    NOT VA
+    {% endif %}
     <ul class="list-group">
       <li class="list-group-item">
       {% if "download_resourcebase" in perms_list %}
