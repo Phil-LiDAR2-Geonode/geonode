@@ -24,9 +24,9 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                     <div class="resultWrapper">
                         <div class="resultTitle has-result">
                             Your Queue:
-                            <a href="#" class="download-queue" 
-                              data-toggle="modal" data-target="#download-queue"
-                              style="background-color: #abd373">Download All</a>
+                            <input type="button" class="btn pull-right download-queue" data-toggle="modal" 
+                              data-target="#download-queue" 
+                              data-dismiss="modal" value="{% trans "Download All" %}"/>
                         </div>
                         <div class="resultTitle no-result hidden">No results found</div>
                         <ul class="queue-list"></ul>
@@ -115,6 +115,7 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
       if(rsQueue.length > 0){
         localStorage.setItem(RSQUEUE_STORAGE, JSON.stringify(rsQueue));
       } else {
+        $('.download-queue').prop('disabled', true);
         $('.resultTitle.no-result').removeClass('hidden');
         $('.resultTitle.has-result').addClass('hidden');
         localStorage.removeItem(RSQUEUE_STORAGE);
