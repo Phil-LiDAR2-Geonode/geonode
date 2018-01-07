@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Notification of Approval</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <p>Greetings from PARMap!</p>
+
+    <p>Your data request has been approved.</p>
+
+    <p>Upon accepting the End User License Agreement (EULA) document, you may now download the following data:<br>
+        {% if resource_links %}
+        <ol>
+            {% for title, link in resource_links %}
+            <li><a href="{{link}}">{{title}}</a></li>
+            {% endfor %}
+        </ol>
+        <br>
+        {% endif %}
+        <span style="font-size: 80%">* Please note that national map layers are available in provincial level boundary intersected with 20kmx20km grid.</span>
+    </p>
+
+    <p>Components inclusive within the vulnerability are also available for downloading through the following links:<br>
+        <ol></ol>
+    </p>
+
+    {% if site_admin_email and site_admin_email.strip %}
+        <p>For questions or concerns, contact us at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
+    {% else %}
+        <p>For questions or concerns, contact us at <a href="mailto:parmap-admin@dream.upd.edu.ph">parmap-admin@dream.upd.edu.ph</a>.</p>
+    {% endif %}
+
+    <p>Thank you!</p>
+
+    <p style="font-size: 80%">NOTICE: <br>
+        <ul>
+            <li>Maps are prepared by participating state universities and colleges and higher education institutions (Phil-LiDAR 2 Program B) and reviewed by University of the Philippines Training Center for Applied Geodesy and Photogrammetry (Phil-LiDAR 2 Program A Project 1)</li>
+            <li>Use of the datasets provided herewith are covered by End Users License Agreement (EULA)</li>
+            <li>Major source of information: LiDAR Datasets from DREAM/Phil-LiDAR 1 Program with validation from participatory methods such as focus group discussions (FGDs) and key informant interviews (KIIs)</li>
+            <li>Accuracy and limitations: The accuracy of the delivered products/outputs are dependent on the source datasets, software limitations, algorithms, and procedures used. The products are provided "as is" without warranty of any kind, expressed, or implied. Phil-LiDAR 2 Program does not warrant that the products will meet the needs or expectations of the end users, or that the operations or use of the products will be error-free.</li>
+        </ul>
+    </p>
+</body>
+</html>

@@ -13,12 +13,12 @@
     <p>Please note that the system administrator may approve or deny the request based on your provided information.</p>
     
     <p>Kindly expect an email regarding the status of your request within five (5) days.</p>
-    {% if lesson.assignment and lesson.assignment.strip %}
+    {% if site_admin_email and site_admin_email.strip %}
         <p>For more inquiries, contact us at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
     {% else %}
         <p>For more inquiries, contact us at <a href="mailto:parmap-admin@dream.upd.edu.ph">parmap-admin@dream.upd.edu.ph</a>.</p>
     {% endif %}
     
-    <p>Thank you.</p>
+    <p>Thank you!</p>
 </body>
 </html>
