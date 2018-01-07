@@ -145,8 +145,7 @@ class DataRequestAdmin(admin.ModelAdmin):
             requesting_user = obj.profile
 
             resource_type = unicode(requested_resource.polymorphic_ctype.model).encode('utf8')
-            resources = []
-            is_va = False
+            resources = []≈
 
             if resource_type == "layer":
                 layer_title = unicode(requested_resource.title).encode('utf8')
@@ -154,6 +153,7 @@ class DataRequestAdmin(admin.ModelAdmin):
                 resource_keywords = layer_resource.keywords.names()
                 csv_contents = []
 
+                is_va = False
                 if "_va" in layer_resource.typename:
                     is_va = True
                     typename = '_'.join(layer_resource.typename.split(":")[1].split("_")[:2])
@@ -190,6 +190,21 @@ class DataRequestAdmin(admin.ModelAdmin):
                         assign_perm('download_resourcebase', requesting_user, layer_resourcebase)
                     except Exception as e:
                         print('There was an error assigning permission to %s for %s' % (layer_resourcebase, requesting_user))
+
+                context['resource_links'] = resource_links
+                obj.date_approved = timezone.now()
+
+                subject = 'Notification of Approval'
+                context['layer_resource'] = layer_resource
+
+                if is_va:
+                    if 'national' in layer_resource.typename:
+                        html_content = render_to_string('parmap_data_request/email_approval_layer_va_national.html', context)
+                    else
+                        html_content = render_to_string('parmap_data_request/email_approval_layer_va_local.html', context)
+                else:
+                    html_content = render_to_string('parmap_data_request/email_approval_layer_lulc.html', context)
+
             else:
 
                 resource_link = (
@@ -199,21 +214,13 @@ class DataRequestAdmin(admin.ModelAdmin):
                 resource_links = [resource_link]
                 assign_perm('download_resourcebase', requesting_user, requested_resource)
 
-            context['resource_links'] = resource_links
-            obj.date_approved = timezone.now()
+                context['resource_links'] = resource_links
+                obj.date_approved = timezone.now()
 
-            subject = 'Notification of Approval'
-            if resource_type == "layer":
-                context['layer_resource'] = layer_resource
-                if(is_va):
-                    if( 'national' in layer_resource.typename):
-                        html_content = render_to_string('parmap_data_request/email_approval_layer_va_national.html', context)
-                    else
-                        html_content = render_to_string('parmap_data_request/email_approval_layer_va_local.html', context)
-                else:
-                    html_content = render_to_string('parmap_data_request/email_approval_layer_lulc.html', context)
-            else:
+                subject = 'Notification of Approval'
+
                 html_content = render_to_string('parmap_data_request/email_approval.html', context)
+
         elif status == 'REJECTED':
             subject = 'Denial of Request'
 
