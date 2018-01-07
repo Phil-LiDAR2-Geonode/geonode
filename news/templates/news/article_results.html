@@ -45,7 +45,9 @@
 							<div class = "col-md-4">
 								<div class = "newsListWrapper">
 									<div class = "newsListImage">
-										<img src= "{{ article.image1.url }}" />
+										{% if article.image1 %}
+											<img src= "{{ article.image1.url }}" />
+										{% endif %}
 										<div class = "newsListTitle"><a href="/news/article/{{ article.id }}/">{{ article|truncatechars:45 }}</a></div>
 
 										{% if article.start_date == article.end_date %}
@@ -56,7 +58,11 @@
 										<div class = "newsListDate">{{ article.start_date | date:"M. j" }} - {{ article.end_date | date:"M. j, Y" }}</div>
 										{% endif %}
 
-										<div class = "overlay"></div>
+										{% if article.image1 %}
+											<div class = "overlay"></div>
+										{% else %}
+											<div class = "overlay" style="background-color: #333333"></div>
+										{% endif %}
 									</div>
 								</div>
 							</div>
