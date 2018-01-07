@@ -141,8 +141,13 @@ def test_related(request):
     layer_resource = get_object_or_404(Layer, title=layer_title)
     resource_keywords = layer_resource.keywords.names()
 
+    resource_type = unicode(requested_resource.polymorphic_ctype.model).encode('utf8')
+
+    resources = []
+
     return render_to_response('parmap_data_request/test_related.html',RequestContext(request, {
         "title": title_search,
         "resource": layer_resource,
+        "resource_type": resource_type,
         "keywords": resource_keywords
     }))
