@@ -2,6 +2,9 @@ from django.db import models
 
 class Publication(models.Model):
     title = models.TextField()
+    authors = models.TextField()
+    conference = models.CharField('Name of Conference', max_length=200)
+    year_published = models.CharField(max_length=10)
     doc_file = models.FileField("Document File", upload_to="doc_publication/")
     date_uploaded = models.DateTimeField(auto_now=True, editable=False)
 
