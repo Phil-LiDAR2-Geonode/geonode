@@ -136,12 +136,15 @@ def handle_upload(request):
     #return HttpResponseRedirect(settings.SITEURL + "documents/")
 
 def test_related(request):
-    title_search = 'local_drought_60407000_va'
+    title_search = 'national_flood_va'
     layer_title = unicode(title_search).encode('utf8')
     layer_resource = get_object_or_404(Layer, title=layer_title)
     resource_keywords = layer_resource.keywords.names()
-
-    resource_type = unicode(layer_resource.polymorphic_ctype.model).encode('utf8')
+    
+    is_va = False
+    if "_va" in layer_resource.typename:
+        is_va = True
+    
     typename = '_'.join(layer_resource.typename.split(":")[1].split("_")[:2])
 
     resources = []
@@ -154,5 +157,6 @@ def test_related(request):
         "resource_type": resource_type,
         "typename": typename,
         "keywords": resource_keywords,
-        "resources": resources
+        "resources": resources,
+        "is_va": is_va
     }))
