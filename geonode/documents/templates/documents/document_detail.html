@@ -180,7 +180,6 @@
                     <form id="data_request_form" action="{% url 'datarequest_add' %}" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="uuid" value="{{ resource.uuid }}">
                         {% csrf_token %}
-                        <p><span style="font-style: italic">Note on the formal request letter:</span></p>
                         <p>To formally request for PARMap data, please send a formal letter signed and endorsed by your head of agency/department head/academic adviser. Indicate your name, contact information, the data types being requested, and the intended use of the data.</p>
                         <span>The letter should be addressed to:</span>
                         <p style="margin-left: 40px; font-weight: bold;">

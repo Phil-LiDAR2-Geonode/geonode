@@ -136,26 +136,32 @@ def handle_upload(request):
     #return HttpResponseRedirect(settings.SITEURL + "documents/")
 
 def test_related(request):
-    title_search = 'national_flood_va'
-    layer_title = unicode(title_search).encode('utf8')
-    layer_resource = get_object_or_404(Layer, title=layer_title)
-    resource_keywords = layer_resource.keywords.names()
+    # TEST Related maps
+    # title_search = 'national_flood_va'
+    # layer_title = unicode(title_search).encode('utf8')
+    # layer_resource = get_object_or_404(Layer, title=layer_title)
+    # resource_keywords = layer_resource.keywords.names()
     
-    is_va = False
-    if "_va" in layer_resource.typename:
-        is_va = True
+    # is_va = False
+    # if "_va" in layer_resource.typename:
+    #     is_va = True
     
-    typename = '_'.join(layer_resource.typename.split(":")[1].split("_")[:2])
+    # typename = '_'.join(layer_resource.typename.split(":")[1].split("_")[:2])
 
-    resources = []
-    for related_layer in Layer.objects.filter(typename__icontains=typename):
-        resources.append(related_layer)
+    # resources = []
+    # for related_layer in Layer.objects.filter(typename__icontains=typename):
+    #     resources.append(related_layer)
 
-    return render_to_response('parmap_data_request/test_related.html',RequestContext(request, {
-        "title": title_search,
-        "resource": layer_resource,
-        "typename": typename,
-        "keywords": resource_keywords,
-        "resources": resources,
-        "is_va": is_va
+    # return render_to_response('parmap_data_request/test_related.html',RequestContext(request, {
+    #     "title": title_search,
+    #     "resource": layer_resource,
+    #     "typename": typename,
+    #     "keywords": resource_keywords,
+    #     "resources": resources,
+    #     "is_va": is_va
+    # }))
+
+    # Test receive request
+    return render_to_response('parmap_data_request/email_notification_received_request.html', RequestContext(request, {
+        "site_admin_email": "llenoil@gmail.com"
     }))
