@@ -10,19 +10,28 @@
 
     <p>Your data request has been approved.</p>
 
-    <span>Upon accepting the End User License Agreement (EULA) document, you may now download the following data:</span><br>
+    <p>Upon accepting the End User License Agreement (EULA) document, you may now download the following data:</p>
     {% if resource_links %}
-    <ol style="margin: 0">
+    <ol>
         {% for title, link in resource_links %}
-        <li><a href="{{link}}">{{title}}</a></li>
+            {% if requested_resource.title == title %}
+                <li><a href="{{link}}">{{title}}</a></li>
+            {% endif %}
         {% endfor %}
     </ol>
     {% endif %}
-    <span style="font-size: 90%">* Please note that local map layers are available in municipal level boundary intersected with 500mx500m grid.</span>
-    <br>
+    <p>* Please note that local map layers are available in municipal level boundary intersected with 500mx500m grid.</p>
 
-    <span>Components inclusive within the vulnerability are also available for downloading through the following links:</span>
-    <ol style="margin: 0"></ol>
+    <p>Components inclusive within the vulnerability are also available for downloading through the following links:</p>
+    {% if resource_links %}
+    <ol>
+        {% for title, link in resource_links %}
+            {% if requested_resource.title != title %}
+                <li><a href="{{link}}">{{title}}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+    {% endif %}
 
     {% if site_admin_email and site_admin_email.strip %}
         <p>For questions or concerns, contact us at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
@@ -30,10 +39,10 @@
         <p>For questions or concerns, contact us at <a href="mailto:parmap-admin@dream.upd.edu.ph">parmap-admin@dream.upd.edu.ph</a>.</p>
     {% endif %}
 
-    <p>Thank you!</p>
-
-    <span style="font-size: 90%">NOTICE:</span><br>
-    <ul style="margin: 0; font-size: 90%">
+    <p style="margin-top: 1.75em;">Thank you!</p>
+    
+    <p style="margin-top: 2em;">NOTICE:</p>
+    <ul>
         <li>Maps are prepared by participating state universities and colleges and higher education institutions (Phil-LiDAR 2 Program B) and reviewed by University of the Philippines Training Center for Applied Geodesy and Photogrammetry (Phil-LiDAR 2 Program A Project 1)</li>
         <li>Use of the datasets provided herewith are covered by End Users License Agreement (EULA)</li>
         <li>Major source of information: LiDAR Datasets from DREAM/Phil-LiDAR 1 Program with validation from participatory methods such as focus group discussions (FGDs) and key informant interviews (KIIs)</li>

@@ -14,15 +14,25 @@
     {% if resource_links %}
     <ol style="margin: 0">
         {% for title, link in resource_links %}
-        <li><a href="{{link}}">{{title}}</a></li>
+            {% if requested_resource.title == title %}
+                <li><a href="{{link}}">{{title}}</a></li>
+            {% endif %}
         {% endfor %}
     </ol>
     {% endif %}
     <span style="font-size: 90%">* Please note that national map layers are available in provincial level boundary intersected with 20kmx20km grid.</span>
-    <br>
+    <br><br>
 
     <span>Components inclusive within the vulnerability are also available for downloading through the following links:</span>
-    <ol style="margin: 0"></ol>
+    {% if resource_links %}
+    <ol style="margin: 0">
+        {% for title, link in resource_links %}
+            {% if requested_resource.title != title %}
+                <li><a href="{{link}}">{{title}}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+    {% endif %}
 
     {% if site_admin_email and site_admin_email.strip %}
         <p>For questions or concerns, contact us at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
