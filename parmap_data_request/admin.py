@@ -152,16 +152,23 @@ class DataRequestAdmin(admin.ModelAdmin):
                 resource_keywords = layer_resource.keywords.names()
                 csv_contents = []
 
-                muncode_file = staticfiles_storage.path('geonode/files/NSO_Muni.csv')
-                with open(muncode_file, 'rb') as csvfile:
-                    csv_reader = csv.reader(csvfile)
-                    for row in csv_reader:
-                        csv_contents.append(row[3])
+                if "_va" in layer_resource.typename:
+                    typename = '_'.join(layer_resource.typename.split(":")[1].split("_")[:2])
 
-                for keyword in resource_keywords:
-                    if keyword in csv_contents:
-                        for related_layer in Layer.objects.filter(keywords__name__in=[keyword]):
-                            resources.append(related_layer)
+                    for related_layer in Layer.objects.filter(typename__icontains=typename):
+                        resources.append(related_layer)
+                        
+                else:
+                    muncode_file = staticfiles_storage.path('geonode/files/NSO_Muni.csv')
+                    with open(muncode_file, 'rb') as csvfile:
+                        csv_reader = csv.reader(csvfile)
+                        for row in csv_reader:
+                            csv_contents.append(row[3])
+
+                    for keyword in resource_keywords:
+                        if keyword in csv_contents:
+                            for related_layer in Layer.objects.filter(keywords__name__in=[keyword]):
+                                resources.append(related_layer)
 
                 # remove duplicate items
                 resources = set(resources)
