@@ -146,6 +146,8 @@ class DataRequestAdmin(admin.ModelAdmin):
 
             resource_type = unicode(requested_resource.polymorphic_ctype.model).encode('utf8')
             resources = []
+            is_va = False
+
             if resource_type == "layer":
                 layer_title = unicode(requested_resource.title).encode('utf8')
                 layer_resource = get_object_or_404(Layer, title=layer_title)
@@ -153,6 +155,7 @@ class DataRequestAdmin(admin.ModelAdmin):
                 csv_contents = []
 
                 if "_va" in layer_resource.typename:
+                    is_va = True
                     typename = '_'.join(layer_resource.typename.split(":")[1].split("_")[:2])
 
                     for related_layer in Layer.objects.filter(typename__icontains=typename):
@@ -198,8 +201,19 @@ class DataRequestAdmin(admin.ModelAdmin):
 
             context['resource_links'] = resource_links
             obj.date_approved = timezone.now()
+
             subject = 'Notification of Approval'
-            html_content = render_to_string('parmap_data_request/email_approval.html', context)
+            if resource_type == "layer":
+                context['requested_resource'] = requested_resource
+                if(is_va):
+                    if( 'national' in requested_resource.typename.name):
+                        html_content = render_to_string('parmap_data_request/email_approval_layer_va_national.html', context)
+                    else
+                        html_content = render_to_string('parmap_data_request/email_approval_layer_va_local.html', context)
+                else:
+                    html_content = render_to_string('parmap_data_request/email_approval_layer_lulc.html', context)
+            else:
+                html_content = render_to_string('parmap_data_request/email_approval.html', context)
         elif status == 'REJECTED':
             subject = 'Denial of Request'
 
