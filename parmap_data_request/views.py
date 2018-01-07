@@ -142,14 +142,17 @@ def test_related(request):
     resource_keywords = layer_resource.keywords.names()
 
     resource_type = unicode(layer_resource.polymorphic_ctype.model).encode('utf8')
-    typename = layer_resource.split(:)[1]
+    typename = '_'.join(layer_resource.typename.split(":")[1].split("_")[:2])
 
     resources = []
+    for related_layer in Layer.objects.filter(typename__icontains=typename):
+        resources.append(related_layer)
 
     return render_to_response('parmap_data_request/test_related.html',RequestContext(request, {
         "title": title_search,
         "resource": layer_resource,
         "resource_type": resource_type,
         "typename": typename,
-        "keywords": resource_keywords
+        "keywords": resource_keywords,
+        "resources": resources
     }))

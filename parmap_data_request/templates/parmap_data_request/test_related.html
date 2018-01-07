@@ -1,11 +1,17 @@
 {{title}}
 <hr>
 title: {{resource.title}} <br>
-typename: {{resource.typename}} <br>
+typename: {{typename}} <br>
 type: {{resource_type}}
 <hr>
 <ul>
   {% for keyword in keywords %}
     <li>{{keyword}}</li>
+  {% endfor %}
+</ul>
+<hr>
+<ul>
+  {% for res in resources %}
+    <li>{{res.title}}</li>
   {% endfor %}
 </ul>
