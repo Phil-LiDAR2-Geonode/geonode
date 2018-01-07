@@ -181,8 +181,15 @@
                         <input type="hidden" name="uuid" value="{{ resource.uuid }}">
                         {% csrf_token %}
                         <p><span style="font-style: italic">Note on the formal request letter:</span></p>
-                        <p>The letter is a signed endorsement from the head of agency, department head, academic adviser, etc. Purpose of the data, types of data requested and intended use should be specified in the letter.</p>
-                        <p>Letter should be addressed to Ariel C. Blanco, Dr. Eng., Director, Training Center for Applied Geodesy and Photogrammetry (TCAGP).</p>
+                        <p>To formally request for PARMap data, please send a formal letter signed and endorsed by your head of agency/department head/academic adviser. Indicate your name, contact information, the data types being requested, and the intended use of the data.</p>
+                        <span>The letter should be addressed to:</span>
+                        <p style="margin-left: 40px; font-weight: bold;">
+                          <span style="font-family: Lato;">ARIEL C. BLANCO, DR. ENG.</span>
+                          <br>
+                          Director
+                          <br>
+                          Training Center for Applied Geodesy and Photogrammetry (TCAGP)
+                        </p>
                         <input id="upload-request-file" type="file" name="letter_file"/>
                         <div id="kv-error-1" style="margin-top:10px;display:none"></div>
                         <div id="kv-success-1" class="alert alert-success " style="margin-top:10px;display:none"><ul></ul></div>
