@@ -154,7 +154,6 @@ def test_related(request):
     return render_to_response('parmap_data_request/test_related.html',RequestContext(request, {
         "title": title_search,
         "resource": layer_resource,
-        "resource_type": resource_type,
         "typename": typename,
         "keywords": resource_keywords,
         "resources": resources,
