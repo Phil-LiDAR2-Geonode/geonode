@@ -162,6 +162,6 @@ def test_related(request):
     # }))
 
     # Test receive request
-    return render_to_response('parmap_data_request/email_notification_received_request.html', RequestContext(request, {
+    return render_to_response('parmap_data_request/email_approval_layer_lulc.html', RequestContext(request, {
         "site_admin_email": "llenoil@gmail.com"
     }))
