@@ -85,11 +85,14 @@
 									<i class="fa fa-file-pdf-o" style="font-size:100px;color:#006c0b"></i>
 								</div>
 								<div class = "description1"><a href = "/parmap_docs/techreport/{{ techreport.id }}">{{ techreport }}</a></div>
+								<div class = "description3">{{ techreport.doc_type }}</a></div>
 							{% else %}
 								<div class = "resultImgWrapper">
 									<i class="fa fa-file-pdf-o" style="font-size:100px;color: rgba(85, 85, 85, 0.34)"></i>
 								</div>
 								<div class = "description1"><a href = "#" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)">{{ techreport }}</a></div>
+								<div class = "description3" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)">{{ techreport.doc_type }}</a></div>
+
 							{% endif %}
 						</li>
 						{% endfor %}
