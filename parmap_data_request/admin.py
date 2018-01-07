@@ -145,7 +145,7 @@ class DataRequestAdmin(admin.ModelAdmin):
             requesting_user = obj.profile
 
             resource_type = unicode(requested_resource.polymorphic_ctype.model).encode('utf8')
-            resources = []≈
+            resources = []
 
             if resource_type == "layer":
                 layer_title = unicode(requested_resource.title).encode('utf8')
@@ -200,7 +200,7 @@ class DataRequestAdmin(admin.ModelAdmin):
                 if is_va:
                     if 'national' in layer_resource.typename:
                         html_content = render_to_string('parmap_data_request/email_approval_layer_va_national.html', context)
-                    else
+                    else:
                         html_content = render_to_string('parmap_data_request/email_approval_layer_va_local.html', context)
                 else:
                     html_content = render_to_string('parmap_data_request/email_approval_layer_lulc.html', context)
