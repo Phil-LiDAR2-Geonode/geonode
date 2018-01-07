@@ -142,6 +142,7 @@ def test_related(request):
     resource_keywords = layer_resource.keywords.names()
 
     resource_type = unicode(layer_resource.polymorphic_ctype.model).encode('utf8')
+    typename = layer_resource.split(:)[1]
 
     resources = []
 
@@ -149,5 +150,6 @@ def test_related(request):
         "title": title_search,
         "resource": layer_resource,
         "resource_type": resource_type,
+        "typename": typename,
         "keywords": resource_keywords
     }))
