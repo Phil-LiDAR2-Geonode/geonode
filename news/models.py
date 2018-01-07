@@ -6,8 +6,8 @@ class Article(models.Model):
     content = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
-    image1 = models.FileField("image 1", upload_to="article_img/")
-    image2 = models.FileField("image 2", upload_to="article_img/")
+    image1 = models.FileField("image 1", upload_to="article_img/", blank=True)
+    image2 = models.FileField("image 2", upload_to="article_img/", blank=True)
     is_headline = models.BooleanField("Set as headline")
     creation_date = models.DateTimeField(auto_now=True, editable=False)
     def __unicode__(self):
