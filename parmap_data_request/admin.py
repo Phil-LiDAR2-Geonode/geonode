@@ -224,6 +224,9 @@ class DataRequestAdmin(admin.ModelAdmin):
         elif status == 'REJECTED':
             subject = 'Denial of Request'
 
+            resource_id = request.POST.get('resource')
+            requested_resource = get_object_or_404(ResourceBase, id=resource_id)
+
             #@TODO  get reasons from POST data
             reasons = request.POST.getlist('reason')
 
@@ -235,6 +238,7 @@ class DataRequestAdmin(admin.ModelAdmin):
                 reasons_arr.append(req_reason)
 
             obj.reason = reasons_arr
+            context['requested_resource'] = requested_resource
             context['reasons'] = reasons_messages
             html_content = render_to_string('parmap_data_request/email_rejection.html', context)
 
