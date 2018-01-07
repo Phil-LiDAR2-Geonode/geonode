@@ -204,9 +204,9 @@ class DataRequestAdmin(admin.ModelAdmin):
 
             subject = 'Notification of Approval'
             if resource_type == "layer":
-                context['requested_resource'] = requested_resource
+                context['layer_resource'] = layer_resource
                 if(is_va):
-                    if( 'national' in requested_resource.typename.name):
+                    if( 'national' in layer_resource.typename):
                         html_content = render_to_string('parmap_data_request/email_approval_layer_va_national.html', context)
                     else
                         html_content = render_to_string('parmap_data_request/email_approval_layer_va_local.html', context)

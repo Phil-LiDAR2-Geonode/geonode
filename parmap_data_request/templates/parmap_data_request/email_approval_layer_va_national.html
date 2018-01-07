@@ -14,7 +14,7 @@
     {% if resource_links %}
     <ol style="margin: 0">
         {% for title, link in resource_links %}
-            {% if requested_resource.title == title %}
+            {% if layer_resource.title == title %}
                 <li><a href="{{link}}">{{title}}</a></li>
             {% endif %}
         {% endfor %}
@@ -27,7 +27,7 @@
     {% if resource_links %}
     <ol style="margin: 0">
         {% for title, link in resource_links %}
-            {% if requested_resource.title != title %}
+            {% if layer_resource.title != title %}
                 <li><a href="{{link}}">{{title}}</a></li>
             {% endif %}
         {% endfor %}
