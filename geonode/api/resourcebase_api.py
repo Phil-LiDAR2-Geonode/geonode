@@ -457,6 +457,10 @@ class CommonModelApi(ModelResource):
         if self._meta.resource_name == "documents_parmap":
             VALUES.append('doc_file')
 
+        if self._meta.resource_name == "layers_parmap":
+            VALUES.append('typename')
+
+
         if isinstance(
                 data,
                 dict) and 'objects' in data and not isinstance(
