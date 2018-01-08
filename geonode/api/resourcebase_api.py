@@ -603,14 +603,16 @@ class LayerParmapResource(CommonModelApi):
             'workspace',
         ]
 
-    def dehydrate_metadata_xml(self, bundle):
+    def dehydrate(self, bundle):
         keywords = []
         tree = ET.ElementTree(ET.fromstring(bundle.data['metadata_xml']))
 
         for keyword in tree.findall('gmd:keyword'):
             keywords.append(keyword.text)
 
-        return '---'.join(keywords)
+        bundle.data['metadata_xml'] = '---'.join(keywords)
+
+        return bundle
         
 
 class MapParmapResource(CommonModelApi):
