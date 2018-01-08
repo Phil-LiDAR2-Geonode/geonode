@@ -457,11 +457,11 @@ class CommonModelApi(ModelResource):
         if self._meta.resource_name == "documents_parmap":
             VALUES.append('doc_file')
 
-            if 'lulc' in request.GET.get('keywords__slug__in'):
-                VALUES.append('metadata_xml')
-
         if self._meta.resource_name == "layers_parmap":
             VALUES.append('typename')
+
+            if 'lulc' in request.GET.get('keywords__slug__in'):
+                VALUES.append('metadata_xml')
 
 
         if isinstance(
