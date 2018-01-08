@@ -1,7 +1,7 @@
 {% load i18n %}
-<div class="loading-filter" ng-show="isLoadingFilters" style="text-align: center">
+<div class="loading-filter" ng-show="isLoadingFilters" style="text-align: left">
+  <img src="/static/parmap/img/loading.gif" alt="" style="width: 40px;">
   Loading filters..
-  <img src="/static/parmap/img/loading.gif" alt="">
 </div>
 {% if SEARCH_FILTERS.LOCATIONS_ENABLED and map_type == "lulc" %}
 <form ng-submit="location_submit(selectedProvince, selectedMunicipality)" ng-show="!isLoadingFilters">
