@@ -7,6 +7,7 @@ from tastypie.constants import ALL, ALL_WITH_RELATIONS
 from tastypie.resources import ModelResource
 from tastypie import fields
 from tastypie.utils import trailing_slash
+import xml.etree.ElementTree as ET
 
 from guardian.shortcuts import get_objects_for_user
 
@@ -451,8 +452,7 @@ class CommonModelApi(ModelResource):
             'thumbnail_url',
             'detail_url',
             'rating',
-            'metadata_xml',
-            'tags'
+            'metadata_xml'
         ]
 
         if self._meta.resource_name == "documents_parmap":
@@ -602,6 +602,16 @@ class LayerParmapResource(CommonModelApi):
             'title_en',
             'workspace',
         ]
+
+    def dehydrate_metadata_xml(self, bundle):
+        keywords = []
+        tree = ET.ElementTree(ET.fromstring(bundle.data['metadata_xml']))
+
+        for keyword in tree.findall('gmd:keyword'):
+            keywords.append(keyword.text)
+
+        return '---'.join(keywords)
+        
 
 class MapParmapResource(CommonModelApi):
 
