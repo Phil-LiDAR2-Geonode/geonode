@@ -451,8 +451,7 @@ class CommonModelApi(ModelResource):
             'thumbnail_url',
             'detail_url',
             'rating',
-            'metadata_xml',
-            'keywords__all'
+            'metadata_xml'
         ]
 
         if self._meta.resource_name == "documents_parmap":
