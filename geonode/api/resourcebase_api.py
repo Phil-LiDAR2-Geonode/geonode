@@ -451,12 +451,14 @@ class CommonModelApi(ModelResource):
             'supplemental_information',
             'thumbnail_url',
             'detail_url',
-            'rating',
-            'metadata_xml'
+            'rating'
         ]
 
         if self._meta.resource_name == "documents_parmap":
             VALUES.append('doc_file')
+
+            if 'lulc' in request.GET.get('keywords__slug__in'):
+                VALUES.append('metadata_xml')
 
         if self._meta.resource_name == "layers_parmap":
             VALUES.append('typename')
@@ -602,18 +604,6 @@ class LayerParmapResource(CommonModelApi):
             'title_en',
             'workspace',
         ]
-
-    def dehydrate(self, bundle):
-        keywords = []
-        tree = ET.ElementTree(ET.fromstring(bundle.data['metadata_xml']))
-
-        for keyword in tree.findall('gmd:keyword'):
-            keywords.append(keyword.text)
-
-        bundle.data['metadata_xml'] = '---'.join(keywords)
-
-        return bundle
-        
 
 class MapParmapResource(CommonModelApi):
 
