@@ -389,11 +389,11 @@
    
     //Get data from apis and make them available to the page
     function query_api(data){
-      $scope.isLoadingFilters = false;
+      $scope.isLoadingFilters = true;
       $http.get(Configs.url, {params: data || {}}).success(function(data){        
         $http.get(LOCATIONS_ENDPOINT).success(function(location) {
           $http.get(FILTERS_ENDPOINT).success(function(filters) {
-            $scope.isLoadingFilters = true;
+            $scope.isLoadingFilters = false;
             process_results(location, filters, data);
           });
         });
