@@ -308,6 +308,8 @@
         var keywordList = [];
         var locationArr = [];
 
+        console.log('Keyword source: ', result.hasOwnProperty('typename') ? result.typename : result.doc_file)
+
         // Get keywords
         if(result.hasOwnProperty('metadata_xml')){
           var xmlDoc = $.parseXML( result.metadata_xml );
