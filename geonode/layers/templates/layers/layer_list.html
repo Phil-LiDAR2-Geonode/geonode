@@ -11,7 +11,11 @@
 <div class = "landCoverTitleWrapper">
   <div class = "container">
     <a href = "javascript:;" class = "pull-right scrollToTop" style="display: none">back to top</a>
+    {% if map_type == "lulc" %}
     <div class = "landCoverTitle">{% trans "Agricultural and Coastal Land Cover <b>Layers</b>" %}</div>
+    {% else %}
+    <div class = "landCoverTitle">{% trans "Agricultural Resources Vulnerability Assessment <b>Layers</b>" %}</div>
+    {% endif %}
   </div>
 </div>
 <div class="page-header" style="display: none">
