@@ -599,9 +599,11 @@ class LayerParmapResource(CommonModelApi):
             'temporal_extent_end',
             'temporal_extent_start',
             'title_en',
-            'typename',
             'workspace',
         ]
+    
+    def dehydrate_keywords(self, bundle):
+        return bundle.data['keywords'].count()
 
 class MapParmapResource(CommonModelApi):
 
