@@ -451,7 +451,8 @@ class CommonModelApi(ModelResource):
             'thumbnail_url',
             'detail_url',
             'rating',
-            'metadata_xml'
+            'metadata_xml',
+            'tags'
         ]
 
         if self._meta.resource_name == "documents_parmap":
@@ -601,9 +602,6 @@ class LayerParmapResource(CommonModelApi):
             'title_en',
             'workspace',
         ]
-    
-    def dehydrate_keywords(self, bundle):
-        return bundle.data['keywords'].count()
 
 class MapParmapResource(CommonModelApi):
 
