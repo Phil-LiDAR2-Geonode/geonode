@@ -105,15 +105,15 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
 				<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				{% if facettype == "layers" %}
-					<h4 class="modal-title" id="myModalLabel">{% trans "Download Layers" %}</h4>
+					<h4 class="modal-title" id="myModalLabel">{% trans "Download Layer" %}</h4>
 				{% else %}
-					<h4 class="modal-title" id="myModalLabel">{% trans "Download Maps" %}</h4>
+					<h4 class="modal-title" id="myModalLabel">{% trans "Download Map" %}</h4>
 				{% endif %}
 				</div>
 				<div class="modal-body parmap-download-list-{{ item.id }}">
 					{% if facettype == "maps" %}
-					<ul>
-					<li>
+					<ul style="margin: 0; padding: 0">
+					<li style="list-style: 0">
 						<a href="/documents/{{ item.id }}/download/" target="_blank">
 						{% if resource.extension|lower in "jpg,jpeg" %}
 							JPEG
