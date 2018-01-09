@@ -113,15 +113,15 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
 				<div class="modal-body parmap-download-list-{{ item.id }}">
 					{% if facettype == "maps" %}
 					<ul style="margin: 0; padding: 0">
-					<li style="list-style: 0">
-						<a href="/documents/{{ item.id }}/download/" target="_blank">
-						{% if resource.extension|lower in "jpg,jpeg" %}
-							JPEG
-						{% else %}
-							{{item.extension|upper}}
-						{% endif %}
-						</a>
-					</li>
+            <li style="list-style: none">
+              <a href="/documents/{{ item.id }}/download/" target="_blank">
+              {% if resource.extension|lower in "jpg,jpeg" %}
+                JPEG
+              {% else %}
+                {{item.extension|upper}}
+              {% endif %}
+              </a>
+            </li>
 					</ul>
 					{% endif %}
 				</div>

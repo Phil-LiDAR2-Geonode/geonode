@@ -1,8 +1,8 @@
 
 {% if links %}
-<ul>
+<ul style="margin: 0; padding: 0">
     {% for link in links %}
-    <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+    <li style="list-style: none"><a href="{{ link.url }}">{{ link.name }}</a></li>
     {% endfor %}
 </ul>
 {% else %}
