@@ -60,11 +60,32 @@ class DataRequestAdmin(admin.ModelAdmin):
                 requesting_user = data_request.profile
                 requested_resource = data_request.resource
                 resource_type = unicode(requested_resource.polymorphic_ctype.model).encode('utf8')
+                email_template = 'parmap_data_request/email_approval.html'
+
                 if resource_type == "layer":
                     resources = []
                     layer_title = unicode(requested_resource.title).encode('utf8')
                     layer_resource = get_object_or_404(Layer, title=layer_title)
                     resource_keywords = layer_resource.keywords.names()
+                    email_template = 'parmap_data_request/email_approval_layer_lulc.html'
+
+                if "_va" in layer_resource.typename:
+                    typename = '_'.join(layer_resource.typename.split(":")[1].split("_")[:2])
+
+                    for related_layer in Layer.objects.filter(typename__icontains=typename):
+                        resources.append(related_layer)
+
+                    if 'national' in layer_resource.typename:
+                        html_content = render_to_string('parmap_data_request/email_approval_layer_va_national.html', context)
+                    else:
+                        html_content = render_to_string('parmap_data_request/email_approval_layer_va_local.html', context)
+                        
+                else:
+                    muncode_file = staticfiles_storage.path('geonode/files/NSO_Muni.csv')
+                    with open(muncode_file, 'rb') as csvfile:
+                        csv_reader = csv.reader(csvfile)
+                        for row in csv_reader:
+                            csv_contents.append(row[3])
 
                     for keyword in resource_keywords:
                         if keyword in csv_contents:
@@ -103,7 +124,7 @@ class DataRequestAdmin(admin.ModelAdmin):
                 data_request.save()
                 approved_count = approved_count + 1
 
-                html_content = render_to_string('parmap_data_request/email_approval.html', context)
+                html_content = render_to_string(email_template, context)
                 text_content = strip_tags(html_content)
                 sender = settings.DEFAULT_FROM_EMAIL
                 recipient = unicode(data_request.profile.email).encode('utf8')
