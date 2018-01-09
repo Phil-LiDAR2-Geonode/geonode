@@ -416,6 +416,25 @@ body {
 	text-decoration: none;
 }
 
+.resultWrapper .resultTitle a.browse-queue {
+	border: 1px solid #aaa;
+	text-align: right;
+	float: right;
+	font-size: 12px;
+	display: inline-block;
+	padding: 3px 5px;
+	color: #97bc63;
+	text-transform: uppercase;
+	background: #676767;
+	text-decoration: none;
+}
+
+
+.resultWrapper .resultTitle a.browse-queue.disabled {
+	opacity: 0.34;
+	cursor: default;
+}
+
 .resultWrapper .resultTitle input.download-queue {
 	display: inline-block;
 	margin-bottom: 0;
