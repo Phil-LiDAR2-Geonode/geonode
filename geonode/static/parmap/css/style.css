@@ -431,7 +431,7 @@ body {
 
 
 .resultWrapper .resultTitle a.browse-queue.disabled {
-	opacity: 0.34;
+	opacity: 0.65;
 	cursor: default;
 }
 
