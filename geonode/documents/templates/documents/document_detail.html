@@ -282,9 +282,9 @@
                 <h4 class="modal-title" id="myModalLabel">{% trans "Download Metadata" %}</h4>
               </div>
               <div class="modal-body">
-                <ul>
+                <ul style="margin: 0; padding: 0">
                   {% for link in metadata %}
-                  <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+                  <li style="list-style: none"><a href="{{ link.url }}">{{ link.name }}</a></li>
                   {% endfor %}
                 </ul>
               </div>
