@@ -394,7 +394,6 @@
         $http.get(LOCATIONS_ENDPOINT).success(function(location) {
           $http.get(FILTERS_ENDPOINT).success(function(filters) {
             $scope.isLoadingFilters = false;
-            $('#mainMapSideHolder').css('visibility', 'visible')
             process_results(location, filters, data);
           });
         });
@@ -553,6 +552,8 @@
       });
 
       if(!found) return;
+
+      $('#mainMapSideHolder').css('visibility', 'visible')
 
       var query_entry = [];
       var data_filter = 'keywords__slug__in';
