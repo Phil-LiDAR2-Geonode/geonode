@@ -553,7 +553,9 @@
 
       if(!found) return;
 
+      // Update datacoverage map visibility
       $('#mainMapSideHolder').css('visibility', 'visible')
+      $('#mainMapSideHolder #ext-comp-1009').css('display', 'block');
 
       var query_entry = [];
       var data_filter = 'keywords__slug__in';
