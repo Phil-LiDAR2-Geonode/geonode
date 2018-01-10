@@ -26,22 +26,25 @@
 {% block body_outer %}
 
 <div class="page-header">
-  <h2>{{ resource.title }}</h2>
+  <h2 style="text-transform: capitalize">{{ resource.title }}</h2>
 </div>
 
 <div class="row">
   <div class="col-md-8">
-    {% if "download_resourcebase" in perms_list %}
-      {% if resource.extension|lower in imgtypes and resource.doc_file %}
-      <div id="embedded_map">
-        <a style="text-decoration:none;" href="{% url "document_download" resource.id %}" target="_blank">
-          <img src="{% url "document_download" resource.id %}" width='500' class="img-responsive" />
-        </a>
-      </div>
-      {% elif resource.doc_file %}
-      <p><a href="{% url "document_download" resource.id %}" target="_blank">Download the {{ resource }} document</a></p>
-      {% elif  resource.doc_url %}
-      <p><a href="{{ resource.doc_url }}" target="_blank">Download the {{ resource }} document.</a> <small>({% trans 'External Resource' %})</small></p>
+
+    {% if request.user.is_authenticated %}
+      {% if "download_resourcebase" in perms_list %}
+        {% if resource.extension|lower in imgtypes and resource.doc_file %}
+          <div id="embedded_map">
+            <a style="text-decoration:none;" href="{% url "document_download" resource.id %}" target="_blank">
+              <img src="{% url "document_download" resource.id %}" width='500' class="img-responsive" />
+            </a>
+          </div>
+        {% elif resource.doc_file %}
+        <p><a href="{% url "document_download" resource.id %}" target="_blank">Download the {{ resource }} document</a></p>
+        {% elif  resource.doc_url %}
+        <p><a href="{{ resource.doc_url }}" target="_blank">Download the {{ resource }} document.</a> <small>({% trans 'External Resource' %})</small></p>
+        {%  endif %}
       {%  endif %}
     {%  endif %}
 
@@ -52,9 +55,12 @@
     <div class="tab-content">
       {% include "base/resourcebase_info_panel.html" %}
 
-      {% block social_links %}
-        {% include "social_links.html" %}
-      {% endblock %}
+    <!-- Removed Info and Share Tabs -->
+      {% if false %}
+        {% block social_links %}
+          {% include "social_links.html" %}
+        {% endblock %}
+      {%  endif %}
 
       <article id="comments" class="tab-pane">
       {% include "_comments.html" %}
@@ -83,25 +89,28 @@
   </div>
 
   <div class="col-md-4">
-
     <ul class="list-group">
       <li class="list-group-item">
       {% if "download_resourcebase" in perms_list %}
-        {% if resource.extension|lower in imgtypes and resource.doc_file %}
-          {% comment %}
-          <a style="text-decoration:none;" target="_blank" href="{% url "document_download" resource.id %}"><button class="btn btn-primary btn-md btn-block">{% trans "Download Document" %}</button></a>
-          {% endcomment %}
-          <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Document" %}</button>
-        {% elif resource.doc_file %}
-          {% comment %}
-          <a style="text-decoration:none;" target="_blank" href="{% url "document_download" resource.id %}"><button class="btn btn-primary btn-md btn-block">{% trans "Download Document" %}</button></a>
-          {% endcomment %}
-          <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Document" %}</button>
-        {% elif  resource.doc_url %}
-          {% comment %}
-          <a style="text-decoration:none;" target="_blank" href="{{ resource.doc_url }}"><button class="btn btn-primary btn-md btn-block">{% trans "Download Document" %}</button></a>
-          {% endcomment %}
-          <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Document" %}</button>
+        {% if request.user.is_authenticated %}
+          {% if resource.extension|lower in imgtypes and resource.doc_file %}
+            {% comment %}
+            <a style="text-decoration:none;" target="_blank" href="{% url "document_download" resource.id %}"><button class="btn btn-primary btn-md btn-block">{% trans "Download Map" %}</button></a>
+            {% endcomment %}
+            <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Map" %}</button>
+          {% elif resource.doc_file %}
+            {% comment %}
+            <a style="text-decoration:none;" target="_blank" href="{% url "document_download" resource.id %}"><button class="btn btn-primary btn-md btn-block">{% trans "Download Map" %}</button></a>
+            {% endcomment %}
+            <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Map" %}</button>
+          {% elif  resource.doc_url %}
+            {% comment %}
+            <a style="text-decoration:none;" target="_blank" href="{{ resource.doc_url }}"><button class="btn btn-primary btn-md btn-block">{% trans "Download Map" %}</button></a>
+            {% endcomment %}
+            <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#resource-download">{% trans "Download Map" %}</button>
+            {%  endif %}
+        {% else %}
+          <button class="btn btn-primary btn-md btn-block" disabled>{% trans "Download Map" %}</button>
         {%  endif %}
         <div class="modal fade" id="resource-download" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
           <div class="modal-dialog" style="width: 80%; height: 60%;">
@@ -120,8 +129,33 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <input type="button" class="btn btn-default" id="resource-download-accept-button" data-dismiss="modal" value="{% trans "Accept" %}"/>
+                <input type="button" class="btn btn-default" data-toggle="modal" data-target="#download-layer"    
+                    data-dismiss="modal" value="{% trans "Accept" %}"/>
                 <input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="download-layer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">{% trans "Download Map" %}</h4>
+              </div>
+              <div class="modal-body">
+                <ul style="margin: 0; padding: 0">
+                  <li style="list-style: none"><a href="{{download_url}}" target="_blank">
+                    {% if resource.extension|lower in "jpg,jpeg" %}
+                      JPEG
+                    {% else %}
+                      {{resource.extension|upper}}
+                    {% endif %}
+                  </a></li>
+                </ul>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
               </div>
             </div>
           </div>
@@ -146,9 +180,15 @@
                     <form id="data_request_form" action="{% url 'datarequest_add' %}" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="uuid" value="{{ resource.uuid }}">
                         {% csrf_token %}
-                        <p><span style="font-style: italic">Note on the formal request letter:</span></p>
-                        <p>The letter is a signed endorsement from the head of agency, department head, academic adviser, etc. Purpose of the data, types of data requested and intended use should be specified in the letter.</p>
-                        <p>Letter should be addressed to Ariel C. Blanco, Dr. Eng., Director, Training Center for Applied Geodesy and Photogrammetry (TCAGP).</p>
+                        <p>To formally request for PARMap data, please send a formal letter signed and endorsed by your head of agency/department head/academic adviser. Indicate your name, contact information, the data types being requested, and the intended use of the data.</p>
+                        <span>The letter should be addressed to:</span>
+                        <p style="margin-left: 40px; font-weight: bold;">
+                          <span style="font-family: Lato;">ARIEL C. BLANCO, DR. ENG.</span>
+                          <br>
+                          Program Leader
+                          <br>
+                          Phil-LiDAR 2 Program
+                        </p>
                         <input id="upload-request-file" type="file" name="letter_file"/>
                         <div id="kv-error-1" style="margin-top:10px;display:none"></div>
                         <div id="kv-success-1" class="alert alert-success " style="margin-top:10px;display:none"><ul></ul></div>
@@ -184,14 +224,19 @@
       {%  endif %}
       </li>
 
+      {% if request.user == resource.owner or request.user.is_superuser %}
       <li class="list-group-item">
-        <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#edit-document">{% trans "Edit Document" %}</button>
+        {% if "change_resourcebase" in perms_list %}
+        <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#edit-document">{% trans "Edit Map" %}</button>
+        {% else %}
+        <button class="btn btn-primary btn-md btn-block" disabled>{% trans "Edit Map" %}</button>
+        {% endif %}
         <div class="modal fade" id="edit-document" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
-              <div class="modal-header">
+              <div class="modal-header">  
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">{% trans "Edit Document" %}</h4>
+                <h4 class="modal-title" id="myModalLabel">{% trans "Edit Map" %}</h4>
               </div>
               <div class="modal-body">
                 <div class="row edit-modal">
@@ -205,7 +250,7 @@
                   {% if "change_resourcebase" in perms_list or "delete_resourcebase" in perms_list %}
                   <div class="col-sm-3">
                     <i class="fa fa-file-text-o fa-3x"></i>
-                    <h4>{% trans "Document" %}</h4>
+                    <h4>{% trans "Map" %}</h4>
                     {% if "change_resourcebase" in perms_list %}
                     <a class="btn btn-default btn-block btn-xs" href="{% url "document_replace" resource.id %}">{% trans "Replace" %}</a>
                     {% endif %}
@@ -224,7 +269,11 @@
         </div>
       </li>
       <li class="list-group-item">
+        {% if request.user.is_authenticated %}
         <button class="btn btn-default btn-md btn-block" data-toggle="modal" data-target="#download-metadata">{% trans "Download Metadata" %}</button>
+        {% else %}
+        <button class="btn btn-primary btn-md btn-block" disabled>{% trans "Download Metadata" %}</button>
+        {% endif %}
         <div class="modal fade" id="download-metadata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -233,9 +282,9 @@
                 <h4 class="modal-title" id="myModalLabel">{% trans "Download Metadata" %}</h4>
               </div>
               <div class="modal-body">
-                <ul>
+                <ul style="margin: 0; padding: 0">
                   {% for link in metadata %}
-                  <li><a href="{{ link.url }}">{{ link.name }}</a></li>
+                  <li style="list-style: none"><a href="{{ link.url }}">{{ link.name }}</a></li>
                   {% endfor %}
                 </ul>
               </div>
@@ -246,6 +295,9 @@
           </div>
         </div>
       </li>
+      {% endif %}
+      
+      {% if false %}
       <li class="list-group-item">
         <h4>{% trans "Resource using this document" %}</h4>
         {% if layer.maps %}
@@ -260,17 +312,20 @@
           {% endif %}
         </ul>
       </li>
+      {% endif %}
 
       {% if "change_resourcebase_permissions" in perms_list %}
       <li class="list-group-item">
         <h4>{% trans "Permissions" %}</h4>
         <p>{% trans "Click the button below to change the permissions of this document." %}</p>
-        <p><a href="#modal_perms" data-toggle="modal" class="btn btn-primary btn-block" data-target="#_permissions">{% trans "Change Document Permissions" %}</a></p>
+        <p><a href="#modal_perms" data-toggle="modal" class="btn btn-primary btn-block" data-target="#_permissions">{% trans "Change Map Permissions" %}</a></p>
       </li>
       {% include "_permissions_form.html" %}
       {% endif %}
 
+      {% if false %}
       {% include "base/_resourcebase_contact_snippet.html" %}
+      {% endif %}
 
     </ul>
   </div>

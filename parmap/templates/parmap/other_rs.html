@@ -1,0 +1,264 @@
+{% extends "parmap/parmap_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} 
+RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
+{% endblock %}
+
+{% block body_class %}documents documents-list explore{% endblock %}
+
+{% block body %}
+    <div class = "landCoverTitleWrapper">
+    <div class = "container">
+        <a href = "javascript:;" class = "pull-right scrollToTop" style="display: none">back to top</a>
+        <div class = "landCoverTitle">Other RS <b style='text-transform: capitalize;'>{{facettype}}</b></div>
+    </div>
+    </div>
+    
+    <div class="section firstChild backToTop">
+        <div class = "container">
+            <div class = "row">
+                <div class = "col-sm-12">
+                    <div class = "resultWrapper">
+                      
+                        {% if list %}
+                          <div class = "resultTitle">
+                              Results:
+                              <a href="/parmap/other_rs/queue/{{facettype}}" class="browse-queue disabled">Browse Queue</a>
+                          </div>
+                        {% else %}
+                          <div class = "resultTitle">No results found</div>
+                        {% endif %}
+                        
+                        <ul>
+                        {% for item in list %}
+                          <li>
+                            <div class="resultImgWrapper resultImgWrapperRs">
+                                <a href="{{ item.detail_url }}"><img src="{{ item.thumbnail_url }}" /></a>
+                            </div>
+                            <div class="description1"><a href="{{ item.detail_url }}">{{ item.title }}</a></div>
+                            <div class="description2" style="text-transform: capitalize;">{{ item.category__gn_description }}</div>
+                            <div class="description3">by <a href="/people/profile/{{ item.owner }}">{{ item.owner }}</a></div>
+
+                            {% if request.user.is_authenticated %}
+                            <div class="actions" data-id="{{item.id}}">
+                              <a href="#" class="queue-item" 
+                                data-url="{{item.detail_url}}" 
+                                data-id="{{item.id}}"
+                                data-title="{{item.title}}"
+                                data-thumbnail_url="{{item.thumbnail_url}}"
+                                data-owner="{{item.owner}}"><i class = "fa fa-plus-square"></i> add to queue</a>
+                              <a href="#" class="unqueue-item hidden" style="color: rgba(85, 85, 85, 0.34)">
+                                <i class = "fa fa-minus-circle" style="color: rgba(85, 85, 85, 0.34)"></i> added</a>
+                              <a href="#" class="download-item" data-url="{{item.detail_url}}" data-id="{{item.id}}"><i class = "fa fa-download"></i> download</a>
+                            </div>
+                            {% else %}
+                            <div class="actions" data-id="{{item.id}}">
+                              <a href="#" class="disabled" style="color: rgba(85, 85, 85, 0.34);cursor: default;text-decoration: none;">
+                                <i class = "fa fa-plus-square" style="color: rgba(85, 85, 85, 0.34);cursor: default;text-decoration: none;"></i> add to queue
+                              </a>
+                              <a href="#" class="disabled" style="color: rgba(85, 85, 85, 0.34);cursor: default;text-decoration: none;">
+                                <i class = "fa fa-download" style="color: rgba(85, 85, 85, 0.34);cursor: default;text-decoration: none;"></i> download
+                              </a>
+                            </div>
+                            {% endif %}
+                            <div class = "description4">
+                              <p>{{item.abstract}}</p>
+                            </div>		
+
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	{% for item in list %}
+		<div class="modal fade" id="resource-download-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
+			<div class="modal-dialog" style="width: 80%; height: 60%;">
+			<div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
+				<div class="modal-header">
+				<h4 class="modal-title" id="ResDownloadModalLabel">END-USER LICENSE AGREEMENT (Non-Commercial)</h4>
+				</div>
+				<div class="modal-body">
+				<div class="row edit-modal">
+					<div class="col-sm-12 text-left">
+					{% include "parmap_data_request/eula.html" %}
+					</div>
+				</div>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-toggle="modal" data-target="#download-layer-{{ item.id }}" data-dismiss="modal" value="{% trans "Accept" %}"/>
+				<input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
+				</div>
+			</div>
+			</div>
+		</div>
+	
+		<div class="modal fade" id="download-layer-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				{% if facettype == "layers" %}
+					<h4 class="modal-title" id="myModalLabel">{% trans "Download Layer" %}</h4>
+				{% else %}
+					<h4 class="modal-title" id="myModalLabel">{% trans "Download Map" %}</h4>
+				{% endif %}
+				</div>
+				<div class="modal-body parmap-download-list-{{ item.id }}">
+					{% if facettype == "maps" %}
+					<ul style="margin: 0; padding: 0">
+            <li style="list-style: none">
+              <a href="/documents/{{ item.id }}/download/" target="_blank">
+              {% if resource.extension|lower in "jpg,jpeg" %}
+                JPEG
+              {% else %}
+                {{item.extension|upper}}
+              {% endif %}
+              </a>
+            </li>
+					</ul>
+					{% endif %}
+				</div>
+				<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+				</div>
+			</div>
+			</div>
+		</div>
+	{% endfor %}
+
+    
+  {% include "_bulk_permissions_form.html" %}
+{% endblock %}
+
+{% block extra_script %}
+{% if GEONODE_SECURITY_ENABLED %}
+  {% include "_permissions_form_js.html" %}
+{% endif %}
+<script type="text/javascript">
+
+var username = "{{request.user.username}}";
+var RSQUEUE_STORAGE = 'rsqueue_{{facettype}}_' + username;
+
+$(function (){
+  // Load RS Queue storage
+  var rsQueueStorage = localStorage.getItem(RSQUEUE_STORAGE);
+  var rsQueue = rsQueueStorage === null ? [] : JSON.parse(rsQueueStorage);
+  var queueContainer = $('.queue-container');
+
+  // update actions
+  if(rsQueue.length > 0) {
+    $('.browse-queue').removeClass('disabled');
+
+    rsQueue.forEach(function(queue){
+      var actionEl = $('.actions[data-id='+queue.id+']');
+      $(actionEl).find('.queue-item').addClass('hidden');
+      $(actionEl).find('.unqueue-item').removeClass('hidden');
+    })
+  }
+
+  $('.resultWrapper').on('click', '.download-item', function(evt){
+    evt.preventDefault();
+    var id = $(this).data('id');
+    var urlArr = $(this).data('url').split('/');
+    var item = urlArr[urlArr.length - 1];
+
+    if ("{{facettype}}" == 'maps'){
+      $('#resource-download-'+id).modal('show');
+    }else{
+      $.get('/parmap/other_rs/links/{{facettype}}/' + item, function(data){
+        $('.parmap-download-list-'+id).html(data);
+        $('#resource-download-'+id).modal('show');
+      });
+    }
+  });
+
+  $('.resultWrapper').on('click', '.queue-item', function(evt){
+    evt.preventDefault();
+    var urlArr = $(this).data('url').split('/');
+    var item = urlArr[urlArr.length - 1];
+
+    var targetItem = {
+      id: $(this).data('id'),
+      url: $(this).data('url'),
+      title: $(this).data('title'),
+      owner: $(this).data('owner'),
+      thumbnail: $(this).data('thumbnail_url'),
+      urlItem: item
+    }
+
+    var countQueue = rsQueue.filter(function(queue) {
+      return queue.id === targetItem.id;
+    });
+
+    if(countQueue.length == 0){
+      rsQueue.push(targetItem);
+    }
+
+    if(rsQueue.length > 0){
+      $('.browse-queue').removeClass('disabled');
+    }else{
+      $('.browse-queue').addClass('disabled');
+    }
+
+    // Toggle actions
+    $(this).siblings('.unqueue-item').removeClass('hidden');
+    $(this).addClass('hidden');
+
+    if(rsQueue.length > 0){
+      localStorage.setItem(RSQUEUE_STORAGE, JSON.stringify(rsQueue));
+    }
+
+  })
+
+  $('.resultWrapper').on('click', '.unqueue-item', function(evt){
+    evt.preventDefault();
+    var id = $(this).data('id');
+    var targetIndex;
+
+    rsQueue.forEach(function(queue, queueId) {
+        if(queue.id === id){
+          targetIndex = queueId;
+        }
+    });
+    
+    rsQueue.splice(targetIndex, 1);
+
+    // Toggle actions
+    $(this).siblings('.queue-item').removeClass('hidden');
+    $(this).addClass('hidden');
+
+    if(rsQueue.length > 0){
+      $('.browse-queue').removeClass('disabled');
+      localStorage.setItem(RSQUEUE_STORAGE, JSON.stringify(rsQueue));
+    } else {
+      $('.browse-queue').addClass('disabled');
+      localStorage.removeItem(RSQUEUE_STORAGE);
+    }
+  });
+
+  $('.browse-queue').on('click', function(evt){
+    if($(this).hasClass('disabled')) evt.preventDefault();
+  });
+    
+  $(".scrollToTop").click(function() {
+			$('html,body').animate({scrollTop:0}, 500);
+  });
+
+  $(window).on('scroll', function(e){
+    if(e.currentTarget.pageYOffset < 100){
+      $(".scrollToTop").hide();
+    }else{
+      $(".scrollToTop").show();
+    }
+  })
+  
+});
+</script>
+{% endblock extra_script %}

@@ -60,16 +60,37 @@ class DataRequestAdmin(admin.ModelAdmin):
                 requesting_user = data_request.profile
                 requested_resource = data_request.resource
                 resource_type = unicode(requested_resource.polymorphic_ctype.model).encode('utf8')
+                email_template = 'parmap_data_request/email_approval.html'
+
                 if resource_type == "layer":
                     resources = []
                     layer_title = unicode(requested_resource.title).encode('utf8')
                     layer_resource = get_object_or_404(Layer, title=layer_title)
                     resource_keywords = layer_resource.keywords.names()
+                    email_template = 'parmap_data_request/email_approval_layer_lulc.html'
 
-                    for keyword in resource_keywords:
-                        if keyword in csv_contents:
-                            for related_layer in Layer.objects.filter(keywords__name__in=[keyword]):
-                                resources.append(related_layer)
+                    if "_va" in layer_resource.typename:
+                        typename = '_'.join(layer_resource.typename.split(":")[1].split("_")[:2])
+
+                        for related_layer in Layer.objects.filter(typename__icontains=typename):
+                            resources.append(related_layer)
+
+                        if 'national' in layer_resource.typename:
+                            html_content = render_to_string('parmap_data_request/email_approval_layer_va_national.html', context)
+                        else:
+                            html_content = render_to_string('parmap_data_request/email_approval_layer_va_local.html', context)
+                                
+                    else:
+                        muncode_file = staticfiles_storage.path('geonode/files/NSO_Muni.csv')
+                        with open(muncode_file, 'rb') as csvfile:
+                            csv_reader = csv.reader(csvfile)
+                            for row in csv_reader:
+                                csv_contents.append(row[3])
+
+                        for keyword in resource_keywords:
+                            if keyword in csv_contents:
+                                for related_layer in Layer.objects.filter(keywords__name__in=[keyword]):
+                                    resources.append(related_layer)
 
                     # remove duplicate items
                     resources = set(resources)
@@ -103,7 +124,7 @@ class DataRequestAdmin(admin.ModelAdmin):
                 data_request.save()
                 approved_count = approved_count + 1
 
-                html_content = render_to_string('parmap_data_request/email_approval.html', context)
+                html_content = render_to_string(email_template, context)
                 text_content = strip_tags(html_content)
                 sender = settings.DEFAULT_FROM_EMAIL
                 recipient = unicode(data_request.profile.email).encode('utf8')
@@ -146,22 +167,32 @@ class DataRequestAdmin(admin.ModelAdmin):
 
             resource_type = unicode(requested_resource.polymorphic_ctype.model).encode('utf8')
             resources = []
+
             if resource_type == "layer":
                 layer_title = unicode(requested_resource.title).encode('utf8')
                 layer_resource = get_object_or_404(Layer, title=layer_title)
                 resource_keywords = layer_resource.keywords.names()
                 csv_contents = []
 
-                muncode_file = staticfiles_storage.path('geonode/files/NSO_Muni.csv')
-                with open(muncode_file, 'rb') as csvfile:
-                    csv_reader = csv.reader(csvfile)
-                    for row in csv_reader:
-                        csv_contents.append(row[3])
+                is_va = False
+                if "_va" in layer_resource.typename:
+                    is_va = True
+                    typename = '_'.join(layer_resource.typename.split(":")[1].split("_")[:2])
 
-                for keyword in resource_keywords:
-                    if keyword in csv_contents:
-                        for related_layer in Layer.objects.filter(keywords__name__in=[keyword]):
-                            resources.append(related_layer)
+                    for related_layer in Layer.objects.filter(typename__icontains=typename):
+                        resources.append(related_layer)
+                        
+                else:
+                    muncode_file = staticfiles_storage.path('geonode/files/NSO_Muni.csv')
+                    with open(muncode_file, 'rb') as csvfile:
+                        csv_reader = csv.reader(csvfile)
+                        for row in csv_reader:
+                            csv_contents.append(row[3])
+
+                    for keyword in resource_keywords:
+                        if keyword in csv_contents:
+                            for related_layer in Layer.objects.filter(keywords__name__in=[keyword]):
+                                resources.append(related_layer)
 
                 # remove duplicate items
                 resources = set(resources)
@@ -180,6 +211,21 @@ class DataRequestAdmin(admin.ModelAdmin):
                         assign_perm('download_resourcebase', requesting_user, layer_resourcebase)
                     except Exception as e:
                         print('There was an error assigning permission to %s for %s' % (layer_resourcebase, requesting_user))
+
+                context['resource_links'] = resource_links
+                obj.date_approved = timezone.now()
+
+                subject = 'Notification of Approval'
+                context['layer_resource'] = layer_resource
+
+                if is_va:
+                    if 'national' in layer_resource.typename:
+                        html_content = render_to_string('parmap_data_request/email_approval_layer_va_national.html', context)
+                    else:
+                        html_content = render_to_string('parmap_data_request/email_approval_layer_va_local.html', context)
+                else:
+                    html_content = render_to_string('parmap_data_request/email_approval_layer_lulc.html', context)
+
             else:
 
                 resource_link = (
@@ -189,12 +235,18 @@ class DataRequestAdmin(admin.ModelAdmin):
                 resource_links = [resource_link]
                 assign_perm('download_resourcebase', requesting_user, requested_resource)
 
-            context['resource_links'] = resource_links
-            obj.date_approved = timezone.now()
-            subject = 'Notification of Approval'
-            html_content = render_to_string('parmap_data_request/email_approval.html', context)
+                context['resource_links'] = resource_links
+                obj.date_approved = timezone.now()
+
+                subject = 'Notification of Approval'
+
+                html_content = render_to_string('parmap_data_request/email_approval.html', context)
+
         elif status == 'REJECTED':
             subject = 'Denial of Request'
+
+            resource_id = request.POST.get('resource')
+            requested_resource = get_object_or_404(ResourceBase, id=resource_id)
 
             #@TODO  get reasons from POST data
             reasons = request.POST.getlist('reason')
@@ -207,6 +259,7 @@ class DataRequestAdmin(admin.ModelAdmin):
                 reasons_arr.append(req_reason)
 
             obj.reason = reasons_arr
+            context['requested_resource'] = requested_resource
             context['reasons'] = reasons_messages
             html_content = render_to_string('parmap_data_request/email_rejection.html', context)
 

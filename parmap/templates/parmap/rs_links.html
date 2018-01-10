@@ -1,0 +1,10 @@
+
+{% if links %}
+<ul style="margin: 0; padding: 0">
+    {% for link in links %}
+    <li style="list-style: none"><a href="{{ link.url }}">{{ link.name }}</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<div>No results found</div>
+{% endif %}

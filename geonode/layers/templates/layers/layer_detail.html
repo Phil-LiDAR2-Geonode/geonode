@@ -32,7 +32,7 @@
 
 {% block body_outer %}
 <div class="page-header">
-  <h2 class="page-title">{{ resource.title|default:resource.typename }}</h2>
+  <h2 class="page-title" style="text-transform: capitalize">{{ resource.title|default:resource.typename }}</h2>
 </div>
 
 <div class="row">
@@ -50,6 +50,8 @@
 
     {% include "base/resourcebase_info_panel.html" %}
 
+    <!-- Removed Info and Share Tabs -->
+    {% if false %}
       <article id="attributes" class="tab-pane">
         {% if resource.attribute_set.all %}
             <table class="table table-striped table-bordered table-condensed">
@@ -100,6 +102,7 @@
         {% include "social_links.html" %}
       {% endif %}
       {% endblock %}
+    {% endif %}
 
       <article id="comments" class="tab-pane">
         {% with resource as obj %}
@@ -179,7 +182,9 @@
                       {% for link in links %}
                       <li><a href="{{ link.url }}">{% trans link.name %}</a></li>
                       {% endfor %}
+                      {% if "_lulc" in resource.typename %}
                       <li><a href="{{ STATIC_URL }}geonode/files/FieldDescription.xlsx">Field Description</a></li>
+                      {% endif %}
                     </ul>
                     {% endif %}
                   </div>
@@ -212,9 +217,15 @@
                       <form id="data_request_form" action="{% url 'datarequest_add' %}" method="post" enctype="multipart/form-data">
                           <input type="hidden" name="uuid" value="{{ resource.uuid }}">
                           {% csrf_token %}
-                          <p><span style="font-style: italic">Note on the formal request letter:</span></p>
-                          <p>The letter is a signed endorsement from the head of agency, department head, academic adviser, etc. Purpose of the data, types of data requested and intended use should be specified in the letter.</p>
-                          <p>Letter should be addressed to Ariel C. Blanco, Dr. Eng., Director, Training Center for Applied Geodesy and Photogrammetry (TCAGP).</p>
+                          <p>To formally request for PARMap data, please send a formal letter signed and endorsed by your head of agency/department head/academic adviser. Indicate your name, contact information, the data types being requested, and the intended use of the data.</p>
+                          <span>The letter should be addressed to:</span>
+                          <p style="margin-left: 40px; font-weight: bold;">
+                            <span style="font-family: Lato;">ARIEL C. BLANCO, DR. ENG.</span>
+                            <br>
+                            Program Leader
+                            <br>
+                            Phil-LiDAR 2 Program
+                          </p>
                           <input id="upload-request-file" type="file" name="letter_file"/>
                           <div id="kv-error-1" style="margin-top:10px;display:none"></div>
                           <div id="kv-success-1" class="alert alert-success " style="margin-top:10px;display:none"><ul></ul></div>
@@ -254,7 +265,7 @@
       {% get_obj_perms request.user for resource.layer as "layer_perms" %}
     {% endif %}
     {% if "change_resourcebase_metadata" in perms_list or "change_resourcebase" in perms_list or "delete_resourcebase" in perms_list or "change_layer_style" in layer_perms %}
-    <li class="list-group-item"> 
+    <li class="list-group-item">
       <button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#edit-layer">{% trans "Edit Layer" %}</button>
     </li>
     <div class="modal fade" id="edit-layer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -317,30 +328,34 @@
     </div>
     {% endif %}
 
-    <li class="list-group-item">
-      <button class="btn btn-default btn-md btn-block" data-toggle="modal" data-target="#download-metadata">{% trans "Download Metadata" %}</button>
-    </li>
+    {% if request.user.is_superuser %}
+      <li class="list-group-item">
+        <button class="btn btn-default btn-md btn-block" data-toggle="modal" data-target="#download-metadata">{% trans "Download Metadata" %}</button>
+      </li>
 
-    <div class="modal fade" id="download-metadata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">{% trans "Download Metadata" %}</h4>
-          </div>
-          <div class="modal-body">
-            <ul>
-              {% for link in metadata %}
-                <li><a href="{{ link.url }}">{{ link.name }}</a></li>
-              {% endfor %}
-            <ul>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+      <div class="modal fade" id="download-metadata" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">{% trans "Download Metadata" %}</h4>
+            </div>
+            <div class="modal-body">
+              <ul style="margin: 0; padding: 0">
+                {% for link in metadata %}
+                  {% if link.name == "ISO" %}
+                  <li style="list-style: none"><a href="{{ link.url }}">{{ link.name }}</a></li>
+                  {% endif %}
+                {% endfor %}
+              <ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    {% endif %}
 
     {% if resource.get_legend %}
     <li class="list-group-item">
@@ -353,13 +368,15 @@
       {% endif %}
     </li>
     {% endif %}
+
+    {% if false %}
     <li class="list-group-item">
       <h4>{% trans "Maps using this layer" %}</h4>
       {% if resource.maps %}
         <p>{% trans "List of maps using this layer:" %}</p>
         {% endif %}
         <ul class="list-unstyled">
-          {% for maplayer in resource.maps %} 
+          {% for maplayer in resource.maps %}
             <li><a href="{{ maplayer.map.get_absolute_url }}">{{ maplayer.map.title }}</a></li>
           {% empty %}
             <li>{% trans "This layer is not currently used in any maps." %}</li>
@@ -371,13 +388,14 @@
       <p>{% trans "Click the button below to generate a new map based on this layer." %}</p>
         <a href="{% url "new_map" %}?layer={{resource.service_typename}}" class="btn btn-primary btn-block">{% trans "Create a Map" %}</a>
     </li>
+    {% endif %}
 
     {% if documents.count > 0 %}
     <li class="list-group-item">
       <h4>{% trans "Documents related to this layer" %}</h4>
       <p>{% trans "List of documents related to this layer:" %}</p>
       <ul class="list-unstyled">
-        {% for document in documents %} 
+        {% for document in documents %}
           <li><a href="{{ document.get_absolute_url }}">{{ document.title }}</a></li>
         {% endfor %}
       </ul>
@@ -424,11 +442,13 @@
     </li>
     {% endif %}
 
-    {% include "base/_resourcebase_contact_snippet.html" %}  
+    {% if false %}
+    {% include "base/_resourcebase_contact_snippet.html" %}
+    {% endif %}
   </ul>
 
 
-  {% if GEONODE_SECURITY_ENABLED %}   
+  {% if GEONODE_SECURITY_ENABLED %}
     {% include "_permissions_form.html" %}
   {% endif %}
 
@@ -490,7 +510,7 @@ $(function (){
               data: $("#form_post_comment").serialize(),
               success: function() {
                 $('#form_post_comment_div').modal('hide');
-                $('#comments_section').load(window.location.pathname + ' #comments_section', 
+                $('#comments_section').load(window.location.pathname + ' #comments_section',
                 		function(){$(this).children().unwrap()})
               }
             });

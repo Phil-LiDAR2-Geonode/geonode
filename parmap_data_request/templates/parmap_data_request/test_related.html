@@ -1,0 +1,17 @@
+{{title}}
+<hr>
+title: {{resource.title}} <br>
+typename: {{typename}} <br>
+is_va: {{is_va}}
+<hr>
+<ul>
+  {% for keyword in keywords %}
+    <li>{{keyword}}</li>
+  {% endfor %}
+</ul>
+<hr>
+<ul>
+  {% for res in resources %}
+    <li>{{res.title}}</li>
+  {% endfor %}
+</ul>

@@ -2,13 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Notification of Approval</title>
+    <title>Notification of Received Request</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <p>Greetings!</p>
-    <p>Your data request has been received. Your request will now be available to the administrator for approval. You will receive an email regarding the status of your registration once the administrator approve/reject your request.</p>
-    <p>For inquiries, you can contact us as at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
-    <p style="margin-top: 1.75em;">Thank you.</p>
+    <p>Greetings from PARMap!</p>
+
+    <p>Your data request has been received and is now pending for appropriate action.</p>
+
+    <p>Please note that the system administrator may approve or deny the request based on your provided information.</p>
+    
+    <p>Kindly expect an email regarding the status of your request within five (5) days.</p>
+    {% if site_admin_email and site_admin_email.strip %}
+        <p>For more inquiries, contact us at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
+    {% else %}
+        <p>For more inquiries, contact us at <a href="mailto:parmap-admin@dream.upd.edu.ph">parmap-admin@dream.upd.edu.ph</a>.</p>
+    {% endif %}
+    
+    <p>Thank you!</p>
 </body>
 </html>

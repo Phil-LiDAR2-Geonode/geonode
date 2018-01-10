@@ -8,11 +8,21 @@
 {% block body_class %}documents documents-list explore{% endblock %}
 
 {% block body %}
-<div class="page-header">
+<div class = "landCoverTitleWrapper">
+  <div class = "container">
+    <a href = "javascript:;" class = "pull-right scrollToTop" style="display: none">back to top</a>
+    {% if map_type == "lulc" %}
+    <div class = "landCoverTitle">{% trans "Agricultural and Coastal Land Cover <b>Maps</b>" %}</div>
+    {% else %}
+    <div class = "landCoverTitle">{% trans "Agricultural Resources Vulnerability Assessment <b>Maps</b>" %}</div>
+    {% endif %}
+  </div>
+</div>
+<div class="page-header" style="display: none">
   {% if request.user.is_authenticated and user.is_active and user.is_superuser %}
-  <a href="{% url "document_upload" %}" class="btn btn-primary pull-right">{% trans "Upload Documents" %}</a>
+  <a href="{% url "layer_upload" %}" class="btn btn-primary pull-right">{% trans "Upload Maps" %}</a>
   {% endif %}
-  <h2>{% trans "Explore Documents" %}</h2>
+  <h2 class="page-title">{% trans "Explore Maps" %}</h2>
 </div>
   {% with include_type_filter='true' %}
   {% with facet_type='documents' %}
@@ -34,9 +44,10 @@
       {% if HAYSTACK_SEARCH %}
           SEARCH_URL = '{% url 'api_get_search' api_name='api' resource_name='documents'%}'
       {% else %}
-          SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='documents' %}';
+          SEARCH_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='documents_parmap' %}';
       {% endif %}
     FILTER_TYPE = 'document';
+    MAP_TYPE = '{{map_type}}';
   </script>
   {% with include_spatial='true' %}
   {% include 'search/search_scripts.html' %}

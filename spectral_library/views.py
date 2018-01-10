@@ -28,13 +28,13 @@ def filter_by_target(request, target_type, prov):
         queue_list = None
 
     if target_type == "all" and prov != "all":
-        target_results = Target.objects.filter(province=prov.title()).order_by('title')
+        target_results = Target.objects.filter(province=prov.title()).order_by('-common_name')
     elif target_type != "all" and prov == "all":
-        target_results = Target.objects.filter(common_name=target_type.title()).order_by('title')
+        target_results = Target.objects.filter(common_name=target_type.title()).order_by('-province')
     elif target_type != "all" and prov != "all":
-        target_results =  Target.objects.filter(common_name=target_type.title()).filter(province=prov.title()).order_by('title')
+        target_results =  Target.objects.filter(common_name=target_type.title()).filter(province=prov.title()).order_by('-common_name').order_by('-province')
     else:
-        target_results = Target.objects.order_by('title')
+        target_results = Target.objects.order_by('common_name')
 
     return render_to_response('spectral_library/target_filter_results.html',RequestContext(request, {
         'target_list': target_list,

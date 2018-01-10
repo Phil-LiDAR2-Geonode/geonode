@@ -6,6 +6,10 @@ from django.utils import timezone
 from django.views.decorators.http import require_POST
 import simplejson as json
 
+from django.template import RequestContext
+from django.shortcuts import render_to_response
+from geonode.layers.models import Layer
+
 from geonode.base.models import ResourceBase
 from geonode.people.models import Profile
 from parmap_data_request.models import DataRequest
@@ -131,3 +135,33 @@ def handle_upload(request):
     return HttpResponse(response_data, mimetype='application/json')
     #return HttpResponseRedirect(settings.SITEURL + "documents/")
 
+def test_related(request):
+    # TEST Related maps
+    # title_search = 'national_flood_va'
+    # layer_title = unicode(title_search).encode('utf8')
+    # layer_resource = get_object_or_404(Layer, title=layer_title)
+    # resource_keywords = layer_resource.keywords.names()
+    
+    # is_va = False
+    # if "_va" in layer_resource.typename:
+    #     is_va = True
+    
+    # typename = '_'.join(layer_resource.typename.split(":")[1].split("_")[:2])
+
+    # resources = []
+    # for related_layer in Layer.objects.filter(typename__icontains=typename):
+    #     resources.append(related_layer)
+
+    # return render_to_response('parmap_data_request/test_related.html',RequestContext(request, {
+    #     "title": title_search,
+    #     "resource": layer_resource,
+    #     "typename": typename,
+    #     "keywords": resource_keywords,
+    #     "resources": resources,
+    #     "is_va": is_va
+    # }))
+
+    # Test receive request
+    return render_to_response('parmap_data_request/email_approval_layer_va_local.html', RequestContext(request, {
+        "site_admin_email": "llenoil@gmail.com"
+    }))

@@ -1,0 +1,187 @@
+{% extends "parmap/parmap_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} 
+RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
+{% endblock %}
+
+{% block body_class %}documents documents-list explore{% endblock %}
+
+{% block body %}
+    <div class = "landCoverTitleWrapper">
+    <div class = "container">
+        <a href = "javascript:;" class = "pull-right scrollToTop" style="display: none">back to top</a>
+        <div class = "landCoverTitle">Other RS <b style='text-transform: capitalize;'>{{facettype}} Queue</b></div>
+    </div>
+    </div>
+    
+    <div class="section firstChild backToTop">
+        <div class = "container">
+            <div class = "row">
+                <div class = "col-sm-12 rightPanel">
+                    <div class="resultWrapper">
+                        <div class="resultTitle has-result">
+                            Your Queue:
+                            <input type="button" class="btn pull-right download-queue" data-toggle="modal" 
+                              data-target="#download-queue" 
+                              data-dismiss="modal" value="{% trans "Download All" %}"/>
+                        </div>
+                        <div class="resultTitle no-result hidden">No results found</div>
+                        <ul class="queue-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="download-queue" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="width: 80%; height: 60%;">
+        <div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
+          <div class="modal-header">
+            <h4 class="modal-title" id="ResDownloadModalLabel">END-USER LICENSE AGREEMENT (Non-Commercial)</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row edit-modal">
+              <div class="col-sm-12 text-left">
+                {% include "parmap_data_request/eula.html" %}
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="button" class="btn btn-default js-btn-download" data-dismiss="modal" value="{% trans "Accept" %}"/>
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+{% include "_bulk_permissions_form.html" %}
+{% endblock %}
+
+{% block extra_script %}
+{% if GEONODE_SECURITY_ENABLED %}
+  {% include "_permissions_form_js.html" %}
+{% endif %}
+<script type="text/javascript">
+  var username = "{{request.user.username}}";
+  var RSQUEUE_STORAGE = 'rsqueue_{{facettype}}_' + username;
+  
+  $(function (){
+    // Load RS Queue storage
+    var rsQueueStorage = localStorage.getItem(RSQUEUE_STORAGE);
+    var rsQueue = rsQueueStorage === null ? [] : JSON.parse(rsQueueStorage);
+    var queueContainer = $('.queue-list');
+  
+    // update actions
+    if(rsQueue.length > 0) {
+      var queueTemplate = rsQueue.map(function(queue) {
+        return '<li>' +
+          '<div class="resultImgWrapper">' +
+            '<img src="' + queue.thumbnail + '"/>' +
+          '</div>' +
+          '<div class="description1"><a href="' + queue.url + '" target="_blank">' + queue.title + '</a></div>' +
+          '<div class="actions">' +
+            '<a href="#" data-id="' + queue.id + '" class="unqueue-item"><i class="fa fa-minus-circle" style="color: #12650b"></i>remove from queue</a>' +
+          '</div>' +
+        '</li>';
+      });
+
+      queueContainer.html(queueTemplate.join(''));
+    }else{
+      $('.resultTitle.no-result').removeClass('hidden');
+      $('.resultTitle.has-result').addClass('hidden');
+    }
+
+    $('.resultWrapper').on('click', '.unqueue-item', function(evt){
+      evt.preventDefault();
+      var id = $(this).data('id');
+      var targetIndex;
+
+      rsQueue.forEach(function(queue, queueId) {
+          if(queue.id === id){
+            targetIndex = queueId;
+          }
+      });
+      
+      rsQueue.splice(targetIndex, 1);
+
+      $(this).parents('li').remove();
+      
+      if(rsQueue.length > 0){
+        localStorage.setItem(RSQUEUE_STORAGE, JSON.stringify(rsQueue));
+      } else {
+        $('.download-queue').prop('disabled', true);
+        $('.resultTitle.no-result').removeClass('hidden');
+        $('.resultTitle.has-result').addClass('hidden');
+        localStorage.removeItem(RSQUEUE_STORAGE);
+      }
+    });
+
+      
+    $('.js-btn-download').on('click', function(event) {
+      event.preventDefault();
+      var queue = [];
+      if("{{facettype}}" === 'maps'){
+        rsQueue.forEach(function(rsItem) {
+          queue.push(rsItem.id);
+        })
+
+        var params = { queue: queue };
+        
+        var link= document.createElement('a');
+        link.target="_blank";
+        link.href = '/parmap/other_rs/download/maps?'+$.param(params);
+        link.click();
+        localStorage.removeItem(RSQUEUE_STORAGE);
+
+        $('.resultTitle.has-result').addClass('hidden');
+        $('.resultTitle.no-result').removeClass('hidden');
+        $('.queue-list').empty();
+      }else{
+        rsQueue.forEach(function(rsItem) {
+          queue.push(rsItem.id);
+        })
+
+        $.ajax({
+          "url": "/parmap/other_rs/download/{{facettype}}",
+          "type": "post",
+          "data": {queue: queue},
+          "success": function(data){
+            data.forEach(function(url) {
+              var link= document.createElement('a');
+              link.target="_blank";
+              link.href = url;
+              link.click();
+            })
+            localStorage.removeItem(RSQUEUE_STORAGE);
+
+            $('.resultTitle.has-result').addClass('hidden');
+            $('.resultTitle.no-result').removeClass('hidden');
+            $('.queue-list').empty();
+          },
+          "error": function(err) {
+            console.error(err);
+          }
+        })
+      }
+    })
+
+    
+    $(".scrollToTop").click(function() {
+        $('html,body').animate({scrollTop:0}, 500);
+    });
+
+    $(window).on('scroll', function(e){
+      if(e.currentTarget.pageYOffset < 100){
+        $(".scrollToTop").hide();
+      }else{
+        $(".scrollToTop").show();
+      }
+    })
+  });
+
+</script>
+{% endblock extra_script %}

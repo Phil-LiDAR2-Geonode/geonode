@@ -405,7 +405,7 @@ body {
 
 .resultWrapper .resultTitle a {
 	border: 1px solid #aaa;
-	test-align: right;
+	text-align: right;
 	float: right;
 	font-size: 12px;
 	display: inline-block;
@@ -414,6 +414,48 @@ body {
 	text-transform: uppercase;
 	background: #676767;
 	text-decoration: none;
+}
+
+.resultWrapper .resultTitle a.browse-queue {
+	border: 1px solid #aaa;
+	text-align: right;
+	float: right;
+	font-size: 12px;
+	display: inline-block;
+	padding: 3px 5px;
+	color: #97bc63;
+	text-transform: uppercase;
+	background: #676767;
+	text-decoration: none;
+}
+
+
+.resultWrapper .resultTitle a.browse-queue.disabled {
+	opacity: 0.65;
+	cursor: default;
+}
+
+.resultWrapper .resultTitle input.download-queue {
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	background-image: none;
+	border: 1px solid transparent;
+	white-space: nowrap;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background: #555555;
+	color: #97bc63;
+	text-transform: uppercase;
+	border-radius: 2px;
 }
 
 .resultWrapper ul {
@@ -1519,7 +1561,7 @@ body {
 
 /* EULA info associated styles */
 .eula-list-text{
-	margin-left: 1em;
+	margin-left: 1em !important;
 }
 .eula-level-1{
 	padding-left: 1em;
@@ -1533,6 +1575,21 @@ body {
 	padding-left: 2em;
 	list-style: lower-roman;
 }
+
+.eula p{
+	font-size: 14px !important;
+	text-align: left !important;
+	margin: 0 0 10px;
+	letter-spacing: 0px !important;
+}
+
+.eula li{
+	border: 0px !important;
+	overflow: visible !important;
+	padding: 0px !important;
+	margin-bottom: 0px !important;
+}
+
 
 footer {
 	border: 1px solid #aaa;

@@ -131,6 +131,12 @@ def _resolve_layer(request, typename, permission='base.view_resourcebase',
 
 # Basic Layer Views #
 
+def layer_list(request, maptype='lulc', template='layers/layer_list.html'):
+    context_dict = {
+        "map_type": maptype
+    }
+
+    return render_to_response(template, RequestContext(request, context_dict))
 
 @login_required
 def layer_upload(request, template='upload/layer_upload.html'):
@@ -299,14 +305,24 @@ def layer_detail(request, layername, template='layers/layer_detail.html'):
         'LAYER_PREVIEW_LIBRARY',
         'leaflet')
 
-    if request.user.has_perm('download_resourcebase', layer.get_self_resource()):
-        if layer.storeType == 'dataStore':
-            links = layer.link_set.download().filter(
-                name__in=settings.DOWNLOAD_FORMATS_VECTOR)
-        else:
-            links = layer.link_set.download().filter(
-                name__in=settings.DOWNLOAD_FORMATS_RASTER)
-        context_dict["links"] = links
+    if "_lulc" not in layer.typename and "_va" not in layer.typename:
+        if request.user.is_authenticated():
+            if layer.storeType == 'dataStore':
+                links = layer.link_set.download().filter(
+                    name__in=settings.DOWNLOAD_FORMATS_VECTOR)
+            else:
+                links = layer.link_set.download().filter(
+                    name__in=settings.DOWNLOAD_FORMATS_RASTER)
+            context_dict["links"] = links
+    else:
+        if request.user.has_perm('download_resourcebase', layer.get_self_resource()):
+            if layer.storeType == 'dataStore':
+                links = layer.link_set.download().filter(
+                    name__in=settings.DOWNLOAD_FORMATS_VECTOR)
+            else:
+                links = layer.link_set.download().filter(
+                    name__in=settings.DOWNLOAD_FORMATS_RASTER)
+            context_dict["links"] = links
 
     if settings.SOCIAL_ORIGINS:
         context_dict["social_links"] = build_social_links(request, layer)

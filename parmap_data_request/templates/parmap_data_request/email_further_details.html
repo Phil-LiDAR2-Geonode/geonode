@@ -6,15 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <p>Greetings!</p>
-    <p>Your data request is currently being deliberated. Please confirm the following details by replying to this email:</p>
+    <p>Greetings from PARMap!</p>
+    <p>Your data request is currently under consideration.</p>
+    <p>To further help us in processing your request, please indicate the following:</p>
     <ol>
-        <li>Purpose/Intended Use of Data</li>
         {% for message in reasons %}
         <li>{{message}}</li>
         {% endfor %}
     </ol>
-    <p>If you have any questions or concerns, you can contact us as at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
-    <p style="margin-top: 1.75em;">Thank you.</p>
+
+    {% if site_admin_email and site_admin_email.strip %}
+        <p>For questions or concerns, contact us at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
+    {% else %}
+        <p>For questions or concerns, contact us at <a href="mailto:parmap-admin@dream.upd.edu.ph">parmap-admin@dream.upd.edu.ph</a>.</p>
+    {% endif %}
+
+    <p style="margin-top: 1.75em;">Thank you!</p>
 </body>
 </html>

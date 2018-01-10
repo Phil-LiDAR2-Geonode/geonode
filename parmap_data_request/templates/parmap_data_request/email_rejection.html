@@ -2,18 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Notification of Approval</title>
+    <title>Denial of Request</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <p>Greetings!</p>
-    <p>We are sorry to inform you that your data request has been denied due to the following reasons:</p>
+    <p>Greetings from PARMap!</p>
+    <p>We regret to inform you that the following data request/s has/have been denied:</p>
+    <ol>
+        <li>{{requested_resource.title}}</li>
+    </ol>
+
+    <p>This is based on the following reason/s:</p>
     <ol>
         {% for message in reasons %}
         <li>{{message}}</li>
         {% endfor %}
     </ol>
-    <p>If you have any questions or concerns, you may contact us at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
-    <p style="margin-top: 1.75em;">Thank you.</p>
+
+    {% if site_admin_email and site_admin_email.strip %}
+        <p>For questions or concerns, contact us at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
+    {% else %}
+        <p>For questions or concerns, contact us at <a href="mailto:parmap-admin@dream.upd.edu.ph">parmap-admin@dream.upd.edu.ph</a>.</p>
+    {% endif %}
+
+    <p style="margin-top: 1.75em;">Thank you!</p>
 </body>
 </html>

@@ -27,6 +27,9 @@ from tastypie.resources import ModelResource
 from tastypie.constants import ALL
 from tastypie.utils import trailing_slash
 
+"""Parmap models"""
+from api_static.models import Filter
+
 
 FILTER_TYPES = {
     'layer': Layer,
@@ -311,3 +314,9 @@ class OwnersResource(TypeFilteredResource):
             'username': ALL,
         }
         serializer = CountJSONSerializer()
+
+class ParmapFilterResource(ModelResource):
+    """Parmap Filters API"""
+    class Meta:
+        queryset = Filter.objects.all()
+        resource_name = 'parmap_filters'

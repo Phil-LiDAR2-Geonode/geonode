@@ -22,6 +22,8 @@
   CATEGORIES_ENDPOINT = '{% url 'api_dispatch_list' api_name='api' resource_name='categories' %}';
   KEYWORDS_ENDPOINT = '{% url 'api_dispatch_list' api_name='api' resource_name='keywords' %}';
   REGIONS_ENDPOINT = '{% url 'api_dispatch_list' api_name='api' resource_name='regions' %}';
+  LOCATIONS_ENDPOINT = '/api_static/locations';
+  FILTERS_ENDPOINT = '{% url 'api_dispatch_list' api_name='api' resource_name='parmap_filters' %}';
   OWNERS_ENDPOINT = '{% url 'api_dispatch_list' api_name='api' resource_name='owners' %}';
   HAYSTACK_SEARCH = "{{ HAYSTACK_SEARCH }}".toLowerCase() === "true";
   HAYSTACK_FACET_COUNTS = "{{ HAYSTACK_FACET_COUNTS }}".toLowerCase() === "true";
@@ -31,7 +33,8 @@
 
   var module = angular.module('search', ['geonode_main_search', 'cart']);
   module.constant('Configs', {
-    url: SEARCH_URL
+    url: SEARCH_URL,
+    disableQuerySync: true
   });
 
   var deps = ['search'];
@@ -39,4 +42,16 @@
   deps.push('leaflet-directive');
   {% endif %}
   angular.bootstrap(document, deps);
+
+  $(".scrollToTop").click(function() {
+			$('html,body').animate({scrollTop:0}, 500);
+  });
+
+  $(window).on('scroll', function(e){
+    if(e.currentTarget.pageYOffset < 100){
+      $(".scrollToTop").hide();
+    }else{
+      $(".scrollToTop").show();
+    }
+  })
 </script>

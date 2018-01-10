@@ -1,9 +1,10 @@
 from tastypie.api import Api
 
 from .api import TagResource, TopicCategoryResource, ProfileResource, \
-    GroupResource, RegionResource, OwnersResource
+    GroupResource, RegionResource, OwnersResource, ParmapFilterResource
 from .resourcebase_api import LayerResource, MapResource, DocumentResource, \
-    ResourceBaseResource, FeaturedResourceBaseResource, DownloadCountResource
+    ResourceBaseResource, FeaturedResourceBaseResource, DownloadCountResource, \
+    LayerParmapResource, MapParmapResource
 from django.conf.urls import patterns, url
 
 api = Api(api_name='api')
@@ -25,3 +26,6 @@ api.register(GroupResource())
 api.register(FeaturedResourceBaseResource())
 api.register(OwnersResource())
 api.register(DownloadCountResource())
+api.register(LayerParmapResource())
+api.register(MapParmapResource())
+api.register(ParmapFilterResource())
