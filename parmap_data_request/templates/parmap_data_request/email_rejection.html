@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Notification of Approval</title>
+    <title>Denial of Request</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -18,7 +18,7 @@
         <li>{{message}}</li>
         {% endfor %}
     </ol>
-    
+
     {% if site_admin_email and site_admin_email.strip %}
         <p>For questions or concerns, contact us at <a href="mailto:{{site_admin_email}}">{{site_admin_email}}</a>.</p>
     {% else %}
