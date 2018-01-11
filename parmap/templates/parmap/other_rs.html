@@ -36,7 +36,7 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                         {% for item in list %}
                           <li>
                             <div class="resultImgWrapper resultImgWrapperRs">
-                                <a href="{{ item.detail_url }}"><img src="{{ item.thumbnail_url }}" /></a>
+                                <a href="{{ item.detail_url }}"><img class="img-loader" src="/static/parmap/img/loading.gif" data-src="{{ item.thumbnail_url }}" /></a>
                             </div>
                             <div class="description1"><a href="{{ item.detail_url }}">{{ item.title }}</a></div>
                             <div class="description2" style="text-transform: capitalize;">{{ item.category__gn_description }}</div>
@@ -257,6 +257,10 @@ $(function (){
     }else{
       $(".scrollToTop").show();
     }
+  });
+
+  $('.img-loader').each(function(){
+    console.log($(this).data('src'));
   })
   
 });
