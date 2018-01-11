@@ -37,8 +37,7 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                           <li>
                             <div class="resultImgWrapper resultImgWrapperRs" style="text-align: center">
                                 <a href="{{ item.detail_url }}">
-                                  <img class="img-loader" src="/static/parmap/img/loading.gif" 
-                                    data-src="{{ item.thumbnail_url }}"
+                                  <img class="img-loader" src="{{ item.thumbnail_url }}"
                                     style="max-width: 150px; width: inherit" />
                                 </a>
                             </div>
@@ -147,6 +146,10 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
 
 var username = "{{request.user.username}}";
 var RSQUEUE_STORAGE = 'rsqueue_{{facettype}}_' + username;
+
+setTimeout(function(){
+  $(".se-pre-con").fadeOut("fast");
+}, 5000);
 
 $(function (){
   // Load RS Queue storage
@@ -261,11 +264,6 @@ $(function (){
     }
   });
 
-  $('.img-loader').each(function(){
-    var imgTarget = $(this);
-    // imgTarget.attr('src', imgTarget.data('src'));
-  })
-  
   $('.parmap-download-list').on('click', '.Downloadlink', function(){
     var dl_type=$(this).data("type");
     var facet_type=$(this).data("facet");
