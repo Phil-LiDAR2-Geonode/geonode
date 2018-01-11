@@ -35,8 +35,12 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                         <ul>
                         {% for item in list %}
                           <li>
-                            <div class="resultImgWrapper resultImgWrapperRs">
-                                <a href="{{ item.detail_url }}"><img class="img-loader" src="/static/parmap/img/loading.gif" data-src="{{ item.thumbnail_url }}" /></a>
+                            <div class="resultImgWrapper resultImgWrapperRs" style="text-align: center">
+                                <a href="{{ item.detail_url }}">
+                                  <img class="img-loader" src="/static/parmap/img/loading.gif" 
+                                    data-src="{{ item.thumbnail_url }}"
+                                    style="max-width: 150px; width: inherit" />
+                                </a>
                             </div>
                             <div class="description1"><a href="{{ item.detail_url }}">{{ item.title }}</a></div>
                             <div class="description2" style="text-transform: capitalize;">{{ item.category__gn_description }}</div>
@@ -260,7 +264,10 @@ $(function (){
   });
 
   $('.img-loader').each(function(){
-    $(this).attr('src', $(this).data('src'));
+    var imgTarget = $(this);
+    setTimeout(function(){
+      imgTarget.attr('src', imgTarget.data('src'));
+    });
   })
   
 });
