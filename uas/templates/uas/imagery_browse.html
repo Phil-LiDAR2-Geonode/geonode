@@ -1,0 +1,170 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {% trans "Explore Images" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block body %}
+<div class = "landCoverTitleWrapper">
+	<div class = "container">
+		<a href = "javascript:;" class = "pull-right scrollToTop">back to top</a>
+		<div class = "landCoverTitle">UAS Imagery</div>
+	</div>
+</div>
+
+<div class = "section firstChild backToTop">
+	<div class = "container">
+		<div class = "row">
+			<div class = "col-sm-3 filterWrapper">
+
+				<div class = "filterHeader">
+					<span>Filters</span>
+					<a href = "javascript:;" onclick = "clearUASSelection()" class = "pull-right">Clear</a>
+				</div>
+				<div class = "filterForm">
+					<label>RESOLUTION</label>
+					<select id = "resolution_option" class = "form-control" onchange="enableUASSearch()">
+
+						{% if imagery_results %}
+							<option disabled value = "Null"> -- select a resolution -- </option>
+						{% else %}
+							<option disabled selected value = "Null"> -- select a resolution -- </option>
+						{% endif %}
+
+						{% if resolution == "5" and imagery_results %}
+							<option value="All">ALL</option>
+							<option value="5" selected>5</option>
+							<option value="10">10</option>
+						{% elif resolution == "10" and imagery_results %}
+							<option value="All">ALL</option>
+							<option value="5">5</option>
+							<option value="10" selected>10</option>
+						{% elif resolution == "ALL" and imagery_results %}
+							<option value="All" selected>ALL</option>
+							<option value="5">5</option>
+							<option value="10">10</option>
+						{% else %}
+							<option value="All">ALL</option>
+							<option value="5">5</option>
+							<option value="10">10</option>
+						{% endif %}
+
+					</select>
+					<label>SENSOR</label>
+					<select id = "sensor_option" class = "form-control" onchange="enableUASSearch()">
+
+						{% if imagery_results %}
+							<option disabled value = "Null"> -- select a sensor -- </option>
+						{% else %}
+							<option disabled selected value = "Null"> -- select a sensor -- </option>
+						{% endif %}
+
+						{% if sensor == "NIR" and imagery_results %}
+							<option value="All">ALL</option>
+							<option value="NIR" selected>NIR</option>
+							<option value="RGB">RGB</option>
+						{% elif sensor == "RGB" and imagery_results %}
+							<option value="All">ALL</option>
+							<option value="NIR">NIR</option>
+							<option value="RGB" selected>RGB</option>
+						{% elif sensor == "ALL" and imagery_results %}
+							<option value="All" selected>ALL</option>
+							<option value="NIR">NIR</option>
+							<option value="RGB">RGB</option>
+						{% else %}
+							<option value="All">ALL</option>
+							<option value="NIR">NIR</option>
+							<option value="RGB">RGB</option>
+						{% endif %}
+
+					</select>
+
+					{% if imagery_results %}
+						<button class = "btn pull-right" id = "searchUAS" onclick = "searchImageryFunction()">Search</button>
+					{% else %}
+						<button class = "btn pull-right" id = "searchUAS" onclick = "searchImageryFunction()" disabled>Search</button>
+					{% endif %}
+					<div class = "clearfix"></div><br>
+				</div>
+
+			</div>
+
+			<div class = "col-sm-9 rightPanel">
+				<div class = "resultWrapper">
+					{% if imagery_results %}
+						<div class = "resultTitle">Results:</div>
+					{% else %}
+						<div class = "resultTitle">No results found</div>
+					{% endif %}
+					<ul>
+						{% for imagery in imagery_results %}
+							<li>
+								<div class = "resultImgWrapper">
+									<img src = "{{ imagery.thumb_file.url }}" style="margin-bottom: 10px"/>
+								</div>
+								<div class = "description1"><a href = "/uas/imagery/{{ imagery.id }}">{{ imagery }}</a></div>
+								<div class = "description2" style="font-size:14px">{{ imagery.location }}</div>
+								<div class = "description2" style="font-size:14px">{{ imagery.sensor }}</div>
+								<div class = "actions">
+								{% if user.is_authenticated %}
+									<i class = "fa fa-download" style = "color: #12650b"></i>
+									<a href = "#resource-download{{ imagery.id }}" data-toggle = "modal">download</a>
+								{% else %}
+									<a href = "#" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-download" style = "color: rgba(85, 85, 85, 0.34)"></i>download</a>
+								{% endif %}
+								</div>
+
+								<div class="modal fade" id="resource-download{{ imagery.id }}" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
+									<div class="modal-dialog" style="width: 80%; height: 60%;">
+										<div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
+											<div class="modal-header">
+												{% comment %}
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												{% endcomment %}
+												<h4 class="modal-title" id="ResDownloadModalLabel">END-USER LICENSE AGREEMENT (Non-Commercial)</h4>
+											</div>
+											<div class="modal-body">
+												<div class="row edit-modal">
+													<div class="col-sm-12 text-left">
+														{% include "parmap_data_request/eula.html" %}
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<input type="button" class="btn btn-default" data-toggle="modal" data-target="#download-layer{{ imagery.id }}" data-dismiss="modal" value="{% trans "Accept" %}"/>
+												<input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="modal fade" id="download-layer{{ imagery.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h4 class="modal-title" id="myModalLabel">{% trans "Download Data" %}</h4>
+											</div>
+											<div class="modal-body">
+												<a href = "/uas/imagery/{{ imagery.id }}/download" style="font-size: 14px">Zip Archive</a>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
