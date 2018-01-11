@@ -115,9 +115,9 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
 					<ul style="margin: 0; padding: 0">
             <li style="list-style: none">
               {% if resource.extension|lower in "jpg,jpeg" %}
-                <a data-type="JPEG" data-facet="map" href="/documents/{{ item.id }}/download/" target="_blank">JPEG</a>
+                <a class="Downloadlink" data-type="JPEG" data-facet="map" href="/documents/{{ item.id }}/download/" target="_blank">JPEG</a>
               {% else %}
-                <a data-type="{{item.extension|upper}}" data-facet="map" href="/documents/{{ item.id }}/download/" target="_blank">{{item.extension|upper}}</a>
+                <a class="Downloadlink" data-type="{{item.extension|upper}}" data-facet="map" href="/documents/{{ item.id }}/download/" target="_blank">{{item.extension|upper}}</a>
               {% endif %}
             </li>
 					</ul>
@@ -259,9 +259,17 @@ $(function (){
   
   $('.parmap-download-list').on('click', '.Downloadlink', function(){
     var dl_type=$(this).data("type");
-    var facet_type=$(this).data("content");
+    var facet_type=$(this).data("facet");
     var data_url = $(this).parents('.parmap-download-list').data("url");
-    console.log('Download Tracker: ', dl_type, facet_type, data_url);
+
+    if(facet_type == 'layer') {
+      $.ajax({
+        url: data_url + "/layer_tracker/" + dl_type + "/",
+        type:"POST",
+        success: function(){
+        }
+      });
+    }
   });
 });
 </script>

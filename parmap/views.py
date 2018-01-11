@@ -4,6 +4,11 @@ from django.shortcuts import render
 from django.template import RequestContext, loader
 from django.shortcuts import render_to_response
 
+
+from geonode.reports.models import DownloadTracker
+from geonode.base.models import ResourceBase
+from geonode.people.models import Profile
+
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from geonode.services.models import Service
@@ -124,6 +129,13 @@ def rs_download_layers(request):
         for link in links_temp:
             links.append(link.url)
 
+            DownloadTracker(actor=Profile.objects.get(username=request.user),
+                    title=str(layer.title),
+                    resource_type=str(ResourceBase.objects.get(layer__typename=layer.typename).csw_type),
+                    keywords=Layer.objects.get(typename=layer.typename).keywords.slugs(),
+                    dl_type=link.name
+                ).save()
+
     return HttpResponse(json.dumps(links),mimetype='application/json',status=200)
 
 def rs_download_maps(request):
@@ -145,6 +157,13 @@ def rs_download_maps(request):
         zip_path = os.path.join(zip_subdir, fname)
 
         zf.write(target_path, zip_path)
+
+        DownloadTracker(actor=Profile.objects.get(username=request.user),
+                title=str(document.title),
+                resource_type=str(ResourceBase.objects.get(document__id=docid).csw_type),
+                keywords=Document.objects.get(id=docid).keywords.slugs(),
+                dl_type="document"
+            ).save()
 
     zf.close()
 
