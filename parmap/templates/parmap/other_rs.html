@@ -260,7 +260,7 @@ $(function (){
   });
 
   $('.img-loader').each(function(){
-    console.log($(this).data('src'));
+    $(this).attr('src', $(this).data('src'));
   })
   
 });
