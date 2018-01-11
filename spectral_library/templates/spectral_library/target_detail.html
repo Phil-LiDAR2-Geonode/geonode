@@ -88,7 +88,9 @@
 					<div class = "cropName" style="padding-bottom:20px">{{ target }}</div>
 					<div class = "cropImg">
 						<img src = "{{ target.graph.url }}"/>
-						<img src = "{{ target.image.url }}"/>
+						{% if target.image.url != "" %}
+							<img src = "{{ target.image.url }}"/>
+						{% endif %}
 					</div>
 					<div class = "cropActions" style="padding-bottom:20px">
 						{% if user.is_authenticated %}
