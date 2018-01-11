@@ -147,10 +147,6 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
 var username = "{{request.user.username}}";
 var RSQUEUE_STORAGE = 'rsqueue_{{facettype}}_' + username;
 
-setTimeout(function(){
-  $(".se-pre-con").fadeOut("fast");
-}, 5000);
-
 $(function (){
   // Load RS Queue storage
   var rsQueueStorage = localStorage.getItem(RSQUEUE_STORAGE);
