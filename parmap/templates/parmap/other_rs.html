@@ -258,19 +258,10 @@ $(function (){
   })
   
   $('.parmap-download-list').on('click', '.Downloadlink', function(){
-    dl_type=$(this).data("type");
-    facet_type=$(this).data("content");
-    data_url = $(this).parents('.parmap-download-list').data("url");
+    var dl_type=$(this).data("type");
+    var facet_type=$(this).data("content");
+    var data_url = $(this).parents('.parmap-download-list').data("url");
     console.log('Download Tracker: ', dl_type, facet_type, data_url);
-    
-    if(facet_type=="layer"){
-      // $.ajax({
-      //   url: data_url + "/layer_tracker/" + dl_type + "/",
-      //   type:"POST",
-      //   success: function(){
-      //   }
-      // });
-    }
   });
 </script>
 {% endblock extra_script %}
