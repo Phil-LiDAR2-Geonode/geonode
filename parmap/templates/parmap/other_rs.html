@@ -265,9 +265,7 @@ $(function (){
 
   $('.img-loader').each(function(){
     var imgTarget = $(this);
-    setTimeout(function(){
-      imgTarget.attr('src', imgTarget.data('src'));
-    });
+    imgTarget.attr('src', imgTarget.data('src'));
   })
   
 });
