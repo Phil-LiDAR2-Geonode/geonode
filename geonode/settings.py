@@ -238,8 +238,7 @@ GEONODE_APPS = (
     'geonode.geoserver',
     'geonode.upload',
     'geonode.tasks',
-    'geonode.reports'
-
+    'geonode.reports',
 )
 
 GEONODE_CONTRIB_APPS = (
@@ -320,7 +319,10 @@ INSTALLED_APPS = (
     'api_static',
     'parmap',
     'news',
-    'spectral_library'
+    'spectral_library',
+    'uas',
+    'parmap_monitoring',
+
 ) + GEONODE_APPS
 
 LOGGING = {

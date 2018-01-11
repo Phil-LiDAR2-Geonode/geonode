@@ -9,4 +9,6 @@ urlpatterns = patterns('spectral_library.views',
                         url(r'^add_to_queue/(?P<target_type>[\w\s]+)/(?P<prov>[\w\s]+)/(?P<targets>[\w\s]+)/$', 'add_to_queue', name='add_to_queue'),
                         url(r'^target/(?P<target_id>\d+)/update_queue/$', 'update_queue', name='update_queue'),
                         url(r'^remove_from_queue/(?P<target_id>\d+)$', 'remove_from_queue', name='remove_from_queue'),
+                        url(r'^target/(?P<target_id>\d+)/download/$', 'download', name='download'),
+
                        )

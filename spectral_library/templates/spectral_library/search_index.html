@@ -24,12 +24,28 @@
 			<div class = "spectralSubTitle">The PARMap Spectral Library is the first-ever publicly available digital collection of spectral signatures of Philippine agricultural crops and other related features.</div>
 			<div class = "spectralForm">
 				<label>Search for specific crop/object here</label>
-  				<input type = "text" name = "textfield" class = "form-control" id = "target_search" list="targetList">
+  				<input type = "text" name = "textfield" class = "form-control" id = "target_search" list="targetList" onchange="enableSearchButton()">
 
-  				<button class = "btn searchSpectral" onclick="searchFunction()">Search Crop/Object</button>
+  				<button class = "btn searchSpectral" onclick="verifyInput()" id = "searchSpectral" disabled>Search Crop/Object</button>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script type = "text/javascript">
+	function enableSearchButton() {
+		document.getElementById("searchSpectral").disabled = false;
+		}
+
+	function verifyInput() {
+		var a = document.getElementById("target_search").value
+		if (a==null || a==""){
+			alert("Please enter a crop/object")
+		}
+		else {
+			searchFunction()
+		}
+	}
+</script>
 
 {% endblock %}

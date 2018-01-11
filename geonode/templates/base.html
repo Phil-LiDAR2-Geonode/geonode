@@ -15,7 +15,9 @@
       <link href="{{ STATIC_URL }}lib/css/jquery-ui.css?v={{ VERSION }}" rel="stylesheet"/>
       <link href="{{ STATIC_URL }}lib/css/bootstrap-datetimepicker.css?v={{ VERSION }}" rel="stylesheet"/>
       {% else %}
+
       <link href="{{ STATIC_URL }}geonode/bower_components/bootstrap/dist/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+
       <link href="{{ STATIC_URL }}lib/css/assets.min.css?v={{ VERSION }}" rel="stylesheet"/>
       {% endif %}
       <link href="{{ STATIC_URL }}geonode/css/ext-compatibility.css?v={{ VERSION }}" rel="stylesheet" />
@@ -31,6 +33,7 @@
       <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/bootstrap.min.js"></script>
       <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/search-script.js"></script>
       <script type="text/javascript" src="{{ STATIC_URL }}/parmap/js/leaflet.js"></script>
+
       <style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>
 
     	<link rel = "stylesheet" type = "text/css" href = "{{ STATIC_URL }}parmap/css/font-awesome/css/font-awesome.min.css">
@@ -94,7 +97,7 @@
               <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Data Library <span class = "caret"></span></a>
               <ul class = "dropdown-menu">
                 <li><a href = "/spectral_library/">Spectral Library</a></li>
-                <li><a href = "/page_unavailable/">UAV Imagery</a></li>
+                <li><a href = "/uas/">UAS Imagery</a></li>
               </ul>
             </li>
 
@@ -132,6 +135,7 @@
         </div>
       </div>
     </nav>
+
     {% endblock header %}
 
     <div class="alert alert-danger alert-dismissible" role="alert" id="ieflag" style="display:none">
@@ -234,6 +238,9 @@
               {% if user.is_staff %}
               <li><a href="{% url "admin:index" %}"><i class="fa fa-cog"></i> {% trans "Admin" %}</a></li>
               {% endif %}
+              {% if user.is_staff %}
+              <li><a href="/parmap_monitoring/"><i class="fa fa-database"></i> {% trans "PARMap Monitoring" %}</a></li>
+              {% endif %}
               {% block extra_user_menu %}
               {% endblock %}
               <li class="modal-divider"></li>
@@ -277,7 +284,6 @@
     <script src="{{ STATIC_URL }}geonode/js/utils/utils.js?v={{ VERSION }}"></script>
     <script src="{{ STATIC_URL }}geonode/js/base/base.js?v={{ VERSION }}"></script>
 
-
     <!-- script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script -->
     <!-- canvas-to-blob.min.js is only needed if you wish to resize images before upload.
     This must be loaded before fileinput.min.js -->
@@ -296,7 +302,7 @@
     <script src="{{ STATIC_URL }}geonode/bower_components/slugify/dist/slugify.min.js"></script>
     <!-- script src="{{ STATIC_URL }}lib/js/bootstrap.min.js"></script -->
     <!-- script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" type="text/javascript"></script -->
-  
+
 
     {% include 'autocomplete_light/static.html' %}
     <script type="text/javascript" src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
@@ -453,6 +459,30 @@
           names += elements[i].name + " ";
       }
       window.location = "/spectral_library/browse_queue/" + names;
+    }
+    </script>
+
+    <script type = "text/javascript">
+    function searchImageryFunction() {
+      var sensorElement = document.getElementById("sensor_option");
+      var selectedSensor = sensorElement.options[sensorElement.selectedIndex].value;
+      var resolutionElement = document.getElementById("resolution_option");
+      var selectedResolution = resolutionElement.options[resolutionElement.selectedIndex].value;
+      window.location = "/uas/browse/" + selectedSensor.toLowerCase() + "/" + selectedResolution.toLowerCase();
+    }
+
+    function enableUASSearch() {
+      if (document.getElementById("sensor_option").selectedIndex != 0 && document.getElementById("resolution_option").selectedIndex != 0) {
+        document.getElementById("searchUAS").disabled = false;
+      } else {
+          document.getElementById("searchUAS").disabled = true;
+        }
+      }
+
+    function clearUASSelection() {
+      window.location = "/uas/browse/null/null"
+      document.getElementById("sensor_option").selectedIndex = 0;
+      document.getElementById("resolution_option").selectedIndex = 0;
     }
     </script>
   </body>

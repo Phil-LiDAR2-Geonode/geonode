@@ -1,0 +1,210 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {{ imagery }} - {{ block.super }} {% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block body %}
+<div class = "landCoverTitleWrapper">
+	<div class = "container">
+		<a href = "javascript:;" class = "pull-right scrollToTop">back to top</a>
+		<div class = "landCoverTitle">UAS Imagery</div>
+	</div>
+</div>
+
+<div class = "section firstChild backToTop">
+	<div class = "container">
+		<div class = "row">
+      <div class = "col-sm-3 filterWrapper">
+
+        <div class = "filterHeader">
+          <span>Filters</span>
+          <a href = "javascript:;" onclick = "clearSelection()" class = "pull-right">Clear</a>
+        </div>
+
+        <div class = "filterForm">
+					<label>RESOLUTION</label>
+					<select id = "resolution_option" class = "form-control" onchange="enableUASSearch()">
+
+						{% if imagery_results %}
+							<option disabled value = "Null"> -- select a resolution -- </option>
+						{% else %}
+							<option disabled selected value = "Null"> -- select a resolution -- </option>
+						{% endif %}
+
+						{% if resolution == "5" and imagery_results %}
+							<option value="All">ALL</option>
+							<option value="5" selected>5</option>
+							<option value="10">10</option>
+						{% elif resolution == "10" and imagery_results %}
+							<option value="All">ALL</option>
+							<option value="5">5</option>
+							<option value="10" selected>10</option>
+						{% elif resolution == "ALL" and imagery_results %}
+							<option value="All" selected>ALL</option>
+							<option value="5">5</option>
+							<option value="10">10</option>
+						{% else %}
+							<option value="All">ALL</option>
+							<option value="5">5</option>
+							<option value="10">10</option>
+						{% endif %}
+
+					</select>
+					<label>SENSOR</label>
+					<select id = "sensor_option" class = "form-control" onchange="enableUASSearch()">
+
+						{% if imagery_results %}
+							<option disabled value = "Null"> -- select a sensor -- </option>
+						{% else %}
+							<option disabled selected value = "Null"> -- select a sensor -- </option>
+						{% endif %}
+
+						{% if sensor == "NIR" and imagery_results %}
+							<option value="All">ALL</option>
+							<option value="NIR" selected>NIR</option>
+							<option value="RGB">RGB</option>
+						{% elif sensor == "RGB" and imagery_results %}
+							<option value="All">ALL</option>
+							<option value="NIR">NIR</option>
+							<option value="RGB" selected>RGB</option>
+						{% elif sensor == "ALL" and imagery_results %}
+							<option value="All" selected>ALL</option>
+							<option value="NIR">NIR</option>
+							<option value="RGB">RGB</option>
+						{% else %}
+							<option value="All">ALL</option>
+							<option value="NIR">NIR</option>
+							<option value="RGB">RGB</option>
+						{% endif %}
+
+					</select>
+
+					{% if imagery_results %}
+						<button class = "btn pull-right" id = "searchUAS" onclick = "searchImageryFunction()">Search</button>
+					{% else %}
+						<button class = "btn pull-right" id = "searchUAS" onclick = "searchImageryFunction()" disabled>Search</button>
+					{% endif %}
+					<div class = "clearfix"></div><br>
+				</div>
+
+      </div>
+
+			<div class = "col-sm-9 rightPanel">
+				<div class = "cropDetailsWrapper">
+					<div class = "cropName" style="padding-bottom:20px">{{ imagery }}</div>
+					<div class = "cropImg">
+						<img src = "{{ imagery.thumb_file.url }}"/>
+					</div>
+					<div class = "cropActions" style="padding-bottom:20px">
+						{% if user.is_authenticated %}
+							<i class = "fa fa-download" style = "color: #12650b"></i>
+							<a href = "#resource-download{{ imagery.id }}" data-toggle = "modal">download</a>
+						{% else %}
+							<a href = "#" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-download" style = "color: rgba(85, 85, 85, 0.34)"></i>download</a>
+						{% endif %}
+					</div>
+
+					<div class="modal fade" id="resource-download{{ imagery.id }}" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
+						<div class="modal-dialog" style="width: 80%; height: 60%;">
+							<div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
+								<div class="modal-header">
+									{% comment %}
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									{% endcomment %}
+									<h4 class="modal-title" id="ResDownloadModalLabel">END-USER LICENSE AGREEMENT (Non-Commercial)</h4>
+								</div>
+								<div class="modal-body">
+									<div class="row edit-modal">
+										<div class="col-sm-12 text-left">
+											{% include "parmap_data_request/eula.html" %}
+										</div>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<input type="button" class="btn btn-default" data-toggle="modal" data-target="#download-layer{{ imagery.id }}" data-dismiss="modal" value="{% trans "Accept" %}"/>
+									<input type="button" class="btn btn-default" data-dismiss="modal" value="{% trans "Close" %}"/>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal fade" id="download-layer{{ imagery.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+									<h4 class="modal-title" id="myModalLabel">{% trans "Download Data" %}</h4>
+								</div>
+								<div class="modal-body">
+									<a href = "/uas/imagery/{{ imagery.id }}/download" style="font-size: 14px">Zip Archive</a>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#info" data-toggle="tab"><i class="fa fa-info-circle"></i> Info</a></li>
+						<li><a href="#attributes" data-toggle="tab"><i class="fa fa-bars"></i> Attributes</a></li>
+					</ul>
+					<div class="tab-content">
+						<article class="description tab-pane active" id="info">
+							<dl class="spectralInfo">
+								<dt>Abstract</dt>
+								<dd><p>Images prepared and reviewed by the University of the Philippines Training Center for Applied Geodesy and Photogrammetry (Phil-LiDAR 2 Program A Project 1). The use of the datasets provided herewith are covered by End Users License Agreement (EULA).</p></dd>
+
+								<dt>Purpose</dt>
+								<dd><p>Imageries derived from Unmanned Aerial Systems (UAS) illustrate an aerial perspective of large areas which are useful in mapping and monitoring purposes. Given enough overlap, further analysis and applications can be derived from digital elevation models (DEM) and orthomosaics processed from the three-dimensional point cloud representing the surveyed areas.</p></dd>
+
+								<dt>Accuracy<br/> and<br/> Limitations</dt>
+								<dd><p>The accuracy of the delivered products/outputs are dependent on the source datasets, software limitations, algorithms, and procedures used. No GCPs have been collected in the field. The products are provided “as is” without warranty of any kind, expressed, or implied. Phil-LiDAR 2 Program does not warrant that the products will meet the needs or expectations of the end users, or that the operations or use of the products will be error-free.</p><dd>
+
+								<dt>Notice</dt>
+								<dd><p>Imageries were captured on date of data acquisition and may not reflect present land cover.</p><dd>
+
+								<dt>Major Source<br/> of Information<dt>
+								<dd><p>Sensefly eBee mapping surveys</p>
+							</dl>
+						</article>
+						<article id="attributes" class="tab-pane">
+							<table class="spectralAttribue">
+								<tr>
+									<td>Date</td>
+									<td>{{ imagery.date_acquired  | date:"n/j/y" }}</td>
+								</tr>
+
+                <tr>
+                  <td>Sensor</td>
+                  <td>{{ imagery.sensor }}</td>
+                </tr>
+
+                <tr>
+                  <td>Resolution</td>
+                  <td>{{ imagery.resolution }} cm</td>
+                </tr>
+
+                <tr>
+                  <td>File Size</td>
+                  <td>{{ imagery.file_size }}</td>
+                </tr>
+
+                <tr>
+									<td>Location</td>
+									<td>{{ imagery.location }}</td>
+								</tr>
+							</table>
+						<article>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
