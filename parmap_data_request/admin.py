@@ -76,9 +76,9 @@ class DataRequestAdmin(admin.ModelAdmin):
                             resources.append(related_layer)
 
                         if 'national' in layer_resource.typename:
-                            html_content = render_to_string('parmap_data_request/email_approval_layer_va_national.html', context)
+                            email_template = 'parmap_data_request/email_approval_layer_va_national.html'
                         else:
-                            html_content = render_to_string('parmap_data_request/email_approval_layer_va_local.html', context)
+                            email_template = 'parmap_data_request/email_approval_layer_va_local.html'
                                 
                     else:
                         muncode_file = staticfiles_storage.path('geonode/files/NSO_Muni.csv')
