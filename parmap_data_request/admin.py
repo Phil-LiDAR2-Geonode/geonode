@@ -118,6 +118,7 @@ class DataRequestAdmin(admin.ModelAdmin):
                     resource_links = [resource_link]
                     assign_perm('download_resourcebase', requesting_user, requested_resource)
 
+                context['layer_resource'] = layer_resource
                 context['resource_links'] = resource_links
                 data_request.date_approved = timezone.now()
                 data_request.status = 'APPROVED'
