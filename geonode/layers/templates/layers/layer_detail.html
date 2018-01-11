@@ -180,7 +180,7 @@
                     {% if links %}
                     <ul>
                       {% for link in links %}
-                      <li><a href="{{ link.url }}">{% trans link.name %}</a></li>
+                      <li><a class = 'Downloadlink' href="{{ link.url }}" data-type="{% trans link.name %}">{% trans link.name %}</a></li>
                       {% endfor %}
                       {% if "_lulc" in resource.typename %}
                       <li><a href="{{ STATIC_URL }}geonode/files/FieldDescription.xlsx">Field Description</a></li>
