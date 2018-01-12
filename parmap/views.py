@@ -66,7 +66,8 @@ def other_rs(request, facettype='layers'):
     context_dict = {
         "list": queryset,
         "facettype": facettype,
-        "map_type": 'rs'
+        "map_type": 'rs',
+        "showLoader": paginator.count > len(queryset)
     }
     
     return render_to_response('parmap/other_rs.html', RequestContext(request, context_dict))
