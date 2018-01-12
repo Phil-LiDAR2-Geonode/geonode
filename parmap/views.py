@@ -56,8 +56,12 @@ def other_rs(request, facettype='layers'):
         # queryset = Document.objects.distinct().order_by('-date')[:5]
 
     paginator = Paginator(queryset, 1) # Show 25 resource per page
-
-    contacts = paginator.get_page(1)
+    
+    page = 1
+    if 'page' in request.GET:
+        page = request.GET.get('page')
+        
+    contacts = paginator.get_page(page)
 
     context_dict = {
         "list": queryset,

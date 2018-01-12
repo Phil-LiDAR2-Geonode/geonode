@@ -434,7 +434,7 @@ body {
 	cursor: default;
 }
 
-.resultWrapper .resultTitle input.download-queue {
+.resultWrapper .resultTitle input.download-queue, .load-more {
 	display: inline-block;
 	margin-bottom: 0;
 	font-weight: 400;
