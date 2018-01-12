@@ -4,6 +4,10 @@ from django.shortcuts import render
 from django.template import RequestContext, loader
 from django.shortcuts import render_to_response
 
+
+from geonode.reports.models import DownloadTracker
+from geonode.base.models import ResourceBase
+from geonode.people.models import Profile
 from django.core.paginator import Paginator
 
 from django.conf import settings
