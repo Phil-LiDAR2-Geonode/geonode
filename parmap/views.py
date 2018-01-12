@@ -8,6 +8,7 @@ from django.shortcuts import render_to_response
 from geonode.reports.models import DownloadTracker
 from geonode.base.models import ResourceBase
 from geonode.people.models import Profile
+from django.core.paginator import Paginator
 
 from django.conf import settings
 from django.utils.translation import ugettext as _
@@ -58,6 +59,9 @@ def other_rs(request, facettype='layers'):
         queryset = Document.objects.distinct().exclude(doc_file__icontains='_lulc').exclude(doc_file__icontains='_va').order_by('-date')
         # queryset = Document.objects.distinct().order_by('-date')[:5]
 
+    paginator = Paginator(queryset, 1) # Show 25 resource per page
+
+    contacts = paginator.get_page(1)
 
     context_dict = {
         "list": queryset,
