@@ -1,0 +1,40 @@
+{% for item in list %}
+  <li>
+    <div class="resultImgWrapper resultImgWrapperRs" style="text-align: center">
+        <a href="{{ item.detail_url }}">
+          <img src="{{ item.thumbnail_url }}"
+            style="max-width: 150px; width: inherit" />
+        </a>
+    </div>
+    <div class="description1"><a href="{{ item.detail_url }}">{{ item.title }}</a></div>
+    <div class="description2" style="text-transform: capitalize;">{{ item.category__gn_description }}</div>
+    <div class="description3">by <a href="/people/profile/{{ item.owner }}">{{ item.owner }}</a></div>
+
+    {% if request.user.is_authenticated %}
+    <div class="actions" data-id="{{item.id}}">
+      <a href="#" class="queue-item" 
+        data-url="{{item.detail_url}}" 
+        data-id="{{item.id}}"
+        data-title="{{item.title}}"
+        data-thumbnail_url="{{item.thumbnail_url}}"
+        data-owner="{{item.owner}}"><i class = "fa fa-plus-square"></i> add to queue</a>
+      <a href="#" class="unqueue-item hidden" style="color: rgba(85, 85, 85, 0.34)">
+        <i class = "fa fa-minus-circle" style="color: rgba(85, 85, 85, 0.34)"></i> added</a>
+      <a href="#" class="download-item" data-url="{{item.detail_url}}" data-id="{{item.id}}"><i class = "fa fa-download"></i> download</a>
+    </div>
+    {% else %}
+    <div class="actions" data-id="{{item.id}}">
+      <a href="#" class="disabled" style="color: rgba(85, 85, 85, 0.34);cursor: default;text-decoration: none;">
+        <i class = "fa fa-plus-square" style="color: rgba(85, 85, 85, 0.34);cursor: default;text-decoration: none;"></i> add to queue
+      </a>
+      <a href="#" class="disabled" style="color: rgba(85, 85, 85, 0.34);cursor: default;text-decoration: none;">
+        <i class = "fa fa-download" style="color: rgba(85, 85, 85, 0.34);cursor: default;text-decoration: none;"></i> download
+      </a>
+    </div>
+    {% endif %}
+    <div class = "description4">
+      <p>{{item.abstract}}</p>
+    </div>		
+
+  </li>
+{% endfor %}
