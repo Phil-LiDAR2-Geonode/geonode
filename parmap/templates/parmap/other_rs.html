@@ -32,12 +32,12 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                           <div class = "resultTitle">No results found</div>
                         {% endif %}
                         
-                        <ul>
+                        <ul id="rsResourceList">
                         {% for item in list %}
                           <li>
                             <div class="resultImgWrapper resultImgWrapperRs" style="text-align: center">
                                 <a href="{{ item.detail_url }}">
-                                  <img class="img-loader" src="{{ item.thumbnail_url }}"
+                                  <img src="{{ item.thumbnail_url }}"
                                     style="max-width: 150px; width: inherit" />
                                 </a>
                             </div>
@@ -74,6 +74,7 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                             </li>
                         {% endfor %}
                         </ul>
+                        <div style="text-align: center"><button class="btn load-more">LOAD MORE</button></div>
                     </div>
                 </div>
             </div>
@@ -273,6 +274,13 @@ $(function (){
         }
       });
     }
+  
+  var nextPage = 1;
+  $('.load-more', function(){
+    $.get('/parmap/other_rs/queue/layers?page=' + nextPage, function(response){
+      $("#rsResourceList").html($(response).find("#rsResourceList"));
+      nextPage++;
+    }); 
   });
 });
 </script>
