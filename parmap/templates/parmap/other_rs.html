@@ -82,6 +82,8 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                             Loading {{facettype}}..
                           </div>
                           <br>
+                          {{showLoader}}
+                          <br>
                           <button class="btn load-more">LOAD MORE</button>
                           <p class="no-more hidden">No more {{facettype}} found</p>
                         </div>
