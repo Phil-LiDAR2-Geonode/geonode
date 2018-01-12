@@ -289,7 +289,7 @@ $(function (){
   var nextPage = 2;
   $('.load-more').on('click', function(){
     $('.loading-resource').removeClass('hidden');
-    $.get('/parmap/other_rs/page/layers?page=' + nextPage, function(response){
+    $.get('/parmap/other_rs/page/{{facettype}}?page=' + nextPage, function(response){
       $("#rsResourceList").append(response);
       $('.loading-resource').addClass('hidden');
       nextPage++;
