@@ -276,8 +276,7 @@ $(function (){
   $('.load-more').on('click', function(){
     $('.loading-resource').removeClass('hidden');
     $.get('/parmap/other_rs/page/layers?page=' + nextPage, function(response){
-      var list = $(response).find("#rsResourceList");
-      $("#rsResourceList").append(list);
+      $("#rsResourceList").append(response);
       $('.loading-resource').addClass('hidden');
       nextPage++;
     })
