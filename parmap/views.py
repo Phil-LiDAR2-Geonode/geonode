@@ -64,8 +64,8 @@ def other_rs(request, facettype='layers'):
     page = 1
     if 'page' in request.GET:
         page = request.GET.get('page')
-        
-    contacts = paginator.get_page(page)
+
+    queryset = paginator.page(page)
 
     context_dict = {
         "list": queryset,
