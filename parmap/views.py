@@ -71,6 +71,26 @@ def other_rs(request, facettype='layers'):
     
     return render_to_response('parmap/other_rs.html', RequestContext(request, context_dict))
 
+def other_rs_page(request, facettype='layers'):
+    if(facettype == 'layers'):
+        queryset = Layer.objects.distinct().exclude(typename__icontains='_lulc').exclude(typename__icontains='_va').exclude(title__icontains='Metadata').order_by('-date')
+    else:
+        queryset = Document.objects.distinct().exclude(doc_file__icontains='_lulc').exclude(doc_file__icontains='_va').exclude(doc_file__icontains='LANDCOVER').order_by('-date')
+
+    paginator = Paginator(queryset, 1)
+    
+    page = 1
+    if 'page' in request.GET:
+        page = request.GET['page']
+
+    queryset = paginator.page(page)
+
+    context_dict = {
+        "list": queryset
+    }
+    
+    return render_to_response('parmap/other_rs_page.html', RequestContext(request, context_dict))
+
 def other_rs_queue(request, facettype='layers'):    
     context_dict = {
         "facettype": facettype,
