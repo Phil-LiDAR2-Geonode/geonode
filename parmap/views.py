@@ -59,7 +59,7 @@ def other_rs(request, facettype='layers'):
         queryset = Document.objects.distinct().exclude(doc_file__icontains='_lulc').exclude(doc_file__icontains='_va').order_by('-date')
         # queryset = Document.objects.distinct().order_by('-date')[:5]
 
-    paginator = Paginator(queryset, 1) # Show 25 resource per page
+    paginator = Paginator(queryset, 25) # Show 25 resource per page; Should be same with other_rs_page
     
     page = 1
     if 'page' in request.GET:
@@ -82,7 +82,7 @@ def other_rs_page(request, facettype='layers'):
     else:
         queryset = Document.objects.distinct().exclude(doc_file__icontains='_lulc').exclude(doc_file__icontains='_va').exclude(doc_file__icontains='LANDCOVER').order_by('-date')
 
-    paginator = Paginator(queryset, 1)
+    paginator = Paginator(queryset, 25) #Should be same with other_rs
     
     page = 1
     if 'page' in request.GET:
