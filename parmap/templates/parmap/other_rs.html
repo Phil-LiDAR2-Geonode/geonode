@@ -74,7 +74,10 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                             </li>
                         {% endfor %}
                         </ul>
-                        <div style="text-align: center"><button class="btn load-more">LOAD MORE</button></div>
+                        <div style="text-align: center">
+                          <button class="btn load-more">LOAD MORE</button>
+                          <p class="no-more hidden">No more resource found</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -281,7 +284,11 @@ $(function (){
       var list = $(response).find("#rsResourceList");
       $("#rsResourceList").append(list);
       nextPage++;
-    }); 
+    })
+    .fail(function() {
+      $('.load-more').addClass('hidden');
+      $('.no-more').removeClass('hidden');
+    })
   });
 });
 </script>
