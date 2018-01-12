@@ -75,6 +75,12 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                         {% endfor %}
                         </ul>
                         <div style="text-align: center">
+                          <div class="loading-resource hidden">
+                            <img src="/static/parmap/img/loading.gif" alt="" style="width: 40px;">
+                            <br>
+                            Loading {{facettype}}..
+                          </div>
+                          <br>
                           <button class="btn load-more">LOAD MORE</button>
                           <p class="no-more hidden">No more {{facettype}} found</p>
                         </div>
@@ -280,12 +286,15 @@ $(function (){
   
   var nextPage = 2;
   $('.load-more').on('click', function(){
+    $('.loading-resource').removeClass('hidden');
     $.get('/parmap/other_rs/layers?page=' + nextPage, function(response){
       var list = $(response).find("#rsResourceList");
       $("#rsResourceList").append(list);
+      $('.loading-resource').addClass('hidden');
       nextPage++;
     })
     .fail(function() {
+      $('.loading-resource').addClass('hidden');
       $('.load-more').addClass('hidden');
       $('.no-more').removeClass('hidden');
     })
