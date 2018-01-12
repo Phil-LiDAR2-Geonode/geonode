@@ -74,6 +74,7 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                             </li>
                         {% endfor %}
                         </ul>
+                        {% if showLoader %}
                         <div style="text-align: center">
                           <div class="loading-resource hidden">
                             <img src="/static/parmap/img/loading.gif" alt="" style="width: 40px;">
@@ -81,11 +82,10 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
                             Loading {{facettype}}..
                           </div>
                           <br>
-                          {{showLoader}}
-                          <br>
                           <button class="btn load-more">LOAD MORE</button>
                           <p class="no-more hidden">No more {{facettype}} found</p>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
