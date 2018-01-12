@@ -263,10 +263,11 @@ $(function (){
     }
   });
   
-  var nextPage = 1;
+  var nextPage = 2;
   $('.load-more').on('click', function(){
-    $.get('/parmap/other_rs/queue/layers?page=' + nextPage, function(response){
-      $("#rsResourceList").html($(response).find("#rsResourceList"));
+    $.get('/parmap/other_rs/layers?page=' + nextPage, function(response){
+      var list = $(response).find("#rsResourceList");
+      $("#rsResourceList").append(list);
       nextPage++;
     }); 
   });

@@ -59,7 +59,7 @@ def other_rs(request, facettype='layers'):
     
     page = 1
     if 'page' in request.GET:
-        page = request.GET.get('page')
+        page = request.GET['page']
 
     queryset = paginator.page(page)
 
