@@ -168,15 +168,19 @@ $(function (){
   var queueContainer = $('.queue-container');
 
   // update actions
-  if(rsQueue.length > 0) {
-    $('.browse-queue').removeClass('disabled');
+  function updateActions() {
+    if(rsQueue.length > 0) {
+      $('.browse-queue').removeClass('disabled');
 
-    rsQueue.forEach(function(queue){
-      var actionEl = $('.actions[data-id='+queue.id+']');
-      $(actionEl).find('.queue-item').addClass('hidden');
-      $(actionEl).find('.unqueue-item').removeClass('hidden');
-    })
+      rsQueue.forEach(function(queue){
+        var actionEl = $('.actions[data-id='+queue.id+']');
+        $(actionEl).find('.queue-item').addClass('hidden');
+        $(actionEl).find('.unqueue-item').removeClass('hidden');
+      })
+    }
   }
+
+  updateActions();
 
   $('.resultWrapper').on('click', '.download-item', function(evt){
     evt.preventDefault();
@@ -296,6 +300,7 @@ $(function (){
       $("#rsResourceList").append($(response).find('#resourceList'));
       $("#modalContainer").append($(response).find('#modalList'));
       $('.loading-resource').addClass('hidden');
+      updateActions();
       nextPage++;
     })
     .fail(function() {
