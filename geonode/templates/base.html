@@ -104,8 +104,8 @@
             <li class = "dropdown">
               <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown" role = "button" aria-haspopup = "true" aria-expanded = "false">Documents <span class = "caret"></span></a>
               <ul class = "dropdown-menu">
-                <li><a href = "/page_unavailable/">Publications</a></li>
-                <li><a href = "/page_unavailable/">Technical Reports and Manuals</a></li>
+                <li><a href = "/parmap_docs/publication/">Conference Papers and Publications</a></li>
+                <li><a href = "/parmap_docs/techreport/all">Technical Reports and Manuals</a></li>
               </ul>
             </li>
             <li><a href = "/news/">News</a></li>
@@ -483,6 +483,34 @@
       window.location = "/uas/browse/null/null"
       document.getElementById("sensor_option").selectedIndex = 0;
       document.getElementById("resolution_option").selectedIndex = 0;
+    }
+    </script>
+
+    <script type="text/javascript">
+    function searchDocFunction() {
+      var docElement = document.getElementById("doc_option");
+      var selectedDoc = docElement.options[docElement.selectedIndex].value;
+      if(selectedDoc.indexOf("Algorithms") >= 0) {
+        var selectedDoc = "Field Validation Manuals";
+      } else if (selectedDoc.indexOf("Web") >= 0) {
+        var selectedDoc = "Web GIS";
+      } else if (selectedDoc.indexOf("QA") >= 0) {
+        var selectedDoc = "QA Documentation";
+      }
+      window.location = "/parmap_docs/techreport/" + selectedDoc.toLowerCase();
+    }
+
+    function enableDocSearch() {
+      if (document.getElementById("doc_option").selectedIndex != 0) {
+        document.getElementById("searchDoc").disabled = false;
+      } else {
+          document.getElementById("searchDoc").disabled = true;
+        }
+      }
+
+    function clearDocSelection() {
+      window.location = "/parmap_docs/techreport/null"
+      document.getElementById("doc_option").selectedIndex = 0;
     }
     </script>
   </body>
