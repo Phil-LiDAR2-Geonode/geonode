@@ -273,6 +273,21 @@ $(function (){
       $(".scrollToTop").show();
     }
   });
+
+  $('.parmap-download-list').on('click', '.Downloadlink', function(){
+    var dl_type=$(this).data("type");
+    var facet_type=$(this).data("facet");
+    var data_url = $(this).parents('.parmap-download-list').data("url");
+
+    if(facet_type == 'layer') {
+      $.ajax({
+        url: data_url + "/layer_tracker/" + dl_type + "/",
+        type:"POST",
+        success: function(){
+        }
+      });
+    }
+  });
   
   var nextPage = 2;
   $('.load-more').on('click', function(){
