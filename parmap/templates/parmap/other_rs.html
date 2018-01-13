@@ -92,7 +92,8 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
         </div>
     </div>
 
-	{% for item in list %}
+  {% for item in list %}
+  <div id="modalContainer">
 		<div class="modal fade" id="resource-download-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
 			<div class="modal-dialog" style="width: 80%; height: 60%;">
 			<div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
@@ -145,7 +146,8 @@ RS {% if facettype == "layers" %} Layers {% else %} Maps {% endif %}
 				</div>
 			</div>
 			</div>
-		</div>
+    </div>
+  </div>
 	{% endfor %}
 
     
@@ -293,7 +295,8 @@ $(function (){
   $('.load-more').on('click', function(){
     $('.loading-resource').removeClass('hidden');
     $.get('/parmap/other_rs/page/{{facettype}}?page=' + nextPage, function(response){
-      $("#rsResourceList").append(response);
+      $("#rsResourceList").append($(response).find('#resourceList'));
+      $("#modalContainer").append($(response).find('#modalList'));
       $('.loading-resource').addClass('hidden');
       nextPage++;
     })
