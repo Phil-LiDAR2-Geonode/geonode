@@ -33,7 +33,7 @@ def publication_view(request, publication_id):
     pdf_file = os.path.basename(pdf_path)
     with open(pdf_path, 'r') as pdf:
         response = HttpResponse(pdf.read(), mimetype='application/pdf')
-        response['Content-Disposition'] = 'inline;filename=%s ' % pdf_file
+        response['Content-Disposition'] = 'inline;filename=%s ' % pdf_file.replace(",","_")
         return response
     pdf.closed
 
@@ -76,6 +76,6 @@ def techreport_view(request, techreport_id):
     pdf_file = os.path.basename(pdf_path)
     with open(pdf_path, 'r') as pdf:
         response = HttpResponse(pdf.read(), mimetype='application/pdf')
-        response['Content-Disposition'] = 'inline;filename=%s ' % pdf_file
+        response['Content-Disposition'] = 'inline;filename=%s ' % pdf_file.replace(",","_")
         return response
     pdf.closed
