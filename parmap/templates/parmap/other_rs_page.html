@@ -1,7 +1,7 @@
 {% load i18n %}
 
-{% for item in list %}
 <div id="resourceList">
+{% for item in list %}
   <li>
     <div class="resultImgWrapper resultImgWrapperRs" style="text-align: center">
         <a href="{{ item.detail_url }}">
@@ -82,10 +82,10 @@
     </div>		
 
   </li>
-</div>
 {% endfor %}
-{% for item in list %}
+</div>
 <div id="modalList">
+{% for item in list %}
   <div class="modal fade" id="resource-download-{{ item.id }}" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width: 80%; height: 60%;">
     <div class="modal-content" style="height: auto; min-height: 100%; border-radius: 0;">
@@ -137,5 +137,5 @@
     </div>
     </div>
   </div>
-</div>
 {% endfor %}
+</div>
