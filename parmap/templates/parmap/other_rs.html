@@ -293,8 +293,8 @@ $(function (){
   $('.load-more').on('click', function(){
     $('.loading-resource').removeClass('hidden');
     $.get('/parmap/other_rs/page/{{facettype}}?page=' + nextPage, function(response){
-      $("#rsResourceList").append($(response).find('#resourceList').html());
-      $("#modalContainer").append($(response).find('#modalList').html());
+      $("#rsResourceList").append($(response).find('#resourceList'));
+      $("#modalContainer").append($(response).find('#modalList'));
       $('.loading-resource').addClass('hidden');
       nextPage++;
     })
