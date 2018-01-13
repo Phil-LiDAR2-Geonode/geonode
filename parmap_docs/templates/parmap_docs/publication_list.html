@@ -26,16 +26,10 @@
 						{% for publication in publication_list %}
 							<li>
 								{% if user.is_authenticated %}
-									<div class = "resultImgWrapper">
-										<i class="fa fa-file-pdf-o" style="font-size:150px;color:#006c0b"></i>
-									</div>
 									<div class = "description2"><a href = "/parmap_docs/publication/{{ publication.id }}">{{ publication }}</a></div>
 									<div class = "description4">{{ publication.authors }}</div>
 									<div class = "description4"><b>{{ publication.conference }}, {{ publication.year_published }}</b></div>
 								{% else %}
-									<div class = "resultImgWrapper">
-										<i class="fa fa-file-pdf-o" style="font-size:150px;color: rgba(85, 85, 85, 0.34)"></i>
-									</div>
 									<div class = "description1"><a href = "#" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)">{{ publication }}</a></div>
 									<div class = "description4" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)">{{ publication.authors }}</div>
 									<div class = "description4" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)">{{ publication.conference }}, {{ publication.year_published }}</div>
