@@ -91,7 +91,8 @@ def other_rs_page(request, facettype='layers'):
     queryset = paginator.page(page)
 
     context_dict = {
-        "list": queryset
+        "list": queryset,
+        "facettype": facettype
     }
     
     return render_to_response('parmap/other_rs_page.html', RequestContext(request, context_dict))
