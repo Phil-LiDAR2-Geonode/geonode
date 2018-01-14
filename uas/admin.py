@@ -35,20 +35,17 @@ class UASRequestAdmin(admin.ModelAdmin):
         if status == 'APPROVED':
             # @todo check ADMIN_PERMISSIONS and LAYER_ADMIN_PERMISSIONS variables
             resource_id = request.POST.get('resource')
-            requesting_user = obj.profile
-            requested_resource = Imagery.objects.get(pk=resource_id)
+            requested_resource = Imagery.objects.get(pk=int(resource_id))
+            requested_link = settings.SITEURL + 'uas/imagery/' + unicode(resource_id).encode('utf8')
 
-            resource_link = (
-                requested_resource.title,
-                settings.SITEURL + 'uas/imagery/' + unicode(requested_resource.id).encode('utf8')
-            )
+            context['requested_resource'] = requested_resource
+            context['requested_link'] = requested_link
 
-            context['resource_link'] = resource_link
             obj.date_approved = timezone.now()
 
             subject = 'Notification of Approval'
 
-            html_content = render_to_string('parmap_data_request/email_approval.html', context)
+            html_content = render_to_string('parmap_data_request/email_approval_uas.html', context)
 
         elif status == 'REJECTED':
             subject = 'Denial of Request'
