@@ -6,6 +6,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from django.conf import settings
 from django.utils import timezone
+from parmap_data_request.models import RequestReason
 
 class ImageryAdmin(admin.ModelAdmin):
     list_display = ('id', 'title', 'sensor', 'resolution')
