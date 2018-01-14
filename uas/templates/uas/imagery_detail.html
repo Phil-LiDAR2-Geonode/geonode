@@ -101,10 +101,17 @@
 					</div>
 					<div class = "cropActions" style="padding-bottom:20px">
 						{% if user.is_authenticated %}
-							<i class = "fa fa-download" style = "color: #12650b"></i>
-							<a href = "#request-download" data-toggle = "modal">request download</a>
+							{% if is_request_approved %}
+								<i class = "fa fa-download" style = "color: #12650b"></i>
+								<a href = "#resource-download{{ imagery.id }}" data-toggle = "modal">download</a>
+							{% elif has_pending_request %}
+								<a href = "#" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-hourglass-half" style = "color: rgba(85, 85, 85, 0.34)"></i>awaiting approval</a>
+							{% else %}
+								<i class = "fa fa-cart-arrow-down" style = "color: #12650b"></i>
+								<a href = "#request-download" data-toggle = "modal">request download</a>
+							{% endif %}
 						{% else %}
-							<a href = "#" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-download" style = "color: rgba(85, 85, 85, 0.34)"></i>request download</a>
+							<a href = "#" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-cart-arrow-down" style = "color: rgba(85, 85, 85, 0.34)"></i>request download</a>
 						{% endif %}
 					</div>
 
