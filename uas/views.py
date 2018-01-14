@@ -41,32 +41,55 @@ def browse(request, sensor, resolution):
 
 def imagery_detail(request, imagery_id):
     imagery = Imagery.objects.get(pk=imagery_id)
+    approved_status = False
+    pending_status = False
+    if request.user.is_authenticated():
+        try:
+            pending_request = UASRequest.objects.filter(profile=request.user).get(resource=imagery_id)
+            if pending_request.status != 'APPROVED':
+                pending_status = True
+            elif pending_request.status == 'APPROVED':
+                approved_status = True
+        except UASRequest.DoesNotExist:
+            pending_status = False
+        except DataRequest.MultipleObjectsReturned:
+            pending_status = True
     return render_to_response('uas/imagery_detail.html',RequestContext(request, {
         'imagery': imagery,
+        'has_pending_request': pending_status,
+        'is_request_approved': approved_status
         }))
 
 def download(request, imagery_id):
     try:
-        # tracking of downloads
-        dd = DataDownload()
-        dd.username = Profile.objects.get(username=request.user.username)
-        dd.email = Profile.objects.get(username=request.user.username).email
-        dd.first_name = Profile.objects.get(username=request.user.username).first_name
-        dd.last_name = Profile.objects.get(username=request.user.username).last_name
-        dd.data_id = imagery_id
-        dd.data_downloaded = Imagery.objects.get(pk=imagery_id)
-        dd.data_type = "UAS Imagery"
-        dd.date_downloaded = timezone.now()
-        dd.save()
-        # download zipped file
-        imagery_path = os.path.join(settings.MEDIA_ROOT, str(Imagery.objects.get(pk=imagery_id).zipped_file))
-        imagery_file = os.path.basename(imagery_path)
-        fp = open(imagery_path, 'rb')
-        response = HttpResponse(fp.read())
-        fp.close()
-        response['content_type'] = "application/x-zip-compressed"
-        response['Content-Disposition'] = 'attachment;filename=%s ' % imagery_file
-        return response
+        uas_request = UASRequest.objects.filter(profile=request.user).get(resource=imagery_id)
+        if uas_request.status == "APPROVED":
+            # tracking of downloads
+            dd = DataDownload()
+            dd.username = Profile.objects.get(username=request.user.username)
+            dd.email = Profile.objects.get(username=request.user.username).email
+            dd.first_name = Profile.objects.get(username=request.user.username).first_name
+            dd.last_name = Profile.objects.get(username=request.user.username).last_name
+            dd.data_id = imagery_id
+            dd.data_downloaded = Imagery.objects.get(pk=imagery_id)
+            dd.data_type = "UAS Imagery"
+            dd.date_downloaded = timezone.now()
+            dd.save()
+            # download zipped file
+            imagery_path = os.path.join(settings.MEDIA_ROOT, str(Imagery.objects.get(pk=imagery_id).zipped_file))
+            imagery_file = os.path.basename(imagery_path)
+            fp = open(imagery_path, 'rb')
+            response = HttpResponse(fp.read())
+            fp.close()
+            response['content_type'] = "application/x-zip-compressed"
+            response['Content-Disposition'] = 'attachment;filename=%s ' % imagery_file
+            return response
+        else:
+            return HttpResponse(
+                loader.render_to_string(
+                    '401.html', RequestContext(
+                        request, {
+                            'error_message': _("You are not allowed to download this data.")})), status=403)
     except:
         return HttpResponse(
             loader.render_to_string(
