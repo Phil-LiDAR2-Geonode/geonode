@@ -9,11 +9,9 @@
     <p>Greetings from PARMap!</p>
     <p>Your data request has been approved.</p>
     <p>Upon accepting the End User License Agreement (EULA) document, you may now download the following data:</p>
-    {% if resource_link %}
     <ol>
-      <li><a href="{{resource_link}}">{{resource_link.title}}</a></li>
+      <li><a href="{{requested_link}}">{{requested_resource}}</a></li>
     </ol>
-    {% endif %}
     <p>* Please note that imageries were captured on date of data acquisition and may not reflect present land cover.</p>
 
     {% if site_admin_email and site_admin_email.strip %}
