@@ -5,4 +5,5 @@ urlpatterns = patterns('uas.views',
                         url(r'^browse/(?P<sensor>[\w\s]+)/(?P<resolution>[\w\s]+)/$', 'browse', name='browse'),
                         url(r'^imagery/(?P<imagery_id>\d+)$', 'imagery_detail', name='imagery_detail'),
                         url(r'^imagery/(?P<imagery_id>\d+)/download/$', 'download', name='download'),
+                        url(r'^add/$', 'handle_upload', name='uasrequest_add'),
                         )
