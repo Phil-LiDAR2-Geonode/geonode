@@ -1,0 +1,99 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {% trans "Explore Technical Reports and Manuals" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block body %}
+<div class = "landCoverTitleWrapper">
+	<div class = "container">
+		<a href = "javascript:;" class = "pull-right scrollToTop">back to top</a>
+		{% if techreport_type == "Algorithms/Workflows and Field Validation Manuals" %}
+			<div class = "landCoverTitle">Algorithms and Workflows for Extracting and Characterizing Agricultural Features<br>from LiDAR Data and other Remotely-sensed Data, and Field Measurement</div>
+		{% elif techreport_type == "Operational Web-based GIS Platform" %}
+			<div class = "landCoverTitle">Operational Web-based GIS Platform for Agricultural Resource Maps</div>
+		{% elif techreport_type == "Policy Recommendations" %}
+			<div class = "landCoverTitle">Policy Recommendations for Agricultural Resource Maps and Vulnerability Assessment Maps</div>
+		{% elif techreport_type == "QA/QC Documentation" %}
+			<div class = "landCoverTitle">Quality Assessment/Checking Documentation of SUC/HEI Submissions</div>
+		{% elif techreport_type == "Training Manuals" %}
+			<div class = "landCoverTitle">Training Manuals</div>
+		{% elif techreport_type == "Vulnerability Assessment" %}
+			<div class = "landCoverTitle">Vulnerability Assessment of Agricultural Resources to Drought, Flood and Seawater Intrusion</div>
+		{% else %}
+			<div class = "landCoverTitle">Technical Reports and Manuals</div>
+		{% endif %}
+	</div>
+</div>
+
+<div class = "section firstChild backToTop">
+	<div class = "container">
+		<div class = "row">
+			<div class = "col-sm-3 filterWrapper">
+
+				<div class = "filterHeader">
+					<span>Filters</span>
+					<a href = "javascript:;" onclick = "clearDocSelection()" class = "pull-right">Clear</a>
+				</div>
+				<div class = "filterForm">
+					<label>DOCUMENT TYPE</label>
+					<select id = "doc_option" class = "form-control" onchange="enableDocSearch()">
+
+						{% if techreport_list %}
+							<option disabled value = "Null"> -- select a document type -- </option>
+						{% else %}
+							<option disabled selected value = "Null"> -- select a document type -- </option>
+						{% endif %}
+
+						<option value="All">ALL</option>
+						{% for type in doctype_list %}
+							{% if techreport_type == type.doc_type %}
+								<option value="{{ type.doc_type }}" selected id="selected_target">{{ type.doc_type }}</option>
+							{% else %}
+								<option value="{{ type.doc_type }}">{{ type.doc_type }}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
+
+					{% if techreport_list %}
+						<button class = "btn pull-right" id = "searchDoc" onclick = "searchDocFunction()">Search</button>
+					{% else %}
+						<button class = "btn pull-right" id = "searchDoc" onclick = "searchDocFunction()" disabled>Search</button>
+					{% endif %}
+					<div class = "clearfix"></div><br>
+				</div>
+
+			</div>
+
+			<div class = "col-sm-9 rightPanel">
+				<br><br><p>PARMap documents its three-year journey through its technical reports, manuals, and publications.</p>
+				<p>Access these knowledge products in PDF format here.</p>
+				<div class = "resultWrapper">
+					{% if techreport_list %}
+						<div class = "resultTitle">Results:</div>
+					{% else %}
+						<div class = "resultTitle">No results found</div>
+					{% endif %}
+					<ul>
+						{% for techreport in techreport_list %}
+						<li>
+							{% if user.is_authenticated %}
+								<div class = "description1"><a href = "/parmap_docs/techreport/{{ techreport.id }}">{{ techreport }}</a></div>
+								<div class = "description3">{{ techreport.doc_type }}</a></div>
+							{% else %}
+								<div class = "description1"><a href = "#" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)">{{ techreport }}</a></div>
+								<div class = "description3" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)">{{ techreport.doc_type }}</a></div>
+
+							{% endif %}
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
