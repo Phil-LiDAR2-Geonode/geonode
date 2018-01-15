@@ -105,69 +105,17 @@
 								<i class = "fa fa-download" style = "color: #12650b"></i>
 								<a href = "#resource-download{{ imagery.id }}" data-toggle = "modal">download</a>
 							{% elif has_pending_request %}
-								<a href = "#" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-hourglass-half" style = "color: rgba(85, 85, 85, 0.34)"></i>awaiting approval</a>
+								<a href = "#" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)">
+								<i class = "fa fa-hourglass-half" style = "color: rgba(85, 85, 85, 0.34)"></i>awaiting approval</a>
 							{% else %}
 								<i class = "fa fa-cart-arrow-down" style = "color: #12650b"></i>
 								<a href = "#request-download" data-toggle = "modal">request download</a>
 							{% endif %}
 						{% else %}
-							<a href = "#" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)"><i class = "fa fa-cart-arrow-down" style = "color: rgba(85, 85, 85, 0.34)"></i>request download</a>
+							<a href = "#" data-toggle = "modal" style = "pointer-events: none; color: rgba(85, 85, 85, 0.34)">
+							<i class = "fa fa-cart-arrow-down" style = "color: rgba(85, 85, 85, 0.34)"></i>request download</a>
 						{% endif %}
 					</div>
-
-					<div class="modal fade" id="request-download" tabindex="-1" role="dialog" aria-labelledby="ReqDownloadModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title" id="ReqDownloadModalLabel">{% trans "Request Data" %}</h4>
-                </div>
-                <div class="modal-body">
-                  <div class="row edit-modal">
-                    <div class="col-sm-12 text-left">
-                      <form id="data_request_form" action="{% url 'datarequest_add' %}" method="post" enctype="multipart/form-data">
-                          <input type="hidden" name="uuid" value="{{ resource.uuid }}">
-                          {% csrf_token %}
-                          <p>To formally request for PARMap data, please send a formal letter signed and endorsed by your head of agency/department head/academic adviser. Indicate your name, contact information, the data types being requested, and the intended use of the data.</p>
-                          <span>The letter should be addressed to:</span>
-                          <p style="margin-left: 40px; font-weight: bold;">
-                            <span style="font-family: Lato;">ARIEL C. BLANCO, DR. ENG.</span>
-                            <br>
-                            Program Leader
-                            <br>
-                            Phil-LiDAR 2 Program
-                          </p>
-                          <input id="upload-request-file" type="file" name="letter_file"/>
-                          <div id="kv-error-1" style="margin-top:10px;display:none"></div>
-                          <div id="kv-success-1" class="alert alert-success " style="margin-top:10px;display:none"><ul></ul></div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer"></div>
-              </div>
-            </div>
-          </div>
-          <div class="modal fade" id="request-letter-upload-success" tabindex="-1" role="dialog" aria-labelledby="SuccessUploadModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">{% trans "Request Data" %}</h4>
-                </div>
-                <div class="modal-body">
-                  <div class="row edit-modal">
-                    <div class="col-sm-12 text-left">
-                      <p>Successfully uploaded request letter</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
-                </div>
-              </div>
-            </div>
-          </div>
 
 					<div class="modal fade" id="resource-download{{ imagery.id }}" tabindex="-1" role="dialog" aria-labelledby="ResDownloadModalLabel" aria-hidden="true">
 						<div class="modal-dialog" style="width: 80%; height: 60%;">
@@ -268,6 +216,61 @@
 	</div>
 </div>
 
+<div class = "list-group">
+	<div class="modal fade" id="request-download" tabindex="-1" role="dialog" aria-labelledby="ReqDownloadModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="ReqDownloadModalLabel">{% trans "Request Data" %}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row edit-modal">
+						<div class="col-sm-12 text-left">
+							<form id="data_request_form" action="{% url 'uasrequest_add' %}" method="post" enctype="multipart/form-data">
+									<input type="hidden" name="uuid" value="{{ resource.uuid }}">
+									{% csrf_token %}
+									<p>To formally request for PARMap data, please send a formal letter signed and endorsed by your head of agency/department head/academic adviser. Indicate your name, contact information, the data types being requested, and the intended use of the data.</p>
+									<span>The letter should be addressed to:</span>
+									<p style="margin-left: 40px; font-weight: bold;">
+										<span style="font-family: Lato;">ARIEL C. BLANCO, DR. ENG.</span>
+										<br>
+										Program Leader
+										<br>
+										Phil-LiDAR 2 Program
+									</p>
+									<input id="upload-request-file" type="file" name="letter_file"/>
+									<div id="kv-error-1" style="margin-top:10px;display:none"></div>
+									<div id="kv-success-1" class="alert alert-success " style="margin-top:10px;display:none"><ul></ul></div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="request-letter-upload-success" tabindex="-1" role="dialog" aria-labelledby="SuccessUploadModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">{% trans "Request Data" %}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row edit-modal">
+						<div class="col-sm-12 text-left">
+							<p>Successfully uploaded request letter</p>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
 
 {% block extra_script %}
