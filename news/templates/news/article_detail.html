@@ -52,9 +52,13 @@
 				<div class = "col-md-9">
 					<div class = "newsBody">
             <div align="middle">
-            <img src="{{ article.image1.url }}" width="400"/>
-						<img src="{{ article.image2.url }}" width="400"/>
-            </div>
+							{% if article.image1 %}
+	            	<img src="{{ article.image1.url }}" width="400"/>
+							{% endif %}
+							{% if article.image2 %}
+								<img src="{{ article.image2.url }}" width="400"/>
+							{% endif %}
+						</div>
 						<p>{{ article.content | safe | linebreaks }}</p>
 					</div>
 				</div>

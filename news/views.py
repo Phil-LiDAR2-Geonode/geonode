@@ -6,7 +6,10 @@ from django.shortcuts import render_to_response
 
 def article_list(request):
     latest_article_list = Article.objects.all().order_by('-start_date')
-    latest_headline = Article.objects.filter(is_headline='True').order_by('-creation_date')[0]
+    try:
+        latest_headline = Article.objects.filter(is_headline='True').order_by('-creation_date')[0]
+    except:
+        latest_headline = []
     year_list = Article.objects.dates('start_date','year', order='DESC')
     month_list = Article.objects.dates('start_date','month',order='DESC')
     return render_to_response('news/article_list.html', RequestContext(request, {

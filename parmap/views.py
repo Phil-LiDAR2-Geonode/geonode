@@ -56,7 +56,7 @@ def other_rs(request, facettype='layers'):
         queryset = Layer.objects.distinct().exclude(typename__icontains='_lulc').exclude(typename__icontains='_va').exclude(title__icontains='Metadata').order_by('-date')
         # queryset = Layer.objects.distinct().exclude(typename__icontains='_lulc').exclude(typename__icontains='_va').order_by('-date')
     else:
-        queryset = Document.objects.distinct().exclude(doc_file__icontains='_lulc').exclude(doc_file__icontains='_va').exclude(doc_file__icontains='LANDCOVER').order_by('-date')
+        queryset = Document.objects.distinct().exclude(doc_file__icontains='_lulc').exclude(doc_file__icontains='_va').order_by('-date')
         # queryset = Document.objects.distinct().order_by('-date')[:5]
 
     paginator = Paginator(queryset, 25) # Show 25 resource per page; Should be same with other_rs_page
@@ -159,6 +159,13 @@ def rs_download_layers(request):
         for link in links_temp:
             links.append(link.url)
 
+            DownloadTracker(actor=Profile.objects.get(username=request.user),
+                    title=str(layer.title),
+                    resource_type=str(ResourceBase.objects.get(layer__typename=layer.typename).csw_type),
+                    keywords=Layer.objects.get(typename=layer.typename).keywords.slugs(),
+                    dl_type=link.name
+                ).save()
+
     return HttpResponse(json.dumps(links),mimetype='application/json',status=200)
 
 def rs_download_maps(request):
@@ -180,6 +187,13 @@ def rs_download_maps(request):
         zip_path = os.path.join(zip_subdir, fname)
 
         zf.write(target_path, zip_path)
+
+        DownloadTracker(actor=Profile.objects.get(username=request.user),
+                title=str(document.title),
+                resource_type=str(ResourceBase.objects.get(document__id=docid).csw_type),
+                keywords=Document.objects.get(id=docid).keywords.slugs(),
+                dl_type="document"
+            ).save()
 
     zf.close()
 

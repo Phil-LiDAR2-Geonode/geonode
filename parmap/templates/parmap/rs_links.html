@@ -2,7 +2,7 @@
 {% if links %}
 <ul style="margin: 0; padding: 0">
     {% for link in links %}
-    <li style="list-style: none"><a href="{{ link.url }}">{{ link.name }}</a></li>
+    <li class="Downloadlink" data-type="{{ link.name }}" data-facet="layer" style="list-style: none"><a href="{{ link.url }}">{{ link.name }}</a></li>
     {% endfor %}
 </ul>
 {% else %}
