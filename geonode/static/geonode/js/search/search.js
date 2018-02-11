@@ -189,6 +189,25 @@
 
   });
 
+
+  module.filter('keywordLocationFilter', function() { 
+    var data_filter = 'keywords__slug__in';
+    
+    return function(input, query) {
+      var output;
+
+      output = input.filter(function(item){
+          return query_entry.every(function(currentValue){
+            return item.keywords.indexOf(MAP_TYPE) >=0;
+          });
+      });
+  
+      return output;
+  
+    }
+  
+  });
+
   module.filter('keywordFilter', function() { 
       var data_filter = 'keywords__slug__in';
       

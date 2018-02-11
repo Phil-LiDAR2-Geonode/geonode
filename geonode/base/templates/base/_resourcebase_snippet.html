@@ -3,7 +3,7 @@
   <div class = "resultWrapper">
     <div class="resultTitle">Results:</div>
     <ul>
-        <li ng-repeat="item in results" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
+        <li ng-repeat="item in results | keywordLocationFilter: query" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
           <div class="resultImgWrapper">
             <a href="{{ item.detail_url }}"><img ng-src="{{ item.thumbnail_url }}" /></a>
           </div>
