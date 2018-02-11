@@ -611,7 +611,8 @@
         }
       });
     };
-    query_api($scope.query);
+
+    if(MAP_TYPE != 'lulc') query_api($scope.query);
 
 
     /*
@@ -762,7 +763,8 @@
       query_entry.push(value);
       
       delete $scope.query['extent'];
-      $scope.query[data_filter] = query_entry;
+
+      $scope.query[data_filter] = [query_entry, MAP_TYPE];
       query_api($scope.query);
 
       $scope.hasNoFilter = false;
