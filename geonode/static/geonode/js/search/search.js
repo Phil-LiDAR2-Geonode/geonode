@@ -197,9 +197,7 @@
       var output;
 
       output = input.filter(function(item){
-          return query_entry.every(function(currentValue){
-            return item.keywords.indexOf(MAP_TYPE) >=0;
-          });
+          return item.keywords.indexOf(MAP_TYPE) >=0;
       });
   
       return output;
