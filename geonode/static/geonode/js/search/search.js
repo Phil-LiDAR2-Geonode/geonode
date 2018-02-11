@@ -369,6 +369,8 @@
           
           return exists;
         });
+
+        console.log('locationArr', locationArr);
                 
         result.keywords = keywordList;
         result.locations = locationArr;
