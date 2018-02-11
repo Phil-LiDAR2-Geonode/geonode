@@ -1,0 +1,180 @@
+[
+  {
+    "code": "zamboanga del norte",
+    "name": "ZAMBOANGA DEL NORTE",
+    "municipality": [
+      {
+        "name": "JOSE DALMAN (PONOT)",
+        "code": "97222000"
+      },
+      {
+        "name": "MANUKAN",
+        "code": "97207000"
+      },
+      {
+        "name": "LABASON",
+        "code": "97205000"
+      },
+      {
+        "name": "BACUNGAN (Leon T. Postigo)",
+        "code": "97226000"
+      },
+      {
+        "name": "SINDANGAN",
+        "code": "97218000"
+      },
+      {
+        "name": "KATIPUNAN",
+        "code": "97203000"
+      },
+      {
+        "name": "PRES. MANUEL A. ROXAS",
+        "code": "97211000"
+      },
+      {
+        "name": "POLANCO",
+        "code": "97210000"
+      },
+      {
+        "name": "DIPOLOG CITY (Capital)",
+        "code": "97202000"
+      },
+      {
+        "name": "LILOY",
+        "code": "97206000"
+      },
+      {
+        "name": "SALUG",
+        "code": "97213000"
+      }
+    ]
+  },
+  {
+    "code": "aklan",
+    "name": "AKLAN",
+    "municipality": [
+      {
+        "name": "IBAJAY",
+        "code": "60406000"
+      },
+      {
+        "name": "TANGALAN",
+        "code": "60417000"
+      },
+      {
+        "name": "BATAN",
+        "code": "60404000"
+      },
+      {
+        "name": "MALINAO",
+        "code": "60413000"
+      },
+      {
+        "name": "MAKATO",
+        "code": "60411000"
+      },
+      {
+        "name": "NEW WASHINGTON",
+        "code": "60415000"
+      },
+      {
+        "name": "ALTAVAS",
+        "code": "60401000"
+      },
+      {
+        "name": "KALIBO (Capital)",
+        "code": "60407000"
+      },
+      {
+        "name": "LEZO",
+        "code": "60408000"
+      },
+      {
+        "name": "NABAS",
+        "code": "60414000"
+      },
+      {
+        "name": "BALETE",
+        "code": "60402000"
+      },
+      {
+        "name": "BANGA",
+        "code": "60403000"
+      },
+      {
+        "name": "NUMANCIA",
+        "code": "60416000"
+      }
+    ]
+  },
+  {
+    "code": "bulacan",
+    "name": "BULACAN",
+    "municipality": [
+      {
+        "name": "SAN JOSE DEL MONTE CITY",
+        "code": "31420000"
+      },
+      {
+        "name": "BUSTOS",
+        "code": "31406000"
+      },
+      {
+        "name": "PLARIDEL",
+        "code": "31417000"
+      },
+      {
+        "name": "PANDI",
+        "code": "31415000"
+      },
+      {
+        "name": "SANTA MARIA",
+        "code": "31423000"
+      },
+      {
+        "name": "HAGONOY",
+        "code": "31409000"
+      },
+      {
+        "name": "PAOMBONG",
+        "code": "31416000"
+      },
+      {
+        "name": "BOCAUE",
+        "code": "31404000"
+      },
+      {
+        "name": "MARILAO",
+        "code": "31411000"
+      },
+      {
+        "name": "MEYCAUAYAN",
+        "code": "31412000"
+      },
+      {
+        "name": "GUIGUINTO",
+        "code": "31408000"
+      },
+      {
+        "name": "MALOLOS (Capital)",
+        "code": "31410000"
+      },
+      {
+        "name": "BULACAN",
+        "code": "31405000"
+      },
+      {
+        "name": "OBANDO",
+        "code": "31414000"
+      },
+      {
+        "name": "BALAGTAS (BIGAA)",
+        "code": "31402000"
+      },
+      {
+        "name": "CALUMPIT",
+        "code": "31407000"
+      }
+    ]
+  }
+]
