@@ -460,7 +460,7 @@ class CommonModelApi(ModelResource):
         if self._meta.resource_name == "layers_parmap":
             VALUES.append('typename')
 
-            if 'lulc' in request.GET.get('keywords__slug__in'):
+            if 'lulc' in request.GET.get('map_type'):
                 VALUES.append('metadata_xml')
 
 
