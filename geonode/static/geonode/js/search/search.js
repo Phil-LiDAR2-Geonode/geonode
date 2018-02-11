@@ -384,7 +384,7 @@
       // Get filters from keywords
       filters_data.objects.forEach(processFilter);
 
-      console.log('allLocations', allLocations);
+      console.log('allLocations', JSON.stringify(allLocations));
       
       $rootScope.hazards = allHazard;
       $rootScope.scales = allScale;
@@ -603,6 +603,7 @@
             
       delete $scope.query['extent'];
       $scope.query[data_filter] = query_entry;
+      query_api($scope.query);
 
       $scope.hasNoFilter = false;
     }
