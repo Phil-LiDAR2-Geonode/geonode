@@ -196,6 +196,10 @@
     return function(input, query) {
       var output;
 
+      if(query[data_filter].indexOf('clear-results') >= 0){
+        return [];
+      }
+
       output = input.filter(function(item){
           return item.keywords.indexOf(MAP_TYPE) >=0;
       });
