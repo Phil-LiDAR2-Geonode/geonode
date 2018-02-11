@@ -370,7 +370,7 @@
           return exists;
         });
 
-        console.log('locationArr', locationArr);
+        // console.log('locationArr', locationArr);
                 
         result.keywords = keywordList;
         result.locations = locationArr;
@@ -383,6 +383,8 @@
 
       // Get filters from keywords
       filters_data.objects.forEach(processFilter);
+
+      console.log('allLocations', allLocations);
       
       $rootScope.hazards = allHazard;
       $rootScope.scales = allScale;
