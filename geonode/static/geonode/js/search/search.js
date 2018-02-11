@@ -412,6 +412,11 @@
     //Get data from apis and make them available to the page
     function query_api(data){
       $scope.isLoadingFilters = true;
+
+      if(typeof MAP_TYPE != 'undefined'){
+        data.map_type = MAP_TYPE;
+      }
+
       $http.get(Configs.url, {params: data || {}}).success(function(data){        
         $http.get(LOCATIONS_ENDPOINT).success(function(location) {
           $http.get(FILTERS_ENDPOINT).success(function(filters) {
