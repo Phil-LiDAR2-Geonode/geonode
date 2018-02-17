@@ -1,10 +1,12 @@
 {% load i18n %}
+{% if map_type != "lulc" %}
 <div class="loading-filter" ng-show="isLoadingFilters" style="text-align: left">
   <img src="/static/parmap/img/loading.gif" alt="" style="width: 40px;">
   Loading filters..
 </div>
+{% endif %}
 {% if SEARCH_FILTERS.LOCATIONS_ENABLED and map_type == "lulc" %}
-<form ng-submit="location_submit(selectedProvince, selectedMunicipality)" ng-show="!isLoadingFilters">
+<form ng-submit="location_submit(selectedProvince, selectedMunicipality)">
   <label>Province</label>
   <select name="mySelect" id="myProvinceSelect"
     class="nav closed form-control"
