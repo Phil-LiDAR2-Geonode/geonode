@@ -1,6 +1,5 @@
 {% if facet_type == 'layers' and map_type == "lulc" %}
 {% verbatim %}
-
   <div class="loading-filter" ng-show="isLoadingFilters" style="text-align: left">
     <img src="/static/parmap/img/loading.gif" alt="" style="width: 40px;">
     Loading layers..
@@ -20,11 +19,8 @@
   </div>
 {% endverbatim %}
 {% elif facet_type == 'maps' and map_type == "lulc" %}
-<div class="loading-filter" ng-show="isLoadingFilters" style="text-align: left">
-  <img src="/static/parmap/img/loading.gif" alt="" style="width: 40px;">
-  Loading maps..
-</div>
-<div class = "resultWrapper" ng-show="!isLoadingFilters" >
+{% verbatim %}
+<div class = "resultWrapper" >
   <div class="resultTitle">Results:</div>
   <ul>
       <li ng-repeat="item in results | keywordLocationFilter: query" resource_id="{{ item.id }}" ng-cloak class="ng-cloak">
@@ -36,6 +32,7 @@
       </li>
   </ul>
 </div>
+{% endverbatim %}
 {% else %}
 {% verbatim %}
   <div class = "resultWrapper">
