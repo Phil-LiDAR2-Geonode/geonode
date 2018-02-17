@@ -617,7 +617,11 @@
       delete $scope.query['extent'];
 
       $scope.query[data_filter] = query_entry;
-      query_api($scope.query);
+
+
+      if (FILTER_TYPE == 'layers') {
+        query_api($scope.query);
+      }
 
       $scope.hasNoFilter = false;
     }
