@@ -7,7 +7,12 @@
 </div>
 {% endif %}
 {% if SEARCH_FILTERS.LOCATIONS_ENABLED and map_type == "lulc" %}
+
+{% if facet_type == 'layers' %}
 <form ng-submit="location_submit(selectedProvince, selectedMunicipality)">
+{% else %}
+<form ng-submit="location_submit(selectedProvince, selectedMunicipality)" ng-show="!isLoadingFilters">
+{% endif %}
   <label>Province</label>
   <select name="mySelect" id="myProvinceSelect"
     class="nav closed form-control"
