@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # Geonode
 
-__version__ = "0.5"
+__version__ = "0.5.1"
 
 # Setup GeoNode environment
 import os
@@ -157,8 +157,8 @@ def update_lulc(layer):
         # Check if muni is for uploading
         if r['lulc_10k'] == 1:
             mapno = r['mapno']
-            city_munic_list.append(r['city_munic'].title())
-            province_list.append(r['province'].title())
+            city_munic_list.append(r['city_munic'].title().replace(u'\xf1',"n"))
+            province_list.append(r['province'].title().replace(u'\xf1',"n"))
             resource_list.append(r['resource'])
             muncode_list.append(str(int(r['muncode'])))
             suc_hei_list.append(r['suc_hei'].replace(u'\xf1',"n"))

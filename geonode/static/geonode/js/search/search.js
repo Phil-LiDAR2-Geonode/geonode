@@ -407,6 +407,8 @@
       
       $rootScope.hazards = allHazard;
       $rootScope.scales = allScale;
+      
+      console.log('allLocations', JSON.stringify(allLocations));
       if(!$rootScope.locations) $rootScope.locations = allLocations;
     }
    
