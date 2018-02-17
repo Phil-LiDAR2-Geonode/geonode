@@ -1,5 +1,6 @@
 {% load i18n %}
-{% if map_type != "lulc" %}
+{% if map_type == "lulc" and facet_type == 'layers' %}
+{% else %}
 <div class="loading-filter" ng-show="isLoadingFilters" style="text-align: left">
   <img src="/static/parmap/img/loading.gif" alt="" style="width: 40px;">
   Loading filters..
