@@ -455,7 +455,14 @@
       });
     };
 
-    if(MAP_TYPE != 'lulc') query_api($scope.query);
+    if( MAP_TYPE != 'lulc' ) {
+      query_api($scope.query)
+    } else {
+      if (FILTER_TYPE == 'document') {
+        $scope.query.limit = 3;
+        query_api($scope.query)
+      }
+    };
 
     var allLocations = [
       {
