@@ -1,0 +1,303 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load url from future %}
+
+{% block title %} {% trans "Frequently Asked Questions" %} - {{ block.super }} {% endblock %}
+
+{% block body_class %}{% endblock %}
+
+{% block body %}
+
+<div class = "section firstChild">
+	<div class = "container">
+		<div class = "faqsWrapper">
+			<div class = "faqsTitle">Frequently Asked Questions</div>
+
+				<div class = "faqCategory">
+					<div class = "faqCategoryTitle" id = "faq_1"><i class = "fa fa-caret-down"></i>What is PARMap?</div>
+					<div class = "faqCategoryContent" id = "faq_content_1">
+						<ol class = "faqsList">
+							<li>
+								<div class = "asnwers">
+									<p>The <b>Phil-LiDAR 2 Project 1 Agricultural Resources Extraction from LiDAR Surveys</b> or PARMap is one of the five (5) project components of the Detailed Resources Assessment using LiDAR (Phil-LiDAR 2) Program.</p>
+									<p>The project aims to provide an updated and detailed inventory of the agricultural resources in the country by developing and applying methodologies for the extraction or mapping of agricultural crops and assessing vulnerability to specific hazards. The project utilizes datasets from LiDAR survey acquired by the DREAM/Phil-LiDAR 1 Program, other remote sensing systems, and field measurements.</p>
+									<p>The program is funded by the Department of Science and Technology through the Philippine Council for Industry, Energy, and Emerging Technology Research and Development (DOST-PCIEERD).</p>
+								</div>
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<div class = "faqCategory">
+					<div class = "faqCategoryTitle" id = "faq_2"><i class = "fa fa-caret-down"></i>What is LiDAR?</div>
+					<div class = "faqCategoryContent" id = "faq_content_2">
+						<ol class = "faqsList">
+							<li>
+								<div class = "asnwers">
+									<p align="justify">LiDAR stands for <b>Light Detection and Ranging</b>. It is a remote sensing method of depicting the earth’s surface in the form of cloud of points. The light (pulsed laser) emitted from a LiDAR instrument is used to measure the range of a point by using the relationship between the speed of light and time. Each point carries three-dimensional information (i.e. x, y and z coordinates). A point cloud may represent various earth features such as a bridge, river system, and forest canopies.</p>
+									<p>A LiDAR instrument mainly consists of a laser, a scanner, and a specialized GPS receiver and is most commonly carried on an airplane or a helicopter. LiDAR system covers a wide range of applications with its ability to represent natural and manmade environments of high accuracy, precision and flexibility.</p>
+									<p>LiDAR technology are now utilized in forestry management and planning, flood modelling, pollution modelling, mapping and cartography, coastal management, energy source exploration, transport planning and many more.</p>
+									<p>PARMap uses LiDAR data to provide an updated and detailed inventory of Philippine agricultural resources.</p>
+								</div>
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<div class = "faqCategory">
+					<div class = "faqCategoryTitle" id = "faq_3"><i class = "fa fa-caret-down"></i>What is the PARMap Web Portal?</div>
+					<div class = "faqCategoryContent" id = "faq_content_3">
+						<ol class = "faqsList">
+							<li>
+								<div class = "asnwers">
+									<p>The PARMap Web Portal is a repository of the knowledge products generated from the Phil-LiDAR 2 Project 1 Agricultural Resources Extraction from LiDAR Surveys. It contains downloadable agricultural land cover maps, vulnerability assessment maps, crop intensity maps, coconut classification, spectral library, UAS-derived images, technical reports and manuals.</p>
+									<p>PARMap envisions that these products will be used by planners, managers, and decision-makers in determining production areas for agriculture, crop management, and crop inventory.</p>
+								</div>
+							</li>
+						</ol>
+					</div>
+				</div>
+
+				<div class = "faqCategory">
+					<div class = "faqCategoryTitle" id = "faq_4"><i class = "fa fa-caret-down"></i>What are the knowledge products I can download from the PARMap Web Portal?</div>
+					<div class = "faqCategoryContent" id = "faq_content_4">
+						<ol class = "faqsList">
+							<li>
+								<div class = "question">Agricultural and Coastal Land Cover Maps</div>
+								<div class = "asnwers">
+									<p>PARMap provides an updated and detailed inventory of agricultural resources in the Philippines using Light Detection and Ranging (LiDAR) and other geospatial technologies. Agricultural and coastal land cover layers are available in 1:10,000 scale based on national map index.</p>
+								</div>
+
+								<div class = "question">Vulnerability Assessment Maps</div>
+								<div class = "asnwers">
+									<p>PARMap assesses the vulnerability of agricultural crops from hazards. Local map layers are available in municipal-level boundary intersected with 500mx500m grid. National map layers are available in provincial-level boundary intersected with 20kmx20km grid. Hazards considered are the following:</p>
+									<ul>
+										<li><b>FLOOD</b>. Flood occurs when a body of water rises or overflows beyond its normal confines and spreads to nearby areas which are usually dry lands. It is one of the most frequent, typical and costly natural disasters which causes abrupt damage on the socio-ecological systems.</li>
+										<li><b>DROUGHT</b>. Drought has been associated with El Nino events in the western Pacific Ocean region and can affect the timing of critical agronomic impacts. It has caused large losses to the productivity of the agricultural sector with the most severe episode in 2016 at 373,491 hectares affected.</li>
+										<li><b>SEAWATER INTRUSION</b>. Seawater intrusion is the landward movement of saline water into freshwater aquifers. Movement of seawater may be caused by groundwater pumping from coastal wells. Movement is also driven by an increase in sea-level or storm surge, which may also result to coastal inundation into low lying farmlands. In case of rainfall shortages, concentration of salt in brackish water would increase, which may also increase the effect of drought.  Most often, seawater intrusion becomes detrimental to the agricultural sector when saltwater was drawn into new areas due to intensive water demands, climatic variations, excessive freshwater pumping, and fluctuating sea levels. Because seawater is heavier than freshwater, seawater could potentially extend from tens of meters through several kilometres inland.</li>
+									</ul>
+								</br>
+								</div>
+
+								<div class = "question">Crop Intensity Maps and Vegetation Index Maps</div>
+								<div class = "asnwers">
+									<p>PARMap provides crop intensity maps and time-series datasets of satellite-derived vegetation indices  by consolidating data from LiDAR, MODIS, and the Department of Environment and Natural Resources-National Mapping and Resource Information Authority (DENR-NAMRIA).</p>
+								</div>
+
+								<div class = "question">Coconut Classified Maps</div>
+								<div class = "asnwers">
+									<p>PARMap provides an accurate map of Philippine coconut trees by comparing images and data from Landsat 8, Google Earth, the Philippine Statistics Authority (PSA), and the Philippine Geographic Information System (PhilGIS).</p>
+								</div>
+
+								<div class = "question">The PARMap Spectral Library</div>
+								<div class = "asnwers">
+									<p>The PARMap Spectral Library is the first-ever publicly available digital collection of spectral signatures of Philippine agricultural crops. Spectral signatures are characteristic electromagnetic radiation over a range of wavelengths reflected and emitted by every natural and synthetic object on the earth's surface depending on its chemical composition and physical state. Some of these spectral signatures are provided at different phenological stages: early vegetation, vegetation, and reproductive stages.</p>
+								</div>
+
+								<div class = "question">UAS Imageries</div>
+								<div class = "asnwers">
+									<p>PARMap uses data from Unmanned Aerial Systems (UAS) to process and collect images of Philippine agricultural crops from different locations. UAS, also called Unmanned Aerial Vehicle (UAV) or more commonly known as drone, is defined by the Civil Aviation Authority of the Philippines (CAAP) as “powered, unmanned aerial vehicle, other than a model aircraft used for sport and recreation, which may be operated autonomously beyond line of sight of the controller but, in all cases, would be subject to remote control by the controller”.</p>
+								</div>
+
+								</div>
+							</li>
+						</ol>
+					</div>
+
+					<div class = "faqCategory">
+						<div class = "faqCategoryTitle" id = "faq_5"><i class = "fa fa-caret-down"></i>How can I access and download knowledge products in the PARMap Web Portal?</div>
+						<div class = "faqCategoryContent" id = "faq_content_5">
+							<ol class = "faqsList">
+								<li>
+									<div class = "asnwers">
+										<p>In order to access maps and data from the portal, you need to register first via the <b>LiDAR Portal for Archiving and Distribution</b> or LiPAD at <a href = "https://lipad.dream.upd.edu.ph/" target = "_blank">https://lipad.dream.upd.edu.ph/</a>.</p>
+
+										<p>For a step-by-step guide on how to register, sign in, reset and change your password, and access and download the products, read the <a href = "https://parmap.dream.upd.edu.ph/parmap_docs/techreport/all/" target = "_blank">PARMap Web Portal User Guide</a>.</p>
+
+										<p>To further help you, here’s a video on how to register:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+
+										<p>To further help you, here’s a video on how to sign in:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+
+										<p>To further help you, here’s a video on how to reset and change your password:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+									</div>
+								</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class = "faqCategory">
+						<div class = "faqCategoryTitle" id = "faq_6"><i class = "fa fa-caret-down"></i>How can I download layers?</div>
+						<div class = "faqCategoryContent" id = "faq_content_6">
+							<ol class = "faqsList">
+								<li>
+									<div class = "asnwers">
+										<p>For a step-by-step guide on how to download layers, read the <a href = "https://parmap.dream.upd.edu.ph/parmap_docs/techreport/all/" target = "_blank">PARMap Web Portal User Guide</a>.</p>
+
+										<p>To further help you, here’s a video on how to download Agricultural and Coastal Land Cover Layers:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+
+										<p>To further help you, here’s a video on how to download Vulnerability Assessment Layers:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+
+										<p>To further help you, here’s a video on how to download Other Remote Sensing Layers:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+									</div>
+								</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class = "faqCategory">
+						<div class = "faqCategoryTitle" id = "faq_7"><i class = "fa fa-caret-down"></i>How can I download maps?</div>
+						<div class = "faqCategoryContent" id = "faq_content_7">
+							<ol class = "faqsList">
+								<li>
+									<div class = "asnwers">
+										<p>For a step-by-step guide on how to download maps, read the <a href = "https://parmap.dream.upd.edu.ph/parmap_docs/techreport/all/" target = "_blank">PARMap Web Portal User Guide</a>.</p>
+										<p>To further help you, here’s a video on how to download Agricultural and Coastal Land Cover Maps:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+
+										<p>To further help you, here’s a video on how to download Vulnerability Assessment Maps:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+
+										<p>To further help you, here’s a video on how to download Other Remote Sensing Maps:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+									</div>
+								</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class = "faqCategory">
+						<div class = "faqCategoryTitle" id = "faq_8"><i class = "fa fa-caret-down"></i>How can I download spectral signatures?</div>
+						<div class = "faqCategoryContent" id = "faq_content_8">
+							<ol class = "faqsList">
+								<li>
+									<div class = "asnwers">
+										<p>For a step-by-step guide on how to download spectral signatures, read the <a href = "https://parmap.dream.upd.edu.ph/parmap_docs/techreport/all/" target = "_blank">PARMap Web Portal User Guide</a>.</p>
+										<p>To further help you, here’s a video on how to download spectral signatures:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+									</div>
+								</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class = "faqCategory">
+						<div class = "faqCategoryTitle" id = "faq_9"><i class = "fa fa-caret-down"></i>How can I download Unmanned Aerial Systems (UAS) Imagery?</div>
+						<div class = "faqCategoryContent" id = "faq_content_9">
+							<ol class = "faqsList">
+								<li>
+									<div class = "asnwers">
+										<p>For a step-by-step guide on how to download UAS images, read the <a href = "https://parmap.dream.upd.edu.ph/parmap_docs/techreport/all/" target = "_blank">PARMap Web Portal User Guide</a>.</p>
+										<p>To further help you, here’s a video on how to download UAS images:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+									</div>
+								</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class = "faqCategory">
+						<div class = "faqCategoryTitle" id = "faq_10"><i class = "fa fa-caret-down"></i>How can I download PARMap Conference Papers and Publications?</div>
+						<div class = "faqCategoryContent" id = "faq_content_10">
+							<ol class = "faqsList">
+								<li>
+									<div class = "asnwers">
+										<p>For a step-by-step guide on how to download PARMap conference papers and publications, read the <a href = "https://parmap.dream.upd.edu.ph/parmap_docs/techreport/all/" target = "_blank">PARMap Web Portal User Guide</a>.</p>
+										<p>To further help you, here’s a video on how to download papers and publications:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+									</div>
+								</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class = "faqCategory">
+						<div class = "faqCategoryTitle" id = "faq_11"><i class = "fa fa-caret-down"></i>How can I download PARMap Technical Reports and Manuals?</div>
+						<div class = "faqCategoryContent" id = "faq_content_11">
+							<ol class = "faqsList">
+								<li>
+									<div class = "asnwers">
+										<p>For a step-by-step guide on how to download PARMap technical reports and manuals, read the <a href = "https://parmap.dream.upd.edu.ph/parmap_docs/techreport/all/" target = "_blank">PARMap Web Portal User Guide</a>.</p>
+										<p>To further help you, here’s a video on how to download reports and manuals:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+									</div>
+								</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class = "faqCategory">
+						<div class = "faqCategoryTitle" id = "faq_12"><i class = "fa fa-caret-down"></i>How can I get PARMap updates?</div>
+						<div class = "faqCategoryContent" id = "faq_content_12">
+							<ol class = "faqsList">
+								<li>
+									<div class = "asnwers">
+										<p>For a step-by-step guide on how to access PARMap articles,  read the <a href = "https://parmap.dream.upd.edu.ph/parmap_docs/techreport/all/" target = "_blank">PARMap Web Portal User Guide</a>.</p>
+										<p>To further help you, here’s a video on how to access PARMap articles:</p>
+										<center><iframe width = "700" height = "400" src = "https://www.youtube.com/embed/DdLAjPg1oyQ?autoplay=0" style = "margin: 20px auto;"></iframe></center>
+									</div>
+								</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class = "faqCategory">
+						<div class = "faqCategoryTitle" id = "faq_13"><i class = "fa fa-caret-down"></i>Who are behind the PARMap Web Portal?</div>
+						<div class = "faqCategoryContent" id = "faq_content_13">
+							<ol class = "faqsList">
+								<li>
+									<div class = "asnwers">
+										<p>The PARMap Web Portal has been developed by the University of the Philippines Training Center for Applied Geodesy and Photogrammetry (UP TCAGP). It uses GeoNode, the same webGIS platform and application used by the LiDAR Portal for Archiving and Distribution or LiPAD (<a href = "https://lipad.dream.upd.edu.ph/" target = "_blank">https://lipad.dream.upd.edu.ph/</a>).</p>
+										<p>The contents of the portal is a collective effort from the UP Diliman PARMap team and its partner state universities and colleges and higher education institutions in collaboration with local government units, national government agencies, and other Phil-LiDAR 2 Component teams.</p>
+										<p>To explore the codes used for the portal, visit <a href = "https://github.com/phil-lidar2-parmap" target = "_blank">https://github.com/phil-lidar2-parmap</a> and <a href = "https://github.com/phil-lidar2-geonode/pl2-geonode/tree/parmap-prod" target="_blank">https://github.com/phil-lidar2-geonode</a>.<p>
+									</div>
+								</li>
+							</ol>
+						</div>
+					</div>
+
+					<div class = "faqCategory">
+						<div class = "faqCategoryTitle" id = "faq_14"><i class = "fa fa-caret-down"></i>How to contact the UPD PARMap Team?</div>
+						<div class = "faqCategoryContent" id = "faq_content_14">
+							<ol class = "faqsList">
+								<li>
+									<div class = "asnwers">
+										<p>The University of the Philippines Diliman (UPD) PARMap team can be reached via 981-8500 local 3124 or at <a href="mailto:parmap-admin@dream.upd.edu.ph" target="_blank">parmap-admin@dream.upd.edu.ph</a>.<p>
+									</div>
+								</li>
+							</ol>
+						</div>
+					</div>
+
+				</div>
+
+
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}
+
+{% block extra_script %}
+	<script type = "text/javascript">
+	$(document).ready(function() {
+		$(".faqCategoryTitle").click(function() {
+			var faqID = $(this).attr('id').split("_")[1];
+
+			if($("#faq_content_" + faqID).hasClass("show")) {
+				$("#faq_content_" + faqID).stop(true, true).slideUp();
+			} else {
+				$("#faq_content_" + faqID).stop(true, true).slideDown();
+			}
+			$("#faq_content_" + faqID).toggleClass("show");
+		});
+	});
+	</script>
+{% endblock extra_script %}
