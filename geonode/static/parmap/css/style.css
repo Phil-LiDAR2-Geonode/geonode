@@ -959,8 +959,9 @@ body {
 	font-size: 18px;
 }
 
-.faqsWrapper .faqsList .asnwers {
+.faqsWrapper .faqsList .answers {
 	margin: 0px 20px;
+	text-align: justify;
 }
 
 .aboutWrapper .aboutTitle {
