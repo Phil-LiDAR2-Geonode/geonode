@@ -95,7 +95,7 @@ urlpatterns = patterns('',
                        (r'^uas/', include('uas.urls')),
                        (r'^parmap_monitoring/', include('parmap_monitoring.urls')),
                        (r'^parmap_docs/', include('parmap_docs.urls')),
-
+                       url(r'^faqs/$', TemplateView.as_view(template_name='faqs.html'), name='faqs'),
                        url(r'^page_unavailable/$', TemplateView.as_view(template_name='page_unavailable.html'), name='page_unavailable'),
 
                        # Accounts

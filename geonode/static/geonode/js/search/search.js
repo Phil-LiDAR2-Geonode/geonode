@@ -190,9 +190,9 @@
   });
 
 
-  module.filter('keywordLocationFilter', function() { 
+  module.filter('keywordLocationFilter', function() {
     var data_filter = 'keywords__slug__in';
-    
+
     return function(input, query) {
       var output;
 
@@ -203,16 +203,16 @@
       output = input.filter(function(item){
           return item.keywords.indexOf(MAP_TYPE) >=0;
       });
-  
+
       return output;
-  
+
     }
-  
+
   });
 
-  module.filter('keywordFilter', function() { 
+  module.filter('keywordFilter', function() {
       var data_filter = 'keywords__slug__in';
-      
+
       return function(input, query) {
         var output;
         var query_entry = query[data_filter];
@@ -236,15 +236,15 @@
             return false;
           }
         });
-    
+
         return output;
-    
+
       }
-    
+
     });
 
 
-  module.filter('rsFilter', function() { 
+  module.filter('rsFilter', function() {
     return function(input) {
       var output = true;
 
@@ -254,9 +254,9 @@
 
       return output;
     }
-  
+
   });
-    
+
   /*
   * Main search controller
   * Load data from api and defines the multiple and single choice handlers
@@ -267,7 +267,7 @@
     $scope.query.limit = $scope.query.limit || CLIENT_RESULTS_LIMIT;
     $scope.query.offset = $scope.query.offset || 0;
     $scope.page = Math.round(($scope.query.offset / $scope.query.limit) + 1);
-    
+
     if(typeof MAP_TYPE == 'undefined'){
       $scope.query['other_rs'] = true;
     }else{
@@ -285,7 +285,7 @@
         var found = allLocations.some(function (loc) {
           return loc.code === province;
         });
-        
+
         if(!found){
           allLocations.push({
               code: province,
@@ -293,11 +293,11 @@
               municipality: []
           });
         }
-        
+
         var targetLocation = allLocations.find(function(loc) {
           return loc.code === province;
         });
-        
+
         // Add to municipality
         if(targetLocation){
           var hasMunicipality = targetLocation.municipality.some(function(mun) {
@@ -345,8 +345,8 @@
             for(var detail of detailArr) {
               detail = detail.toLowerCase();
               if(keywordList.indexOf(detail) < 0) {
-                keywordList.push(detail.toLowerCase()); 
-              }          
+                keywordList.push(detail.toLowerCase());
+              }
             }
           }
         }
@@ -357,12 +357,12 @@
           for(var name of nameArr) {
             name = name.toLowerCase();
             if(keywordList.indexOf(name) < 0) {
-              keywordList.push(name); 
-            }          
+              keywordList.push(name);
+            }
           }
         }
-        
-        
+
+
         // Get keywords from doc_file
         if(result.hasOwnProperty('doc_file')){
           // "documents/agri_72204000_lulc.jpg".split('.')[0].split('/')[1].split('_')
@@ -372,12 +372,12 @@
             for(var docFile of docFileArr) {
               docFile = docFile.toLowerCase();
               if(keywordList.indexOf(docFile) < 0) {
-                keywordList.push(docFile); 
-              }          
+                keywordList.push(docFile);
+              }
             }
-          }          
+          }
         }
-        
+
 
         // Get locations from keywords
         var locationStr = [];
@@ -387,16 +387,16 @@
             locationStr.push(location.city.toLowerCase() + ', ' + location.province.toLowerCase());
             addToLocations(location);
           }
-          
+
           return exists;
         });
 
         // console.log('locationArr', locationArr);
-                
+
         result.keywords = keywordList;
         result.locations = locationArr;
         result.locationsLabel = locationStr.join('; ');
-        delete result['metadata_xml'];  
+        delete result['metadata_xml'];
         return result;
       });
 
@@ -404,14 +404,14 @@
 
       // Get filters from keywords
       filters_data.objects.forEach(processFilter);
-      
+
       $rootScope.hazards = allHazard;
       $rootScope.scales = allScale;
-      
+
       console.log('allLocations', JSON.stringify(allLocations));
       if(!$rootScope.locations) $rootScope.locations = allLocations;
     }
-   
+
     //Get data from apis and make them available to the page
     function query_api(data){
       $scope.isLoadingFilters = true;
@@ -420,7 +420,7 @@
         data.map_type = MAP_TYPE;
       }
 
-      $http.get(Configs.url, {params: data || {}}).success(function(data){        
+      $http.get(Configs.url, {params: data || {}}).success(function(data){
         $http.get(LOCATIONS_ENDPOINT).success(function(location) {
           $http.get(FILTERS_ENDPOINT).success(function(filters) {
             $scope.isLoadingFilters = false;
@@ -430,7 +430,7 @@
 
         $scope.total_counts = data.meta.total_count;
         $scope.$root.query_data = data;
-        
+
         if (HAYSTACK_SEARCH) {
           if ($location.search().hasOwnProperty('q')){
             $scope.text_query = $location.search()['q'].replace(/\+/g," ");
@@ -467,7 +467,7 @@
     if (FILTER_TYPE == 'layer') {
       if(!$rootScope.locations) $rootScope.locations = allLayersLocation;
     }
-    
+
 
     /*
     * Pagination
@@ -549,7 +549,7 @@
       if( typeof selectedMunicipality.code === '') return true;
 
       if($('#myMunicipalitySelect')[0].selectedOptions.length === 0) return true;
-      
+
       // Validate selectedMunicipality
       var found = selectedProvince.municipality.some(function (municipality) {
         return municipality.code === selectedMunicipality.code;
@@ -577,7 +577,7 @@
     /*
     * Listens to province select field
     */
-    $scope.location_submit = function(selectedProvince, selectedMunicipality){  
+    $scope.location_submit = function(selectedProvince, selectedMunicipality){
       if(
         typeof selectedProvince === 'undefined' ||
         typeof selectedMunicipality === 'undefined'
@@ -599,7 +599,7 @@
       var query_entry = [];
       var data_filter = 'keywords__slug__in';
       var value = selectedMunicipality ? selectedMunicipality.code : selectedProvince.code;
-            
+
       // If the query object has the record then grab it
       // if ($scope.query.hasOwnProperty(data_filter)){
       //   if ($scope.query[data_filter] instanceof Array){
@@ -615,7 +615,7 @@
       // });
 
       query_entry.push(value);
-      
+
       delete $scope.query['extent'];
 
       $scope.query[data_filter] = query_entry;
@@ -631,17 +631,17 @@
     /*
     * Listens to hazard scale select field
     */
-    $scope.filters_submit = function(selectedHazard, selectedScale){  
+    $scope.filters_submit = function(selectedHazard, selectedScale){
       var query_entry = [];
       var data_filter = 'keywords__slug__in';
-      
+
       if(selectedHazard){
         query_entry.push(selectedHazard.filter);
       }
       if(selectedScale){
         query_entry.push(selectedScale.filter);
       }
-            
+
       delete $scope.query['extent'];
       $scope.query[data_filter] = query_entry;
 
@@ -858,7 +858,7 @@
         }
       });
 
-			
+
       var leafletData = $injector.get('leafletData'),
           map = leafletData.getMap('filter-map');
 
@@ -866,12 +866,12 @@
         map.on('moveend', function(){
           $scope.query['extent'] = map.getBounds().toBBoxString();
           delete $scope.query['keywords__slug__in'];
-                    
+
           $scope.hasNoFilter = false;
           query_api($scope.query);
         });
       });
-    
+
       var showMap = false;
       $('#_extent_filter').click(function(evt) {
      	  showMap = !showMap
@@ -879,7 +879,7 @@
           leafletData.getMap().then(function(map) {
             map.invalidateSize();
           });
-        } 
+        }
       });
     }
 

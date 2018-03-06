@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.conf import settings
 from django.shortcuts import render_to_response
 import os
+from django.utils.translation import ugettext as _
 
 def publication_list(request):
     publication_list = Publication.objects.order_by('title')
@@ -17,25 +18,32 @@ def publication_list(request):
         }))
 
 def publication_view(request, publication_id):
-    # tracking of downloads
-    dd = DataDownload()
-    dd.username = Profile.objects.get(username=request.user.username)
-    dd.email = Profile.objects.get(username=request.user.username).email
-    dd.first_name = Profile.objects.get(username=request.user.username).first_name
-    dd.last_name = Profile.objects.get(username=request.user.username).last_name
-    dd.data_id = publication_id
-    dd.data_downloaded = Publication.objects.get(pk=publication_id)
-    dd.data_type = "Conference Papers and Publications"
-    dd.date_downloaded = timezone.now()
-    dd.save()
-    # view pdf
-    pdf_path = os.path.join(settings.MEDIA_ROOT, str(Publication.objects.get(pk=publication_id).doc_file))
-    pdf_file = os.path.basename(pdf_path)
-    with open(pdf_path, 'r') as pdf:
-        response = HttpResponse(pdf.read(), mimetype='application/pdf')
-        response['Content-Disposition'] = 'inline;filename=%s ' % pdf_file.replace(",","_")
-        return response
-    pdf.closed
+    try:
+        # tracking of downloads
+        dd = DataDownload()
+        dd.username = Profile.objects.get(username=request.user.username)
+        dd.email = Profile.objects.get(username=request.user.username).email
+        dd.first_name = Profile.objects.get(username=request.user.username).first_name
+        dd.last_name = Profile.objects.get(username=request.user.username).last_name
+        dd.data_id = publication_id
+        dd.data_downloaded = Publication.objects.get(pk=publication_id)
+        dd.data_type = "Conference Papers and Publications"
+        dd.date_downloaded = timezone.now()
+        dd.save()
+        # view pdf
+        pdf_path = os.path.join(settings.MEDIA_ROOT, str(Publication.objects.get(pk=publication_id).doc_file))
+        pdf_file = os.path.basename(pdf_path)
+        with open(pdf_path, 'r') as pdf:
+            response = HttpResponse(pdf.read(), mimetype='application/pdf')
+            response['Content-Disposition'] = 'inline;filename=%s ' % pdf_file.replace(",","_")
+            return response
+        pdf.closed
+    except:
+        return HttpResponse(
+            loader.render_to_string(
+                '401.html', RequestContext(
+                    request, {
+                        'error_message': _("You are not allowed to view or download this data.")})), status=403)
 
 def techreport_list(request, techreport_type):
     doctype_list = TechReport.objects.order_by('doc_type').distinct('doc_type')
@@ -60,22 +68,29 @@ def techreport_list(request, techreport_type):
         }))
 
 def techreport_view(request, techreport_id):
-    # tracking of downloads
-    dd = DataDownload()
-    dd.username = Profile.objects.get(username=request.user.username)
-    dd.email = Profile.objects.get(username=request.user.username).email
-    dd.first_name = Profile.objects.get(username=request.user.username).first_name
-    dd.last_name = Profile.objects.get(username=request.user.username).last_name
-    dd.data_id = techreport_id
-    dd.data_downloaded = TechReport.objects.get(pk=techreport_id)
-    dd.data_type = "Technical Reports and Manuals"
-    dd.date_downloaded = timezone.now()
-    dd.save()
-    # view pdf
-    pdf_path = os.path.join(settings.MEDIA_ROOT, str(TechReport.objects.get(pk=techreport_id).doc_file))
-    pdf_file = os.path.basename(pdf_path)
-    with open(pdf_path, 'r') as pdf:
-        response = HttpResponse(pdf.read(), mimetype='application/pdf')
-        response['Content-Disposition'] = 'inline;filename=%s ' % pdf_file.replace(",","_")
-        return response
-    pdf.closed
+    try:
+        # tracking of downloads
+        dd = DataDownload()
+        dd.username = Profile.objects.get(username=request.user.username)
+        dd.email = Profile.objects.get(username=request.user.username).email
+        dd.first_name = Profile.objects.get(username=request.user.username).first_name
+        dd.last_name = Profile.objects.get(username=request.user.username).last_name
+        dd.data_id = techreport_id
+        dd.data_downloaded = TechReport.objects.get(pk=techreport_id)
+        dd.data_type = "Technical Reports and Manuals"
+        dd.date_downloaded = timezone.now()
+        dd.save()
+        # view pdf
+        pdf_path = os.path.join(settings.MEDIA_ROOT, str(TechReport.objects.get(pk=techreport_id).doc_file))
+        pdf_file = os.path.basename(pdf_path)
+        with open(pdf_path, 'r') as pdf:
+            response = HttpResponse(pdf.read(), mimetype='application/pdf')
+            response['Content-Disposition'] = 'inline;filename=%s ' % pdf_file.replace(",","_")
+            return response
+        pdf.closed
+    except:
+        return HttpResponse(
+            loader.render_to_string(
+                '401.html', RequestContext(
+                    request, {
+                        'error_message': _("You are not allowed to view or download this data.")})), status=403)
