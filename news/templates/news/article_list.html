@@ -14,14 +14,14 @@
 		<div class = "newsWrapper">
 			<div class = "newsTitle">Be Updated.</div>
 			<div class = "newsHeadLine" style="background: url({{ latest_headline.image1.url }}) no-repeat center center; background-size: cover">
-			<div class = "newsHeadLineTitle"><a href="/news/article/{{ latest_headline.id }}/" style=" color: #fff;">{{ latest_headline }}</a></div>
+			<div class = "newsHeadLineTitle"><a href="/news/article/{{ latest_headline.id }}/" style=" color: #000000;">{{ latest_headline }}</a></div>
 
 			{% if latest_headline.start_date == latest_headline.end_date %}
-			<div class = "newsHeadLineDate">{{ latest_headline.start_date }}</div>
+			<div class = "newsHeadLineDate" style=" color: #000000;">{{ latest_headline.start_date }}</div>
 			{% elif latest_headline.start_date.month == latest_headline.end_date.month %}
-			<div class = "newsHeadLineDate">{{ latest_headline.start_date | date:"M. j" }} - {{ latest_headline.end_date | date:"j, Y" }}</div>
+			<div class = "newsHeadLineDate" style=" color: #000000;">{{ latest_headline.start_date | date:"M. j" }} - {{ latest_headline.end_date | date:"j, Y" }}</div>
 			{% else %}
-			<div class = "newsHeadLineDate">{{ latest_headline.start_date | date:"M. j" }} - {{ latest_headline.end_date | date:"M. j, Y" }}</div>
+			<div class = "newsHeadLineDate" style=" color: #000000;">{{ latest_headline.start_date | date:"M. j" }} - {{ latest_headline.end_date | date:"M. j, Y" }}</div>
 			{% endif %}
 
 			</div>
