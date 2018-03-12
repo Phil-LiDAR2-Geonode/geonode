@@ -25,6 +25,7 @@ class TechReport(models.Model):
         ('Training Manuals', 'Training Manuals'),
         ('QA/QC Documentation', 'QA/QC Documentation'),
         ('Operational Web-based GIS Platform', 'Operational Web-based GIS Platform'),
+        ('Technical Narrative Report', 'Technical Narrative Report')
     )
 
     doc_type = models.CharField(
